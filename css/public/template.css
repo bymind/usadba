@@ -1,0 +1,306 @@
+@import "/css/bootstrap/bootstrap.min.css";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* PRIMARY */
+
+html, body {
+	position: relative;
+	display: block;
+	min-height: 100%;
+	font-size: 14px;
+}
+
+body {
+	background-color: #fff;
+	font-family: Open Sans, sans-serif;
+}
+
+
+/* NAVIGATION */
+
+nav {
+	color: #fff;
+	position: relative;
+	width: 100%;
+	max-width: 1180px;
+	height: 100px;
+	line-height: 100px;
+	z-index: 10;
+	margin: 0 auto;
+}
+
+.main_menu ul, .main_menu ul li {
+	display: inline-block;
+}
+
+.main_menu ul.menu_text_units li {
+	margin-right: 30px;
+}
+
+.main_menu ul.menu_ui_units li {
+	margin-right: 20px;
+	vertical-align: middle;
+}
+
+.main_menu ul.menu_ui_units li a {
+	opacity: .2;
+}
+
+.main_menu ul.menu_ui_units li a.active {
+	opacity: 1;
+}
+
+.main_menu ul.menu_ui_units li a.facebook, .main_menu ul.menu_ui_units li a.instagram{
+	width: 20px;
+	height: 20px;
+	padding: 10px 0;
+	box-sizing: content-box;
+	will-change: transform;
+	transition: transform .1s ease;
+}
+
+.main_menu ul.menu_ui_units li a.facebook:hover, .main_menu ul.menu_ui_units li a.instagram:hover {
+	text-decoration: none;
+	transform: scale(1.1, 1.1);
+}
+
+.main_menu ul.menu_ui_units li a.facebook{
+	background: url(/img/facebook.svg) center center no-repeat;
+	background-size: 20px 20px;
+}
+
+.main_menu ul.menu_ui_units li a.instagram{
+	background: url(/img/instagram.svg) center center no-repeat;
+	background-size: 20px 20px;
+}
+
+.main_menu ul.menu_ui_units li:nth-child(2) {
+	margin-right: 40px;
+}
+
+.main_menu ul li:last-of-type{
+	margin-right: 0;
+}
+
+.main_menu ul.menu_text_units{
+	float: left;
+}
+
+.main_menu ul.menu_ui_units{
+	float: right;
+}
+
+.main_menu ul.menu_text_units li a, .main_menu ul.menu_ui_units li a {
+	color: inherit;
+	font-weight: 700;
+	text-decoration: none;
+	text-transform: uppercase;
+	display: block;
+	line-height: 20px;
+	border-bottom: 1px solid rgba(255,255,255,0);
+	will-change: border-bottom;
+	transition: border-bottom .1s ease-in-out;
+}
+
+.main_menu ul.menu_text_units li a:hover {
+	border-bottom: 1px solid #fff;
+}
+
+/* CONTENT */
+
+#content {
+	z-index: 1;
+	margin-top: -100px;
+}
+
+/* FOOTER */
+
+.light-grey {
+	background: #eee;
+}
+
+footer nav {
+	color: rgba(0, 0, 0, .6);
+	line-height: 60px;
+	height: 60px;
+	margin: 20px 0;
+}
+
+footer .main_menu ul.menu_ui_units li a.facebook{
+	background: url(/img/facebook-grey.svg) center center no-repeat;
+	background-size: 20px 20px;
+}
+
+footer .main_menu ul.menu_ui_units li a.instagram{
+	background: url(/img/instagram-grey.svg) center center no-repeat;
+	background-size: 20px 20px;
+}
+
+footer .main_menu ul.menu_text_units li a:hover {
+	border-bottom: 1px solid rgba(0,0,0,.4);
+}
+
+footer .main_menu ul.menu_ui_units li:nth-child(2) {
+	margin-right: 0px;
+}
+
+.copyright-line {
+	position: relative;
+	display: block;
+	margin: 10px 0 5px;
+	font-size: 12px;
+	font-weight: 300;
+	color: #666;
+	text-align: center;
+}
+
+.copyright {
+	opacity: 1;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.copyright-line .ref {
+	position: relative;
+	display: inline-block;
+}
+
+.ref a {
+	color: inherit;
+}
+
+.ref a:hover {
+	text-decoration: none;
+}
+
+.ref a.logo {
+	display: inline-block;
+	background: url(/img/logo-bymind.svg) center left no-repeat;
+	background-size: 60px;
+	width: 60px;
+	height: 34px;
+	color: #222;
+	opacity: .5;
+	transition: opacity .1s ease-in-out;
+	vertical-align: middle;
+	margin: -3px 0 0 3px;
+}
+
+.ref:hover a.logo {
+	opacity: 1;
+}
+
+/* EXTENDS BOOTSTRAP */
+
+.mt-100{
+	margin-top: 100px;
+}
+
+.mb-100{
+	margin-bottom: 100px;
+}
+
+.mt-50{
+	margin-top: 50px;
+}
+
+.mb-50{
+	margin-bottom: 50px;
+}
+
+.mt-20{
+	margin-top: 20px;
+}
+
+.mb-20{
+	margin-bottom: 20px;
+}
+
+.pt-100{
+	padding-top: 100px;
+}
+
+.pb-100{
+	padding-bottom: 100px;
+}
+
+.pt-50{
+	padding-top: 50px;
+}
+
+.pb-50{
+	padding-bottom: 50px;
+}
+
+.p-0 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.pr-0 {
+	padding-right: 0;
+}
+
+.pl-0 {
+	padding-left: 0;
+}
+
+.pr-20 {
+	padding-right: 20px;
+}
+
+.pl-20 {
+	padding-left: 20px;
+}
+
+.h200 {
+	height: 200px !important;
+}
+
+.h160 {
+	height: 160px !important;
+}
+
+/* MEDIA QUERIES */
+
+/* XS */
+
+@media screen and (max-width: 479px) and (min-width: 320px){
+
+	h1 {
+		font-size: 20px !important;
+		line-height: 22px !important;
+	}
+
+	nav {
+		line-height: 40px;
+		height: 40px;
+	}
+
+	button {
+		padding: 0 20px !important;
+		line-height: 40px !important;
+		font-size: 14px !important;
+	}
+
+	#content {
+		margin-top: -40px;
+	}
+
+	.mb-xs-40 {
+		margin-bottom: 40px !important;
+	}
+
+}
+
+
+/* SM */
+
+/* MD */
+
+/* LG */
