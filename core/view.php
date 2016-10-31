@@ -2,7 +2,7 @@
 
 	/**
 	* View
-	* 
+	*
 	* Родительский класс представлений
 	*/
 
@@ -14,10 +14,10 @@ class View
 	$template_view - общий шаблон для всех страниц;
 	$data - массив данных; <- TO DO IN MODEL!
 	*/
-	
+
 	/**
 	* generate
-	* 
+	*
 	* @param string $content_view строка
 	* @param string $template_view строка
 	* @param array $data массив данных
@@ -26,7 +26,7 @@ class View
 	* @param string $modals_view строка
 	* @return 0
 	*/
-	function generate($content_view, $template_view, $data = null, $navigation_view = 'navigation_view.php', $footer_view = 'footer_view.php', $modals_view = 'modals_view.php' )
+	function generate($content_view, $template_view, $data = null, $navigation_view = 'navigation_view.php', $footer_view = 'footer_view.php', $modals_view = 'modals_view.php' , $headline_view = 'headline_view.php' )
 	{
 
 		$OgType = 'website';
@@ -54,6 +54,8 @@ class View
 			}
 		} else
 		$Modals = 'app/views/'.$modals_view;
+
+		$HeadLine = 'app/views/'.$headline_view;
 
 
 		// переименовываем с большой буквы для красивого шаблона
