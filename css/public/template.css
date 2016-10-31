@@ -29,7 +29,6 @@ body {
 .headline {
 	position: relative;
 	width: 100%;
-	margin: 20px 0;
 }
 
 .headline .logo {
@@ -82,30 +81,170 @@ body {
 	font-size: 18px;
 }
 
+/* BUTTONS */
+
+
+button {
+	position: relative;
+	height: 38px;
+	border-radius: 2px;
+	border: 0;
+	border-bottom: 1px solid #444;
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 12px;
+	padding: 6px 10px;
+	cursor: pointer;
+	vertical-align: middle;
+	color: #fff;
+	text-align: left;
+	outline: none;
+}
+
+button:active {
+	margin-top: 1px !important;
+	border-bottom: 0;
+}
+
+button.btn-wide {
+	width: 160px;
+	margin: 0 12px;
+	padding-left: 40px;
+}
+
+button.btn-mini {
+	width: 130px;
+	margin: 0 0 0 12px;
+}
+
+button.call-me {
+	background: #14767f url(/img/phone.svg) 14px center no-repeat;
+	background-size: 14px 20px;
+	line-height: 11px;
+}
+
+button.login {
+	background: #ff9912 url(/img/user.svg) 14px center no-repeat;
+	background-size: 16px 20px;
+	line-height: 24px;
+}
+
+button.cart {
+	background: #c63838 url(/img/cart.svg) 14px center no-repeat;
+	background-size: 20px;
+	float: right;
+	font-size: 12px;
+	line-height: 24px;
+}
+
+button.cart .counter {
+	position: absolute;
+	top: 9px;
+	left: 20px;
+	width: 12px;
+	text-align: center;
+	font-size: 10px;
+	line-height: 10px;
+}
+
+button.cart .price-counter {
+	display: block;
+	margin-left: 30px;
+	text-align: center;
+}
+
 /* NAVIGATION */
 
 nav {
-	color: #fff;
+	background: rgb(250,250,250);
+	background: -moz-linear-gradient(top, rgba(250,250,250,1) 0%, rgba(255,255,255,1) 50%, rgba(239,239,239,1) 100%);
+	background: -webkit-linear-gradient(top, rgba(250,250,250,1) 0%,rgba(255,255,255,1) 50%,rgba(239,239,239,1) 100%);
+	background: linear-gradient(to bottom, rgba(250,250,250,1) 0%,rgba(255,255,255,1) 50%,rgba(239,239,239,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#efefef',GradientType=0 );
 	position: relative;
 	width: 100%;
-	max-width: 1180px;
-	height: 100px;
-	line-height: 100px;
+	height: 50px;
+	line-height: 50px;
 	z-index: 10;
 	margin: 0 auto;
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .main_menu ul, .main_menu ul li {
 	display: inline-block;
 }
 
-.main_menu ul.menu_text_units li {
-	margin-right: 30px;
+
+.main_menu ul.menu_text_units{
+	width: 100%;
 }
 
-.main_menu ul.menu_ui_units li {
-	margin-right: 20px;
-	vertical-align: middle;
+.main_menu ul.menu_text_units li.search-item {
+	float: right;
+	display: block;
+	position: relative;
+	min-width: 250px;
+}
+
+.main_menu ul.menu_text_units li.search-item input.search-text{
+	width: calc(100% - 80px);
+	margin-left: 10px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 2px;
+	border: 1px solid rgba(182, 182, 182, .5);
+	box-shadow: inset 1px 1px 4px rgba(0,0,0,.1);
+	padding: 0 10px;
+}
+
+.main_menu input.search-text::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	font-size: 13px;
+	color: #222;
+	font-weight: 200;
+	opacity: .2;
+}
+.main_menu input.search-text::-moz-placeholder { /* Firefox 19+ */
+	font-size: 13px;
+	color: #222;
+	font-weight: 200;
+	opacity: .2;
+}
+.main_menu input.search-text:-ms-input-placeholder { /* IE 10+ */
+	font-size: 13px;
+	color: #222;
+	font-weight: 200;
+	opacity: .2;
+}
+.main_menu input.search-text:-moz-placeholder { /* Firefox 18- */
+	font-size: 13px;
+	color: #222;
+	font-weight: 200;
+	opacity: .2;
+}
+
+.main_menu ul.menu_text_units li.search-item button.btn-search {
+	width: 50px;
+	position: relative;
+	display: block;
+	float: right;
+	height: 30px;
+	background: url(/img/search.svg) center center no-repeat;
+	background-size: 18px;
+	border: 0;
+	padding: 0;
+	margin: 10px;
+	opacity: .4;
+	will-change: opacity;
+	transition: opacity .1s ease-in-out;
+}
+
+.main_menu ul.menu_text_units li.search-item button.btn-search:active {
+	margin: 10px !important;
+	border: 0;
+	opacity: .7;
 }
 
 .main_menu ul.menu_ui_units li a {
@@ -116,67 +255,48 @@ nav {
 	opacity: 1;
 }
 
-.main_menu ul.menu_ui_units li a.facebook, .main_menu ul.menu_ui_units li a.instagram{
-	width: 20px;
-	height: 20px;
-	padding: 10px 0;
-	box-sizing: content-box;
-	will-change: transform;
-	transition: transform .1s ease;
-}
 
-.main_menu ul.menu_ui_units li a.facebook:hover, .main_menu ul.menu_ui_units li a.instagram:hover {
+.main_menu ul.menu_text_units li a{
+	color: #222;
+	font-weight: 200;
 	text-decoration: none;
-	transform: scale(1.1, 1.1);
-}
-
-.main_menu ul.menu_ui_units li a.facebook{
-	background: url(/img/facebook.svg) center center no-repeat;
-	background-size: 20px 20px;
-}
-
-.main_menu ul.menu_ui_units li a.instagram{
-	background: url(/img/instagram.svg) center center no-repeat;
-	background-size: 20px 20px;
-}
-
-.main_menu ul.menu_ui_units li:nth-child(2) {
-	margin-right: 40px;
-}
-
-.main_menu ul li:last-of-type{
-	margin-right: 0;
-}
-
-.main_menu ul.menu_text_units{
-	float: left;
-}
-
-.main_menu ul.menu_ui_units{
-	float: right;
-}
-
-.main_menu ul.menu_text_units li a, .main_menu ul.menu_ui_units li a {
-	color: inherit;
-	font-weight: 700;
-	text-decoration: none;
-	text-transform: uppercase;
 	display: block;
-	line-height: 20px;
-	border-bottom: 1px solid rgba(255,255,255,0);
-	will-change: border-bottom;
-	transition: border-bottom .1s ease-in-out;
+	position: relative;
+	line-height: 50px;
+	font-size: 16px;
+	padding: 0 20px;
+	border-right: 1px solid rgba(0, 0, 0, .1);
 }
 
-.main_menu ul.menu_text_units li a:hover {
-	border-bottom: 1px solid #fff;
+.main_menu ul.menu_text_units li a.arrow {
+	padding-right: 50px;
+}
+
+.main_menu ul.menu_text_units li a.arrow::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 9px;
+	height: 9px;
+	border-bottom: 1px solid #222;
+	border-left: 1px solid #222;
+	top: 19px;
+	right: 20px;
+	will-change: transform, top;
+	transition: transform .3s ease-in-out, top .3s ease-in-out;
+	transform: rotate(-45deg) rotate3d(90,90,0,0deg);
+	opacity: .7;
+}
+
+.main_menu ul.menu_text_units li a.arrow.active::after, .main_menu ul.menu_text_units li a.arrow:active::after{
+	transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	top: 22px;
 }
 
 /* CONTENT */
 
 #content {
 	z-index: 1;
-	margin-top: -100px;
 }
 
 /* FOOTER */
