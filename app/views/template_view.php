@@ -9,7 +9,7 @@
 	<meta charset="UTF-8">
 	<title><?php echo $Title; ?> - Laika.pro</title>
 	<?php include $Favicon; ?>
-	
+
 	<!-- <meta name="yandex-verification" content="7977f67a872b193c" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
 	<meta name="description" content="<?php echo $Description; ?>">
@@ -30,8 +30,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet">
 	<link href="/css/<?php echo $style; ?>" rel="stylesheet">
 	<link href="/css/<?php echo $style_content; ?>" rel="stylesheet">
-	
-	<?php 
+
+	<?php
 		echo "<style>";
 		// include "css/public/bootstrap.min.css";
 		// include "css/public/prod.css";
@@ -42,6 +42,7 @@
 
 	<div id="overlay">
 
+	<?php include $HeadLine; ?>
 	<?php include $Navigation; ?>
 
 		<div id="content">
@@ -56,7 +57,7 @@
 
 <?php include $Modals; ?>
 
-<?php 
+<?php
 	/*	echo "<style>";
 		include "css/public/font-awesome.min.css";
 		include "css/owl-carousel/owl.carousel.css";
