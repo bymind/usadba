@@ -7,7 +7,7 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo $Title; ?> - Laika.pro</title>
+	<title><?php echo $Title; ?> - Кулинария Усадьба-Центр</title>
 	<?php include $Favicon; ?>
 
 	<!-- <meta name="yandex-verification" content="7977f67a872b193c" /> -->
