@@ -182,11 +182,21 @@ nav {
 	width: 100%;
 }
 
+.main_menu ul.menu_text_units li,.main_menu ul.menu_text_units li.show-li,.main_menu ul.menu_text_units li.show-li-else {
+	display: inline-block;
+}
+
+.main_menu ul.menu_text_units li.hide-li,.main_menu ul.menu_text_units li.hide-li-else {
+	display: none;
+}
+
 .main_menu ul.menu_text_units li.search-item {
 	float: right;
 	display: block;
 	position: relative;
 	min-width: 250px;
+	will-change: width;
+	transition: width .2s ease-in-out;
 }
 
 .main_menu ul.menu_text_units li.search-item input.search-text{
