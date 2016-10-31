@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
 	<div class="row mb-xs-40 mb-100">
 		<header>
 			<div class="hue"></div>
@@ -219,7 +219,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-20 col-md-5">
 			<div class="secondary-item  sec-item2">
 				<div class="cover"></div>
@@ -241,7 +241,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-20 col-md-5">
 			<div class="secondary-item sec-item3">
 				<div class="cover"></div>
@@ -263,7 +263,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-20 col-md-5">
 			<div class="secondary-item sec-item4">
 				<div class="cover"></div>
@@ -326,4 +326,4 @@
 		</div>
 	</div>
 
-</div>
+</div> -->
