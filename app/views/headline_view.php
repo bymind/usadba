@@ -9,14 +9,6 @@
 				<div class="logo-sitename">
 					<a href="/">Кулинария<br>Усадьба-Центр</a>
 				</div>
-				<!-- <div class="head-phone under-logo">
-					<span class="phone-label">
-						Ежедневно с 9 до 23
-					</span>
-					<span class="phone-number">
-						8(800)555-35-35
-					</span>
-				</div> -->
 			</div>
 
 			<div class="col-xxs-6 col-xas-3 col-xs-3 col-sm-2 col-lg-2">
