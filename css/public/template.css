@@ -662,7 +662,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* XS */
 
-@media screen and (min-width: 320px) and (max-width: 499px) /* 479px actualy + 20px for scrollbar width */ {
+@media screen and (min-width: 320px) and (max-width: 499px) /* 479px actualy + 20px for scrollbar width on desktop*/ {
 
 	h1 {
 		font-size: 20px !important;
