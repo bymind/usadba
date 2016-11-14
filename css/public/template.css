@@ -473,7 +473,17 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 /* LG */
 
 @media (min-width: 960px) {
+	button.call-me {
+		float: left;
+	}
 
+	button.login {
+		float: none;
+	}
+
+	.head-phone {
+		text-align: right;
+	}
 }
 
 
