@@ -1,6 +1,6 @@
 $(function() {
-	CountMenuPxls();
-	WindowListen();
+	//CountMenuPxls();
+	//WindowListen();
 	MenuClickInit();
 });
 
@@ -70,10 +70,12 @@ function CountMenuPxls() {
 * @return 0
 */
 function MenuClickInit() {
+	// обработка нажатия на раскрывающийся пункт
 	$(document).on('click', '.pclick', function(event) {
 		event.preventDefault();
 		return false;
 	});
+	// триггерирование стрелки
 	$(document).on('click', '.arrow', function(event) {
 		event.preventDefault();
 		$(this).toggleClass('active');
