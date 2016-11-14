@@ -66,9 +66,10 @@ body {
 .head-phone {
 	position: relative;
 	width: auto;
-	float: right;
+	/* float: right; */
 	color: #14767f;
 	font-weight: 600;
+	margin: 0 auto;
 }
 
 .head-phone .phone-label {
@@ -141,7 +142,7 @@ button.cart {
 
 button.cart .counter {
 	position: absolute;
-	top: 9px;
+	top: 8px;
 	left: 20px;
 	width: 12px;
 	text-align: center;
@@ -180,6 +181,8 @@ nav {
 
 .main_menu ul.menu_text_units{
 	width: 100%;
+	height: 50px;
+	overflow: hidden;
 }
 
 .main_menu ul.menu_text_units li,.main_menu ul.menu_text_units li.show-li,.main_menu ul.menu_text_units li.show-li-else {
@@ -194,7 +197,6 @@ nav {
 	float: right;
 	display: block;
 	position: relative;
-	min-width: 250px;
 	will-change: width;
 	transition: width .2s ease-in-out;
 }
@@ -459,18 +461,137 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* MEDIA QUERIES */
 
+
+
+/* LG */
+
+@media (min-width: 960px) {
+
+}
+
+
+
+/* MD */
+
+@media (min-width: 768px) and (max-width:960px){
+
+
+}
+
+@media (max-width: 959px) {
+
+	.headline .logo-sitename {
+		font-size: 14px;
+		padding-left: 4px;
+	}
+
+	.headline .phone-number {
+		font-size: 14px;
+	}
+
+	.headline .phone-label {
+		margin-top: 3px;
+	}
+
+	button.call-me, button.login, button.cart {
+		margin-left: 0;
+		padding: 2px 2px 2px 30px;
+		height: 34px;
+	}
+
+	button.call-me, button.login {
+		background-position: 8px center;
+	}
+
+	.btn-wide {
+		width: 140px !important;
+	}
+
+}
+
+/* SM */
+@media (min-width: 480px) and (max-width: 767px) {
+
+}
+
+@media (max-width: 767px) {
+
+	button.login {
+		line-height: 11px;
+		margin-right: 10px;
+	}
+
+	.btn-wide {
+		width: 120px !important;
+		margin-left: 10px;
+	}
+
+	.headline .logo {
+		width: 40px;
+		margin-left: 10px;
+	}
+
+	.headline .logo-sitename {
+		font-size: 12px;
+		line-height: 14px;
+		margin-top: 4px;
+	}
+
+	button.cart {
+		float: none;
+		width: 120px !important;
+	}
+
+	.mb-xs-40 {
+		margin-bottom: 40px !important;
+	}
+
+	.mb-xs-10 {
+		margin-bottom: 10px !important;
+	}
+
+	.mt-xs-10 {
+		margin-top: 10px !important;
+	}
+
+}
+
+/* ~~~~ */
+
+@media (max-width: 660px) {
+
+	button.call-me {
+		display: none;
+	}
+
+	button.cart {
+		background-position: 8px center !important;
+	}
+
+	.btn-wide, button.cart {
+		width: 90px !important;
+	}
+
+	.counter {
+		top: 7px !important;
+		left: 14px !important;
+	}
+
+	.price-counter {
+		margin-left: 4px !important;
+		line-height: 12px !important;
+		font-size: 10px !important;
+	}
+
+}
+
 /* XS */
 
-@media screen and (max-width: 479px) and (min-width: 320px){
+@media screen and (min-width: 320px) and (max-width: 479px) {
 
 	h1 {
 		font-size: 20px !important;
 		line-height: 22px !important;
-	}
-
-	nav {
-		line-height: 40px;
-		height: 40px;
 	}
 
 	button {
@@ -483,15 +604,4 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 		margin-top: -40px;
 	}
 
-	.mb-xs-40 {
-		margin-bottom: 40px !important;
-	}
-
 }
-
-
-/* SM */
-
-/* MD */
-
-/* LG */
