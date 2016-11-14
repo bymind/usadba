@@ -531,7 +531,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 }
 
 /* SM */
-@media (min-width: 480px) and (max-width: 767px) {
+@media (min-width: 490px) and (max-width: 767px) {
 
 }
 
@@ -597,7 +597,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* ~~~~ */
 
-@media (max-width: 660px) {
+@media (max-width: 670px) {
 
 	button.call-me {
 		display: none;
@@ -662,7 +662,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* XS */
 
-@media screen and (min-width: 320px) and (max-width: 479px) {
+@media screen and (min-width: 320px) and (max-width: 490px) {
 
 	h1 {
 		font-size: 20px !important;
