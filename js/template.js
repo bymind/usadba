@@ -75,9 +75,12 @@ countElse = $('.else-li').length;
 			'text-align': 'center'
 		});
 		$('ul.else-ul').html('');
+		// построим ссылки в два столбца
+		// посчитаем, сколько ссылок в первый столбец
+		countFirstCell = Math.ceil( menu.children('li.hide-li').length/3 );
 		// копируем скрытые пункты в подменю "еще"
 		for (var i = 0; i < menu.children('li.hide-li').length; i++) {
-			liHidden = menu.children('li.hide-li:eq('+i+')').clone().removeClass('hide-li').addClass('else-li');
+			liHidden = menu.children('li.hide-li:eq('+i+')').clone().removeClass('hide-li').addClass('else-li').addClass('sub-li');
 			liHidden.appendTo('.else-ul');
 		}
 	}
@@ -89,6 +92,10 @@ countElse = $('.else-li').length;
 			'text-align': 'center'
 		});
 		menu.css('overflow', 'initial');
+		for (var i = $('.sub-menu').length - 1; i >= 0; i--) {
+			subMenu = $('.sub-menu:eq('+i+')');
+			subMenu.css('min-width', subMenu.parent().width() );
+		}
 	},100);
 
 	console.log("countW = "+countW+"; allW = "+allW);
