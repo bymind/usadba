@@ -665,6 +665,11 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 		font-size: 10px !important;
 	}
 
+	button.call-me:active, button.login:active, button.cart:active{
+		margin-top: 6px !important;
+		margin-bottom: 4px !important;
+	}
+
 	.head-phone {
 		text-align: left;
 	}
