@@ -8,7 +8,7 @@ class Controller_Main extends Controller
 		$this->model = new Model_Main();
 		$this->view = new View();
 	}
-	
+
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('main_page');
@@ -18,11 +18,19 @@ class Controller_Main extends Controller
 			array(
 					'title'=> $pageDataController['title'],
 					'style'=>'public/template.css',
-					'style_content'=>'public/main_page.css',
-					'scripts_content'=>'js/main_page.js',
+					'style_content'=>array(
+					                       'public/main_page.css',
+					                       'owl-carousel/owl.carousel.css',
+					                       'owl-carousel/sales.theme.css'
+					                       ),
+					'scripts_content'=> array(
+																		'js/main_page.js',
+																		'js/owl-carousel/owl.carousel.min.js'
+																		),
 					'active_menu' => 'menu-item-1',
 					'pageId' => 'main',
-					'pageDataView' => $pageDataController
+					'pageDataView' => $pageDataController,
+					'actions' => 'app/views/sales_carousel_view.php'
 				),
 			'navigation_view.php',
 			'footer_view.php',
