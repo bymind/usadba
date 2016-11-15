@@ -29,7 +29,15 @@
 	<!-- <meta name="twitter:domain" content="laika.pro"> -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet">
 	<link href="/css/<?php echo $style; ?>" rel="stylesheet">
-	<link href="/css/<?php echo $style_content; ?>" rel="stylesheet">
+	<?php
+		if (is_array($style_content)) {
+			foreach ($style_content as $style) {
+				?> <link href="/css/<?php echo $style; ?>" rel="stylesheet"> <?php
+			}
+		} else {
+			?> <link href="/css/<?php echo $style; ?>" rel="stylesheet"> <?php
+		}
+	?>
 
 	<?php
 		echo "<style>";
@@ -68,7 +76,16 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/js/template.js"></script>
-<script src="<?php echo $scripts_content; ?>"></script>
+<?php
+	if (is_array($scripts_content)) {
+		foreach ($scripts_content as $script) {
+			?><script src="<?php echo $script; ?>"></script><?php
+		}
+	} else {
+		?><script src="<?php echo $scripts_content; ?>"></script><?php
+	}
+?>
+
 
 </body>
 </html>
