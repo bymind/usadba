@@ -2,7 +2,7 @@
 
 <div class="container mb-50">
 	<div class="row">
-		<div class="col-xs-3">
+		<div class="col-xxs-12 col-xs-3">
 			<ul class="side-menu">
 				<li><a href="/catalog/popular"><span class="label popular">хит!</span>Популярное</a></li>
 				<li><a href="/catalog/new"><span class="label new">new!</span>Новинки</a></li>
@@ -14,7 +14,7 @@
 				<li><a class="no-border" href="/catalog/odnorazovaya-posuda">Одноразовая посуда</a></li>
 			</ul>
 		</div>
-		<div class="col-xs-9">
+		<div class="col-xxs-12 col-xs-9">
 
 		</div>
 	</div>
