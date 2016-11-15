@@ -102,6 +102,7 @@ button {
 	color: #fff;
 	text-align: left;
 	outline: none;
+	user-select: none;
 }
 
 button:active {
@@ -213,6 +214,7 @@ nav {
 	border: 1px solid rgba(182, 182, 182, .5);
 	box-shadow: inset 1px 1px 4px rgba(0,0,0,.1);
 	padding: 0 10px;
+	vertical-align: middle;
 }
 
 .main_menu input.search-text::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -289,7 +291,7 @@ nav {
 	padding-right: 50px;
 }
 
-.main_menu ul.menu_text_units li a.arrow::after {
+.main_menu ul.menu_text_units li a.arrow::after, ul.side-menu li a.arrow::after {
 	content: '';
 	display: block;
 	position: absolute;
@@ -371,6 +373,80 @@ ul.sub-sub-menu li.sub-sub-li>a {
 	text-decoration: none;
 	border: 0;
 	padding: 0 20px 0 0;
+}
+
+ul.side-menu {
+	position: relative;
+	display: block;
+	list-style: none;
+	background: #fff;
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
+ul.side-menu li{
+	display: block;
+	min-height: 40px;
+}
+
+ul.side-menu>li>a{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: 100%;
+	height: 100%;
+	line-height: 40px;
+	padding: 0 20px;
+	border-bottom: 1px solid #f2f2f2;
+	color: #222;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+ul.side-menu>li>a:hover{
+	text-decoration: none;
+}
+
+ul.side-menu>li>a.no-border{
+	border-bottom: 0;
+}
+
+ul.side-menu li a.arrow{
+	padding-right: 40px;
+}
+
+ul.side-menu li a.arrow::after {
+	top: 14px;
+}
+
+ul.side-menu li.active a.arrow::after{
+	transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	top: 18px;
+}
+
+ul.side-menu li a span.label {
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 13px;
+	background: black;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 2px 5px;
+	font-family: Roboto Slab;
+	border-radius: 2px;
+	margin-right: 10px;
+}
+
+ul.side-menu li a span.label.popular{
+	background: #0dc95c;
+}
+
+ul.side-menu li a span.label.sales{
+	background: #c63838;
+}
+
+ul.side-menu li a span.label.new{
+	background: #ff9912;
 }
 
 /* CONTENT */
@@ -612,7 +688,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 }
 
 /* SM */
-@media (min-width: 490px) and (max-width: 767px) {
+@media (min-width: 480px) and (max-width: 767px) {
 
 }
 
@@ -743,7 +819,7 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* XS */
 
-@media screen and (min-width: 320px) and (max-width: 499px) /* 479px actualy + 20px for scrollbar width on desktop*/ {
+@media screen and (min-width: 320px) and (max-width: 479px) {
 
 	h1 {
 		font-size: 20px !important;
