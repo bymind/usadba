@@ -6,6 +6,10 @@
 $(function() {
 	VClickInit();
 	BtnClickInit();
+	InitOwlCarousel();
+	$(window).resize(function(event) {
+		InitOwlCarousel();
+	});
 });
 
 
@@ -35,6 +39,7 @@ function VClickHandler(obj) {
 	var vContainer = obj.parent();
 	vContainer.append(vStr);
 	obj.remove();
+	return 0;
 }
 
 
@@ -89,4 +94,59 @@ function ModalPreorderGo(obj) {
 
 	console.log('Hello, modal!');
 
+	return 0;
+}
+
+/*
+* initOwlCarousel()
+* Инициализация карусели для слайдера акции
+* @return 0
+*/
+function InitOwlCarousel() {
+
+	var autoPlaySpeed = 2000;
+
+// пересчитываем высоту слайдера
+	carouselW = $("#sales-carousel").width();
+	countH = Math.floor(carouselW * 0.35);
+	$('#sales-carousel .item a').height(countH);
+
+// считаем отступ для стрелок слайдера
+	arrowsTop = Math.floor((countH-100)/2);
+
+// добавляем изображения
+	for (var i = $('#sales-carousel .item').length - 1; i >= 0; i--) {
+		curItem = $('#sales-carousel .item:eq('+i+') a');
+		jpgName = "img/sales/" + curItem.data('saleid') + ".jpg";
+		curItem.css({
+			'background-image': 'url('+jpgName+')'
+		});
+	}
+
+// инициализируем слайдер
+	$("#sales-carousel").owlCarousel({
+		navigation : true, // Show next and prev buttons
+		navigationText: false,
+		slideSpeed : 300,
+		paginationSpeed : 400,
+		singleItem : true,
+		autoHeight : true,
+		autoPlay : autoPlaySpeed,
+	});
+
+	$('#sales-carousel').on('mouseover', function(event) {
+		event.preventDefault();
+		$('#sales-carousel').trigger('owl.stop');
+	});
+
+	$('#sales-carousel').on('mouseout', function(event) {
+		event.preventDefault();
+		$('#sales-carousel').trigger('owl.play', autoPlaySpeed);
+	});
+
+// ставим отступ для стрелок
+	$('.owl-prev').css('top', arrowsTop);
+	$('.owl-next').css('top', arrowsTop);
+
+	return 0;
 }
