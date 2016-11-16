@@ -538,52 +538,56 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 /* EXTENDS BOOTSTRAP */
 
+.container {
+	padding: 0 10px !important;
+}
+
 .mt-100{
-	margin-top: 100px;
+	margin-top: 100px !important;
 }
 
 .mb-100{
-	margin-bottom: 100px;
+	margin-bottom: 100px !important;
 }
 
 .mt-50{
-	margin-top: 50px;
+	margin-top: 50px !important;
 }
 
 .mb-50{
-	margin-bottom: 50px;
+	margin-bottom: 50px !important;
 }
 
 .ml-50{
-	margin-left: 50px;
+	margin-left: 50px !important;
 }
 
 .mr-50{
-	margin-right: 50px;
+	margin-right: 50px !important;
 }
 
 .mt-20{
-	margin-top: 20px;
+	margin-top: 20px !important;
 }
 
 .mb-20{
-	margin-bottom: 20px;
+	margin-bottom: 20px !important;
 }
 
 .pt-100{
-	padding-top: 100px;
+	padding-top: 100px !important;
 }
 
 .pb-100{
-	padding-bottom: 100px;
+	padding-bottom: 100px !important;
 }
 
 .pt-50{
-	padding-top: 50px;
+	padding-top: 50px !important;
 }
 
 .pb-50{
-	padding-bottom: 50px;
+	padding-bottom: 50px !important;
 }
 
 .p-0 {
@@ -592,27 +596,27 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 }
 
 .pr-0 {
-	padding-right: 0;
+	padding-right: 0 !important;
 }
 
 .pl-0 {
-	padding-left: 0;
+	padding-left: 0 !important;
 }
 
 .pr-20 {
-	padding-right: 20px;
+	padding-right: 20px !important;
 }
 
 .pl-20 {
-	padding-left: 20px;
+	padding-left: 20px !important;
 }
 
 .pr-50 {
-	padding-right: 50px;
+	padding-right: 50px !important;
 }
 
 .pl-50 {
-	padding-left: 50px;
+	padding-left: 50px !important;
 }
 
 .h200 {
@@ -679,6 +683,15 @@ footer .main_menu ul.menu_ui_units li:nth-child(2) {
 
 	button.call-me, button.login {
 		background-position: 8px center;
+	}
+
+	button.cart {
+		width: 110px !important;
+		font-size: 11px !important;
+	}
+
+	button.cart .price-counter {
+		margin-left: 2px !important;
 	}
 
 	.btn-wide {
