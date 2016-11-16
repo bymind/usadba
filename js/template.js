@@ -2,6 +2,8 @@ $(function() {
 	CountMenuPxls();
 	WindowListen();
 	MenuClickInit();
+	ImgLabels();
+	ProdDay();
 });
 
 /*
@@ -124,4 +126,76 @@ function MenuClickInit() {
 
 
 	return 0;
+}
+
+/*
+* ImgAdapt()
+* Адаптируем img как cover
+* @return 0
+*/
+function ImgAdapt(){
+	$('.box-img').each(function() {
+			//set size
+			var th = $(this).height(),//box height
+					tw = $(this).width(),//box width
+					im = $(this).children('img'),//image
+					ih = im.height(),//inital image height
+					iw = im.width();//initial image width
+			if (ih>iw) {//if portrait
+					im.addClass('ww').removeClass('wh');//set width 100%
+			} else {//if landscape
+					im.addClass('wh').removeClass('ww');//set height 100%
+			}
+			//set offset
+			var nh = im.height(),//new image height
+					nw = im.width(),//new image width
+					hd = (nh-th)/2,//half dif img/box height
+					wd = (nw-tw)/2;//half dif img/box width
+			if (nh<nw) {//if portrait
+					im.css({marginLeft: '-'+wd+'px', marginTop: 0});//offset left
+			} else {//if landscape
+					im.css({marginTop: '-'+hd+'px', marginLeft: 0});//offset top
+			}
+	});
+	return 0;
+}
+
+/*
+* ProdDay()
+* Инициализируем картинки для товаров дня
+* @return 0
+*/
+function ProdDay(){
+	var prodsImg = $('.prod-day-img');
+	for (var i = 0; i< prodsImg.length; i++) {
+		var curProdImg = prodsImg.eq(i);
+		var imgName = 'img/'+curProdImg.data('imgname')+'.jpg';
+		curProdImg.css('background-image', 'url('+imgName+')');
+	}
+	// ImgAdapt();
+	return 0;
+}
+
+
+/*
+* ImgLabels()
+* Добавляем лэйблы на картинки
+* @return 0
+*/
+function ImgLabels(){
+	var labeledBlocks = $('.labeled');
+	var label = {};
+	label['new'] = "<span class='label new'>new!</span>";
+	label['popular'] = "<span class='label popular'>хит!</span>";
+	label['sales'] = "<span class='label sales'>акция!</span>";
+	for (var i = 0; i < labeledBlocks.length; i++) {
+		var curLabeled = labeledBlocks.eq(i);
+		console.log(i+" "+labeledBlocks.length+" " +curLabeled);
+		var labels = curLabeled.data('label').split(',');
+		var plusTop = 0;
+		for (var j = 0; j < labels.length; j++) {
+			curLabeled.append(label[labels[j]]);
+			plusTop+=20; // изменить отступ сверху для следующих лэйблов
+		}
+	}
 }

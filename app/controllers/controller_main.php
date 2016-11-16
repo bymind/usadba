@@ -21,7 +21,8 @@ class Controller_Main extends Controller
 					'style_content'=>array(
 					                       'public/main_page.css',
 					                       'owl-carousel/owl.carousel.css',
-					                       'owl-carousel/sales.theme.css'
+					                       'owl-carousel/sales.theme.css',
+					                       'owl-carousel/prod.theme.css'
 					                       ),
 					'scripts_content'=> array(
 																		'js/main_page.js',

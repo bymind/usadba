@@ -5,7 +5,7 @@
 				<div class="hidden-xxs col-xs-7 col-sm-8 p-0"><!--
 				 --><ul class="menu_text_units"><!--
 					 --><li class="show-li item-li"><a class="arrow pclick" href="/catalog">Каталог</a><ul class="sub-menu"><!--
-					 --><div class="col-xs-6"><li class="sub-li item-li"><a href="/#">Полуфабрикаты</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/#">Пельмени</a></li><!--
+					 --><div class="row"><div class="col-xs-6"><li class="sub-li item-li"><a href="/#">Полуфабрикаты</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/#">Пельмени</a></li><!--
 						  --><li class="sub-sub-li"><a href="/#">Котлеты, колбаски</a></li><!--
 						  --><li class="sub-sub-li"><a href="/#">Блинчики</a></li><!--
 						  --><li class="sub-sub-li"><a href="/#">Вареники</a></li><!--
@@ -14,10 +14,11 @@
 						  --><li class="sub-sub-li"><a href="/#">Сытная выпечка</a></li></ul></li>
 					 </div>
 					 <div class="col-xs-6"><!--
+					 --><li class="sub-li item-li"><a href="/#">Кулинария</a></li><!--
 					 --><li class="sub-li item-li"><a href="/#">Кондитерские изделия</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/#">Торты</a></li><!--
 						  --><li class="sub-sub-li"><a href="/#">Пирожные</a></li><!--
 						  --><li class="sub-sub-li"><a href="/#">Эклеры</a></li></ul></li><!--
-				 --></div></ul><!--
+				 --></div></div></ul><!--
 				  --></li><!--
 					--><li class="show-li item-li"><a href="/sales">Акции</a></li><!--
 					--><li class="show-li item-li"><a href="/news">Новости</a></li><!--
