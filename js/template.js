@@ -91,7 +91,7 @@ countElse = $('.else-li').length;
 			'display': 'table-cell',
 			'text-align': 'center'
 		});
-		menu.css('overflow', 'initial');
+		// menu.css('overflow', 'initial');
 		for (var i = $('.sub-menu').length - 1; i >= 0; i--) {
 			subMenu = $('.sub-menu:eq('+i+')');
 			subMenu.css('min-width', subMenu.parent().width() );
