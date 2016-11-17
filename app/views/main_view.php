@@ -71,7 +71,7 @@
 			<div class="col-xs-9">
 				<div class="prod-line-outer prod-theme">
 					<div class="prod-card shadow br-2">
-						<div class="prod-day-img box-img display labeled" data-imgname="salad-day" data-label="new,popular"><a href="/#" class="prod-link" title="Шницель столичный из куриной грудки 740г"></a></div>
+						<div class="prod-day-img box-img display labeled" data-imgname="salad-day" data-label="sales,new,popular"><a href="/#" class="prod-link" title="Шницель столичный из куриной грудки 740г"></a></div>
 						<div class="prod-name"><a href="/#">Шницель столичный из куриной грудки 740г</a></div>
 						<div class="prod-details">диетическое, 217 Ккал</div>
 						<div class="prod-price"><span class="number">249</span> руб</div>

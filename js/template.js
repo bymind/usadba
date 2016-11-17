@@ -190,11 +190,12 @@ function ImgLabels(){
 	label['sales'] = "<span class='label sales'>акция!</span>";
 	for (var i = 0; i < labeledBlocks.length; i++) {
 		var curLabeled = labeledBlocks.eq(i);
-		console.log(i+" "+labeledBlocks.length+" " +curLabeled);
 		var labels = curLabeled.data('label').split(',');
-		var plusTop = 0;
+		var plusTop = -5;
 		for (var j = 0; j < labels.length; j++) {
 			curLabeled.append(label[labels[j]]);
+			curLabeled.find('.label').eq(j).css('top', plusTop+'px');
+			console.log(plusTop);
 			plusTop+=20; // изменить отступ сверху для следующих лэйблов
 		}
 	}
