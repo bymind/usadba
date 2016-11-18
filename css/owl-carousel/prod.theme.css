@@ -26,9 +26,6 @@
 	margin: 5px;
 	padding: 3px 10px;
 	font-size: 12px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
 }
 /* Clickable class fix problem with hover on touch devices */
 /* Use it for non-touch hover action */
@@ -104,12 +101,11 @@
 .prod-theme .owl-prev, .prod-theme .owl-next {
 	position: absolute;
 	display: block !important;
-	height: 270px;
+	height: 100px;
 	width: 40px;
-	top: 4px;
+	top: 89px;
 	vertical-align: middle;
 	margin: 0 !important;
-	border-radius: 0 !important;
 	will-change: opacity;
 	transition: opacity .1s ease-in-out;
 	opacity: .6;
@@ -117,20 +113,23 @@
 
 .prod-theme .owl-next {
 	background: rgba(255,255,255, .8) !important;
-background: -moz-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
-background: -webkit-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
-background: linear-gradient(to right, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: -moz-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: -webkit-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: linear-gradient(to right, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
+	border-radius: 2px 0 0 2px !important;
 }
 
 .prod-theme .owl-prev {
 	background: rgba(255,255,255, .8) !important;
-background: -moz-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
-background: -webkit-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
-background: linear-gradient(to left, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: -moz-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: -webkit-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
+	background: linear-gradient(to left, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
+	border-radius: 0px 2px 2px 0px !important;
 }
 
 .prod-theme .owl-next:hover,.prod-theme .owl-prev:hover {
 	opacity: 1;
+	box-shadow: 0 0 3px rgba(0, 0, 0, .4);
 }
 
 .prod-theme .owl-prev{
@@ -154,7 +153,7 @@ background: linear-gradient(to left, rgba(255,255,255,0.2) 0%, rgba(255,255,255,
 	border-top: 1px solid #000;
 	display: block;
 	position: relative;
-	top: 115px;
+	top: 28px;
 	will-change: background;
 	transition: background .1s ease-in-out;
 }
