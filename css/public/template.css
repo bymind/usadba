@@ -545,13 +545,19 @@ span.label.new{
 	opacity: .4;
 }
 
-.prod-card .prod-day-img, .prod-day .prod-day-img {
+.prod-card .prod-img, .prod-day .prod-day-img {
 	position: relative;
 	display: block;
 	width: 140px;
 	height: 110px;
 	margin: 0 auto;
 	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.prod-card .prod-img {
+	width: 100%;
 }
 
 .wh{height:100%!important;}
@@ -590,6 +596,7 @@ span.label.new{
 	opacity: .7;
 	height: 30px;
 	overflow: hidden;
+	line-height: 12px;
 }
 
 .prod-price {
@@ -630,6 +637,10 @@ span.label.new{
 	opacity: .65;
 }
 
+.prod-btn-block .prod-rev.zero {
+	display: block;
+}
+
 button.to-cart {
 	display: none;
 	margin: 0 auto;
@@ -645,12 +656,37 @@ button.to-cart {
 	padding: 0;
 }
 
-.prod-day:hover button.to-cart {
+.prod-day:hover button.to-cart,.prod-card:hover button.to-cart {
 	display: block;
 }
 
-.prod-day:hover .prod-avail, .prod-day:hover .prod-rev{
+.prod-day:hover .prod-avail, .prod-day:hover .prod-rev, .prod-card:hover .prod-avail, .prod-card:hover .prod-rev{
 	display: none;
+}
+
+.box-img .heart {
+	cursor: pointer;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 0 0 2px 0;
+	background: #fff url(/img/heart.png) top center no-repeat;
+	height: 24px;
+	width: 24px;
+}
+
+.box-img .heart:hover{
+	background: #fff url(/img/heart.png) center center no-repeat;
+}
+
+.box-img .heart.liked{
+	display: block;
+	background: #fff url(/img/heart.png) bottom center no-repeat;
+}
+
+.prod-day:hover .box-img .heart, .prod-card:hover .box-img .heart {
+	display: block;
 }
 
 /* PROD CARD */
