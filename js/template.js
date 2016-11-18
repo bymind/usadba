@@ -4,6 +4,7 @@ $(function() {
 	MenuClickInit();
 	ImgLabels();
 	ProdDay();
+	ProdImg();
 });
 
 /*
@@ -173,6 +174,21 @@ function ProdDay(){
 		curProdImg.css('background-image', 'url('+imgName+')');
 	}
 	// ImgAdapt();
+	return 0;
+}
+
+/*
+* ProdIMg()
+* Инициализируем картинки для товаров дня
+* @return 0
+*/
+function ProdImg(){
+	var prodsImg = $('.prod-img');
+	for (var i = 0; i< prodsImg.length; i++) {
+		var curProdImg = prodsImg.eq(i);
+		var imgName = 'img/'+curProdImg.data('imgname')+'.jpg';
+		curProdImg.css('background-image', 'url('+imgName+')');
+	}
 	return 0;
 }
 
