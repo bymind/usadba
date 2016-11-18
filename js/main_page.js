@@ -142,7 +142,13 @@ function InitOwlCarousel() {
 		slideSpeed : 300,
 		paginationSpeed : 400,
 		pagination: false,
-		items: 3,
+		items : 4,
+		itemsCustom : false,
+		itemsDesktop : [1200,4],
+		itemsDesktopSmall : [960,3],
+		itemsTablet: [768,3],
+		itemsTabletSmall: false,
+		itemsMobile : [320,2],
 		afterMove : function(elem){
 					$('.prod-line-outer .owl-prev').addClass('show');
 				}
