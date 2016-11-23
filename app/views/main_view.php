@@ -38,7 +38,7 @@
 				</div>
 			</div>
 
-			<div class="side-news shadow br-2">
+			<div class="side-news shadow br-2 mb-20">
 				<div class="side-news-title">
 					Новости
 				</div>
@@ -56,7 +56,7 @@
 
 		</div>
 
-			<div class="col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat1">
 					<div class="title-cat">
 						Полуфабрикаты
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat2">
 					<div class="title-cat">
 						Выпечка
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 
-			<div class="col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat3">
 					<div class="title-cat">
 						Кондитерские изделия
@@ -80,12 +80,12 @@
 				</div>
 			</div>
 
-			<div class="col-xs-9">
+			<div class="col-xxs-12 col-xs-9">
 				<div class="title-wide mb-10">
 					Новинки
 				</div>
 			</div>
-			<div class="col-xs-9 mb-20">
+			<div class="col-xxs-12 col-xs-9 mb-20">
 				<div class="prod-line-outer prod-new prod-theme">
 					<div class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
@@ -216,12 +216,12 @@
 				</div>
 			</div>
 
-			<div class="col-xs-9">
+			<div class=" col-xxs-12 col-xs-9">
 				<div class="title-wide mb-10">
 					Самые популярные
 				</div>
 			</div>
-			<div class="col-xs-9 mb-20">
+			<div class="col-xxs-12 col-xs-9 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
 					<div class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
@@ -355,23 +355,23 @@
 	</div>
 </div>
 
-<div class="container mb-50">
+<div class="container mb-20">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xxs-12 col-xs-4 mb-20">
 			<div class="shadow br-2 bt-cat news">
 				<div class="img"></div>
 				<div class="title">Наши новости</div>
 			</div>
 		</div>
 
-		<div class="col-xs-4">
+		<div class="col-xxs-6 col-xs-4 mb-20">
 			<div class="shadow br-2 bt-cat sales">
 				<div class="img"></div>
 				<div class="title">Все акции</div>
 			</div>
 		</div>
 
-		<div class="col-xs-4">
+		<div class="col-xxs-6 col-xs-4 mb-20">
 			<div class="shadow br-2 bt-cat delivery">
 				<div class="img"></div>
 				<div class="title">Доставка</div>
