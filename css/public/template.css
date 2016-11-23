@@ -768,6 +768,24 @@ button.to-cart {
 	color: #333;
 }
 
+.seo-text {
+	display: block;
+	width: 100%;
+	color: #222;
+	opacity: .8;
+}
+
+.seo-text h3.title {
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.seo-text span.text{
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+}
+
 /* PROD CARD */
 
 .prod-line-outer {
