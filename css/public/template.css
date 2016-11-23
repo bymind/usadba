@@ -772,7 +772,7 @@ button.to-cart {
 
 .prod-line-outer {
 	position: relative;
-	display: block;
+	display: none;
 	height: 280px;
 }
 
