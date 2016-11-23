@@ -135,8 +135,8 @@ function InitOwlCarousel() {
 		autoPlay : autoPlaySpeed,
 	});
 
-// инициализируем слайдер продукции
-	$(".prod-line-outer").owlCarousel({
+// инициализируем слайдер новинок
+	$(".prod-new").owlCarousel({
 		navigation : true, // Show next and prev buttons
 		navigationText: false,
 		slideSpeed : 300,
@@ -150,7 +150,26 @@ function InitOwlCarousel() {
 		itemsTabletSmall: false,
 		itemsMobile : [320,2],
 		afterMove : function(elem){
-					$('.prod-line-outer .owl-prev').addClass('show');
+					$('.prod-new .owl-prev').addClass('show');
+				}
+	});
+
+// инициализируем слайдер популярных
+	$(".prod-popular").owlCarousel({
+		navigation : true, // Show next and prev buttons
+		navigationText: false,
+		slideSpeed : 300,
+		paginationSpeed : 400,
+		pagination: false,
+		items : 4,
+		itemsCustom : false,
+		itemsDesktop : [1200,4],
+		itemsDesktopSmall : [960,3],
+		itemsTablet: [768,3],
+		itemsTabletSmall: false,
+		itemsMobile : [320,2],
+		afterMove : function(elem){
+					$('.prod-popular .owl-prev').addClass('show');
 				}
 	});
 
@@ -170,83 +189,6 @@ function InitOwlCarousel() {
 // ставим отступ для стрелок
 	$('#sales-carousel .owl-prev').css('top', arrowsTop);
 	$('#sales-carousel .owl-next').css('top', arrowsTop);
-
-	return 0;
-}
-
-/*
-* initOwlCarousel()
-* Инициализация карусели для слайдера акции
-* @return 0
-*/
-function InitOwlCarousel2() {
-
-	var autoPlaySpeed = 2000;
-
-// пересчитываем высоту слайдера
-	carouselW = $("#sales-carousel").width();
-	countH = Math.floor(carouselW * 0.35);
-	$('#sales-carousel .item a').height(countH);
-
-// считаем отступ для стрелок слайдера
-	arrowsTop = Math.floor((countH-100)/2);
-
-// добавляем изображения
-	for (var i = $('#sales-carousel .item').length - 1; i >= 0; i--) {
-		curItem = $('#sales-carousel .item:eq('+i+') a');
-		jpgName = "img/sales/" + curItem.data('saleid') + ".jpg";
-		curItem.css({
-			'background-image': 'url('+jpgName+')'
-		});
-	}
-
-// инициализируем слайдер
-	$("#sales-carousel").owlCarousel({
-		loop:true,
-				nav:true,
-				responsive:{
-						0:{
-								items:1
-						},
-						600:{
-								items:1
-						},
-						1000:{
-								items:1
-						}
-				}
-	});
-
-// остановка карусели при ховере
-	$('#sales-carousel').on('mouseover', function(event) {
-		event.preventDefault();
-		$('#sales-carousel').trigger('owl.stop');
-	});
-
-// запуск карусели после ховера
-	$('#sales-carousel').on('mouseout', function(event) {
-		event.preventDefault();
-		$('#sales-carousel').trigger('owl.play', autoPlaySpeed);
-	});
-
-// ставим отступ для стрелок
-	$('.owl-prev').css('top', arrowsTop);
-	$('.owl-next').css('top', arrowsTop);
-
-// инициализируем слайдер продукции
-/*	$(".prod-line-outer").owlCarousel({
-		navigation : true, // Show next and prev buttons
-		navigationText: false,
-		slideSpeed : 300,
-		paginationSpeed : 400,
-		pagination: false,
-		scrollPerPage: true,
-	});*/
-
-	prodOwl = $('.prod-line-outer');
-	prodOwl.on('changed.owl.carousel', function(event) {
-		console.log(event.item.index);
-})
 
 	return 0;
 }
