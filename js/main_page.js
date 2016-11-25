@@ -142,13 +142,13 @@ function InitOwlCarousel() {
 		slideSpeed : 300,
 		paginationSpeed : 400,
 		pagination: false,
-		items : 4,
+		items : 5,
 		itemsCustom : false,
 		itemsDesktop : [1200,4],
 		itemsDesktopSmall : [960,3],
 		itemsTablet: [768,3],
-		itemsTabletSmall: false,
-		itemsMobile : [320,2],
+		itemsTabletSmall: [480,2],
+		itemsMobile : [320,1],
 		afterMove : function(elem){
 					$('.prod-new .owl-prev').addClass('show');
 				}
@@ -161,13 +161,13 @@ function InitOwlCarousel() {
 		slideSpeed : 300,
 		paginationSpeed : 400,
 		pagination: false,
-		items : 4,
+		items : 5,
 		itemsCustom : false,
 		itemsDesktop : [1200,4],
 		itemsDesktopSmall : [960,3],
 		itemsTablet: [768,3],
-		itemsTabletSmall: false,
-		itemsMobile : [320,2],
+		itemsTabletSmall: [480,2],
+		itemsMobile : [320,1],
 		afterMove : function(elem){
 					$('.prod-popular .owl-prev').addClass('show');
 				}
