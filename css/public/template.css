@@ -1247,7 +1247,8 @@ span.link a:hover {
 		display: block !important;
 	}
 
-	.prod-day .prod-avail, .prod-day .prod-rev{
+	/* .prod-day .prod-avail, .prod-day .prod-rev{ */
+	.prod-avail, .prod-rev{
 		display: none !important;
 	}
 
