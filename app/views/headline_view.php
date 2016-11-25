@@ -22,7 +22,7 @@
 				</div>
 			</div>
 
-			<div class="col-xxs-12 col-xas-5 col-xs-6 col-sm-7 col-lg-7 mt-xss-10 pl-0">
+			<div class="col-xxs-12 col-xas-5 col-xs-6 col-sm-7 col-lg-7 mt-xxs-10 pl-0">
 				<button class="btn-mini col-xxs-4 cart" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
 sagittis lacus vel augue laoreet rutrum faucibus.">
 					<span class="counter">0</span>
