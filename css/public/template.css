@@ -114,7 +114,10 @@ button {
 	color: #fff;
 	text-align: left;
 	outline: none;
-	user-select: none;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
 }
 
 button:active {
@@ -176,8 +179,6 @@ button.cart .price-counter {
 
 nav {
 	background: rgb(250,250,250);
-	background: -moz-linear-gradient(top, rgba(250,250,250,1) 0%, rgba(255,255,255,1) 50%, rgba(239,239,239,1) 100%);
-	background: -webkit-linear-gradient(top, rgba(250,250,250,1) 0%,rgba(255,255,255,1) 50%,rgba(239,239,239,1) 100%);
 	background: linear-gradient(to bottom, rgba(250,250,250,1) 0%,rgba(255,255,255,1) 50%,rgba(239,239,239,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#efefef',GradientType=0 );
 	position: relative;
@@ -294,8 +295,6 @@ nav {
 
 .main_menu ul.menu_text_units>li.active>a {
 	/* border-bottom: 2px solid #c63838; */
-	background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 96%, #c63838 97%, #c63838 100%);
-	background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 96%, #c63838 97%, #c63838 100%);
 	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 96%,#c63838 97%, #c63838 100%);
 }
 
@@ -314,13 +313,17 @@ nav {
 	top: 19px;
 	right: 20px;
 	will-change: transform, top;
+	transition: top .3s ease-in-out, -webkit-transform .3s ease-in-out;
 	transition: transform .3s ease-in-out, top .3s ease-in-out;
-	transform: rotate(-45deg) rotate3d(90,90,0,0deg);
+	transition: transform .3s ease-in-out, top .3s ease-in-out, -webkit-transform .3s ease-in-out;
+	-webkit-transform: rotate(-45deg) rotate3d(90,90,0,0deg);
+	        transform: rotate(-45deg) rotate3d(90,90,0,0deg);
 	opacity: .7;
 }
 
 .main_menu ul.menu_text_units li a.arrow.active::after, .main_menu ul.menu_text_units li a.arrow:active::after{
-	transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	-webkit-transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	        transform: rotate(-45deg) rotate3d(90,90,0,180deg);
 	top: 22px;
 }
 
@@ -431,7 +434,8 @@ ul.side-menu li a.arrow::after {
 }
 
 ul.side-menu li.active a.arrow::after{
-	transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	-webkit-transform: rotate(-45deg) rotate3d(90,90,0,180deg);
+	        transform: rotate(-45deg) rotate3d(90,90,0,180deg);
 	top: 18px;
 }
 

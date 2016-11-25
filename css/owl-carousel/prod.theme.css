@@ -45,8 +45,6 @@
 	width: 12px;
 	height: 12px;
 	margin: 0 7px;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
 	border-radius: 20px;
 	/* background: #869791; */
 	background: #fff;
@@ -68,8 +66,6 @@
 	color: #FFF;
 	padding: 2px 10px;
 	font-size: 12px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
 	border-radius: 30px;
 }
 
@@ -113,16 +109,12 @@
 
 .prod-theme .owl-next {
 	background: rgba(255,255,255, .8) !important;
-	background: -moz-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
-	background: -webkit-linear-gradient(left, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
 	background: linear-gradient(to right, rgba(255,255,255,.2) 0%, rgba(255,255,255,1) 100%) !important;
 	border-radius: 2px 0 0 2px !important;
 }
 
 .prod-theme .owl-prev {
 	background: rgba(255,255,255, .8) !important;
-	background: -moz-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
-	background: -webkit-linear-gradient(right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
 	background: linear-gradient(to left, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) 100%) !important;
 	border-radius: 0px 2px 2px 0px !important;
 }
@@ -164,12 +156,16 @@
 
 .prod-theme .owl-prev::before{
 	border-left: 1px solid #000;
-	transform: rotate(-45deg) skew(-15deg, -15deg);
+	-webkit-transform: rotate(-45deg) skew(-15deg, -15deg);
+	    -ms-transform: rotate(-45deg) skew(-15deg, -15deg);
+	        transform: rotate(-45deg) skew(-15deg, -15deg);
 	left: 0px;
 }
 
 .prod-theme .owl-next::before{
-	transform: rotate(45deg) skew(15deg, 15deg);
+	-webkit-transform: rotate(45deg) skew(15deg, 15deg);
+	    -ms-transform: rotate(45deg) skew(15deg, 15deg);
+	        transform: rotate(45deg) skew(15deg, 15deg);
 	border-right: 1px solid #000;
 	right: 20px;
 }
