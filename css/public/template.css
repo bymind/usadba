@@ -1371,6 +1371,11 @@ span.link a:hover {
 		display: block;
 	}
 
+	.prod-day .prod-day-img{
+		width: 260px;
+		height: 170px;
+	}
+
 	.col-xxs-1 {
 		width: 8.33333333% !important;
 	}
