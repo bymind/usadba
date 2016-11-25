@@ -56,7 +56,7 @@
 
 		</div>
 
-			<div class="hidden-xxs col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat1">
 					<div class="title-cat">
 						Полуфабрикаты
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="hidden-xxs col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat2">
 					<div class="title-cat">
 						Выпечка
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 
-			<div class="hidden-xxs col-xs-3 mb-20">
+			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat3">
 					<div class="title-cat">
 						Кондитерские изделия
@@ -80,12 +80,12 @@
 				</div>
 			</div>
 
-			<div class="col-xxs-12 col-xs-9">
+			<div class="col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-10">
 					Новинки
 				</div>
 			</div>
-			<div class="col-xxs-12 col-xs-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-new prod-theme">
 					<div class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
@@ -216,12 +216,12 @@
 				</div>
 			</div>
 
-			<div class=" col-xxs-12 col-xs-9">
+			<div class=" col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-10">
 					Самые популярные
 				</div>
 			</div>
-			<div class="col-xxs-12 col-xs-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
 					<div class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
@@ -380,9 +380,9 @@
 	</div>
 </div>
 
-<div class="container mb-20">
+<div class="container">
 	<div class="row">
-		<div class="hidden-xxs col-xs-12">
+		<div class="hidden-xxs col-xs-12 mb-20">
 			<div class="seo-text mb-20">
 				<h3 class="title">
 					Интернет магазин полуфабрикатов – это быстро, просто и удобно
@@ -400,7 +400,7 @@
 					<br>Кулинария «Усадьба-Центр» также порадует вас акциями, скидками и бонусными предложениями.
 				</span>
 			</div>
-			<div class="seo-text mb-20">
+			<div class="seo-text">
 				<h3 class="title">
 					Интернет-магазин Усадьба-Кулинария.ру – ваш лучший поставщик блюд и продуктов
 				</h3>
