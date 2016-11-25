@@ -1191,8 +1191,21 @@ span.link a:hover {
 		width: 120px !important;
 	}
 
+	.mt-xs-40 {
+		margin-top: 40px !important;
+	}
+
 	.mb-xs-40 {
 		margin-bottom: 40px !important;
+	}
+
+
+	.mt-xs-20 {
+		margin-top: 20px !important;
+	}
+
+	.mb-xs-20 {
+		margin-bottom: 20px !important;
 	}
 
 	.mb-xs-10 {
@@ -1404,11 +1417,27 @@ button.col-xxs-4 {
 		display: inline-block !important;
 	}
 
-	.mb-xss-10 {
+	.mb-xxs-40 {
+		margin-bottom: 40px !important;
+	}
+
+	.mt-xxs-40 {
+		margin-top: 40px !important;
+	}
+
+	.mb-xxs-20 {
+		margin-bottom: 20px !important;
+	}
+
+	.mt-xxs-20 {
+		margin-top: 20px !important;
+	}
+
+	.mb-xxs-10 {
 		margin-bottom: 10px !important;
 	}
 
-	.mt-xss-10 {
+	.mt-xxs-10 {
 		margin-top: 10px !important;
 	}
 
