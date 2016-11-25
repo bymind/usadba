@@ -1157,6 +1157,10 @@ span.link a:hover {
 		font-size: 18px;
 	}
 
+	.bt-cat .title{
+		font-size: 18px;
+	}
+
 }
 
 /* SM */
@@ -1311,6 +1315,16 @@ span.link a:hover {
 		width: 100% !important;
 	}
 
+	.bt-cat {
+		min-height: 200px;
+	}
+
+	.bt-cat .title{
+		font-size: 16px;
+		height: 40px;
+		line-height: 40px !important;
+		margin: 0 16px;
+	}
 
 }
 
