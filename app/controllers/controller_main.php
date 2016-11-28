@@ -18,12 +18,12 @@ class Controller_Main extends Controller
 			array(
 					'title'=> $pageDataController['title'],
 					'style'=>'public/template.css',
-					'style_content'=>array(
-					                       'public/main_page.css',
-					                       'owl-carousel/owl.carousel.css',
-					                       'owl-carousel/sales.theme.css',
-					                       'owl-carousel/prod.theme.css'
-					                       ),
+					'style_content' => array(
+																	'public/main_page.css',
+																	'owl-carousel/owl.carousel.css',
+																	'owl-carousel/sales.theme.css',
+																	'owl-carousel/prod.theme.css'
+																	),
 					'scripts_content'=> array(
 																		'js/main_page.js',
 																		'js/owl-carousel/owl.carousel.min.js'
@@ -31,7 +31,12 @@ class Controller_Main extends Controller
 					'active_menu' => 'menu-item-1',
 					'pageId' => 'main',
 					'pageDataView' => $pageDataController,
-					'actions' => 'app/views/sales_carousel_view.php'
+					'actions' => 'app/views/sales_carousel_view.php',
+					'sidebar' => array(
+														'app/views/side_menu_view.php',
+														'app/views/side_prod_of_day_view.php',
+														'app/views/side_news_view.php',
+														)
 				),
 			'navigation_view.php',
 			'footer_view.php',

@@ -5,59 +5,21 @@
 
 		<div class="col-xxs-12 col-xs-6 col-sm-3">
 
-			<ul class="side-menu shadow mb-20 br-2">
-				<li><a href="/catalog/popular"><span class="label popular">хит!</span>Популярное</a></li>
-				<li><a href="/catalog/new"><span class="label new">new!</span>Новинки</a></li>
-				<li><a href="/catalog/sales"><span class="label sales">акция!</span>Акции</a></li>
-				<li><a href="/catalog/polufabrikati" class="arrow arr pclick">Полуфабрикаты</a></li>
-				<li><a href="/catalog/kulinariya" class="arrow arr pclick">Кулинария</a></li>
-				<li><a href="/catalog/vipechka" class="arrow arr pclick">Выпечка</a></li>
-				<li><a href="/catalog/konditerskie-izdeliya" class="arrow arr pclick">Кондитерские изделия</a></li>
-				<li><a class="no-border" href="/catalog/odnorazovaya-posuda">Одноразовая посуда</a></li>
-			</ul>
-
-			<div class="prod-day shadow mb-20 br-2">
-				<div class="prod-day-title">
-					Товар дня
-				</div>
-				<div class="arr">
-					<div class="prev disable"></div>
-					<div class="next"></div>
-				</div>
-				<div class="prod-day-img box-img display labeled" data-imgname="salad-day" data-label="new"><a href="/#" class="prod-link" title="Шницель столичный из куриной грудки 740г"></a>
-					<div class="heart" data-imgname="salad-day" title="Добавить в избранное"></div>
-				</div>
-				<div class="prod-name"><a href="/#">Шницель столичный из куриной грудки 740г</a></div>
-				<div class="prod-details">диетическое, 217 Ккал</div>
-				<div class="prod-price"><span class="number">249</span> руб</div>
-				<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
-				<div class="prod-btn-block">
-					<div class="prod-avail">в наличии</div>
-					<div class="prod-rev">отзывов - <span class="rev">5</span></div>
-					<button class="to-cart">Купить</button>
-				</div>
-			</div>
-
-			<div class="side-news shadow br-2 mb-20">
-				<div class="side-news-title">
-					Новости
-				</div>
-				<div class="arr">
-					<div class="prev disable"></div>
-					<div class="next"></div>
-				</div>
-				<div class="news-img box-img display"><a href="/#" class="news-link" title="Мы открываем доставку в область!">
-					<img src="img/news/boobs.jpg" alt="Мы открываем доставку в область!">
-				</a>
-				</div>
-				<div class="news-title"><a href="/#">Мы открываем доставку в область!</a></div>
-				<div class="news-anons">По многочисленным просьбам наших покупателей мы приняли решение доставлять за пределы МКАД. <a class="more" href="/#">подробнее</a></div>
-			</div>
+			<?php
+				if (is_array($sidebar)) {
+					foreach ($sidebar as $sidebar_item) {
+						include $sidebar_item;
+					}
+				} else {
+					include $sidebar;
+				}
+			?>
 
 		</div>
 
 			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat1">
+					<a href="/catalog/polufabrikati" class="cat-link"></a>
 					<div class="title-cat">
 						Полуфабрикаты
 					</div>
@@ -66,6 +28,7 @@
 
 			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat2">
+					<a href="/catalog/vipechka" class="cat-link"></a>
 					<div class="title-cat">
 						Выпечка
 					</div>
@@ -74,6 +37,7 @@
 
 			<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
 				<div class="main-cat shadow" data-catid="cat3">
+					<a href="/catalog/konditerskie-isdeliya" class="cat-link"></a>
 					<div class="title-cat">
 						Кондитерские изделия
 					</div>
@@ -88,10 +52,10 @@
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-new prod-theme">
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -102,10 +66,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -116,10 +80,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -130,10 +94,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -144,10 +108,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -158,10 +122,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -172,10 +136,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -186,10 +150,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -200,10 +164,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -224,10 +188,10 @@
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -238,10 +202,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -252,10 +216,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -266,10 +230,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -280,10 +244,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -294,10 +258,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -308,10 +272,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -322,10 +286,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -336,10 +300,10 @@
 						</div>
 					</div>
 					<div class="prod-card shadow br-2">
-						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/#" class="prod-link" title="Розанчик с яблоком 64г"></a>
+						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="/#">Розанчик с яблоком 64г</a></div>
+						<div class="prod-name"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g">Розанчик с яблоком 64г</a></div>
 						<div class="prod-details">из натуральных яблок, 242 Ккал</div>
 						<div class="prod-price"><span class="number">30</span> руб</div>
 						<div class="prod-counts">(<span class="number">1</span> <span class="measure">шт</span>)</div>
@@ -361,6 +325,7 @@
 			<div class="shadow br-2 bt-cat news">
 				<div class="img"></div>
 				<div class="title">Наши новости</div>
+				<a href="/news" class="cat-link"></a>
 			</div>
 		</div>
 
@@ -368,6 +333,7 @@
 			<div class="shadow br-2 bt-cat sales">
 				<div class="img"></div>
 				<div class="title">Все акции</div>
+				<a href="/sales" class="cat-link"></a>
 			</div>
 		</div>
 
@@ -375,6 +341,7 @@
 			<div class="shadow br-2 bt-cat delivery">
 				<div class="img"></div>
 				<div class="title">Доставка</div>
+				<a href="/delivery" class="cat-link"></a>
 			</div>
 		</div>
 	</div>
