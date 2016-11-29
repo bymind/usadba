@@ -156,3 +156,18 @@
 	border-right: 1px solid #000;
 	right: 8px;
 }
+
+
+@media (max-width: 479px) {
+
+	.sales-theme .owl-controls .owl-buttons div {
+		padding: 3px 5px;
+	}
+
+	.sales-theme .owl-prev::before, .sales-theme .owl-next::before{
+		width: 20px;
+		height: 20px;
+		top: 38px;
+	}
+
+}
