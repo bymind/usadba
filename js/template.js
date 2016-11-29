@@ -1,16 +1,23 @@
-$(function() {
+$(function()
+{
 	CountMenuPxls();
 	WindowListen();
 	MenuClickInit();
+	LikesInit();
 	ImgLabels();
 	ProdDay();
 	ProdImg();
+	BtnClickInit();
+	InitInputMask();
+	ModalTabs();
+	ToCart();
 });
 
 /*
 * WindowListen()
 */
-function WindowListen(){
+function WindowListen()
+{
 	$(window).resize(function(event) {
 		CountMenuPxls();
 	});
@@ -19,7 +26,8 @@ function WindowListen(){
 /*
 * CountMenuPxls()
 */
-function CountMenuPxls() {
+function CountMenuPxls()
+{
 	menu = $('nav.main_menu ul.menu_text_units:eq(0)');
 
 // отображаем как блок чтобы посмотреть длину
@@ -111,7 +119,8 @@ countElse = $('.else-li').length;
 * Click menu-item
 * @return 0
 */
-function MenuClickInit() {
+function MenuClickInit()
+{
 	// обработка нажатия на раскрывающийся пункт
 	$(document).on('click', '.pclick', function(event) {
 		event.preventDefault();
@@ -134,7 +143,8 @@ function MenuClickInit() {
 * Адаптируем img как cover
 * @return 0
 */
-function ImgAdapt(){
+function ImgAdapt()
+{
 	$('.box-img').each(function() {
 			//set size
 			var th = $(this).height(),//box height
@@ -166,7 +176,8 @@ function ImgAdapt(){
 * Инициализируем картинки для товаров дня
 * @return 0
 */
-function ProdDay(){
+function ProdDay()
+{
 	var prodsImg = $('.prod-day-img');
 	for (var i = 0; i< prodsImg.length; i++) {
 		var curProdImg = prodsImg.eq(i);
@@ -182,7 +193,8 @@ function ProdDay(){
 * Инициализируем картинки для товаров дня
 * @return 0
 */
-function ProdImg(){
+function ProdImg()
+{
 	var prodsImg = $('.prod-img');
 	for (var i = 0; i< prodsImg.length; i++) {
 		var curProdImg = prodsImg.eq(i);
@@ -198,7 +210,8 @@ function ProdImg(){
 * Добавляем лэйблы на картинки
 * @return 0
 */
-function ImgLabels(){
+function ImgLabels()
+{
 	var labeledBlocks = $('.labeled');
 	var label = {};
 	label['new'] = "<span class='label new'>new!</span>";
@@ -215,4 +228,143 @@ function ImgLabels(){
 			plusTop+=20; // изменить отступ сверху для следующих лэйблов
 		}
 	}
+return 0;
+}
+
+
+/*
+* LikesInit()
+* Инициируем лайки
+* @return 0
+*/
+function LikesInit()
+{
+	// var like = $('.heart');
+
+	$(document).on('click', '.heart', function(event) {
+		event.preventDefault();
+		$(this).toggleClass('liked');
+	});
+
+return 0;
+}
+
+
+/*
+* BtnClickInit()
+* Initialisation click to the button;
+* @return 0
+*/
+function BtnClickInit()
+{
+	$(document).on('click', 'button', function(event) {
+		BtnClickHandler($(this));
+	});
+	return 0;
+}
+
+
+/*
+* BtnClickHandler(obj)
+* Handler click to the button;
+* @param obj
+* @return 0
+*/
+function BtnClickHandler(obj)
+{
+	var target = obj.data().target;
+
+	switch(target) {
+
+		case 'modal':
+			var targetIndex = obj.data().targetindex;
+			ModalInit(targetIndex);
+			break;
+
+		default:
+			break;
+	}
+
+	return 0;
+}
+
+
+/*
+* ModalInit(index)
+* Модальное окно обратного звонка
+* @param index
+* @return 0
+*/
+function ModalInit(index)
+{
+
+	var modalIndex = '.modal-'+index;
+	var modalBlock = $('.modal'+modalIndex);
+	var modalDialog = modalBlock.children('.modal-dialog');
+	var modalContent = modalDialog.children('.modal-content');
+
+	modalBlock.modal();
+
+	console.log(modalIndex);
+
+return 0;
+}
+
+/*
+* InitInputMask()
+* Инициализация масок на телефон
+* @return 0
+*/
+function InitInputMask()
+{
+	var phoneInput = $("#callback-phone");
+	phoneInput.inputmask("+7 (999) 999-99-99", {clearMaskOnLostFocus: true });
+
+// показываем маску при ховере
+	phoneInput.on('mouseover', function(event) {
+		event.preventDefault();
+		phoneInput.inputmask("+7 (999) 999-99-99");
+	});
+
+// скрываем после ховера
+	phoneInput.on('mouseout', function(event) {
+		event.preventDefault();
+		phoneInput.inputmask('remove');
+	});
+
+return 0;
+}
+
+/*
+* ModalTabs()
+* Работа с табами в модальных окнах
+* @return 0
+*/
+function ModalTabs()
+{
+	var modalHeader = $('.modal .modal-header');
+	var modalTabs = $('.modal .modal-header h4');
+	var modalTabsCount = modalTabs.length;
+	modalHeader.on('click', 'h4.disabled', function(event) {
+		event.preventDefault();
+		for (var i = 0; i < modalTabsCount; i++) {
+			curTab = modalTabs.eq(i);
+			curData = curTab.data('target');
+			curTab.toggleClass('disabled');
+			$('.modal-body.'+curData+'-body').toggleClass('inactive');
+			$('.modal-footer.'+curData+'-footer').toggleClass('inactive');
+		}
+	});
+
+return 0;
+}
+
+/*
+* ToCart()
+* Работа с кнопкой КУПИТЬ
+* @return 0
+*/
+function ToCart()
+{
+
 }
