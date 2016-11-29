@@ -17,7 +17,7 @@
 						Ежедневно с 9 до 23
 					</span>
 					<span class="phone-number">
-						8(800)555-35-35
+						<a href="tel:8(800)555-35-35">8(800)555-35-35</a>
 					</span>
 				</div>
 			</div>
@@ -29,9 +29,9 @@ sagittis lacus vel augue laoreet rutrum faucibus.">
 					<span class="price-counter">
 						<span class="num">0</span> руб
 					</span>
-				</button><button class="btn-wide col-xxs-4 login">
+				</button><button class="btn-wide col-xxs-4 login" data-target="modal" data-targetindex="profile">
 					Личный <br class="visible-xs">кабинет
-				</button><button class="btn-wide col-xxs-4 call-me visible-xxs">
+				</button><button class="btn-wide col-xxs-4 call-me visible-xxs" data-target="modal" data-targetindex="callback">
 					<span class="hidden-xs">Заказать<br></span>обратный <br class="visible-xs">звонок
 				</button>
 			</div>
