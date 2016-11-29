@@ -15,8 +15,8 @@
 	<meta name="description" content="<?php echo $Description; ?>">
 	<meta property="og:description" content="<?php echo $Description; ?>">
 	<meta property="og:image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
-	<meta property="og:site_name" content="Laika.Pro">
-	<meta property="og:title" content="<?php echo $Title; ?> - Laika.pro">
+	<meta property="og:site_name" content="Кулинария Усадьба-Центр">
+	<meta property="og:title" content="<?php echo $Title; ?> - Кулинария Усадьба-Центр">
 	<meta property="og:type" content="<?php echo $OgType; ?>">
 	<meta property="og:url" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; ?>">
 	<meta itemprop="image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
@@ -39,12 +39,6 @@
 		}
 	?>
 
-	<?php
-		echo "<style>";
-		// include "css/public/bootstrap.min.css";
-		// include "css/public/prod.css";
-		echo "</style>";
-	 ?>
 </head>
 <body>
 
@@ -63,7 +57,16 @@
 		<?php include $Footer; ?>
 	</footer>
 
-<?php include $Modals; ?>
+
+<?php
+if (is_array($Modals)) {
+	extract($Modals);
+	foreach ($Modals as $Modal) {
+		include $Modal;
+	}
+} else
+include $Modals;
+?>
 
 <?php
 	/*	echo "<style>";
@@ -75,7 +78,6 @@
 	*/ ?>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
-<script src="/js/template.js"></script>
 <?php
 	if (is_array($scripts_content)) {
 		foreach ($scripts_content as $script) {
@@ -85,6 +87,7 @@
 		?><script src="<?php echo $scripts_content; ?>"></script><?php
 	}
 ?>
+<!-- <script src="/js/template.js"></script> -->
 
 
 </body>

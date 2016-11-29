@@ -48,9 +48,10 @@ class View
 
 		if (is_array($modals_view)) {
 			extract($modals_view);
-			foreach ($modals_view as $modals) {
-				$mod = 'app/views/'.$modals;
-				include $mod;
+			foreach ($modals_view as $key => $modals) {
+				$Modals[$key] = 'app/views/'.$modals;
+				// $mod = 'app/views/'.$modals;
+				// include $mod;
 			}
 		} else
 		$Modals = 'app/views/'.$modals_view;

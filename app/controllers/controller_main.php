@@ -13,9 +13,9 @@ class Controller_Main extends Controller
 	{
 		$pageDataController = $this->model->getData('main_page');
 		$this->view->generate(
-			'main_view.php',
-			'template_view.php',
-			array(
+			'main_view.php', // вид контента
+			'template_view.php', // вид шаблона
+			array( // $data
 					'title'=> $pageDataController['title'],
 					'style'=>'public/template.css',
 					'style_content' => array(
@@ -25,8 +25,11 @@ class Controller_Main extends Controller
 																	'owl-carousel/prod.theme.css'
 																	),
 					'scripts_content'=> array(
+																		// 'js/prefixfree/prefixfree.min.js',
+																		'js/magic-mask/jq.magic-mask.min.js',
 																		'js/main_page.js',
-																		'js/owl-carousel/owl.carousel.min.js'
+																		'js/owl-carousel/owl.carousel.min.js',
+																		'/js/template.js'
 																		),
 					'active_menu' => 'menu-item-1',
 					'pageId' => 'main',
@@ -38,9 +41,12 @@ class Controller_Main extends Controller
 														'app/views/side_news_view.php',
 														)
 				),
-			'navigation_view.php',
-			'footer_view.php',
-			'modal_preorder_view.php'
+			'navigation_view.php', // навигация
+			'footer_view.php', // футер
+			array( // модальные окна
+					 'modal_callback_view.php',
+					 'modal_profile_view.php'
+					 )
 			);
 		return 0;
 	}
