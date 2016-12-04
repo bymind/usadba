@@ -70,6 +70,7 @@ function InitOwlCarousel() {
 		itemsTablet: [768,3],
 		itemsTabletSmall: [480,2],
 		itemsMobile : [320,1],
+		mouseDrag: false,
 		afterMove : function(elem){
 					$('.prod-new .owl-prev').addClass('show');
 				}
@@ -79,6 +80,7 @@ function InitOwlCarousel() {
 	$(".prod-popular").owlCarousel({
 		navigation : true, // Show next and prev buttons
 		navigationText: false,
+		mouseDrag: false,
 		slideSpeed : 300,
 		paginationSpeed : 400,
 		pagination: false,
