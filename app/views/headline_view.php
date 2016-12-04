@@ -23,8 +23,7 @@
 			</div>
 
 			<div class="col-xxs-12 col-xas-5 col-xs-6 col-sm-7 col-lg-7 mt-xxs-10 pl-0">
-				<button class="btn-mini col-xxs-4 cart" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus.">
+				<button class="btn-mini col-xxs-4 cart" data-target="modal" data-targetindex="cart">
 					<span class="counter">0</span>
 					<span class="price-counter">
 						<span class="num">0</span> руб
