@@ -108,7 +108,7 @@ h1 {
 /* BUTTONS */
 
 
-button {
+button, a.cart {
 	position: relative;
 	height: 38px;
 	border-radius: 2px;
@@ -131,7 +131,7 @@ button {
 					user-select: none;
 }
 
-button:active {
+button:active, a.cart:active {
 	margin-top: 1px !important;
 	border-bottom: 0;
 }
@@ -142,13 +142,34 @@ button.btn-wide {
 	padding-left: 40px;
 }
 
-button.btn-mini {
+button.btn-mini, a.btn-mini {
 	width: 130px;
 	margin: 0 0 0 12px;
 }
 
-button.call-me, button.login, button.cart {
+button.call-me, button.login, button.cart, a.cart {
 	float: right;
+}
+
+button.cart {
+	will-change: transform;
+}
+
+button.cart.blink {
+	-webkit-animation: blink-cart .3s;
+	        animation: blink-cart .3s;
+}
+
+@-webkit-keyframes blink-cart {
+  0%   { -webkit-transform: scale(1); transform: scale(1); }
+  50%   { -webkit-transform: scale(1.2); transform: scale(1.2); }
+  100% { -webkit-transform: scale(1); transform: scale(1); }
+}
+
+@keyframes blink-cart {
+  0%   { -webkit-transform: scale(1); transform: scale(1); }
+  50%   { -webkit-transform: scale(1.2); transform: scale(1.2); }
+  100% { -webkit-transform: scale(1); transform: scale(1); }
 }
 
 button.call-me {
@@ -163,14 +184,18 @@ button.login {
 	line-height: 24px;
 }
 
-button.cart {
+button.cart, a.cart {
 	background: #c63838 url(/img/cart.svg) 14px center no-repeat;
 	background-size: 20px;
 	font-size: 12px;
 	line-height: 24px;
+	position: relative;
+	display: block;
+	color: #fff;
+	text-decoration: none;
 }
 
-button.cart .counter {
+button.cart .counter, a.cart .counter {
 	position: absolute;
 	top: 8px;
 	left: 20px;
@@ -180,10 +205,18 @@ button.cart .counter {
 	line-height: 10px;
 }
 
-button.cart .price-counter {
+button.cart .price-counter, a.cart .price-counter {
 	display: block;
 	margin-left: 30px;
 	text-align: center;
+}
+
+button.cart.float, a.cart.float {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 11;
+	box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
 }
 
 /* NAVIGATION */
@@ -700,6 +733,12 @@ span.label.new{
 	height: 50px;
 }
 
+.prod-btn-block.active {
+	padding: 10px 0;
+	max-width: 160px;
+	margin: 0 auto;
+}
+
 .prod-btn-block .prod-rev {
 	opacity: .65;
 }
@@ -721,6 +760,66 @@ button.to-cart {
 	font-weight: 900;
 	line-height: 30px;
 	padding: 0;
+}
+
+	button.to-cart.active{
+		background-color: #0dc95c;
+		width: 25%;
+		height: 30px;
+		margin: 0;
+		float: left;
+		display: block;
+		background-image: url(/img/in-cart.svg);
+		background-size: 20px;
+		background-repeat: no-repeat;
+		background-position: 8px center;
+	}
+
+.prod-btn-block .incs {
+	position: relative;
+	float: right;
+	width: 75%;
+	padding: 0 0 0 10px;
+}
+
+.incs input {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	border: 1px solid #b9b9b9;
+	border-radius: 2px;
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, .2);
+	line-height: 30px;
+	font-size: 14px;
+	font-weight: 900;
+}
+
+.incs .minus, .incs .plus {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	background: #c63838;
+	border-radius: 2px;
+	font-size: 18px;
+	font-weight: 900;
+	color: #fff;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+}
+
+.incs .minus {
+
+}
+
+.incs .plus {
+	right: 0;
 }
 
 .prod-day:hover button.to-cart,.prod-card:hover button.to-cart {
@@ -1009,6 +1108,19 @@ span.link a:hover {
 
 /* EXTENDS BOOTSTRAP */
 
+.popover.fade.in{
+	position: fixed;
+}
+
+.popover-title {
+	background: #fff;
+	font-family: Roboto, sans-serif;
+}
+
+.disabled {
+	display: none !important;
+}
+
 .modal-callback .modal-dialog, .modal-profile .modal-dialog {
 	max-width: 500px;
 }
@@ -1087,6 +1199,7 @@ span.link a:hover {
 .modal .modal-title.disabled {
 	color: inherit;
 	cursor: pointer;
+	display: inline-block !important;
 }
 
 .modal .modal-title.disabled::after{
@@ -1108,6 +1221,10 @@ span.link a:hover {
 	color: #222;
 	font-weight: 900;
 	line-height: 16px;
+}
+
+.modal-body .cart-body .nothing{
+	text-align: center;
 }
 
 .modal form input {
@@ -1375,7 +1492,7 @@ span.link a:hover {
 		margin-top: 3px;
 	}
 
-	button.call-me, button.login, button.cart {
+	button.call-me, button.login, button.cart, a.cart {
 		margin-left: 0;
 		padding: 2px 2px 2px 30px;
 		height: 34px;
@@ -1385,12 +1502,12 @@ span.link a:hover {
 		background-position: 8px center;
 	}
 
-	button.cart {
+	button.cart, a.cart {
 		width: 110px !important;
 		font-size: 11px !important;
 	}
 
-	button.cart .price-counter {
+	button.cart .price-counter, a.cart .price-counter  {
 		margin-left: 2px !important;
 	}
 
@@ -1444,7 +1561,7 @@ span.link a:hover {
 		margin-top: 4px;
 	}
 
-	button.cart {
+	button.cart, a.cart {
 		width: 120px !important;
 	}
 
@@ -1473,11 +1590,11 @@ span.link a:hover {
 		margin-top: 10px !important;
 	}
 
-	.btn-wide, button.cart {
+	.btn-wide, button.cart, a.cart {
 		width: 90px !important;
 	}
 
-	button.cart {
+	button.cart, a.cart {
 		background-position: 8px center !important;
 	}
 
@@ -1607,13 +1724,13 @@ span.link a:hover {
 		line-height: 22px !important;
 	}
 
-	button.cart {
+	button.cart, a.cart {
 		padding: 0 10px 0 30px !important;
 		line-height: 12px !important;
 		font-size: 10px !important;
 	}
 
-	button.call-me:active, button.login:active, button.cart:active{
+	button.call-me:active, button.login:active, button.cart:active, a.cart:active{
 		margin-top: 6px !important;
 		margin-bottom: 4px !important;
 	}
@@ -1661,8 +1778,8 @@ span.link a:hover {
 	}
 
 	.prod-day .prod-day-img{
-		width: 260px;
-		height: 170px;
+		width: calc(100% - 20px);
+		/* height: 170px; */
 	}
 
 	.col-xxs-1 {
