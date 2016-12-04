@@ -45,7 +45,8 @@ class Controller_Main extends Controller
 			'footer_view.php', // футер
 			array( // модальные окна
 					 'modal_callback_view.php',
-					 'modal_profile_view.php'
+					 'modal_profile_view.php',
+					 'modal_cart_view.php'
 					 )
 			);
 		return 0;
