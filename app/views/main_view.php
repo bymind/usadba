@@ -51,7 +51,7 @@
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-new prod-theme">
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -65,7 +65,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -79,7 +79,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -93,7 +93,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -107,7 +107,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -121,7 +121,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -135,7 +135,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -149,7 +149,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -163,7 +163,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="new"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -187,7 +187,7 @@
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -201,7 +201,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -215,7 +215,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -229,7 +229,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -243,7 +243,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -257,7 +257,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -271,7 +271,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -285,7 +285,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
@@ -299,7 +299,7 @@
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
-					<div class="prod-card shadow br-2">
+					<div data-art="1232" class="prod-card shadow br-2">
 						<div class="prod-img box-img display labeled" data-imgname="rozan" data-label="popular"><a href="/catalog/vipechka/sladkaya-vipechka/rozanchik-64g" class="prod-link" title="Розанчик с яблоком 64г"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
