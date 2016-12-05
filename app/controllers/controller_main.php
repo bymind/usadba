@@ -13,6 +13,7 @@ class Controller_Main extends Controller
 	{
 		$pageDataController = $this->model->getData('main_page');
 		$pageDataProd = $this->model->getData('prods');
+		$pageSales = $this->model->getData('sales');
 		$this->view->generate(
 			'main_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -43,6 +44,7 @@ class Controller_Main extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'],
 					'prodCats' => $pageDataProd['prodCats'],
+					'pageSales' => $pageSales['sales'],
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер

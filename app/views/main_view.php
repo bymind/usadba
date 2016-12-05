@@ -52,7 +52,7 @@
 
 									<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2">
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-											<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
+											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 										</div>
 										<div class="prod-name"><a href="<?= $prod['url']?>"><?= $prod['name']?></a></div>
 										<div class="prod-details"><?= $prod['mini_desc']?></div>
@@ -88,7 +88,7 @@
 
 									<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2">
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-											<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
+											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 										</div>
 										<div class="prod-name"><a href="<?= $prod['url']?>"><?= $prod['name']?></a></div>
 										<div class="prod-details"><?= $prod['mini_desc']?></div>

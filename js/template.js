@@ -13,6 +13,8 @@ $(function()
 	ToCart();
 	ConstructCart();
 	InitPopover();
+
+	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000, "hide": 100 }});
 });
 
 /*
@@ -221,18 +223,24 @@ countElse = $('.else-li').length;
 function MenuClickInit()
 {
 	// обработка нажатия на раскрывающийся пункт
-	$(document).on('click', '.pclick', function(event) {
+/*	$(document).on('click', '.pclick', function(event) {
 		event.preventDefault();
 		return false;
-	});
+	});*/
 	// триггерирование стрелки
 	$(document).on('click', '.arrow', function(event) {
 		event.preventDefault();
 		$(this).toggleClass('active');
 		$(this).parent('li').toggleClass('active');
 		$(this).children('ul.else-ul').toggleClass('hide-else-ul');
+		$(this).parent('li').children('ul.side-sub-menu').toggleClass('opened');
 	});
 
+	// обработка нажатия на раскрывающийся пункт в боковом меню
+	// $(document).on('click', '.side-menu li.pclick', function(event) {
+	// 	event.preventDefault();
+	// 	console.log($(this));
+	// });
 
 	return 0;
 }

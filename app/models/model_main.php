@@ -19,6 +19,22 @@ class Model_Main extends Model
 				$pageDataModel['title'] = "Доставка продуктов и блюд на дом.";
 				break;
 
+			case 'sales':
+				$nowTime = time();
+				$dataSales = array();
+				$q = mysql_query("SELECT * FROM sales");
+				while ( $buf = mysql_fetch_assoc($q)) {
+					$endTime = strtotime($buf['end_time']);
+					if ($endTime > $nowTime) {
+						$dataSales[] = $buf;
+					}
+				}
+				$pageDataModel['sales'] = $dataSales;
+				/*echo "<pre>";
+				var_dump($dataSales);
+				echo "</pre>";*/
+				break;
+
 			case 'prods':
 				$prod_new = array();
 				$prod_popular = array();
@@ -54,9 +70,6 @@ class Model_Main extends Model
 				}
 				$prod_cats = Model::createCatUrl($prod_cats);
 				$prod_cats = Model::createCatTree($prod_cats);
-				/*echo "<pre>";
-				var_dump($prod_cats['tree']);
-				echo "</pre>";*/
 				$pageDataModel['prodCats'] = $prod_cats;
 				break;
 

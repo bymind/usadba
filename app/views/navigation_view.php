@@ -39,18 +39,6 @@
 	}
 
 ?>
-
-
-<!--
-			<li class="sub-li item-li"><a href="/catalog/vipechka">Выпечка</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/vipechka/sladkaya-vipechka">Сладкая выпечка</a></li>
-			 <li class="sub-sub-li"><a href="/catalog/vipechka/sitnaya-vipechka">Сытная выпечка</a></li></ul></li>
-			</div>
-			<div class="col-xs-6">
-				<li class="sub-li item-li"><a href="/catalog/kulinariya">Кулинария</a></li>
-				<li class="sub-li item-li"><a href="/catalog/konditerskie-isdeliya">Кондитерские изделия</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/torti">Торты</a></li>
-				<li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/pirozhnie">Пирожные</a></li>
-				<li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/ekleri">Эклеры</a></li></ul></li>
-			</div> -->
 		</div>
 	</ul>
 	</li>
