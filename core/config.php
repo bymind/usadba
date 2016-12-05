@@ -4,9 +4,9 @@
 
 //$dbHost='a103460.mysql.mchost.ru';
 $dbHost='localhost';
-$dbName='a103460_macfix';
-$dbUser='a103460_macfix';
-$dbPass='qwer-1234';
+$dbName='usadba';
+$dbUser='localhost';
+$dbPass='';
 
 // DB connection
 $db = mysql_connect($dbHost,$dbUser,$dbPass);

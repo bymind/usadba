@@ -5,7 +5,7 @@ $(function()
 	MenuClickInit();
 	LikesInit();
 	ImgLabels();
-	ProdDay();
+	// ProdDay();
 	ProdImg();
 	BtnClickInit();
 	InitInputMask();
@@ -280,7 +280,7 @@ function ProdDay()
 	var prodsImg = $('.prod-day-img');
 	for (var i = 0; i< prodsImg.length; i++) {
 		var curProdImg = prodsImg.eq(i);
-		var imgName = 'img/'+curProdImg.data('imgname')+'.jpg';
+		var imgName = curProdImg.data('imgname');
 		curProdImg.css('background-image', 'url('+imgName+')');
 	}
 	// ImgAdapt();
@@ -297,7 +297,7 @@ function ProdImg()
 	var prodsImg = $('.prod-img');
 	for (var i = 0; i< prodsImg.length; i++) {
 		var curProdImg = prodsImg.eq(i);
-		var imgName = 'img/'+curProdImg.data('imgname')+'.jpg';
+		var imgName = curProdImg.data('imgname');
 		curProdImg.css('background-image', 'url('+imgName+')');
 	}
 	return 0;

@@ -6,7 +6,7 @@
 
 	/**
 	* Route
-	* 
+	*
 	* Класс-маршрутизатор для определения запрашиваемой страницы.
 	* > цепляет классы контроллеров и моделей;
 	* > создает экземпляры контролеров страниц и вызывает действия этих контроллеров.
@@ -22,12 +22,12 @@
 class Route
 {
 	/**
-	* Константы 
+	* Константы
 	*/
 
 	// Адрес папки с контроллерами
 	const CONTROLLERS_PATH = "app/controllers/";
-	
+
 	// Адрес папки с моделями
 	const MODELS_PATH = "app/models/";
 
@@ -41,8 +41,12 @@ class Route
 	{
 		$class_file = strtolower($class).'.php';
 		$class_path = self::CONTROLLERS_PATH.$class_file;
-		
-		include $class_path;
+
+		if (file_exists($class_path)) {
+			include $class_path;
+		} else {
+			echo "Контроллер $class_path не найден!";
+		}
 	}
 
 
@@ -60,6 +64,7 @@ class Route
 		{
 			include $model_path;
 		} else {
+			echo "Модуль $model_path не найден!";
 		}
 
 	}
@@ -71,7 +76,7 @@ class Route
 	public static function start()
 	{
 		session_start();
-		
+
 		/**
 		*	дербаним url на куски
 		*/
@@ -99,7 +104,7 @@ class Route
 		if (strtolower($routes[1])=='main') {
 			self::Catch_Error('404');
 		}
-		
+
 		$controller_name = $routes[1];
 		$controller_name = Self::PrepareUrl($controller_name);
 
@@ -129,17 +134,21 @@ class Route
 		// префиксы для имен
 		$model_name = 'Model_'.$controller_name;
 		$controller_name = 'Controller_'.$controller_name;
-		$action_name = 'action_'.$action_name;
+		if (isset($action_name)) {
+			$action_name = 'action_'.$action_name;
+		} else {
+			$action_name = 'action_index';
+		}
 
 		// врубаем модель, если есть
 		self::loadModel($model_name);
-		self::Debug($controller_name, $action, $params);
 		// TODO: перенести подключение модели в контроллер
 
 		// та же херня с контроллером
 		// плюс ищем и выполняем экшен, если он есть
 		// если что-то не нашли - ебашим 404
 
+		$controller_path = self::CONTROLLERS_PATH. strtolower($controller_name).'.php';
 		if ( file_exists($controller_path) )
 		{
 			self::loadController($controller_name);
@@ -159,15 +168,17 @@ class Route
 						}
 					} else
 						{ // если не нашли экшен и нет параметра, пробуем пропихнуть в основной экшен с параметром, равном имени экшена
-								if ($param == "") {
+								/*if ($param == "") {
 									$param = $action_param;
 									$action = 'action_index';
 									$controller->$action($param);
-								}
+								}*/
+								echo "$action not found";
+								self::Catch_Error('404');
 						}
 		}
 		else {
-			// self::Debug($controller_name, $action, $params);
+			echo "$controller_path not found";
 			self::Catch_Error('404');
 		}
 	}
@@ -180,15 +191,15 @@ class Route
 	public function goMainPage()
 	{
 		self::loadModel('Model_Main');
-		
+
 		$controller_name = "Controller_main";
-		
+
 		self::loadController($controller_name);
 		$controller = new $controller_name;
-		
+
 		$action = "action_index";
 		$controller->$action();
-		
+
 	}
 
 
@@ -212,8 +223,12 @@ class Route
 	{
 		// создаем контроллер ошибки
 		$controller_error_name = 'controller_error_'.$code;
-
 		self::loadController($controller_error_name);
+
+		// подключаем модель
+		$model_error_name = 'model_error_'.$code;
+		self::loadModel($model_error_name);
+
 		$error_controller = new $controller_error_name;
 		$error_action = 'action_index';
 		$error_code = $code;

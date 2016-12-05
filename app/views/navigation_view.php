@@ -5,22 +5,58 @@
 				<div class="hidden-xxs col-xs-7 col-sm-8 p-0"><!--
 				 --><ul class="menu_text_units"><!--
 					 --><li class="show-li item-li"><a class="arrow pclick" href="/catalog">Каталог</a><ul class="sub-menu"><!--
-					 --><div class="row"><div class="col-xs-6"><li class="sub-li item-li"><a href="/catalog/polufabrikati">Полуфабрикаты</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/polufabrikati/pelmeni">Пельмени</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/polufabrikati/kotleti-kolbaski">Котлеты, колбаски</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/polufabrikati/blinchiki">Блинчики</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/polufabrikati/vareniki">Вареники</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/polufabrikati/testo">Тесто</a></li></ul></li><!--
-						 --><li class="sub-li item-li"><a href="/catalog/vipechka">Выпечка</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/vipechka/sladkaya-vipechka">Сладкая выпечка</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/vipechka/sitnaya-vipechka">Сытная выпечка</a></li></ul></li>
-					 </div>
-					 <div class="col-xs-6"><!--
-					 --><li class="sub-li item-li"><a href="/catalog/kulinariya">Кулинария</a></li><!--
-					 --><li class="sub-li item-li"><a href="/catalog/konditerskie-isdeliya">Кондитерские изделия</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/torti">Торты</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/pirozhnie">Пирожные</a></li><!--
-						  --><li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/ekleri">Эклеры</a></li></ul></li><!--
-				 --></div></div></ul><!--
-				  --></li><!--
-					--><li class="show-li item-li"><a href="/sales">Акции</a></li><!--
+					 --><div class="row"><div class="col-xs-6">
+
+<?php
+
+	foreach ($prodCats['tree'] as $cat) {
+?>
+
+	<li class="sub-li item-li">
+		<a href="<?= $cat['url']?>"><?= $cat['name']?></a>
+
+<?php
+	if ( isset($cat['child']) ) {
+		?>
+		<ul class="sub-sub-menu">
+		<?php
+		foreach ($cat['child'] as $child) {
+?>
+			<li class="sub-sub-li">
+				<a href="<?= $child['url']?>"><?= $child['name']?></a>
+			</li>
+<?php
+		}
+	?>
+		</ul>
+	<?php
+	}
+?>
+
+	</li>
+
+<?php
+	}
+
+?>
+
+
+<!--
+			<li class="sub-li item-li"><a href="/catalog/vipechka">Выпечка</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/vipechka/sladkaya-vipechka">Сладкая выпечка</a></li>
+			 <li class="sub-sub-li"><a href="/catalog/vipechka/sitnaya-vipechka">Сытная выпечка</a></li></ul></li>
+			</div>
+			<div class="col-xs-6">
+				<li class="sub-li item-li"><a href="/catalog/kulinariya">Кулинария</a></li>
+				<li class="sub-li item-li"><a href="/catalog/konditerskie-isdeliya">Кондитерские изделия</a><ul class="sub-sub-menu"><li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/torti">Торты</a></li>
+				<li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/pirozhnie">Пирожные</a></li>
+				<li class="sub-sub-li"><a href="/catalog/konditerskie-isdeliya/ekleri">Эклеры</a></li></ul></li>
+			</div> -->
+		</div>
+	</ul>
+	</li>
+
+
+				  <li class="show-li item-li"><a href="/sales">Акции</a></li><!--
 					--><li class="show-li item-li"><a href="/news">Новости</a></li><!--
 					--><li class="show-li item-li"><a href="/delivery">Доставка</a></li><!--
 					--><li class="show-li item-li"><a href="/payment">Оплата</a></li><!--

@@ -2,6 +2,9 @@
 	// header("X-Frame-Options: SAMEORIGIN");
 	$dates=gmdate("D, d M Y H:i:s", time()+3600) . " GMT";
 	header("Expires: " . $dates);
+	if ($php_header) {
+		header($php_header);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

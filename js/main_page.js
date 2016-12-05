@@ -8,7 +8,7 @@ $(function() {
 	$(window).resize(function(event) {
 		InitOwlCarousel();
 	});
-	CatImageInit();
+	// CatImageInit();
 });
 
 
@@ -36,9 +36,9 @@ function InitOwlCarousel() {
 	for (var i = $('#sales-carousel .item').length - 1; i >= 0; i--) {
 		curItem = $('#sales-carousel .item:eq('+i+') a');
 		if (deviceW <= 600) {
-			jpgName = "img/sales/" + curItem.data('saleid') + "-min.jpg";
+			jpgName = "/img/sales/" + curItem.data('saleid') + "-min.jpg";
 		} else {
-			jpgName = "img/sales/" + curItem.data('saleid') + ".jpg";
+			jpgName = "/img/sales/" + curItem.data('saleid') + ".jpg";
 		}
 		curItem.css({
 			'background-image': 'url('+jpgName+')'
@@ -125,7 +125,7 @@ function CatImageInit(){
 	catIds = $('.main-cat');
 	for (var i = catIds.length - 1; i >= 0; i--) {
 		var curCat = catIds.eq(i);
-		var imageName = 'img/cat/'+curCat.data('catid')+'.jpg';
+		var imageName = '/img/cat/'+curCat.data('catid')+'.jpg';
 		curCat.css('background-image', 'url('+imageName+')');
 	}
 	return 0;

@@ -12,6 +12,7 @@ class Controller_Main extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('main_page');
+		$pageDataProd = $this->model->getData('prods');
 		$this->view->generate(
 			'main_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -26,9 +27,9 @@ class Controller_Main extends Controller
 																	),
 					'scripts_content'=> array(
 																		// 'js/prefixfree/prefixfree.min.js',
-																		'js/magic-mask/jq.magic-mask.min.js',
-																		'js/main_page.js',
-																		'js/owl-carousel/owl.carousel.min.js',
+																		'/js/magic-mask/jq.magic-mask.min.js',
+																		'/js/main_page.js',
+																		'/js/owl-carousel/owl.carousel.min.js',
 																		'/js/template.js'
 																		),
 					'active_menu' => 'menu-item-1',
@@ -39,7 +40,9 @@ class Controller_Main extends Controller
 														'app/views/side_menu_view.php',
 														'app/views/side_prod_of_day_view.php',
 														'app/views/side_news_view.php',
-														)
+														),
+					'prodItems' => $pageDataProd['prodItems'],
+					'prodCats' => $pageDataProd['prodCats'],
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер
