@@ -236,6 +236,16 @@ function MenuClickInit()
 		$(this).parent('li').children('ul.side-sub-menu').toggleClass('opened');
 	});
 
+	// 	$(document).on('click', function(event){
+	// 		if ( $('ul.menu_text_units li.item-li.active').length > 0 ) {
+	// 			console.log('Close!');
+	// 	    if ($(event.target).is("ul.sub-menu")) return;
+	// 	    $("ul.sub-menu").parent().removeClass('active');
+	// 	    $("ul.sub-menu").parent().find('a').removeClass('active');
+	// 	    event.stopPropagation();
+	// 	  }
+	// });
+
 	// обработка нажатия на раскрывающийся пункт в боковом меню
 	// $(document).on('click', '.side-menu li.pclick', function(event) {
 	// 	event.preventDefault();

@@ -56,12 +56,12 @@ class Model
 		}
 		unset($cat);
 
-	/*	echo "<pre>";
-		var_dump($catArr['tree']);
-		echo "</pre>";*/
 		foreach ($catArr as &$cat) {
 			if ($cat['parent'] > 0) {
 				$parent_tech_name = $catArr[$cat['parent']]['tech_name'];
+				/*echo "<pre>";
+				var_dump($parent_tech_name);
+				echo "</pre>";*/
 				if (!isset($catArr['tree'][$parent_tech_name]['child'])) {
 					$catArr['tree'][$parent_tech_name]['child'] =[];
 				}
@@ -70,9 +70,9 @@ class Model
 		}
 		unset($cat);
 
-		// echo "<pre>";
-		// var_dump($catArr['tree']);
-		// echo "</pre>";
+		/*echo "<pre>";
+		var_dump($catArr['tree']);
+		echo "</pre>";*/
 
 		return $catArr;
 	}

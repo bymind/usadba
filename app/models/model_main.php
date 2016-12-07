@@ -66,7 +66,7 @@ class Model_Main extends Model
 				$prod_cats = array();
 				$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
-					$prod_cats[] = $buf;
+					$prod_cats[$buf['id']] = $buf;
 				}
 				$prod_cats = Model::createCatUrl($prod_cats);
 				$prod_cats = Model::createCatTree($prod_cats);

@@ -5,10 +5,13 @@
 				<div class="hidden-xxs col-xs-7 col-sm-8 p-0"><!--
 				 --><ul class="menu_text_units"><!--
 					 --><li class="show-li item-li"><a class="arrow pclick" href="/catalog">Каталог</a><ul class="sub-menu"><!--
-					 --><div class="row"><div class="col-xs-6">
+					 -->
+					<div class="container-fluid">
+						<div class="row">
+							<div class="menu-box">
 
 <?php
-
+	$i = 1;
 	foreach ($prodCats['tree'] as $cat) {
 ?>
 
@@ -36,10 +39,18 @@
 	</li>
 
 <?php
+		if ($i % 3 == 0) {
+			?>
+			</div><div class="menu-box">
+			<?php
+		}
+		$i++;
 	}
 
 ?>
-		</div>
+							</div>
+						</div>
+					</div>
 	</ul>
 	</li>
 
