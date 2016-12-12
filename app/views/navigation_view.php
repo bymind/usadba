@@ -4,7 +4,7 @@
 			<nav class="main_menu mb-20">
 				<div class="hidden-xxs col-xs-7 col-sm-8 p-0"><!--
 				 --><ul class="menu_text_units"><!--
-					 --><li class="show-li item-li"><a class="arrow pclick" href="/catalog">Каталог</a><ul class="sub-menu"><!--
+					 --><li class="show-li item-li <?php if ($pageId=='catalog') {echo 'active_menu';}?> "><a class="arrow pclick <?php if ($pageId=='catalog') {echo 'active_menu';}?>" href="/catalog" data-tname="catalog">Каталог</a><ul class="sub-menu"><!--
 					 -->
 					<div class="container-fluid">
 						<div class="row">
@@ -54,15 +54,18 @@
 	</ul>
 	</li>
 
+<?php
 
-				  <li class="show-li item-li"><a href="/sales">Акции</a></li><!--
-					--><li class="show-li item-li"><a href="/news">Новости</a></li><!--
-					--><li class="show-li item-li"><a href="/delivery">Доставка</a></li><!--
-					--><li class="show-li item-li"><a href="/payment">Оплата</a></li><!--
-					--><li class="show-li item-li"><a href="/about">О нас</a></li><!--
-					--><li class="show-li item-li"><a href="/reviews">Отзывы</a></li><!--
-					--><li class="hide-li-else else"><a class="arrow pclick" href="/#else">Еще</a><ul class="else-ul sub-menu"></ul></li><!--
-					 --></ul>
+	foreach ($menuItems as $menuItem) {
+		$classItem = "";
+		if ($menuItem['tech_name']==$pageId) {
+			$classItem = "active_menu";
+		}
+		?><li class="show-li item-li <?php echo $classItem ?>"><a data-tname="<?php echo $menuItem['tech_name'] ?>" href="<?php echo $menuItem['url'] ?>" class="<?php echo $classItem ?>"><?php echo $menuItem['name'] ?></a></li><!--
+				--><?php
+	}
+
+?><li class="hide-li-else else"><a class="arrow pclick" href="/#else">Еще</a><ul class="else-ul sub-menu"></ul></li></ul>
 				</div>
 				<div class="col-xxs-12 col-xs-5 col-sm-4 p-0"><!--
 					 --><ul class="menu_text_units" style="display: block;"><!--

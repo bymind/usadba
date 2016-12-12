@@ -30,7 +30,7 @@
 					</span>
 				</button><button class="btn-wide col-xxs-4 login" data-target="modal" data-targetindex="profile">
 					Личный <br class="visible-xs">кабинет
-				</button><button class="btn-wide col-xxs-4 call-me visible-xxs" data-target="modal" data-targetindex="callback">
+				</button><button class="btn-wide col-xxs-4 call-me" data-target="modal" data-targetindex="callback">
 					<span class="hidden-xs">Заказать<br></span>обратный <br class="visible-xs">звонок
 				</button>
 			</div>

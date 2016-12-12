@@ -14,7 +14,7 @@
 	<?php include $Favicon; ?>
 
 	<!-- <meta name="yandex-verification" content="7977f67a872b193c" /> -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $Description; ?>">
 	<meta property="og:description" content="<?php echo $Description; ?>">
 	<meta property="og:image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
