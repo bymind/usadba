@@ -8,6 +8,11 @@
 	box-sizing: border-box;
 }
 
+html {
+	-ms-touch-action: manipulation;
+	    touch-action: manipulation;
+}
+
 /* PRIMARY */
 
 html, body {
@@ -342,8 +347,7 @@ nav {
 	transition: background .2s ease-in-out;
 }
 
-.main_menu ul.menu_text_units>li.active>a {
-	/* border-bottom: 2px solid #c63838; */
+.main_menu ul.menu_text_units>li.active>a,.main_menu ul.menu_text_units>li.active_menu>a {
 	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 96%,#c63838 97%, #c63838 100%);
 }
 
@@ -421,7 +425,7 @@ li.active ul.sub-menu {
 }
 
 .menu-box {
-	display: inline-block;
+	display: table-cell;
 	position: relative;
 	vertical-align: top;
 	margin-right: 10px;
@@ -473,6 +477,8 @@ ul.side-menu>li>a{
 	text-decoration: none;
 }
 
+
+
 ul.side-menu>li:last-of-type>a{
 	border-bottom: 0;
 }
@@ -498,6 +504,10 @@ ul.side-menu li.active a.arrow::after{
 	-webkit-transform: rotateX(181deg);
 					transform: rotateX(181deg);
 	top: 16px;
+}
+
+ul.side-menu>li>a.active_menu {
+	color: #c63838;
 }
 
 ul.side-sub-menu {
@@ -1792,6 +1802,10 @@ span.link a:hover {
 		padding: 0 10px 0 30px !important;
 		line-height: 12px !important;
 		font-size: 10px !important;
+	}
+
+	button.call-me {
+		display: block;
 	}
 
 	button.call-me:active, button.login:active, button.cart:active, a.cart:active{

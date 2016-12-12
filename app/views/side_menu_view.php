@@ -8,12 +8,12 @@
 	foreach ($prodCats['tree'] as $cat) {
 
 ?>
-	<li><a href="<?= $cat['url']?>"
+	<li class="<?php if ($cat['tech_name']==$catId) {echo 'active';}?>"><a href="<?= $cat['url']?>"
 
 <?php
 	if ( isset($cat['child']) ) {
 		?>
-		class="arrow arr pclick"
+		class="arrow arr pclick <?php if ($cat['tech_name']==$catId) {echo 'active_menu active';}?> "
 		<?php
 	}
 ?>
@@ -22,7 +22,7 @@
 <?php
 	if ( isset($cat['child']) ) {
 	?>
-	<ul class="side-sub-menu">
+	<ul class="side-sub-menu <?php if ($cat['tech_name']==$catId) {echo 'opened';}?> ">
 		<?php
 			foreach ($cat['child'] as $child) {
 				?>

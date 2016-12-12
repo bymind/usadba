@@ -135,6 +135,7 @@ class Route
 		$model_name = 'Model_'.$controller_name;
 		$controller_name = 'Controller_'.$controller_name;
 		if (isset($action_name)) {
+			$action_param = $action_name;
 			$action_name = 'action_'.$action_name;
 		} else {
 			$action_name = 'action_index';
@@ -167,14 +168,34 @@ class Route
 							$controller->$action($param);
 						}
 					} else
-						{ // если не нашли экшен и нет параметра, пробуем пропихнуть в основной экшен с параметром, равном имени экшена
-								/*if ($param == "") {
+						{ // если не нашли экшен и нет параметра, пробуем пропихнуть в специальный экшен с параметром, равном имени экшена
+								if ($param == "") {
 									$param = $action_param;
-									$action = 'action_index';
-									$controller->$action($param);
-								}*/
-								echo "$action not found";
-								self::Catch_Error('404');
+									$action_first = $action_name;
+									$action = 'action_param';
+									// echo "$action($param);";
+									if (method_exists($controller, $action))
+										{
+											$controller->$action($param);
+										}else {
+											self::Catch_Error('404');
+										}
+								} else
+									if (isset($param)) {
+										$params = [];
+										$params['name'] = $action_param;
+										$params['value'] = $param;
+										$action = 'action_param';
+										if (method_exists($controller, $action))
+											{
+												$controller->$action($params);
+											}else {
+												self::Catch_Error('404');
+											}
+									}
+								 else {
+									self::Catch_Error('404');
+								}
 						}
 		}
 		else {
