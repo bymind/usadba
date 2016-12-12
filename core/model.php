@@ -12,6 +12,16 @@ class Model
 		return $ds;
 	}
 
+	public function get_MainMenu($pageId)
+	{
+		$select = mysql_query("SELECT * FROM main_menu WHERE display = 1 ORDER BY position")or die(mysql_error());
+		while ($buf = mysql_fetch_assoc($select)) {
+			$ds[] = $buf;
+		}
+
+		return $ds;
+	}
+
 	function createProdUrl($prodArr)
 	{
 		$q = mysql_query("SELECT * FROM prod_cat");
@@ -49,6 +59,7 @@ class Model
 
 	function createCatTree($catArr)
 	{
+		$catArr['cats'] = $catArr;
 		foreach ($catArr as &$cat) {
 			if ($cat['parent'] == "0") {
 				$catArr['tree'][$cat['tech_name']]=$cat;
@@ -101,5 +112,6 @@ class Model
 		unset($prod);
 		return $prodArr;
 	}
+
 
 }

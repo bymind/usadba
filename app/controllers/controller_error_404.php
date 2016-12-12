@@ -12,6 +12,7 @@ class Controller_Error_404 extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('error_404');
+		$menuItems = $this->model->get_MainMenu('catalog');
 		$this->view->generate(
 			'errors/error_404_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -40,7 +41,8 @@ class Controller_Error_404 extends Controller
 														'app/views/side_menu_view.php',
 														'app/views/side_prod_of_day_view.php',
 														'app/views/side_news_view.php',
-														)
+														),
+					'menuItems' => $menuItems,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер

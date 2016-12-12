@@ -14,6 +14,10 @@ class Controller_Main extends Controller
 		$pageDataController = $this->model->getData('main_page');
 		$pageDataProd = $this->model->getData('prods');
 		$pageSales = $this->model->getData('sales');
+		$menuItems = $this->model->get_MainMenu('catalog');
+			// echo "<pre>";
+			// var_dump($pageSales);
+			// echo "</pre>";
 		$this->view->generate(
 			'main_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -45,6 +49,7 @@ class Controller_Main extends Controller
 					'prodItems' => $pageDataProd['prodItems'],
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
+					'menuItems' => $menuItems,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер
