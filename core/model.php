@@ -25,6 +25,11 @@ class Model
 
 	function createProdUrl($prodArr)
 	{
+
+		if (!$prodArr) {
+			return false;
+		}
+
 		$q = mysql_query("SELECT * FROM prod_cat");
 		$prod_cat = array();
 		while ($buf = mysql_fetch_assoc($q)) {
@@ -91,6 +96,11 @@ class Model
 
 	function createInStock($prodArr)
 	{
+
+		if (!$prodArr) {
+			return false;
+		}
+
 		foreach ($prodArr as &$prod) {
 			switch ($prod['in_stock']) {
 				case '0':

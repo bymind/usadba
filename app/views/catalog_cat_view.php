@@ -33,10 +33,16 @@
 				</div>
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
-				<div class="prod-line-outer prod-new prod-theme">
 
 <?php
-	foreach ($prodCatItems as $prod) {
+
+	if (!$prodCatItems){
+		echo "<div><h3>Тут ничего нет</h3></div>";
+	} else {
+		?>
+			<div class="prod-line-outer prod-new prod-theme">
+		<?php
+		foreach ($prodCatItems as $prod) {
 ?>
 
 
@@ -57,10 +63,13 @@
 					</div>
 
 <?php
+		}
+		?>
+				</div>
+		<?php
 	}
 ?>
 
-				</div>
 			</div>
 
 <?php
