@@ -76,6 +76,7 @@ class Controller_Catalog extends Controller
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
 		$pageDataCat = $this->model->getCategoryData($param);
+		$breadCrumbs = $this->model->getCrumbs($pageDataProd['prodCats']['tree'],$pageDataCat['cat']);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		// echo "<pre>";
@@ -115,6 +116,8 @@ class Controller_Catalog extends Controller
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
+					'breads' => true,
+					'breadsData' => $breadCrumbs,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер

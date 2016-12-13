@@ -35,9 +35,17 @@ class View
 		// файл с настройками favicon и других иконок
 		$Favicon = 'app/views/favicons.php';
 
+		$breads = false;
+
 		if (is_array($data))
 		{
 			extract($data);
+		}
+
+		if ($breads) {
+			$BreadCrumbs = 'app/views/breads_view.php';
+		} else {
+			$BreadCrumbs = false;
 		}
 
 		$Navigation = 'app/views/'.$navigation_view;

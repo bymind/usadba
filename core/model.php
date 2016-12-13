@@ -1,5 +1,6 @@
 <?php
 
+
 class Model
 {
 
@@ -81,9 +82,9 @@ class Model
 		}
 		unset($cat);
 
-		/*echo "<pre>";
-		var_dump($catArr['tree']);
-		echo "</pre>";*/
+		// echo "<pre>";
+		// var_dump($catArr['tree']);
+		// echo "</pre>";
 
 		return $catArr;
 	}

@@ -50,6 +50,8 @@
 	<?php include $HeadLine; ?>
 	<?php include $Navigation; ?>
 
+	<?php if ($BreadCrumbs) include $BreadCrumbs; ?>
+
 		<div id="content">
 			<?php include $Content; ?>
 		</div>

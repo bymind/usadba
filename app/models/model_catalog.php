@@ -83,7 +83,12 @@ class Model_Catalog extends Model
 		return $pageDataModel;
 	}
 
-
+	/**
+	* getCategoryData($catName)
+	* Инфа про категорию
+	* @param $catName
+	* @return $products
+	*/
 	function getCategoryData($catName)
 	{
 		$category = $catName;
@@ -107,9 +112,35 @@ class Model_Catalog extends Model
 		$products['populars'] = Model::createProdUrl($products['populars']);
 		$products['populars'] = Model::createInStock($products['populars']);
 
-
-
 	return $products;
+	}
+
+
+
+	/**
+	* getCrumbs($tree, $cat)
+	* генерирование данных для хлебныйх крошек
+	* @param $tree дерево категорий
+	* @param $cat категория
+	* @return $crumbs
+	*/
+	function getCrumbs($tree, $cat)
+	{
+		$crumbs = array('Каталог' => '/catalog'); // первый элемент - каталог
+		foreach ($tree as $key => $value) { // идем по категориям
+			if ($key == $cat['tech_name']) { // если нашли категорию - записываем
+				$crumbs[$value['name']] = $value['url'];
+				break; // и выходим
+			} else if ($value['child']) { // если есть дети
+							foreach ($value['child'] as $child) { // идем в детей
+								if ($child['tech_name'] == $cat['tech_name']) { //если нашли в детях
+									$crumbs[$value['name']] = $value['tech_name']; // записываем маму
+									$crumbs[$child['name']] = $child['url']; // записываем дитё
+								}
+							}
+			}
+		}
+		return $crumbs;
 	}
 
 }

@@ -1,8 +1,9 @@
 <?php
 
+
 	/**
 	* Controller
-	* 
+	*
 	* Родительский класс контролллеров
 	*/
 
@@ -13,9 +14,9 @@ class Controller
 
 	/**
 	* __construct
-	* 
+	*
 	* конструктор, в котором создаем привязку к модели и представлениям
-	* 
+	*
 	* @return 0
 	*/
 
@@ -28,9 +29,9 @@ class Controller
 
 	/**
 	* is_logged
-	* 
+	*
 	* проверяет, залогинен ли посетитель
-	* 
+	*
 	* @return bool
 	*/
 
@@ -45,11 +46,18 @@ class Controller
 		}
 	}
 
+	function dump($var)
+	{
+		echo "<pre>";
+		var_dump($var);
+		echo "</pre>";
+	}
+
 	/**
 	* backDay
-	* 
+	*
 	* меняет время на "вчера" или "сегодня", если возможно
-	* 
+	*
 	* @param string $timeStamp метка времени
 	* @param string $postDay день поста
 	* @return string $postDay
@@ -74,9 +82,9 @@ class Controller
 
 	/**
 	* getGoodDate
-	* 
+	*
 	* меняет метку времения на "вчера" или "сегодня", или на дату
-	* 
+	*
 	* @param string $timeStamp метка времени
 	* @param string $format формат (default | compact)
 	* @return string $newTimeStamp
@@ -112,9 +120,9 @@ class Controller
 
 	/**
 	* goLogin
-	* 
+	*
 	* процедура входа
-	* 
+	*
 	* @param string $redirect редирект после логина
 	* @return bool
 	*/
@@ -164,9 +172,9 @@ class Controller
 
 	/**
 	* logout
-	* 
+	*
 	* разлогинивание
-	* 
+	*
 	* @return 0
 	*/
 
