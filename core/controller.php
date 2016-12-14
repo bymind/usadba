@@ -53,6 +53,12 @@ class Controller
 		echo "</pre>";
 	}
 
+	function jsonConsole($var)
+	{
+		$jsonVar = json_encode($var);
+		echo "<script>console.info($jsonVar);</script>";
+	}
+
 	/**
 	* backDay
 	*
