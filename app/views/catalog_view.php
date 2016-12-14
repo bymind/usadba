@@ -20,7 +20,7 @@
 				if ($prodCat['parent'] == 0) {
 		?>
 
-					<div class="hidden-xxs col-xs-6 col-sm-3 mb-20">
+					<div class="col-xxs-6 col-xs-6 col-sm-3 mb-20 mb-xxs-10">
 						<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
 							<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
 							<div class="title-cat">
@@ -35,7 +35,7 @@
 		?>
 
 			<div class="col-xxs-12 col-xs-12 col-sm-9">
-				<div class="title-wide mb-10">
+				<div class="title-wide mb-10 mt-xxs-20">
 					Новинки
 				</div>
 			</div>

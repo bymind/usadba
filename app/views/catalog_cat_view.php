@@ -16,20 +16,35 @@
 		</div>
 
 			<div class="col-xxs-12 col-xs-12 col-sm-9">
-				<div class="title-wide mb-10">
+				<div class="title-wide mb-20">
 					<div class="sidecat prevcat">
-					<?php
-						echo $prodCat['prev']['name'];
-					?>
+						<a href="/catalog/<?php echo $prodCat['prev']['tech_name']; ?>" >
+							<?php
+								echo $prodCat['prev']['name'];
+							?>
+						</a>
 					</div>
 					<?php
 						echo $prodCat['name'];
 					?>
 					<div class="sidecat nextcat">
-					<?php
-						echo $prodCat['next']['name'];
-					?>
+						<a href="/catalog/<?php echo $prodCat['next']['tech_name']; ?>" >
+							<?php
+								echo $prodCat['next']['name'];
+							?>
+						</a>
 					</div>
+				</div>
+				<div class="subtitle subcats mb-20">
+
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if (!$curCatId) { echo "active"; }?>'>Все</a>
+					<!-- <a href="" class="subcat"></a>
+					<a href="" class="subcat"></a>
+					<a href="" class="subcat"></a>
+					<a href="" class="subcat"></a>
+					<a href="" class="subcat"></a> -->
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/new" class="subcat new">Новинки</a>
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/sales" class="subcat sales">Акции</a>
 				</div>
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
@@ -37,7 +52,7 @@
 <?php
 
 	if (!$prodCatItems){
-		echo "<div><h3>Тут ничего нет</h3></div>";
+		echo "<div><h3>Категория пуста</h3></div>";
 	} else {
 		?>
 			<div class="prod-line-outer prod-new prod-theme">

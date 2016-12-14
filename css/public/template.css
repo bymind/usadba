@@ -529,6 +529,10 @@ ul.side-sub-menu li{
 	min-height: auto;
 }
 
+li.side-sub-li.active {
+	background: #e0e0e0;
+}
+
 ul.side-sub-menu li a {
 	position: relative;
 	display: inline-block;
@@ -599,6 +603,10 @@ span.label.new{
 	transition: opacity .15s ease-in-out;
 }
 
+.crumbs .crumb:last-of-type a {
+	text-decoration: none;
+}
+
 .crumb a:hover {
 	opacity: 1;
 }
@@ -639,6 +647,88 @@ span.label.new{
 	font-size: 26px;
 	line-height: 26px;
 	text-align: center;
+}
+
+.sidecat {
+	position: absolute;
+	font-size: 13px;
+	display: inline-block;
+	margin: 0;
+	height: 20px;
+	line-height: 20px;
+}
+
+.sidecat a {
+	color: #222;
+	text-decoration: underline;
+	opacity: .5;
+	will-change: opacity;
+	transition: opacity .1s ease-in-out;
+}
+
+.sidecat a:hover {
+	opacity: .8;
+}
+
+.sidecat.prevcat{
+	left: 10px;
+}
+
+.sidecat.nextcat{
+	right: 10px;
+}
+
+.sidecat a::before {
+	content: "";
+	width: 10px;
+	height: 10px;
+	background: url(/img/arrd.svg) center center no-repeat;
+	background-size: 10px;
+	position: relative;
+	display: block;
+	top: 5px;
+}
+
+.sidecat.prevcat a::before {
+	float: left;
+	transform: rotateZ(90deg) rotateX(0deg);
+}
+
+.sidecat.nextcat a::before {
+	float: right;
+	transform:rotateZ(90deg) rotateX(180deg);
+}
+
+.subcats {
+	position: relative;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+a.subcat {
+	position: relative;
+	display: inline-block;
+	font-size: 14px;
+	color: #222;
+	text-decoration: none;
+	padding: 4px 10px;
+	border-radius: 4px;
+	border: 2px solid;
+	border-color: #fff;
+	margin: 0 5px;
+	line-height: 18px;
+	will-change: border-color;
+	transition: border-color .15s ease-in-out;
+}
+
+a.subcat:hover{
+	border-color: #c63838;
+}
+
+a.subcat.active {
+	color: #c63838;
+	border-color: #c63838;
 }
 
 .prod-line {

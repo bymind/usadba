@@ -17,7 +17,7 @@ class Model_Catalog extends Model
 		switch ($pageName) {
 			case 'catalog':
 				$pageDataModel['text'] = "Catalog Model";
-				$pageDataModel['title'] = "Каталог продукции.";
+				$pageDataModel['title'] = "Каталог продукции";
 				break;
 
 			case 'sales':
@@ -92,11 +92,45 @@ class Model_Catalog extends Model
 	function getCategoryData($catName)
 	{
 		$category = $catName;
+		// Controller::dump($category);
 		$q = mysql_query("SELECT * FROM prod_cat WHERE tech_name='$category'");
 		$categoryData = mysql_fetch_assoc($q);
 		unset($q);
 		$products = [];
 		$products['cat'] = $categoryData;
+		$pos = $products['cat']['position'];
+
+		if ($products['cat']['parent'] != 0) {
+			$q = mysql_query("SELECT * FROM prod_cat WHERE id='".$products['cat']['parent']."'");
+			$products['parent'] = mysql_fetch_assoc($q);
+			$pos = $products['parent']['position'];
+		}
+
+		$q = mysql_query("SELECT * FROM prod_cat WHERE parent=0");
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$products['parents_cats'][$buf['position']] = $buf;
+		}
+
+
+		for ($i= 1; $i <= count($products['parents_cats']); $i++) {
+
+			if ($pos == 1) {
+				$products['cat']['prev'] = $products['parents_cats'][ count($products['parents_cats']) ];
+				$products['cat']['next'] = $products['parents_cats'][ 2 ];
+			} else
+			if ($pos == count($products['parents_cats'])) {
+				$products['cat']['prev'] = $products['parents_cats'][ count($products['parents_cats']) - 1];
+				$products['cat']['next'] = $products['parents_cats'][1];
+			} else
+			if ($pos+1 == $products['parents_cats'][$i]['position']) {
+				$products['cat']['next'] = $products['parents_cats'][$i];
+			} else
+			if ($pos-1 == $products['parents_cats'][$i]['position']) {
+				$products['cat']['prev'] = $products['parents_cats'][$i];
+			}
+
+
+		}
 
 		$categoryId = $categoryData['id'];
 		$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
@@ -124,8 +158,9 @@ class Model_Catalog extends Model
 	* @param $cat категория
 	* @return $crumbs
 	*/
-	function getCrumbs($tree, $cat)
+	function getCrumbs($tree, $cat, $item = NULL)
 	{
+		if (!$item) {
 		$crumbs = array('Каталог' => '/catalog'); // первый элемент - каталог
 		foreach ($tree as $key => $value) { // идем по категориям
 			if ($key == $cat['tech_name']) { // если нашли категорию - записываем
@@ -134,11 +169,14 @@ class Model_Catalog extends Model
 			} else if ($value['child']) { // если есть дети
 							foreach ($value['child'] as $child) { // идем в детей
 								if ($child['tech_name'] == $cat['tech_name']) { //если нашли в детях
-									$crumbs[$value['name']] = $value['tech_name']; // записываем маму
+									$crumbs[$value['name']] = "/catalog/".$value['tech_name']; // записываем маму
 									$crumbs[$child['name']] = $child['url']; // записываем дитё
 								}
 							}
 			}
+		}
+		} else {
+			return "item page";
 		}
 		return $crumbs;
 	}

@@ -26,7 +26,7 @@
 		<?php
 			foreach ($cat['child'] as $child) {
 				?>
-				<li class="side-sub-li">
+				<li class="side-sub-li <?php if ($child['tech_name']==$curCatId) {echo 'active';}?>">
 					<a href="<?= $child['url']?>"><?= $child['name']?></a>
 				</li>
 				<?php
