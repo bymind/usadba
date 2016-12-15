@@ -46,33 +46,42 @@
 					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if (!$curCatId) { echo "active"; }?>'>Все</a>
 					<?php
 						if (!$curCatId) { $cat = $prodCat['tech_name']; } else {$cat = $catId; }
+						if ($prodCats['tree'][$cat]['child']) {
 						foreach ($prodCats['tree'][$cat]['child'] as $child) {
 							?>
 							<a href="<?php echo $child['url'] ?>" class="subcat <?php if (($curCatId)&&($curCatId == $child['tech_name'])) echo 'active'; ?> "><?php echo $child['name'] ?></a>
 							<?php
 						}
+						}
 
+						if ($prodCatItemsHasNew) {
+						?>
+						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/new" class="subcat new">Новинки</a>
+						<?php
+						}
+						if ($prodCatItemsHasSales) {
+						?>
+						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat sales">Акции</a>
+						<?php
+						}
 					?>
-					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/new" class="subcat new">Новинки</a>
-					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat sales">Акции</a>
 				</div>
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
 
 <?php
-
 	if (!$prodCatItems){
 		echo "<div><h3>Категория пуста</h3></div>";
 	} else {
 		?>
-			<div class="prod-line-outer prod-new prod-theme">
+			<div class="col-xs-11">
 		<?php
 		foreach ($prodCatItems as $prod) {
 ?>
 
 
-
-					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2">
+					<div class="col-xs-3">
+					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2 mb-20">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 						</div>
@@ -85,6 +94,7 @@
 							<div class="prod-rev zero">отзывов - <span class="rev">5</span></div>
 							<button class="to-cart">Купить</button>
 						</div>
+					</div>
 					</div>
 
 <?php
@@ -99,11 +109,23 @@
 
 <?php
 
-	if ($prodCat['show_popular']==1) {
+/*	if ($prodCat['parent']!=0) {
+		$parentCatId = $prodCat['parent'];
+		$parentCat = $prodCats[$parentCatId];
+		$popularCat = $parentCat;
+		$prodCatPopulars = $prodParentCatPopulars;
+	} else {
+		$popularCat = $prodCat;
+	}*/
+
+	if ($popularCat['show_popular']==1) {
+			if (!$prodCatPopulars){
+				echo "<div class='col-xxs-12 col-xs-12 col-sm-9'><h3>Нет популярных товаров в этой категории</h3></div>";
+			} else {
 	?>
 			<div class=" col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-10">
-					<?php echo $prodCat['popular_name'] ?>
+					<?php echo $popularCat['popular_name'] ?>
 				</div>
 			</div>
 
@@ -140,6 +162,7 @@
 
 	<?php
 	}
+}
 
 ?>
 

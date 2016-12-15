@@ -11,6 +11,7 @@ class Model_Catalog extends Model
 
 	public $pageDataModel;
 	public $prod_items = array();
+	private $allCatsTree;
 
 	public function getData($pageName)
 	{
@@ -61,10 +62,6 @@ class Model_Catalog extends Model
 				$pageDataModel['text'] = "Catalog Model";
 				$pageDataModel['title'] = "Каталог продукции.";
 
-				/*echo "<pre>";
-				var_dump($prod_all);
-				echo "</pre>";*/
-
 				$prod_cats = array();
 				$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
@@ -89,10 +86,12 @@ class Model_Catalog extends Model
 	* @param $catName
 	* @return $products
 	*/
-	function getCategoryData($catName)
+	function getCategoryData($catName, $sect = NULL)
 	{
+
+		$has_new = false;
+		$has_sales = false;
 		$category = $catName;
-		// Controller::dump($category);
 		$q = mysql_query("SELECT * FROM prod_cat WHERE tech_name='$category'");
 		$categoryData = mysql_fetch_assoc($q);
 		unset($q);
@@ -100,10 +99,24 @@ class Model_Catalog extends Model
 		$products['cat'] = $categoryData;
 		$pos = $products['cat']['position'];
 
+		$allCatsTree = Self::getData('prods');
+		$curCatsTree = $allCatsTree['prodCats']['tree'];
+		$curCatInfo = $curCatsTree[$category];
+		// Controller::jsonConsole($curCatInfo);
+
 		if ($products['cat']['parent'] != 0) {
 			$q = mysql_query("SELECT * FROM prod_cat WHERE id='".$products['cat']['parent']."'");
 			$products['parent'] = mysql_fetch_assoc($q);
 			$pos = $products['parent']['position'];
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='".$products['parent']['id']."' ORDER BY added_time DESC");
+			while ( $buf = mysql_fetch_assoc($q)) {
+				if (strstr($buf['labels'], 'new') ) {
+					$has_new = true;
+				}
+				if (strstr($buf['labels'], 'sales') ) {
+					$has_sales = true;
+				}
+			}
 		}
 
 		$q = mysql_query("SELECT * FROM prod_cat WHERE parent=0");
@@ -133,11 +146,74 @@ class Model_Catalog extends Model
 		}
 
 		$categoryId = $categoryData['id'];
+		if ($sect) {
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' ORDER BY added_time DESC");
+			while ( $buf = mysql_fetch_assoc($q)) {
+				$products['items'][$buf['id']] = $buf;
+				if (strstr($buf['labels'], 'new') ) {
+					$has_new = true;
+				}
+				if (strstr($buf['labels'], 'sales') ) {
+					$has_sales = true;
+				}
+			}
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+			while ( $buf = mysql_fetch_assoc($q)) {
+				if (strstr($buf['labels'], 'popular') ) {
+					$products['populars'][$buf['id']] = $buf;
+				}
+			}
+		} else
 		$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
 		while ( $buf = mysql_fetch_assoc($q)) {
 			$products['items'][$buf['id']] = $buf;
+			if (strstr($buf['labels'], 'new') ) {
+				$has_new = true;
+			}
+			if (strstr($buf['labels'], 'sales') ) {
+				$has_sales = true;
+			}
 			if (strstr($buf['labels'], 'popular') ) {
 				$products['populars'][$buf['id']] = $buf;
+			}
+		}
+
+		if ($products['cat']['parent'] == 0) {
+		if ($curCatInfo['child']) {
+		foreach ($curCatInfo['child'] as $child) {
+			$categoryId = $child['id'];
+				if ($sect) {
+					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' ORDER BY added_time DESC");
+					while ( $buf = mysql_fetch_assoc($q)) {
+						$products['items'][$buf['id']] = $buf;
+						if (strstr($buf['labels'], 'new') ) {
+							$has_new = true;
+						}
+						if (strstr($buf['labels'], 'sales') ) {
+							$has_sales = true;
+						}
+					}
+					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+					while ( $buf = mysql_fetch_assoc($q)) {
+						if (strstr($buf['labels'], 'popular') ) {
+							$products['populars'][$buf['id']] = $buf;
+						}
+					}
+				} else
+				$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+				while ( $buf = mysql_fetch_assoc($q)) {
+					$products['items'][$buf['id']] = $buf;
+					if (strstr($buf['labels'], 'new') ) {
+						$has_new = true;
+					}
+					if (strstr($buf['labels'], 'sales') ) {
+						$has_sales = true;
+					}
+					if (strstr($buf['labels'], 'popular') ) {
+						$products['populars'][$buf['id']] = $buf;
+					}
+				}
+			}
 			}
 		}
 
@@ -145,6 +221,17 @@ class Model_Catalog extends Model
 		$products['items'] = Model::createInStock($products['items']);
 		$products['populars'] = Model::createProdUrl($products['populars']);
 		$products['populars'] = Model::createInStock($products['populars']);
+		$products['has_new'] = $has_new;
+		$products['has_sales'] = $has_sales;
+
+		if ($products['parent']) {
+				$parent = Self::getCategoryData($products['parent']['tech_name']);
+				// Controller::jsonConsole($parent);
+				$products['parent_populars'] = Model::createProdUrl($parent['populars']);
+				$products['parent_populars'] = Model::createInStock($parent['populars']);
+				// Controller::jsonConsole($products);
+		}
+
 
 	return $products;
 	}
@@ -158,13 +245,28 @@ class Model_Catalog extends Model
 	* @param $cat категория
 	* @return $crumbs
 	*/
-	function getCrumbs($tree, $cat, $item = NULL)
+	function getCrumbs($tree, $cat, $sect = NULL,$item = NULL)
 	{
 		if (!$item) {
 		$crumbs = array('Каталог' => '/catalog'); // первый элемент - каталог
 		foreach ($tree as $key => $value) { // идем по категориям
 			if ($key == $cat['tech_name']) { // если нашли категорию - записываем
 				$crumbs[$value['name']] = $value['url'];
+				if ($sect) {
+				switch ($sect) {
+					case 'new':
+						$crumbs["Новинки"] = $value['url'].'/new';
+						break;
+
+					case 'sales':
+						$crumbs["Акции"] = $value['url'].'/new';
+						break;
+
+					default:
+						# code...
+						break;
+				}
+				} else {}
 				break; // и выходим
 			} else if ($value['child']) { // если есть дети
 							foreach ($value['child'] as $child) { // идем в детей
@@ -175,6 +277,7 @@ class Model_Catalog extends Model
 							}
 			}
 		}
+
 		} else {
 			return "item page";
 		}

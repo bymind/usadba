@@ -721,7 +721,7 @@ a.subcat {
 	border-radius: 4px;
 	border: 2px solid;
 	border-color: #fff;
-	margin: 0 5px;
+	margin: 5px;
 	line-height: 18px;
 	will-change: border-color;
 	transition: border-color .15s ease-in-out;
@@ -819,7 +819,7 @@ a.subcat.new:hover{
 	height: 110px;
 	margin: 0 auto;
 	background-position: center;
-	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
 }
 
@@ -901,7 +901,7 @@ a.subcat.new:hover{
 	opacity: .7;
 	height: 30px;
 	overflow: hidden;
-	line-height: 12px;
+	line-height: 14px;
 }
 
 .prod-price {
