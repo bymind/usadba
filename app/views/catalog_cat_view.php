@@ -18,38 +18,43 @@
 			<div class="col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-20">
 					<div class="sidecat prevcat">
-						<a href="/catalog/<?php echo $prodCat['prev']['tech_name']; ?>" >
+						<span class="prevcat">
+							<a href="/catalog/<?php echo $prodCat['prev']['tech_name']; ?>" >
 							<?php
 								echo $prodCat['prev']['name'];
 							?>
-						</a>
+							</a>
+						</span>
 					</div>
 					<?php
 						echo $prodCat['name'];
 					?>
 					<div class="sidecat nextcat">
-						<a href="/catalog/<?php echo $prodCat['next']['tech_name']; ?>" >
+						<span class="nextcat">
+							<a href="/catalog/<?php echo $prodCat['next']['tech_name']; ?>">
 							<?php
 								echo $prodCat['next']['name'];
 							?>
-						</a>
+							</a>
+						</span>
 					</div>
 				</div>
+				</div>
+				<div class="col-xxs-12 col-xs-12 col-sm-9">
 				<div class="subtitle subcats mb-20">
 
 					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if (!$curCatId) { echo "active"; }?>'>Все</a>
 					<?php
-					Controller::jsonConsole($prodCats['tree']);
 						if (!$curCatId) { $cat = $prodCat['tech_name']; } else {$cat = $catId; }
 						foreach ($prodCats['tree'][$cat]['child'] as $child) {
 							?>
-							<a href="<?php echo $child['url'] ?>" class="subcat"><?php echo $child['name'] ?></a>
+							<a href="<?php echo $child['url'] ?>" class="subcat <?php if (($curCatId)&&($curCatId == $child['tech_name'])) echo 'active'; ?> "><?php echo $child['name'] ?></a>
 							<?php
 						}
 
 					?>
-					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/new" class="subcat new">Новинки</a>
-					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/sales" class="subcat sales">Акции</a>
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/new" class="subcat new">Новинки</a>
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat sales">Акции</a>
 				</div>
 			</div>
 			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">

@@ -658,15 +658,20 @@ span.label.new{
 	line-height: 20px;
 }
 
-.sidecat a {
+.sidecat span {
 	color: #222;
 	text-decoration: underline;
 	opacity: .5;
 	will-change: opacity;
 	transition: opacity .1s ease-in-out;
+	display: block;
 }
 
-.sidecat a:hover {
+.sidecat span a {
+	color: inherit;
+}
+
+.sidecat span:hover {
 	opacity: .8;
 }
 
@@ -678,25 +683,25 @@ span.label.new{
 	right: 10px;
 }
 
-.sidecat a::before {
+.sidecat span::before {
 	content: "";
 	width: 10px;
 	height: 10px;
-	background: url(/img/arrd.svg) center center no-repeat;
-	background-size: 10px;
 	position: relative;
 	display: block;
 	top: 5px;
 }
 
-.sidecat.prevcat a::before {
+.sidecat.prevcat span::before {
 	float: left;
-	transform: rotateZ(90deg) rotateX(0deg);
+	background: url(/img/arrl.svg) left center no-repeat;
+	background-size: 5px;
 }
 
-.sidecat.nextcat a::before {
+.sidecat.nextcat span::before {
 	float: right;
-	transform:rotateZ(90deg) rotateX(180deg);
+	background: url(/img/arrr.svg) right center no-repeat;
+	background-size: 5px;
 }
 
 .subcats {
@@ -729,6 +734,26 @@ a.subcat:hover{
 a.subcat.active {
 	color: #c63838;
 	border-color: #c63838;
+}
+
+a.subcat.sales {
+	border-color: #c63838;
+	color: #c63838;
+	background: #fff;
+}
+
+a.subcat.sales:hover{
+	border-color: #c63838;
+}
+
+a.subcat.new {
+	border-color: #ff9912;
+	color: #ff9912;
+	background: #fff;
+}
+
+a.subcat.new:hover{
+	border-color: #ff9912;
 }
 
 .prod-line {
