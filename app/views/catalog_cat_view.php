@@ -38,11 +38,16 @@
 				<div class="subtitle subcats mb-20">
 
 					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if (!$curCatId) { echo "active"; }?>'>Все</a>
-					<!-- <a href="" class="subcat"></a>
-					<a href="" class="subcat"></a>
-					<a href="" class="subcat"></a>
-					<a href="" class="subcat"></a>
-					<a href="" class="subcat"></a> -->
+					<?php
+					Controller::jsonConsole($prodCats['tree']);
+						if (!$curCatId) { $cat = $prodCat['tech_name']; } else {$cat = $catId; }
+						foreach ($prodCats['tree'][$cat]['child'] as $child) {
+							?>
+							<a href="<?php echo $child['url'] ?>" class="subcat"><?php echo $child['name'] ?></a>
+							<?php
+						}
+
+					?>
 					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/new" class="subcat new">Новинки</a>
 					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId.'/'.$curCatId; }?>/sales" class="subcat sales">Акции</a>
 				</div>
