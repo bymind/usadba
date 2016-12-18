@@ -12,6 +12,8 @@ class Controller_Error_404 extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('error_404');
+		$pageDataProd = $this->model->getData('prods');
+		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$this->view->generate(
 			'errors/error_404_view.php', // вид контента
@@ -36,12 +38,14 @@ class Controller_Error_404 extends Controller
 					'active_menu' => 'menu-item-1',
 					'pageId' => 'error_404',
 					'pageDataView' => $pageDataController,
-					// 'actions' => 'app/views/sales_carousel_view.php',
 					'sidebar' => array(
 														'app/views/side_menu_view.php',
 														'app/views/side_prod_of_day_view.php',
 														'app/views/side_news_view.php',
 														),
+					'prodItems' => $pageDataProd['prodItems'],
+					'prodCats' => $pageDataProd['prodCats'],
+					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 				),
 			'navigation_view.php', // навигация

@@ -45,7 +45,7 @@ class Route
 		if (file_exists($class_path)) {
 			include $class_path;
 		} else {
-			echo "Контроллер $class_path не найден!";
+			// echo "Контроллер $class_path не найден!";
 		}
 	}
 
@@ -64,7 +64,7 @@ class Route
 		{
 			include $model_path;
 		} else {
-			echo "Модуль $model_path не найден!";
+			// echo "Модуль $model_path не найден!";
 		}
 
 	}
@@ -141,6 +141,7 @@ class Route
 			$action_name = 'action_index';
 		}
 
+
 		// врубаем модель, если есть
 		self::loadModel($model_name);
 		// TODO: перенести подключение модели в контроллер
@@ -182,15 +183,33 @@ class Route
 										}
 								} else
 									if (isset($param)) {
-										$params = [];
-										$params['name'] = $action_param;
-										$params['value'] = $param;
-										$action = 'action_param';
-										if (method_exists($controller, $action))
-											{
-												$controller->$action($params);
-											}else {
-												self::Catch_Error('404');
+										if (!isset($params)) {
+											$params = [];
+											$params['name'] = $action_param;
+											$params['value'] = $param;
+											$action = 'action_param';
+											if (method_exists($controller, $action))
+												{
+													$controller->$action($params);
+												}else {
+													self::Catch_Error('404');
+												}
+										} else {
+												switch ($routes[1]) {
+													case 'catalog':
+														$parentCat = explode("_", $action_name);
+														$parentCat = $parentCat[1];
+														$action = 'action_param';
+														$prodParams['parentCat'] = $parentCat;
+														$prodParams['curCat'] = $params['name'];
+														$prodParams['curProd'] = $params['value'];
+														$controller->$action($prodParams);
+														break;
+
+													default:
+														self::Catch_Error('404');
+														break;
+												}
 											}
 									}
 								 else {
@@ -199,7 +218,7 @@ class Route
 						}
 		}
 		else {
-			echo "$controller_path not found";
+			// echo "$controller_path not found";
 			self::Catch_Error('404');
 		}
 	}

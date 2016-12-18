@@ -94,6 +94,9 @@ class Model_Catalog extends Model
 		$category = $catName;
 		$q = mysql_query("SELECT * FROM prod_cat WHERE tech_name='$category'");
 		$categoryData = mysql_fetch_assoc($q);
+		if (!$categoryData) {
+			Route::Catch_Error('404');
+		}
 		unset($q);
 		$products = [];
 		$products['cat'] = $categoryData;
@@ -146,7 +149,7 @@ class Model_Catalog extends Model
 		}
 
 		$categoryId = $categoryData['id'];
-		if ($sect) {
+		if (($sect)&&(( $sect=='new' )||( $sect=='sales' ))) {
 			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
 				$products['items'][$buf['id']] = $buf;
@@ -163,6 +166,8 @@ class Model_Catalog extends Model
 					$products['populars'][$buf['id']] = $buf;
 				}
 			}
+		} else if ($sect) {
+			Route::Catch_Error('404');
 		} else
 		$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
 		while ( $buf = mysql_fetch_assoc($q)) {
@@ -236,6 +241,15 @@ class Model_Catalog extends Model
 	return $products;
 	}
 
+
+	function getProduct($artName)
+	{
+		$articul = explode("_",$artName);
+		$articul = $articul[0];
+		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul'");
+		$product = mysql_fetch_assoc($q);
+		return $product;
+	}
 
 
 	/**

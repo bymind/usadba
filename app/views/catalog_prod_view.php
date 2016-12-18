@@ -17,27 +17,9 @@
 
 			<div class="col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-20">
-					<div class="sidecat prevcat hidden-xs">
-						<span class="prevcat">
-							<a href="/catalog/<?php echo $prodCat['prev']['tech_name']; ?>" >
-							<?php
-								echo $prodCat['prev']['name'];
-							?>
-							</a>
-						</span>
-					</div>
 					<?php
-						echo $prodCat['name'];
+						echo $currentProduct['name'];
 					?>
-					<div class="sidecat nextcat hidden-xs">
-						<span class="nextcat">
-							<a href="/catalog/<?php echo $prodCat['next']['tech_name']; ?>">
-							<?php
-								echo $prodCat['next']['name'];
-							?>
-							</a>
-						</span>
-					</div>
 				</div>
 				</div>
 				<div class="col-xxs-12 col-xs-12 col-sm-9">
