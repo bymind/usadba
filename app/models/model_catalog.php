@@ -248,6 +248,23 @@ class Model_Catalog extends Model
 		$articul = $articul[0];
 		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul'");
 		$product = mysql_fetch_assoc($q);
+		switch ($product['in_stock']) {
+			case '0':
+				$product['in_stock_val'] = "ожидается";
+				break;
+
+			case '1':
+				$product['in_stock_val'] = "в наличии";
+				break;
+
+			case '2':
+				$product['in_stock_val'] = "под заказ";
+				break;
+
+			default:
+				$product['in_stock_val'] = 'ожидается';
+				break;
+		}
 		return $product;
 	}
 

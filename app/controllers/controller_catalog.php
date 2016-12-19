@@ -105,7 +105,8 @@ class Controller_Catalog extends Controller
 			$popularCat = $pageDataCat['cat'];
 		}
 
-
+		$backToCatalog = $parentCat."/".$curCat;
+		$currentProduct['count_buy'] = Model::plural_form($currentProduct['count_buy'],array('раз','раза','раз'));
 		$this->view->generate(
 			'catalog_prod_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -114,6 +115,7 @@ class Controller_Catalog extends Controller
 					'style'=>'public/template.css',
 					'style_content' => array(
 																	'public/main_page.css',
+																	'public/prod_page.css',
 																	'owl-carousel/owl.carousel.css',
 																	'owl-carousel/sales.theme.css',
 																	'owl-carousel/prod.theme.css'
@@ -147,6 +149,7 @@ class Controller_Catalog extends Controller
 					'menuItems' => $menuItems,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
+					'backToCatalog' => $backToCatalog,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер

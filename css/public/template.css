@@ -44,6 +44,12 @@ h1 {
 	box-shadow: 0 1px 6px rgba(0,0,0,.4) !important;
 }
 
+.bordered {
+	border-color: #ececec;
+	border-width: 1px;
+	border-style: solid;
+}
+
 .br-2{
 	border-radius: 2px !important;
 }
@@ -965,6 +971,9 @@ button.to-cart {
 	font-weight: 900;
 	line-height: 30px;
 	padding: 0;
+	z-index: 2;
+	will-change: width, background, padding, margin;
+	transition: width .3s ease-in-out, background .3s ease-in-out;
 }
 
 	button.to-cart.active{
@@ -981,10 +990,11 @@ button.to-cart {
 	}
 
 .prod-btn-block .incs {
-	position: relative;
-	float: right;
 	width: 75%;
 	padding: 0 0 0 10px;
+	position: absolute;
+	right: 0;
+	z-index: 1;
 }
 
 .incs input {

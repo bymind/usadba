@@ -1,0 +1,201 @@
+.product-layer {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: auto;
+	background: #fff;
+	padding: 30px 20px;
+	color: #222;
+}
+
+.mini-desc {
+	text-align: center;
+	font-size: 13px;
+	line-height: 20px;
+	opacity: .6;
+}
+
+.sidecat {
+	position: relative;
+}
+
+.sidecat.prevcat {
+	left: 0;
+}
+
+.poster {
+	position: relative;
+	background: #fff;
+	text-align: center;
+	vertical-align: middle;
+	min-height: 300px;
+	width: 100%;
+}
+
+.poster img.main {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.card-details {
+	position: relative;
+	display: block;
+	height: 100%;
+	min-height: 210px;
+	margin: 0 30px;
+	padding: 10px;
+}
+
+.details-inner {
+	position: relative;
+	height: 100%;
+	padding: 10px 0;
+}
+
+.card-details span.measure {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	font-weight: 900;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+.card-details span.prod-price {
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	font-weight: initial;
+	line-height: initial;
+	text-transform: initial;
+	height: auto;
+	margin: 10px auto;
+}
+
+.card-details span.prod-price span.number {
+	font-size: 36px;
+	font-weight: 900;
+}
+
+.card-details span.price span.money-name {
+	font-size: 18px;
+}
+
+.card-details .prod-btn-block {
+	height: auto;
+	min-height: 57px;
+}
+
+.card-details button.to-cart {
+	display: block;
+	font-size: 17px;
+	height: 36px;
+	line-height: 36px;
+	width: 120px;
+	border-bottom: 1px solid transparent;
+	box-sizing: content-box;
+	position: relative;
+	z-index: 2;
+}
+
+.card-details button.to-cart.active, .card-details button.to-cart:active{
+	border-bottom: 0;
+}
+
+.card-details button.to-cart.active {
+	width: 25%;
+	height: 36px;
+	margin: 0;
+	float: left;
+	display: block;
+}
+
+.card-prod-avail {
+	width: 100%;
+	text-align: center;
+	font-size: 13px;
+	opacity: .8;
+}
+
+.card-like {
+	position: relative;
+	display: block;
+	width: 100%;
+	opacity: .7;
+	cursor: pointer;
+}
+
+.card-details .incs input {
+	height: 36px;
+	line-height: 36px;
+}
+
+.card-details .incs .minus, .card-details .incs .plus {
+	height: 36px;
+	line-height: 36px;
+}
+
+.like-this {
+	display: block;
+	text-align: center;
+	font-size: 14px;
+	padding: 10px 30px;
+	width: 100%;
+	margin-left: 10px;
+}
+
+.like-this::before {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: #fff url(/img/heart.svg) 2px 3px no-repeat;
+	background-size: 17px;
+}
+
+.card-like:hover {
+	opacity: 1;
+}
+
+.card-like:hover .like-this::before {
+	background: #fff url(/img/heart.svg) 2px -23px no-repeat;
+	background-size: 17px;
+}
+
+.tabs-box {
+	position: relative;
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	font-size: 13px;
+}
+
+.tabs-box .tab {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	padding: 4px 20px;
+	color: #222;
+	opacity: .6;
+}
+
+.tabs-box .tab:hover{
+	opacity: 1;
+}
+
+.tabs-box .tab.active {
+	cursor: default;
+	opacity: 1;
+	color: #c63838;
+	border-bottom: 4px solid #c63838;
+	margin-bottom: -1px;
+}
