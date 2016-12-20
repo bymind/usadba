@@ -80,12 +80,107 @@
 					<!-- DATA -->
 					<div class="col-xs-12">
 						<div class="tabs-box">
-							<div class="tab active">
+							<div class="tab active" data-content="spec">
 								<span>Характеристики</span>
 							</div>
-							<div class="tab">
+							<div class="tab" data-content="reviews">
 								<span>Отзывы (<span class="comment_count">2</span>)</span>
 							</div>
+						</div>
+
+						<div class="col-xs-12">
+						<div class="row">
+							<div class="content-box spec active">
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Вес</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['weight']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Страна</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['country']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Условия хранения</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['stor_cond']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Пищевая ценность</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['nut_val']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Энергетическая ценность</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['energy_val']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="params clearfix">
+									<div class="param col-xs-4">
+									<div class="row">
+										<span>Состав</span>
+										</div>
+									</div>
+									<div class="value col-xs-8">
+										<span>
+										<?php echo $currentProduct['consist']; ?>
+										</span>
+									</div>
+								</div>
+
+								<div class="description mt-20">
+									<?php
+										echo $currentProduct['description'];
+									?>
+								</div>
+
+							</div>
+
+							<div class="content-box reviews">
+							</div>
+						</div>
 						</div>
 					</div>
 

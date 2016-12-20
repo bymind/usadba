@@ -246,8 +246,12 @@ class Model_Catalog extends Model
 	{
 		$articul = explode("_",$artName);
 		$articul = $articul[0];
-		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul'");
+		$prodName = substr($artName, strpos($artName, "_")+1);
+		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName'");
 		$product = mysql_fetch_assoc($q);
+		if (!$product) {
+			Route::Catch_Error('404');
+		}
 		switch ($product['in_stock']) {
 			case '0':
 				$product['in_stock_val'] = "ожидается";

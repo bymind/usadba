@@ -111,7 +111,7 @@ class Controller_Catalog extends Controller
 			'catalog_prod_view.php', // вид контента
 			'template_view.php', // вид шаблона
 			array( // $data
-					'title'=> $pageDataCat['cat']['name']." - ".$pageDataController['title'],
+					'title'=> $currentProduct['name']." доставка на дом - ".$pageDataController['title'],
 					'style'=>'public/template.css',
 					'style_content' => array(
 																	'public/main_page.css',

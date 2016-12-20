@@ -199,3 +199,33 @@
 	border-bottom: 4px solid #c63838;
 	margin-bottom: -1px;
 }
+
+.content-box.spec {
+	padding: 10px 0px;
+	font-size: 13px;
+}
+
+.content-box.spec .params {
+	display: block;
+	margin: 6px 0 10px;
+}
+
+.content-box.spec .param {
+	display: inline-block;
+	min-width: 200px;
+	border-bottom: 1px solid #ccc;
+	height: 16px;
+}
+
+.content-box.spec .param span {
+	display: inline-block;
+	background: #fff;
+	padding: 0 4px;
+	line-height: 20px;
+	height: 20px;
+	font-weight: 900;
+}
+
+.content-box.spec .value {
+	display: inline-block;
+}
