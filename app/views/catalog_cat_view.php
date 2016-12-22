@@ -43,7 +43,7 @@
 				<div class="col-xxs-12 col-xs-12 col-sm-9">
 				<div class="subtitle subcats mb-20">
 
-					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if (!$curCatId) { echo "active"; }?>'>Все</a>
+					<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>" class='subcat all <?php if ((!$curCatId)&&(!$section)) { echo "active"; }?>'>Все</a>
 					<?php
 						if (!$curCatId) { $cat = $prodCat['tech_name']; } else {$cat = $catId; }
 						if ($prodCats['tree'][$cat]['child']) {
@@ -55,13 +55,14 @@
 						}
 
 						if ($prodCatItemsHasNew) {
+
 						?>
-						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/new" class="subcat new">Новинки</a>
+						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/new" class="subcat <?php if ($section=='new') echo 'active'; ?> new">Новинки</a>
 						<?php
 						}
 						if ($prodCatItemsHasSales) {
 						?>
-						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat sales">Акции</a>
+						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat <?php if ($section=='sales') echo 'active'; ?> ?> sales">Акции</a>
 						<?php
 						}
 					?>

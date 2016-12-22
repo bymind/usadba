@@ -244,14 +244,17 @@ class Model_Catalog extends Model
 
 	function getProduct($artName)
 	{
-		$articul = explode("_",$artName);
-		$articul = $articul[0];
+		// $articul = explode("_",$artName);
+		// $articul = $articul[0];
+		$articul = substr($artName, 0, strpos($artName, "_"));
 		$prodName = substr($artName, strpos($artName, "_")+1);
 		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName'");
 		$product = mysql_fetch_assoc($q);
+
 		if (!$product) {
-			Route::Catch_Error('404');
-		}
+			return false;
+			// Route::Catch_Error('404');
+		} else
 		switch ($product['in_stock']) {
 			case '0':
 				$product['in_stock_val'] = "ожидается";
@@ -268,6 +271,7 @@ class Model_Catalog extends Model
 			default:
 				$product['in_stock_val'] = 'ожидается';
 				break;
+
 		}
 		return $product;
 	}
@@ -280,7 +284,7 @@ class Model_Catalog extends Model
 	* @param $cat категория
 	* @return $crumbs
 	*/
-	function getCrumbs($tree, $cat, $sect = NULL,$item = NULL)
+	function getCrumbs($tree, $cat, $sect = NULL, $item = NULL)
 	{
 		if (!$item) {
 		$crumbs = array('Каталог' => '/catalog'); // первый элемент - каталог

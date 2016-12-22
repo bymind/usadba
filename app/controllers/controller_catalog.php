@@ -65,7 +65,8 @@ class Controller_Catalog extends Controller
 	{
 		if (is_array($param)) {
 			if (count($param)==2) {
-				Self::action_subCatPage($param);
+				Self::action_prodPage($param, 'parentcat');
+				// Self::action_subCatPage($param);
 			} else if (count($param)==3) {
 				Self::action_prodPage($param);
 			}
@@ -78,13 +79,24 @@ class Controller_Catalog extends Controller
 
 
 
-	public function action_prodPage($param)
+	public function action_prodPage($param, $isparent = NULL)
 	{
-		$parentCat = $param['parentCat'];
-		$curCat = $param['curCat'];
-		$curProd = $param['curProd'];
+		if ($isparent=='parentcat') {
+			$parentCat = $param['name'];
+			$curCat = $param['name'];
+			$curProd = $param['value'];
+		} else {
+			$parentCat = $param['parentCat'];
+			$curCat = $param['curCat'];
+			$curProd = $param['curProd'];
+		}
 
 		$currentProduct = $this->model->getProduct($curProd);
+		// var_dump($curProd);
+		if (!$currentProduct) {
+			Self::action_subCatPage($param);
+			exit();
+		}
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
 		$pageDataCat = $this->model->getCategoryData($curCat);
@@ -94,6 +106,9 @@ class Controller_Catalog extends Controller
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$catsTree = $pageDataProd['prodCats']['tree'];
+
+		$prodReviews = $this->model->getComments('product',$currentProduct['id']);
+
 
 		$prodCatPopulars = $pageDataCat['populars'];
 		if ($pageDataCat['cat']['parent']!=0) {
@@ -150,6 +165,7 @@ class Controller_Catalog extends Controller
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
 					'backToCatalog' => $backToCatalog,
+					'prodReviews' => $prodReviews,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер
@@ -217,6 +233,7 @@ class Controller_Catalog extends Controller
 					'menuItems' => $menuItems,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
+					'section' => $sect,
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер
@@ -234,6 +251,11 @@ class Controller_Catalog extends Controller
 	{
 		$parentCat = $param['name'];
 		$curCat = $param['value'];
+		$buf = array(
+		             'parentCat' => $parentCat,
+		             'curCat' => $parentCat,
+		             'curProd' => $curCat,
+		             );
 		if ($curCat == "new") {
 			Self::action_catPage($parentCat, 'new');
 		} else if ($curCat == "sales") {

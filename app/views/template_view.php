@@ -92,7 +92,6 @@ include $Modals;
 		?><script src="<?php echo $scripts_content; ?>"></script><?php
 	}
 ?>
-<!-- <script src="/js/template.js"></script> -->
 
 
 </body>
