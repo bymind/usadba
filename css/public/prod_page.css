@@ -200,24 +200,24 @@
 	margin-bottom: -1px;
 }
 
-.content-box.spec {
+.tab-content-box.spec {
 	padding: 10px 0px;
 	font-size: 13px;
 }
 
-.content-box.spec .params {
+.tab-content-box.spec .params {
 	display: block;
 	margin: 6px 0 10px;
 }
 
-.content-box.spec .param {
+.tab-content-box.spec .param {
 	display: inline-block;
 	min-width: 200px;
 	border-bottom: 1px solid #ccc;
 	height: 16px;
 }
 
-.content-box.spec .param span {
+.tab-content-box.spec .param span {
 	display: inline-block;
 	background: #fff;
 	padding: 0 4px;
@@ -226,6 +226,18 @@
 	font-weight: 900;
 }
 
-.content-box.spec .value {
+.tab-content-box.spec .value {
 	display: inline-block;
+}
+
+.tab-content-box.reviews {
+	padding: 10px 0px;
+	font-size: 13px;
+}
+
+.reviews a.give-review {
+	color: #c63838;
+	text-decoration: underline;
+	display: inline-block;
+	margin: 10px 0;
 }

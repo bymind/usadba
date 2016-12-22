@@ -762,6 +762,16 @@ a.subcat.new:hover{
 	border-color: #ff9912;
 }
 
+a.subcat.new.active {
+	background-color: #ff9912;
+	color: #fff;
+}
+
+a.subcat.sales.active{
+	background-color: #c63838;
+	color: #fff;
+}
+
 .prod-line {
 	position: relative;
 	/* width: 100%; */
@@ -1320,6 +1330,15 @@ span.link a:hover {
 .under-logo {
 	display: none;
 }
+
+.tab-content-box {
+	display: none;
+}
+
+.tab-content-box.active{
+	display: block;
+}
+
 
 /* EXTENDS BOOTSTRAP */
 

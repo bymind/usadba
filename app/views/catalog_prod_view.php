@@ -90,7 +90,7 @@
 
 						<div class="col-xs-12">
 						<div class="row">
-							<div class="content-box spec active">
+							<div class="tab-content-box spec active">
 
 								<div class="params clearfix">
 									<div class="param col-xs-4">
@@ -178,7 +178,28 @@
 
 							</div>
 
-							<div class="content-box reviews">
+							<div class="tab-content-box reviews">
+								<a href="/#" class="give-review">Оставить отзыв</a>
+								<div class="comments-box">
+<?php
+	if (!$prodReviews) {
+		echo "<span>Отзывов пока нет</span>";
+	} else
+	foreach ($prodReviews as $review) {
+		?>
+									<div class="comment-over">
+										<div class="avatar"></div>
+										<div class="com-details">
+											<span class="author"><?php echo $review['name']?></span><span class="pub-time"><?php echo $review['pub_time']?></span>
+											<div class="com-text">
+												<?php echo $review['com_text']?>
+											</div>
+										</div>
+									</div>
+		<?php
+	}
+?>
+								</div>
 							</div>
 						</div>
 						</div>

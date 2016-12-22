@@ -4,6 +4,19 @@
 class Model
 {
 
+	public function getComments($target_type, $target_id)
+	{
+		$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' ORDER BY pub_time DESC")or die(mysql_error());
+		while ($buf = mysql_fetch_assoc($select)) {
+					$ds[] = $buf;
+		}
+		unset($select);
+		if (count($ds)==0) {
+			return false;
+		}
+		return $ds;
+	}
+
 	public function get_login($login)
 	{
 		$select = mysql_query("SELECT * FROM users WHERE login = '$login'")or die(mysql_error());

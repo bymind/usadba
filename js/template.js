@@ -14,8 +14,47 @@ $(function()
 	ConstructCart();
 	InitPopover();
 
+	InitTabs();
+
 	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000, "hide": 100 }});
 });
+
+/*
+* InitTabs()
+* Инициализация табов
+*/
+function InitTabs()
+{
+	$(document).on('click', '.tabs-box .tab', function(event) {
+		event.preventDefault();
+		if ( $(this).hasClass('active') ) {
+			return false;
+		}
+
+		$contentClass = $(this).data('content');
+		$parent = $(this).parent().parent();
+		$contentBoxes = $parent.find('.tab-content-box');
+
+		$curTab = $(this);
+		$tabsBoxes = $parent.find('.tab');
+		$tabsBoxes.each(function(index, el) {
+			if ( (!$(this).hasClass('active')) && ($(this) != $curTab) ) {
+				$(this).addClass('active');
+			} else {
+				$(this).removeClass('active');
+			}
+		});
+
+		$contentBoxes.each(function(index, el) {
+			if ( ($(this).hasClass($contentClass))&&(!$(this).hasClass('active')) ) {
+				$(this).addClass('active');
+			} else {
+				$(this).removeClass('active');
+			}
+		});
+
+	});
+}
 
 /*
 * InitPopover()
