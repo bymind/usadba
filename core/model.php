@@ -4,6 +4,28 @@
 class Model
 {
 
+	public function getUsers($users = NULL)
+	{
+		if ($users != NULL ) {
+				$usersStr = implode(", ", $users);
+				$select = mysql_query("SELECT * FROM users WHERE id IN ($usersStr)")or die(mysql_error());
+			$ds = [];
+			while ($buf = mysql_fetch_assoc($select))
+			{
+				$ds[$buf['id']] = $buf;
+			}
+				unset($select);
+				unset($buf);
+		} else {
+			$select = mysql_query("SELECT * FROM users WHERE banned = '0' ORDER BY id")or die(mysql_error());
+			while ($buf = mysql_fetch_assoc($select)) {
+						$ds[$buf['id']] = $buf;
+			}
+			unset($select);
+		}
+		return $ds;
+	}
+
 	public function getComments($target_type, $target_id)
 	{
 		$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' ORDER BY pub_time DESC")or die(mysql_error());
@@ -11,6 +33,7 @@ class Model
 					$ds[] = $buf;
 		}
 		unset($select);
+
 		if (count($ds)==0) {
 			return false;
 		}

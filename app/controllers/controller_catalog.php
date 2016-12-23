@@ -108,7 +108,18 @@ class Controller_Catalog extends Controller
 		$catsTree = $pageDataProd['prodCats']['tree'];
 
 		$prodReviews = $this->model->getComments('product',$currentProduct['id']);
-
+		$revUsersIds = [];
+		foreach ($prodReviews as $review) {
+			if (!isset($revUsersIds[$review['uid']])) {
+				$revUsersIds[$review['uid']] = $review['uid'];
+			}
+		}
+		$revUsers = $this->model->getUsers($revUsersIds);
+		foreach ($prodReviews as &$review) {
+			$review['author_name'] = $revUsers[$review['uid']]['name'];
+			$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
+		}
+		$prodReviews['count'] = count($prodReviews);
 
 		$prodCatPopulars = $pageDataCat['populars'];
 		if ($pageDataCat['cat']['parent']!=0) {

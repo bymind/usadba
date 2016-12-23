@@ -84,7 +84,7 @@
 								<span>Характеристики</span>
 							</div>
 							<div class="tab" data-content="reviews">
-								<span>Отзывы (<span class="comment_count">2</span>)</span>
+								<span>Отзывы (<span class="comment_count"><?php echo $prodReviews['count']?></span>)</span>
 							</div>
 						</div>
 
@@ -184,19 +184,23 @@
 <?php
 	if (!$prodReviews) {
 		echo "<span>Отзывов пока нет</span>";
-	} else
+	} else {
+	unset($prodReviews['count']);
 	foreach ($prodReviews as $review) {
 		?>
 									<div class="comment-over">
-										<div class="avatar"></div>
+										<div class="avatar">
+											<img src="<?php echo $review['author_avatar']?>" alt="<?php echo $review['author_name']?>">
+										</div>
 										<div class="com-details">
-											<span class="author"><?php echo $review['name']?></span><span class="pub-time"><?php echo $review['pub_time']?></span>
+											<span class="author"><?php echo $review['author_name']?></span><span class="pub-time"><?php echo $review['pub_time']?></span>
 											<div class="com-text">
 												<?php echo $review['com_text']?>
 											</div>
 										</div>
 									</div>
 		<?php
+		}
 	}
 ?>
 								</div>
