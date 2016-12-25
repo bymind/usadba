@@ -16,8 +16,30 @@ $(function()
 
 	InitTabs();
 
+	InitHash();
+
 	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000, "hide": 100 }});
 });
+
+
+/*
+* InitHash()
+* Инициализация слежения за хешем в адресной строке
+*/
+function InitHash()
+{
+	var $hash = location.hash.substr(1);
+	if ( $hash && $('.tab-content-box.'+$hash).length>0) {
+		$targetTab = $('.tabs-box').find('.tab[data-content='+$hash+']');
+		if (!$targetTab.hasClass('active')) {
+			console.info('Opened tab - '+$hash);
+			$targetTab.click();
+		}
+	}
+
+
+}
+
 
 /*
 * InitTabs()
@@ -52,6 +74,8 @@ function InitTabs()
 				$(this).removeClass('active');
 			}
 		});
+
+		location.hash = $contentClass;
 
 	});
 }
