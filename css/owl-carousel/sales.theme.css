@@ -160,6 +160,15 @@
 
 @media (max-width: 479px) {
 
+	.sales-theme {
+		margin-left: -10px !important;
+		width: calc(100% + 20px) !important;
+	}
+
+	.sales-theme .owl-controls .owl-buttons {
+		display: none !important;
+	}
+
 	.sales-theme .owl-controls .owl-buttons div {
 		padding: 3px 5px;
 	}
