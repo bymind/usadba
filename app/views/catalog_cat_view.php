@@ -68,21 +68,21 @@
 					?>
 				</div>
 			</div>
-			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20 mb-xxs-10">
+				<div class="row">
 
 <?php
 	if (!$prodCatItems){
 		echo "<div><h3>Категория пуста</h3></div>";
 	} else {
-		?>
-			<div class="col-xxs-12 col-xs-11">
-		<?php
+
 		foreach ($prodCatItems as $prod) {
 ?>
 
 
 					<div class="col-xxs-6 col-xs-3">
-					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2 mb-20">
+					<div class="row">
+					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 						</div>
@@ -97,15 +97,13 @@
 						</div>
 					</div>
 					</div>
+					</div>
 
 <?php
 		}
-		?>
-				</div>
-		<?php
 	}
 ?>
-
+				</div>
 			</div>
 
 <?php
