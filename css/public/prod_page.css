@@ -241,3 +241,11 @@
 	display: inline-block;
 	margin: 10px 0;
 }
+
+.comment-over .avatar, .comment-over .com-details {
+	float: left;
+}
+
+.com-details {
+	max-width: calc(100% - 70px);
+}

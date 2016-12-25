@@ -109,17 +109,24 @@ class Controller_Catalog extends Controller
 
 		$prodReviews = $this->model->getComments('product',$currentProduct['id']);
 		$revUsersIds = [];
-		foreach ($prodReviews as $review) {
-			if (!isset($revUsersIds[$review['uid']])) {
-				$revUsersIds[$review['uid']] = $review['uid'];
+		if ($prodReviews) {
+			foreach ($prodReviews as $review) {
+				if (!isset($revUsersIds[$review['uid']])) {
+					$revUsersIds[$review['uid']] = $review['uid'];
+				}
 			}
-		}
-		$revUsers = $this->model->getUsers($revUsersIds);
-		foreach ($prodReviews as &$review) {
-			$review['author_name'] = $revUsers[$review['uid']]['name'];
-			$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
-		}
+			$revUsers = $this->model->getUsers($revUsersIds);
+			foreach ($prodReviews as &$review) {
+				$review['author_name'] = $revUsers[$review['uid']]['name'];
+				$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
+				// $review['pub_time'] = strftime("%d %m %Y %H:%M", strtotime($review['pub_time']));
+				$review['pub_time'] = Self::getGoodDate($review['pub_time']);
+				$review['com_text'] = nl2br($review['com_text']);
+			}
 		$prodReviews['count'] = count($prodReviews);
+		} else {
+			$prodReviews['count'] = 0;
+		}
 
 		$prodCatPopulars = $pageDataCat['populars'];
 		if ($pageDataCat['cat']['parent']!=0) {

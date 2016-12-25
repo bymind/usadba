@@ -188,8 +188,8 @@
 	unset($prodReviews['count']);
 	foreach ($prodReviews as $review) {
 		?>
-									<div class="comment-over">
-										<div class="avatar">
+									<div class="comment-over clearfix">
+										<div class="avatar mini">
 											<img src="<?php echo $review['author_avatar']?>" alt="<?php echo $review['author_name']?>">
 										</div>
 										<div class="com-details">
