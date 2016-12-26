@@ -29,7 +29,7 @@ class Controller_Cart extends Controller
 					break;
 
 				default:
-					# code...
+					Route::Catch_Error('404');
 					break;
 			}
 		} else {
