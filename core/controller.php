@@ -37,7 +37,7 @@ class Controller
 
 	function is_logged()
 	{
-		if (isset($_SESSION['id']))
+		if (isset($_SESSION['id'])&& $_SESSION['id'] > 0)
 		{
 			return true;
 		} else
@@ -188,7 +188,39 @@ class Controller
 	{
 		setcookie("id","");
 		unset($_SESSION['id']);
-		header('Location:/admin');
+		header('Location:/');
 		return 0;
 	}
+
+
+	/**
+	* sessionEdit($sAction, $sParam, $sVal)
+	*
+	* изменение данных в сессии
+	*
+	* @return 0
+	*/
+
+	function sessionEdit($sAction, $sParam, $sVal)
+	{
+
+		switch ($sAction) {
+			case 'set':
+			case 'edit':
+				$_SESSION[$sParam] = NULL;
+				$_SESSION[$sParam] = $sVal;
+				break;
+
+			case 'delete':
+				$_SESSION[$sParam] = NULL;
+				break;
+
+			default:
+				trigger_error('No such action "'.$sAction.'" in Controller::sessionEdit()');
+				break;
+		}
+
+		return 0;
+	}
+
 }

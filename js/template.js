@@ -1,5 +1,6 @@
 $(function()
 {
+	CheckSessionCart();
 	CountMenuPxls();
 	WindowListen();
 	MenuClickInit();
@@ -17,6 +18,7 @@ $(function()
 	InitTabs();
 
 	InitHash();
+
 
 	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000, "hide": 100 }});
 });
@@ -112,13 +114,14 @@ function ConstructCart()
 				this.reCountItem(item);
 			}
 			UpdateCart();
+			// UpdatePageCards();
 		};
 
 	cartList.rePrice = function()
 		{
 			var priceTemp = 0;
 			for (var i in this.items) {
-				priceTemp += this.items[i].price * this.items[i].count;
+				priceTemp += 0+this.items[i].price * this.items[i].count;
 			}
 			this.sumPrice = priceTemp;
 		}
@@ -146,6 +149,7 @@ function ConstructCart()
 			this.count--;
 			console.log('deleted '+item.art);
 			UpdateCart();
+			UpdatePageCards();
 		};
 
 }
@@ -298,22 +302,6 @@ function MenuClickInit()
 		$(this).children('ul.else-ul').toggleClass('hide-else-ul');
 		$(this).parent('li').children('ul.side-sub-menu').toggleClass('opened');
 	});
-
-	// 	$(document).on('click', function(event){
-	// 		if ( $('ul.menu_text_units li.item-li.active').length > 0 ) {
-	// 			console.log('Close!');
-	// 	    if ($(event.target).is("ul.sub-menu")) return;
-	// 	    $("ul.sub-menu").parent().removeClass('active');
-	// 	    $("ul.sub-menu").parent().find('a').removeClass('active');
-	// 	    event.stopPropagation();
-	// 	  }
-	// });
-
-	// обработка нажатия на раскрывающийся пункт в боковом меню
-	// $(document).on('click', '.side-menu li.pclick', function(event) {
-	// 	event.preventDefault();
-	// 	console.log($(this));
-	// });
 
 	return 0;
 }
@@ -555,6 +543,36 @@ function ModalTabs()
 return 0;
 }
 
+function SetActiveToCart($btn, $issession = false)
+{
+	var cardsArt = $btn.parents('.prod-card').data('art');
+	var cardsArray = $('.prod-card[data-art='+cardsArt+']');
+	cardsArray.each(function(index, el) {
+		var $btn = $(el).find('.to-cart');
+		var $art = $(el).data('art');
+		if ( !$btn.hasClass('active') ) {
+			$btn.addClass('active');
+			$btn.html('');
+			$incs = "<div class='incs'><div class='minus'>-</div><input type='tel' value='1'><div class='plus'>+</div></div>";
+			$btn.after($incs);
+
+			$prodBtnBlock = $btn.parents('.prod-btn-block');
+			$prodBtnBlock.addClass('active');
+
+			var inpt = $prodBtnBlock.find('input');
+			inpt.inputmask('9{1,4}',{ "placeholder": "-" });
+			if ($issession) inpt.val(cartList.items[$art].count);
+			if (!$issession) SendCountItem(inpt);
+
+			var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
+			card.find('.prod-avail').addClass('disabled');
+			card.find('.prod-rev').addClass('disabled');
+
+		}
+
+	});
+}
+
 /*
 * ToCart()
 * Работа с кнопкой КУПИТЬ
@@ -565,24 +583,7 @@ function ToCart()
 // клик по кнопке купить
 	$(document).on('click', 'button.to-cart', function(event) {
 		event.preventDefault();
-		if ( !$(this).hasClass('active') ) {
-			$(this).addClass('active');
-			$(this).html('');
-			$incs = "<div class='incs'><div class='minus'>-</div><input type='tel' value='1'><div class='plus'>+</div></div>";
-			$(this).after($incs);
-
-			$prodBtnBlock = $(this).parents('.prod-btn-block');
-			$prodBtnBlock.addClass('active');
-
-			var inpt = $prodBtnBlock.find('input');
-			inpt.inputmask('9{1,4}',{ "placeholder": "-" });
-			SendCountItem(inpt);
-
-			var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
-			card.find('.prod-avail').addClass('disabled');
-			card.find('.prod-rev').addClass('disabled');
-		}
-
+		SetActiveToCart( $(this) );
 	});
 
 	ClickOnPLus();
@@ -623,7 +624,12 @@ function ClickOnPLus()
 		event.preventDefault();
 		var inpt = $(this).parent().find('input');
 		var counts = parseInt(inpt.val())+1;
-		inpt.val(counts);
+		var cardsArt = inpt.parents('.prod-card').data('art');
+		var cardsArray = $('.prod-card[data-art='+cardsArt+']');
+		cardsArray.each(function(index, el) {
+			var inpt = $(el).find('.incs input');
+			inpt.val(counts);
+		});
 		SendCountItem(inpt);
 	});
 
@@ -642,10 +648,15 @@ function ClickOnMinus()
 		event.preventDefault();
 		var inpt = $(this).parent().find('input');
 		var counts = parseInt(inpt.val())-1;
+		var cardsArt = inpt.parents('.prod-card').data('art');
+		var cardsArray = $('.prod-card[data-art='+cardsArt+']');
 		if (counts == 0) {
 			ResetToCart(inpt);
 		} else {
-			inpt.val(counts);
+			cardsArray.each(function(index, el) {
+				var inpt = $(el).find('.incs input');
+				inpt.val(counts);
+			});
 			SendCountItem(inpt);
 		}
 	});
@@ -662,17 +673,23 @@ return 0;
 */
 function ResetToCart(inpt)
 {
-	var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
-	card.find('.incs').remove();
-	card.find('.to-cart').removeClass('active').html('Купить');
-	card.find('.prod-avail').removeClass('disabled');
-	card.find('.prod-rev').removeClass('disabled');
+	var cardsArt = inpt.parents('.prod-card').data('art');
+	var cardsArray = $('.prod-card[data-art='+cardsArt+']');
+	cardsArray.each(function(index, el) {
+		console.log('index: '+index);
+		inpt = $(el).find('.incs input');
+		var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
+		card.find('.incs').remove();
+		card.find('.to-cart').removeClass('active').html('Купить');
+		card.find('.prod-avail').removeClass('disabled');
+		card.find('.prod-rev').removeClass('disabled');
 
-	var prodItem = {};
-	prodItem.count = parseInt(inpt.val());
-	prodItem.art = card.data('art');
+		var prodItem = {};
+		prodItem.count = parseInt(inpt.val());
+		prodItem.art = card.data('art');
 
-	cartList.deleteItem(prodItem);
+		if (index == 0) cartList.deleteItem(prodItem);
+	});
 
 return 0;
 }
@@ -694,6 +711,9 @@ function SendCountItem(inpt)
 	prodItem.art = card.data('art');
 
 	cartList.addItem(prodItem);
+
+	UpdatePageCards();
+
 }
 
 
@@ -702,7 +722,7 @@ function SendCountItem(inpt)
 * Изменение плавающей кнопки корзины
 * @return 0
 */
-function UpdateCart()
+function UpdateCart($issession = false)
 {
 	var cartBtn = $('button.cart');
 	var cartCounter = cartBtn.find('.counter');
@@ -714,6 +734,82 @@ function UpdateCart()
 		cartBtn.removeClass('blink');
 	}, timing);
 
+	var jsonCart = JSON.stringify(cartList);
+
+	if (!$issession) {
+		$.ajax({
+			url: '/cart',
+			type: 'POST',
+			data: {target: 'updCart', jsonCart: jsonCart},
+		})
+		.done(function(res) {
+			// console.info(res);
+		})
+		.fail(function() {
+			console.log("UpdateCart() error");
+		})
+		.always(function(){
+			console.log("UpdateCart() done");
+		});
+	}
+
 	cartCounter.text(cartList.count);
 	cartPrice.text(cartList.sumPrice);
+
+}
+
+
+/*
+* CheckSessionCart()
+* Проверка наличия товаров в сессии и изменение вывода в этой связи
+* @return 0
+*/
+function CheckSessionCart()
+{
+	$.ajax({
+		url: '/cart',
+		type: 'POST',
+		data: {target: 'checkCart'},
+	})
+	.done(function(res) {
+		if (res) {
+			UpdateSessionCart(res);
+		}
+	})
+	.fail(function() {
+		console.log("CheckSessionCart() error");
+	})
+	.always(function() {
+		console.log("CheckSessionCart() complete");
+	});
+
+}
+
+function UpdateSessionCart(res)
+{
+	console.warn('UpdateSessionCart(res): ');
+	var Result = {};
+	Result = JSON.parse(res);
+	cartList.count = Result.count;
+	cartList.items = Result.items;
+	cartList.sumPrice = Result.sumPrice;
+	UpdateCart(true);
+	UpdatePageCards();
+}
+
+function UpdatePageCards()
+{
+
+	console.warn('UpdatePageCards(): ');
+	var Cards = {};
+	Cards.items = cartList.items;
+	Cards.count = cartList.count;
+	Cards.dom = {};
+	for (var key in Cards.items) {
+		console.log(key);
+		var domElem = $('.prod-card[data-art='+key+']');
+		var btnDom = domElem.find('.to-cart');
+		SetActiveToCart(btnDom, true);
+	};
+
 }
