@@ -32,6 +32,8 @@ class Controller_Cart extends Controller
 					# code...
 					break;
 			}
+		} else {
+			Route::Catch_Error('404');
 		}
 	return 0;
 	}
