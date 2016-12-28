@@ -19,10 +19,14 @@ $(function()
 
 	InitHash();
 
+	InitTooltips();
 
-	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000, "hide": 100 }});
 });
 
+function InitTooltips()
+{
+	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 200, "hide": 100 }});
+}
 
 /*
 * InitHash()
@@ -470,19 +474,27 @@ function ModalInit(index)
 	var modalBlock = $('.modal'+modalIndex);
 	var modalDialog = modalBlock.children('.modal-dialog');
 	var modalContent = modalDialog.children('.modal-content');
-
 	var modalBody = modalContent.children('.modal-body');
+	var modalFooter = modalContent.children('.modal-footer');
+	var btns = modalFooter.find('button');
 
 
 	if ((index == "cart") && (cartList.count > 0)) {
+		btns.each(function(index, el) {
+			$(el).removeAttr('disabled');
+		});
 		var cartBody = modalBody.find('.cart-body');
-		cartBody.html("<table class='table table-hover'><thead></thead><tbody></tbody></table>");
-		cartBody.find('.table thead').append("<tr><th>Артикул</th><th> Цена</th><th>Кол-во</th></tr>");
+		cartBody.html("<div class='table-responsive'><table class='table table-hover'><thead></thead><tbody></tbody></table></div>");
+		cartBody.find('.table thead').append("<tr><th>Название</th><th class='hidden-xxs'>Цена</th><th class='hidden-xxs'>Шт.</th><th>Итог</th></tr>");
 		for (var i in cartList.items) {
-			cartBody.find('.table tbody').append("<tr><td>Артикул "+cartList.items[i].art+"</td><td> Цена "+cartList.items[i].price+" руб </td><td>Кол-во "+cartList.items[i].count+"</td></tr>");
+			cartBody.find('.table tbody').append("<tr><td class='cart-prodname'><span class='mini-counter visible-xxs'>"+cartList.items[i].count+"x</span><a href="+ cartList.items[i].url +" title='"+cartList.items[i].name+"' rel='nofollow'>"+cartList.items[i].name+"</a></td><td class='cart-prodprice hidden-xxs'>"+cartList.items[i].price+" руб</td><td class='cart-prodcount hidden-xxs'>"+cartList.items[i].count+"</td><td class='cart-prodprice res'>" + (cartList.items[i].count*cartList.items[i].price) + " руб</td></tr>");
 		}
+		cartBody.find('.table tbody').append('<tr class="active"><td class="sum-price">Товаров на сумму </td><td class="hidden-xxs"></td><td class="hidden-xxs"></td><td class="cart-prodprice res">'+ cartList.sumPrice +' руб</td></tr>');
 	} else
 	if ((index == "cart") && (cartList.count == 0)) {
+		btns.each(function(index, el) {
+			$(el).attr('disabled', 'disabled');
+		});
 		var cartBody = modalBody.find('.cart-body');
 		cartBody.html("<div class='nothing'>Тут пока ничего нет.</div>");
 	}
@@ -552,8 +564,13 @@ function SetActiveToCart($btn, $issession = false)
 		var $art = $(el).data('art');
 		if ( !$btn.hasClass('active') ) {
 			$btn.addClass('active');
+			$btn.attr({
+				'data-toggle': 'tooltip',
+				'data-placement': 'top',
+				'title': 'В корзине'
+			});
 			$btn.html('');
-			$incs = "<div class='incs'><div class='minus'>-</div><input type='tel' value='1'><div class='plus'>+</div></div>";
+			$incs = "<div class='incs'><div class='minus' data-toggle='tooltip' data-placement='top' title='Уменьшить'>-</div><input type='tel' value='1'><div class='plus' data-toggle='tooltip' data-placement='top' title='Добавить'>+</div></div>";
 			$btn.after($incs);
 
 			$prodBtnBlock = $btn.parents('.prod-btn-block');
@@ -568,6 +585,7 @@ function SetActiveToCart($btn, $issession = false)
 			card.find('.prod-avail').addClass('disabled');
 			card.find('.prod-rev').addClass('disabled');
 
+		InitTooltips();
 		}
 
 	});
@@ -583,6 +601,9 @@ function ToCart()
 // клик по кнопке купить
 	$(document).on('click', 'button.to-cart', function(event) {
 		event.preventDefault();
+		if ($(this).hasClass('active')) {
+			$('button.cart.float').click();
+		} else
 		SetActiveToCart( $(this) );
 	});
 
@@ -679,8 +700,12 @@ function ResetToCart(inpt)
 		console.log('index: '+index);
 		inpt = $(el).find('.incs input');
 		var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
+		card.find('.minus').tooltip('destroy');
+		card.find('.plus').tooltip('destroy');
 		card.find('.incs').remove();
-		card.find('.to-cart').removeClass('active').html('Купить');
+		toCart = card.find('.to-cart');
+		toCart.tooltip('destroy');
+		toCart.removeClass('active').html('Купить');
 		card.find('.prod-avail').removeClass('disabled');
 		card.find('.prod-rev').removeClass('disabled');
 
@@ -706,9 +731,15 @@ function SendCountItem(inpt)
 	var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
 	var prodPrice = card.find('.prod-price .number').text();
 	var prodItem = {};
+	var prodName = inpt.parents('.prod-card').find('[data-prodname=true]').text();
+	if (!prodName || prodName=="") {
+		console.info(prodName);
+		prodName = $(document).find('.title-wide[data-prodname=true]').text();
+	}
 	prodItem.price = parseInt(prodPrice);
 	prodItem.count = parseInt(inpt.val());
 	prodItem.art = card.data('art');
+	prodItem.name = $.trim(prodName);
 
 	cartList.addItem(prodItem);
 
@@ -743,7 +774,8 @@ function UpdateCart($issession = false)
 			data: {target: 'updCart', jsonCart: jsonCart},
 		})
 		.done(function(res) {
-			// console.info(res);
+			savedList = JSON.parse(res);
+			cartList.items = savedList.items == false ? {} : savedList.items;
 		})
 		.fail(function() {
 			console.log("UpdateCart() error");
@@ -772,7 +804,9 @@ function CheckSessionCart()
 		data: {target: 'checkCart'},
 	})
 	.done(function(res) {
-		if (res) {
+		if (res === 'false') {
+			console.warn('SessionCartStorage response: '+res);
+		} else {
 			UpdateSessionCart(res);
 		}
 	})
@@ -787,11 +821,12 @@ function CheckSessionCart()
 
 function UpdateSessionCart(res)
 {
-	console.warn('UpdateSessionCart(res): ');
+	console.info('UpdateSessionCart(res)');
 	var Result = {};
 	Result = JSON.parse(res);
+	// console.info(Result);
 	cartList.count = Result.count;
-	cartList.items = Result.items;
+	cartList.items = Result.items == false? {} : Result.items;
 	cartList.sumPrice = Result.sumPrice;
 	UpdateCart(true);
 	UpdatePageCards();
@@ -800,7 +835,7 @@ function UpdateSessionCart(res)
 function UpdatePageCards()
 {
 
-	console.warn('UpdatePageCards(): ');
+	console.info('UpdatePageCards()');
 	var Cards = {};
 	Cards.items = cartList.items;
 	Cards.count = cartList.count;
