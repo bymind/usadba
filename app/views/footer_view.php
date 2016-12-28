@@ -23,7 +23,7 @@
 								<span class="link"><a href="/opt">Оптовым клиентам</a></span>
 							</div>
 						</div>
-						<div class="col-xxs-12 hidden-xs col-xs-12 col-sm-4 col-sm-push-2 col-lg-3 col-lg-push-3">
+						<div class="col-xxs-12 col-xs-12 col-sm-4 col-sm-push-2 col-lg-3 col-lg-push-3 mt-xs-20">
 							<div class="footer-contacts">
 								<div class="title">
 									Контактная информация
@@ -48,18 +48,18 @@
 	<div class="container-fluid light-grey">
 		<div class="copyright-line">
 		<div class="row">
-			<div class="col-xs-20">
+			<div class="col-xs-12">
 				<span class="copyright">
 					2016 © Усадьба-Кулинария.ру - доставка полуфабрикатов и кулинарии.
 				</span>
-				<span class="ref hidden-xs">
+				<span class="ref">
 					<a href="http://bymind.ru" title="Designed and developed ByMind.ru" target="_blank">Designed and developed</a>
 					<a class="logo" href="http://bymind.ru" title="Designed and developed ByMind.ru" target="_blank"></a>
 				</span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-20">
+			<div class="col-xs-12">
 
 			</div>
 		</div>
