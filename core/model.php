@@ -59,6 +59,35 @@ class Model
 		return $ds;
 	}
 
+	function createProdUrlByArt($prodArr)
+	{
+
+		if (!$prodArr) {
+			return false;
+		}
+
+		$q = mysql_query("SELECT * FROM prod_cat");
+		$prod_cat = array();
+		while ($buf = mysql_fetch_assoc($q)) {
+			$prod_cat[$buf['id']] = $buf;
+		}
+		unset($q);
+		foreach ($prodArr as &$product) {
+			$art = $product["art"];
+			$q = mysql_query("SELECT * FROM prod_items WHERE art='$art' ");
+			$prod = mysql_fetch_assoc($q);
+			$cat_name = $prod_cat[ $prod['cat'] ]['tech_name'];
+			$cat_parent_id = $prod_cat[ $prod['cat'] ]['parent'];
+			if ($cat_parent_id > 0) {
+				$cat_name = $prod_cat[$cat_parent_id]['tech_name']."/".$cat_name;
+			}
+			$prod['url'] = "/catalog/".$cat_name."/".$prod['art']."_".$prod['tech_name'];
+			$product['url'] = $prod['url'];
+		}
+		unset($product);
+		return $prodArr;
+	}
+
 	function createProdUrl($prodArr)
 	{
 
