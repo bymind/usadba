@@ -1368,6 +1368,40 @@ span.link a:hover {
 	color: #a6a6a6;
 }
 
+.cart-prodname {
+	width: 180px;
+	max-width: 180px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cart-prodname .mini-counter{
+	font-size: 11px;
+	vertical-align: super;
+	opacity: .6;
+}
+
+.cart-prodprice {
+	width: 80px;
+	max-width: 80px;
+	min-width: 80px;
+	white-space: nowrap;
+}
+
+.cart-prodcount{
+	width: 30px;
+}
+
+.cart-prodprice.res {
+	font-weight: 900;
+	white-space: nowrap;
+}
+
+.sum-price{
+	font-weight: 900;
+}
+
 
 /* EXTENDS BOOTSTRAP */
 
@@ -1988,6 +2022,30 @@ span.link a:hover {
 		margin: 0 16px;
 	}
 
+	.crumbs {
+		margin-left: 5px;
+		margin-right: 5px;
+		text-align: center;
+		font-size: 12px;
+	}
+
+	.crumb {
+		margin-bottom: 4px;
+	}
+
+	.crumb-divider {
+		opacity: .6;
+		margin: 0px;
+		font-size: 8px;
+		display: inline-block;
+		width: 6px;
+		background: url(/img/arrr.svg) center center no-repeat;
+		background-size: 5px;
+		height: 16px;
+		color: transparent;
+		vertical-align: top;
+	}
+
 }
 
 /* XS */
@@ -2170,6 +2228,14 @@ button.col-xxs-4 {
 	.modal .modal-footer {
 		padding: 20px 10px 20px;
 		border: 0;
+	}
+
+	.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+		padding: 4px;
+	}
+
+	.cart-prodname {
+		max-width: calc(55vw);
 	}
 
 }
