@@ -52,7 +52,7 @@
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 							<div class="heart" data-imgname="rozan" title="Добавить в избранное"></div>
 						</div>
-						<div class="prod-name"><a href="<?= $prod['url']?>"><?= $prod['name']?></a></div>
+						<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true" ><?= $prod['name']?></a></div>
 						<div class="prod-details"><?= $prod['mini_desc']?></div>
 						<div class="prod-price"><span class="number"><?= $prod['price']?></span> руб</div>
 						<div class="prod-counts">(<span class="number"><?= $prod['count_measure']?></span> <span class="measure"><?= $prod['measure']?></span>)</div>
@@ -86,7 +86,7 @@
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 										</div>
-										<div class="prod-name"><a href="<?= $prod['url']?>"><?= $prod['name']?></a></div>
+										<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true" ><?= $prod['name']?></a></div>
 										<div class="prod-details"><?= $prod['mini_desc']?></div>
 										<div class="prod-price"><span class="number"><?= $prod['price']?></span> руб</div>
 										<div class="prod-counts">(<span class="number"><?= $prod['count_measure']?></span> <span class="measure"><?= $prod['measure']?></span>)</div>
@@ -163,9 +163,6 @@
 					Продажа блюд и продуктов производится онлайн и по телефону. Кулинария заботится о своих клиентах, и поэтому мы делаем все, чтобы вы получали только качественные и полезные полуфабрикаты и блюда в кратчайшие сроки.
 				</span>
 			</div>
-<!--
-			<pre><?php var_dump($prodItems); ?>
-			</pre> -->
 
 		</div>
 	</div>

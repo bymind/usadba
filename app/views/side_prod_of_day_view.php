@@ -17,7 +17,7 @@
 		<div class="prod-day-img box-img display labeled" data-label="<?= $prod['labels'] ?>" style='background-image: url("<?= $prod['images'] ?>");'><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 			<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 		</div>
-		<div class="prod-name"><a href="<?= $prod['url'] ?>"><?= $prod['name'] ?></a></div>
+		<div class="prod-name"><a href="<?= $prod['url'] ?>" data-prodname="true" ><?= $prod['name'] ?></a></div>
 		<div class="prod-details"><?= $prod['mini_desc'] ?></div>
 		<div class="prod-price"><span class="number"><?= $prod['price'] ?></span> руб</div>
 		<div class="prod-counts">(<span class="number"><?= $prod['count_measure'] ?></span> <span class="measure"><?= $prod['measure'] ?></span>)</div>

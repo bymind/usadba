@@ -19,7 +19,7 @@
 				<div class="product-layer shadow br-2 clearfix">
 
 					<!-- TITLE -->
-					<div class="title-wide">
+					<div class="title-wide" data-prodname="true">
 						<?php
 							echo $currentProduct['name'];
 						?>
@@ -240,7 +240,7 @@
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
 										</div>
-										<div class="prod-name"><a href="<?= $prod['url']?>"><?= $prod['name']?></a></div>
+										<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true" ><?= $prod['name']?></a></div>
 										<div class="prod-details"><?= $prod['mini_desc']?></div>
 										<div class="prod-price"><span class="number"><?= $prod['price']?></span> руб</div>
 										<div class="prod-counts">(<span class="number"><?= $prod['count_measure']?></span> <span class="measure"><?= $prod['measure']?></span>)</div>
