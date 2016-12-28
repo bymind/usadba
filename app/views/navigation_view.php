@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-			<nav class="main_menu mb-20">
+			<nav class="main_menu mb-20 mb-xs-10">
 				<div class="hidden-xxs col-xs-7 col-sm-8 p-0"><!--
 				 --><ul class="menu_text_units"><!--
 					 --><li class="show-li item-li <?php if ($pageId=='catalog') {echo 'active_menu';}?> "><a class="arrow pclick <?php if ($pageId=='catalog') {echo 'active_menu';}?>" href="/catalog" data-tname="catalog">Каталог</a><ul class="sub-menu"><!--

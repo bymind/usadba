@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 	<div class="col-xs-12">
-		<div class="crumbs mb-20">
+		<div class="crumbs mb-20 mb-xs-10">
 			<div class="crumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 				<a href="/" itemprop="url">
 					<span itemprop="title">Главная<span class='hidden-xs'> страница</span></span>
