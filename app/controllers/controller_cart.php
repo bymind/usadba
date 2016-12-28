@@ -41,15 +41,24 @@ class Controller_Cart extends Controller
 	function updCart()
 	{
 		$jsonCart = $_POST['jsonCart'];
+		$cartDecoded = json_decode($jsonCart, true);
+		$cartDecoded['items'] = Model::createProdUrlByArt($cartDecoded['items']);
+		$jsonCart = json_encode($cartDecoded);
 		Controller::sessionEdit('edit', 'cart', $jsonCart);
+		echo $jsonCart;
 		return 0;
 	}
 
 	function checkCart()
 	{
-		// $_SESSION['cart'] = NULL;
+		// $_SESSION['cart'] = NULL; // delete session cart
 		$jsonCart = $_SESSION['cart'];
-		echo "$jsonCart";
+		$cartDecoded = json_decode($jsonCart, true);
+		if ($cartDecoded['items']) {
+			echo $jsonCart;
+		} else {
+			echo "false";
+		}
 		return $jsonCart;
 	}
 
