@@ -115,8 +115,9 @@ class Controller_User extends Controller
 	{
 		if (isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
+			header('location:/');
 		} else {
-			echo "No user";
+			Route::Catch_Error('404');
 		}
 	return 0;
 	}
