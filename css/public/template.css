@@ -196,6 +196,13 @@ button.login {
 	line-height: 24px;
 }
 
+button.login.logged {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 0;
+}
+
 button.cart, a.cart {
 	background: #c63838 url(/img/cart.svg) 14px center no-repeat;
 	background-size: 20px;
@@ -1591,6 +1598,10 @@ span.link a:hover {
 	margin-top: 6px;
 }
 
+.modal form span.substring.red {
+	color: #c63838;
+}
+
 .modal .forgot {
 	text-align: right;
 }
@@ -1753,6 +1764,10 @@ span.link a:hover {
 	height: 160px !important;
 }
 
+.form-group {
+	margin: 0;
+}
+
 /* MEDIA QUERIES */
 
 
@@ -1771,6 +1786,9 @@ span.link a:hover {
 	.head-phone {
 		text-align: right;
 	}
+
+
+
 }
 
 
@@ -1783,6 +1801,33 @@ span.link a:hover {
 }
 
 @media (max-width: 959px) {
+
+	button.to-cart.active {
+		background-position: center center;
+	}
+
+	.crumbs {
+		margin-left: 5px;
+		margin-right: 5px;
+		font-size: 13px;
+	}
+
+	.crumb {
+		/* margin-top: 10px; */
+	}
+
+	.crumb-divider {
+		opacity: .6;
+		margin: 0px;
+		font-size: 8px;
+		display: inline-block;
+		width: 10px;
+		background: url(/img/arrr.svg) center center no-repeat;
+		background-size: 5px;
+		height: 16px;
+		color: transparent;
+		vertical-align: top;
+	}
 
 	.headline .logo-sitename {
 		font-size: 14px;
@@ -2023,8 +2068,8 @@ span.link a:hover {
 	}
 
 	.crumbs {
-		margin-left: 5px;
-		margin-right: 5px;
+		margin-left: 0px;
+		margin-right: 0px;
 		text-align: center;
 		font-size: 12px;
 	}
@@ -2044,6 +2089,12 @@ span.link a:hover {
 		height: 16px;
 		color: transparent;
 		vertical-align: top;
+	}
+
+	.main-cat .title-cat {
+		padding: 6px 10px;
+		font-size: 16px;
+		background: rgba(255,255,255,.8);
 	}
 
 }
@@ -2236,6 +2287,15 @@ button.col-xxs-4 {
 
 	.cart-prodname {
 		max-width: calc(55vw);
+	}
+
+	.main-cat {
+		background-size: cover;
+		height: 160px;
+	}
+
+	.incs .minus, .incs .plus {
+		width: 35px;
 	}
 
 }

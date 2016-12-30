@@ -28,8 +28,16 @@
 					<span class="price-counter">
 						<span class="num">0</span> руб
 					</span>
-				</button><button class="btn-wide col-xxs-4 login" data-target="modal" data-targetindex="profile">
+				</button><button class="btn-wide col-xxs-4 login <?php if ($isLogged) {echo 'logged';} ?> " data-target="modal" data-targetindex="profile">
+				<?php
+					if ($isLogged) {
+						echo $isLogged['name'];
+					} else {
+				?>
 					Личный <br class="visible-xs">кабинет
+				<?php
+					}
+				?>
 				</button><button class="btn-wide col-xxs-4 call-me" data-target="modal" data-targetindex="callback">
 					<span class="hidden-xs">Заказать<br></span>обратный <br class="visible-xs">звонок
 				</button>

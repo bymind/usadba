@@ -11,12 +11,17 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xxs-10 col-xxs-offset-1 col-xs-8 col-xs-offset-2">
-							<form id="profile-form" action="">
-								<label for="login-email">Адрес электронной почты</label>
-								<input type="email" id="login-email" class="mb-20" placeholder="Введите email">
-								<label for="login-passw">Пароль</label>
-								<input type="password" id="login-passw" placeholder="Введите пароль">
+							<form id="profile-form-login" action="">
+								<div class="mb-20 form-group">
+									<label for="login-email">Адрес электронной почты</label>
+									<input type="email" name="email" id="login-email" class="form-control" placeholder="Введите email" required>
+								</div>
+								<div class="form-group">
+									<label for="login-passw">Пароль</label>
+									<input type="password" name="password" id="login-passw" placeholder="Введите пароль" class=" form-control" required minlength="6">
+								</div>
 								<div class="forgot"><a href="/#forgot">Я не помню пароль</a></div>
+								<div class="error"></div>
 							</form>
 						</div>
 					</div>
@@ -28,7 +33,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-7">
-						<button type="button" class="br-2 btn btn-primary">Войти</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="login">Войти</button>
 					</div>
 				</div>
 			</div>
@@ -37,14 +42,18 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xxs-10 col-xxs-offset-1 col-xs-8 col-xs-offset-2">
-							<form id="profile-form" action="">
-								<label for="reg-name">Ваши имя и фамилия</label>
-								<input type="text" id="reg-name" class="mb-20" placeholder="Представьтесь, пожалуйста">
-								<label for="reg-email">Адрес электронной почты</label>
-								<input type="email" id="reg-email" placeholder="Введите email">
-								<span class="substring">
-									Мы отправим Вам письмо с персональной ссылкой на страницу задания пароля.
-								</span>
+							<form id="profile-form-reg" action="">
+								<div class="form-group">
+									<label for="reg-name">Ваши имя и фамилия</label>
+									<input type="text" name="name" id="reg-name" class="mb-20 form-control" placeholder="Представьтесь, пожалуйста">
+								</div>
+								<div class="form-group">
+									<label for="reg-email">Адрес электронной почты</label>
+									<input type="email" name="email" id="reg-email" placeholder="Введите email" class=" form-control">
+									<span class="substring">
+										Мы отправим Вам письмо с персональной ссылкой на страницу задания пароля.
+									</span>
+								</div>
 							</form>
 						</div>
 					</div>

@@ -28,7 +28,7 @@ class View
 	*/
 	function generate($content_view, $template_view, $data = null, $navigation_view = 'navigation_view.php', $footer_view = 'footer_view.php', $modals_view = 'modals_view.php' , $headline_view = 'headline_view.php' )
 	{
-
+		$isLogged = Controller::is_logged();
 		$OgType = 'website';
 		$OgImage = '/img/public/laika-og.png';
 

@@ -453,6 +453,11 @@ function BtnClickHandler(obj)
 			ModalInit(targetIndex);
 			break;
 
+		case 'login':
+			var loginForm = $('#profile-form-login');
+			TryLogin(loginForm);
+			break;
+
 		default:
 			break;
 	}
@@ -460,6 +465,118 @@ function BtnClickHandler(obj)
 	return 0;
 }
 
+function TryLogin(form)
+{
+	if (loginValidate(form)) {
+		var login ={};
+		login.email = form.find('input#login-email').val();
+		login.password = form.find('input#login-passw').val();
+		var jsonLogin = JSON.stringify(login);
+		$.ajax({
+			url: '/user/login',
+			type: 'POST',
+			// dataType: 'json',
+			data: {target: 'login', jsonLogin: jsonLogin},
+		})
+		.done(function(res) {
+			if ( res && res!='false') {
+				console.warn("TryLogin() done");
+				$res = JSON.parse(res);
+				$res ? console.info($res) : console.info(res);
+				ShowGood(form.parents('.modal-content').find('button[data-target=login]'));
+			} else {
+				console.error("TryLogin() response FALSE");
+				console.error("jsonLogin: "+jsonLogin);
+				console.error(res);
+				var err = [{'name':"email",'msg':"Неверные данные"},{'name':"password",'msg':"Неверные данные"}];
+				ShowErrors(form,err);
+			}
+		})
+		.fail(function(res) {
+			console.error("TryLogin() fail");
+			console.error("jsonLogin: "+jsonLogin);
+			console.error(res);
+		})
+		.always(function(res) {
+			console.info("TryLogin() complete");
+			// console.info(res);
+		});
+
+	}
+}
+
+function loginValidate(form)
+{
+	var inputs = form.find('.form-group');
+	inputs.each(function(index, el) {
+		$(el).removeClass('has-error');
+		$(el).find('.substring.red').remove();
+	});
+	var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
+	var errors = []; // тут будем хранить объекты ошибок
+	var login ={}; // тут данные с формы
+	login.email = form.find('input#login-email').val();
+	login.password = form.find('input#login-passw').val();
+
+	var error = {}; // объект ошибки
+
+	if (login.email == "" || !login.email) {
+		error.name = 'email';
+		error.msg = 'Введите email';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if ( !emailReg.test(login.email)) {
+			error.name = 'email';
+			error.msg = 'Введите корректный email';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		}
+	}
+
+	if (login.password == "" || !login.password) {
+		error.name = 'password';
+		error.msg = 'Введите пароль';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if (login.password.length < 6) {
+			error.name = 'password';
+			error.msg = 'Минимум 6 символов';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		}
+	}
+
+	if (errors.length != 0) {
+		ShowErrors(form, errors);
+		return false;
+	}
+
+return true;
+}
+
+function ShowErrors(f, err)
+{
+	var form = f;
+	var errors = err;
+	for (var i = 0; i < errors.length; i++) {
+		console.warn(errors[i].msg);
+		var form_group = form.find('input[name='+errors[i].name+']').parents('.form-group');
+		var input = form.find('input[name='+errors[i].name+']');
+		form_group.addClass('has-error');
+		input.after('<span class="substring red">'+errors[i].msg+'</span>')
+
+	}
+}
+
+function ShowGood(btn)
+{
+	var b = btn;
+	b.css('background-color', '#0dc95c');
+	b.text('Входим');
+	location.reload();
+}
 
 /*
 * ModalInit(index)

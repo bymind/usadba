@@ -12,6 +12,8 @@ class Controller
 	public $model; // свойство для общения с моделью
 	public $view; // свойство для общения с представлением
 
+	public $isLogged;
+
 	/**
 	* __construct
 	*
@@ -22,9 +24,9 @@ class Controller
 
 	function __construct()
 	{
-		$this->is_logged();
 		$this->view = new View();
 		$this->model = new Model();
+		$isLogged = Self::is_logged();
 	}
 
 	/**
@@ -37,9 +39,9 @@ class Controller
 
 	function is_logged()
 	{
-		if (isset($_SESSION['id'])&& $_SESSION['id'] > 0)
+		if (isset($_SESSION['user']))
 		{
-			return true;
+			return $_SESSION['user'];
 		} else
 		{
 			return false;
