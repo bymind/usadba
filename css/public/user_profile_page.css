@@ -1,0 +1,202 @@
+.profile-box {
+	width: 100%;
+	position: relative;
+	min-height: 200px;
+	background: #fff;
+	padding: 20px;
+}
+
+.profile-menu {
+	position: relative;
+	width: 100%;
+	height: auto;
+	background: #fff;
+	padding: 20px;
+	text-align: right;
+	font-size: 16px;
+}
+
+.profile-menu ul {
+	list-style: none;
+}
+
+.profile-menu ul li {
+	position: relative;
+	display: block;
+}
+
+.profile-menu ul li a {
+	position: relative;
+	display: inline-block;
+	height: 100%;
+	border-radius: 2px;
+	padding: 4px 2px;
+	color: inherit;
+	opacity: .8;
+	will-change: opacity, color;
+	transition: opacity .1s ease-in-out, color .2s ease-in-out;
+}
+
+.profile-menu ul li:first-child a{
+	padding: 0 2px 4px;
+}
+
+.profile-menu ul li:last-child a{
+	padding: 4px 2px 0;
+}
+
+.profile-menu ul li a.active, .profile-menu ul li a:active {
+	color:  #c63838;
+}
+
+.profile-menu ul li a:hover {
+	color:  #c63838;
+	text-decoration: none;
+	opacity: 1;
+}
+
+.profile-avatar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.profile-avatar img {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+	object-position: center;
+}
+
+.avatar-edit {
+	width: 100%;
+	position: relative;
+	height: 20px;
+	line-height: 14px;
+	font-size: 11px;
+	text-align: center;
+	margin-top: 4px;
+}
+
+.avatar-edit a {
+	color: inherit;
+	opacity: .5;
+}
+
+.avatar-edit a:hover{
+	opacity: .7;
+}
+
+.details-wrapper {
+	padding: 0 10px;
+}
+
+.details-section-title {
+	font-size: 13px;
+	opacity: .6;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+	padding-bottom: 2px;
+}
+
+.details-section-title .edit {
+	display: inline-block;
+	position: relative;
+	float: right;
+	opacity: 0;
+	cursor: pointer;
+	will-change: opacity, color;
+	transition: opacity .1s ease-in-out, color .2s ease-in-out;
+}
+
+.details-section-title .edit:hover {
+	color: #c63838;
+}
+
+.details-section:hover .details-section-title .edit {
+	opacity: 1;
+}
+
+.details-section-data {
+	font-size: 13px;
+}
+
+.details-section-data .params {
+	display: block;
+	margin: 6px 0 10px;
+	border-bottom: 1px solid #ccc;
+	height: 13px;
+}
+
+.details-section-data .param {
+	display: inline-block;
+	height: 16px;
+}
+
+.details-section-data .param span{
+	display: inline-block;
+	background: #fff;
+	padding: 0 4px;
+	line-height: 20px;
+	height: 20px;
+	font-weight: 900;
+}
+
+.details-section-data .value {
+	display: inline-block;
+	background: #fff;
+}
+
+.details-section-data .addresses {
+	display: block;
+	width: 100%;
+	margin-top: 6px;
+}
+
+.addresses span.addr {
+	display: block;
+	width: 100%;
+}
+
+span.addr>.addr-count {
+	font-weight: 900;
+	margin-right: 6px;
+	display: inline-block;
+}
+
+@media (min-width: 960px) {
+
+}
+
+@media (max-width: 959px) {
+
+}
+
+@media (min-width: 768px) and (max-width:959px){
+
+}
+
+@media (max-width: 767px) {
+
+	.profile-menu {
+		padding: 5px 10px;
+		font-size: 14px;
+		text-align: center;
+	}
+
+	.profile-menu ul li{
+		display: inline-block;
+		padding: 0 10px;
+	}
+}
+
+@media (max-width: 660px) {
+
+}
+
+@media (max-width: 479px) {
+
+	.profile-menu ul li{
+		padding: 0 3px;
+	}
+
+}

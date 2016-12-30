@@ -29,7 +29,7 @@
 						<?= $prodCat['name']; ?>
 					</div>
 				</div>
-			</div>
+	</div>
 
 <?php
 		}

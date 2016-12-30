@@ -54,6 +54,14 @@ h1 {
 	border-radius: 2px !important;
 }
 
+a {
+	color: #c63838;
+}
+
+a:hover, a:active,a:focus {
+	color: #9A2525;
+}
+
 /* HEAD LINE */
 
 .headline {
@@ -879,7 +887,6 @@ a.subcat.sales.active{
 }
 
 .side-news .news-anons a.more{
-	color: #2950a2;
 	text-decoration: underline;
 	font-style: italic;
 }

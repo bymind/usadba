@@ -48,7 +48,60 @@ class Controller_User extends Controller
 
 	function action_profile($uid)
 	{
-		echo $uid;
+		if (!isset($_SESSION['user']) || $_SESSION['user']['id'] != $uid ) {
+			Route::Catch_Error('404');
+		}
+		$uid = Route::PrepareUrl($uid);
+		$userData = $this->model->getUser($uid);
+		if (!$userData) {
+			Route::Catch_Error('404');
+		}
+		$pageDataController = $this->model->getUserData('profile', $userData);
+		$menuItems = $this->model->get_MainMenu('catalog');
+		$pageDataProd = $this->model->getData('prods');
+		$crumbCurEl = array('name' => $pageDataController['title'] );
+		$breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);
+		$this->view->generate(
+			'user_profile_view.php', // вид контента
+			'template_view.php', // вид шаблона
+			array( // $data
+					'title'=> $pageDataController['title'],
+					'style'=>'public/template.css',
+					'style_content' => array(
+																	'public/main_page.css',
+																	'owl-carousel/owl.carousel.css',
+																	'owl-carousel/sales.theme.css',
+																	'owl-carousel/prod.theme.css',
+																	'public/user_profile_page.css'
+																	),
+					'scripts_content'=> array(
+																		'/js/magic-mask/jq.magic-mask.min.js',
+																		'/js/main_page.js',
+																		'/js/owl-carousel/owl.carousel.min.js',
+																		'/js/template.js'
+																		),
+					'pageId' => '', // активный пункт меню
+					'pageDataView' => $userData['profile'],
+					'sidebar' => array(
+														'app/views/side_menu_view.php',
+														'app/views/side_prod_of_day_view.php',
+														'app/views/side_news_view.php',
+														),
+					'prodItems' => $pageDataProd['prodItems'], //
+					'prodCats' => $pageDataProd['prodCats'],
+					'pageSales' => $pageSales['sales'],
+					'menuItems' => $menuItems,
+					'breads' => true,
+					'breadsData' => $breadCrumbs,
+				),
+			'navigation_view.php', // навигация
+			'footer_view.php', // футер
+			array( // модальные окна
+					 'modal_callback_view.php',
+					 'modal_profile_view.php',
+					 'modal_cart_view.php'
+					 )
+			);
 	}
 
 	function login($user)

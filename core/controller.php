@@ -37,7 +37,7 @@ class Controller
 	* @return bool
 	*/
 
-	function is_logged()
+	public function is_logged()
 	{
 		if (isset($_SESSION['user']))
 		{
@@ -109,11 +109,15 @@ class Controller
 		$xday = (int) $xday[2];
 		$xmonth = array ('','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
 		$xmonth = $xmonth[$xm];
-		$xtime = explode(':', $xtime);
-		$xh = $xtime[0];
-		$xmin = $xtime[1];
-		$xs = $xtime[2];
-		$xtimeunix =  mktime($xh, $xmin, $xs, $xm, $xday, $xyear);
+		if (isset($xtime)) {
+			$xtime = explode(':', $xtime);
+			$xh = $xtime[0];
+			$xmin = $xtime[1];
+			$xs = $xtime[2];
+			$xtimeunix =  mktime($xh, $xmin, $xs, $xm, $xday, $xyear);
+		} else {
+			$xtimeunix =  mktime($xm, $xday, $xyear);
+		}
 
 			if ($format == "default") {
 				$xday = (self::backDay($xtimeunix, $xday)=='сегодня')||(self::backDay($xtimeunix, $xday)=='вчера') ? $newTimeStamp = self::backDay($xtimeunix, $xday).' в '.$xh.':'.$xmin : $newTimeStamp = $xday.' '.$xmonth.' '.$xyear.' в '.$xh.':'.$xmin;
