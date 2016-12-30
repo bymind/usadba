@@ -1,7 +1,7 @@
 <div class="container mb-20">
 	<div class="row">
 
-		<div class="col-xxs-12 col-xs-6 col-sm-3">
+		<div class="hidden-xs col-sm-3">
 
 			<?php
 				if (is_array($sidebar)) {
@@ -30,7 +30,7 @@
 						?>
 					</div>
 
-					<div class="sidecat prevcat mb-20">
+					<div class="hidden-xxs sidecat prevcat mb-20">
 						<span class="prevcat">
 							<a href="/catalog/<?php echo $backToCatalog; ?>" >
 							<?php
@@ -93,12 +93,12 @@
 							<div class="tab-content-box spec active">
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Вес</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['weight']; ?>
 										</span>
@@ -106,12 +106,12 @@
 								</div>
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Страна</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['country']; ?>
 										</span>
@@ -119,12 +119,12 @@
 								</div>
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Условия хранения</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['stor_cond']; ?>
 										</span>
@@ -132,12 +132,12 @@
 								</div>
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Пищевая ценность</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['nut_val']; ?>
 										</span>
@@ -145,12 +145,12 @@
 								</div>
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Энергетическая ценность</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['energy_val']; ?>
 										</span>
@@ -158,12 +158,12 @@
 								</div>
 
 								<div class="params clearfix">
-									<div class="param col-xs-4">
+									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
 										<span>Состав</span>
 										</div>
 									</div>
-									<div class="value col-xs-8">
+									<div class="value col-xs-8 col-xxs-12">
 										<span>
 										<?php echo $currentProduct['consist']; ?>
 										</span>
@@ -266,6 +266,20 @@
 
 ?>
 
+
+<div class="col-xxs-12 col-xs-12 visible-xs">
+
+	<?php
+		if (is_array($sidebar)) {
+			foreach ($sidebar as $sidebar_item) {
+				include $sidebar_item;
+			}
+		} else {
+			include $sidebar;
+		}
+	?>
+
+</div>
 
 				<div class="hidden-xxs col-xs-12 col-sm-9 mb-20 mt-20">
 					<div class="seo-text mb-20">

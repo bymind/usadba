@@ -1,7 +1,7 @@
 <div class="container mb-20">
 	<div class="row">
 
-		<div class="col-xxs-12 col-xs-6 col-sm-3">
+		<div class="hidden-xs col-sm-3">
 
 			<?php
 				if (is_array($sidebar)) {
@@ -107,16 +107,6 @@
 			</div>
 
 <?php
-
-/*	if ($prodCat['parent']!=0) {
-		$parentCatId = $prodCat['parent'];
-		$parentCat = $prodCats[$parentCatId];
-		$popularCat = $parentCat;
-		$prodCatPopulars = $prodParentCatPopulars;
-	} else {
-		$popularCat = $prodCat;
-	}*/
-
 	if ($popularCat['show_popular']==1) {
 			if (!$prodCatPopulars){
 				echo "<div class='col-xxs-12 col-xs-12 col-sm-9'><h3>Нет популярных товаров в этой категории</h3></div>";
@@ -165,7 +155,19 @@
 
 ?>
 
+<div class="col-xs-12 visible-xs">
 
+	<?php
+		if (is_array($sidebar)) {
+			foreach ($sidebar as $sidebar_item) {
+				include $sidebar_item;
+			}
+		} else {
+			include $sidebar;
+		}
+	?>
+
+</div>
 				<div class="hidden-xxs col-xs-12 col-sm-9 mb-20 mt-20">
 					<div class="seo-text mb-20">
 						<h3 class="title">

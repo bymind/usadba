@@ -208,11 +208,13 @@
 .tab-content-box.spec .params {
 	display: block;
 	margin: 6px 0 10px;
+	/* border-bottom: 1px solid #ccc; */
+	/* height: 13px; */
 }
 
 .tab-content-box.spec .param {
 	display: inline-block;
-	min-width: 200px;
+	min-width: 180px;
 	border-bottom: 1px solid #ccc;
 	height: 16px;
 }
@@ -228,6 +230,7 @@
 
 .tab-content-box.spec .value {
 	display: inline-block;
+	background: #fff;
 }
 
 .tab-content-box.reviews {
@@ -248,4 +251,52 @@
 
 .com-details {
 	max-width: calc(100% - 70px);
+}
+
+@media (min-width: 960px) {
+
+}
+
+@media (max-width: 959px) {
+
+}
+
+@media (min-width: 768px) and (max-width:959px){
+
+	.tab-content-box.spec .param {
+		border-bottom: 0;
+	}
+
+}
+
+@media (max-width: 767px) {
+
+	.product-layer {
+		padding: 10px 20px;
+	}
+
+	.title-wide {
+		font-size: 20px;
+	}
+
+	.poster {
+		min-height: 200px;
+	}
+
+}
+
+@media (max-width: 660px) {
+
+	.tab-content-box.spec .param {
+		border-bottom: 0;
+	}
+
+}
+
+@media (max-width: 479px) {
+
+	.tabs-box .tab {
+		padding: 4px 10px;
+	}
+
 }

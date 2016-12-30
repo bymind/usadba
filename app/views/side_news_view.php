@@ -1,4 +1,4 @@
-<div class="hidden-xas side-news shadow br-2 mb-20">
+<div class="hidden-xs side-news shadow br-2 mb-20">
 	<div class="side-news-title">
 		Новости
 	</div>

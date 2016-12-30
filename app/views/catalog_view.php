@@ -1,7 +1,7 @@
 <div class="container mb-20">
 	<div class="row">
 
-		<div class="col-xxs-12 col-xs-6 col-sm-3">
+		<div class="hidden-xs col-sm-3">
 
 			<?php
 				if (is_array($sidebar)) {
@@ -20,7 +20,7 @@
 				if ($prodCat['parent'] == 0) {
 		?>
 
-					<div class="col-xxs-6 col-xs-6 col-sm-3 mb-20 mb-xxs-10">
+					<div class="col-xxs-6 col-xs-6 col-xas-4 col-sm-3 mb-20 mb-xxs-10">
 						<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
 							<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
 							<div class="title-cat">
@@ -105,6 +105,20 @@
 			</div>
 
 	</div>
+</div>
+
+<div class="col-xs-12 visible-xs">
+
+	<?php
+		if (is_array($sidebar)) {
+			foreach ($sidebar as $sidebar_item) {
+				include $sidebar_item;
+			}
+		} else {
+			include $sidebar;
+		}
+	?>
+
 </div>
 
 <div class="container mb-20">

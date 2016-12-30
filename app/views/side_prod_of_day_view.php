@@ -1,4 +1,4 @@
-<div class="prod-day shadow mb-20 br-2">
+<div class="prod-day shadow mb-20 br-2 hidden-xs">
 	<div class="prod-day-title">
 		Товар дня
 	</div>
