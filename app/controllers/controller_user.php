@@ -46,6 +46,11 @@ class Controller_User extends Controller
 	return 0;
 	}
 
+	function action_profile($uid)
+	{
+		echo $uid;
+	}
+
 	function login($user)
 	{
 		$_SESSION['user'] = $user;

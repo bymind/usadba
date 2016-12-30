@@ -458,11 +458,21 @@ function BtnClickHandler(obj)
 			TryLogin(loginForm);
 			break;
 
+		case 'goProfile':
+			var targetIndex = obj.data().targetindex;
+			GoToProfile(targetIndex);
+			break;
+
 		default:
 			break;
 	}
 
 	return 0;
+}
+
+function GoToProfile(uid)
+{
+	location.href = '/user/profile/'+uid;
 }
 
 function TryLogin(form)

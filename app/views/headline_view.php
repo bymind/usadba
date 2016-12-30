@@ -28,7 +28,7 @@
 					<span class="price-counter">
 						<span class="num">0</span> руб
 					</span>
-				</button><button class="btn-wide col-xxs-4 login <?php if ($isLogged) {echo 'logged';} ?> " data-target="modal" data-targetindex="profile">
+				</button><button class="btn-wide col-xxs-4 login <?php if ($isLogged) {echo 'logged';} ?>" data-target="<?php if ($isLogged) {echo 'goProfile';}  else echo 'modal'; ?>" data-targetindex="<?php if ($isLogged) {echo $isLogged['id'];}  else echo 'profile'; ?>">
 				<?php
 					if ($isLogged) {
 						echo $isLogged['name'];
