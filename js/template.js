@@ -1,5 +1,6 @@
 $(function()
 {
+	winW = $(window).width();
 	CheckSessionCart();
 	CountMenuPxls();
 	WindowListen();
@@ -165,7 +166,10 @@ function ConstructCart()
 function WindowListen()
 {
 	$(window).resize(function(event) {
-		CountMenuPxls();
+		if ($(window).width()!=winW) {
+			winW = $(window).width();
+			CountMenuPxls();
+		}
 	});
 
 	var cartMini = $('button.cart');
