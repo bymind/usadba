@@ -1734,6 +1734,15 @@ span.link a:hover {
 	padding-bottom: 50px !important;
 }
 
+.pt-10{
+	padding-top: 10px !important;
+}
+
+
+.pb-10{
+	padding-bottom: 10px !important;
+}
+
 .p-0 {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
@@ -1773,6 +1782,10 @@ span.link a:hover {
 
 .form-group {
 	margin: 0;
+}
+
+.br-bt-gray {
+	border-bottom: 1px solid #eee;
 }
 
 /* MEDIA QUERIES */

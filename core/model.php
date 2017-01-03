@@ -132,6 +132,36 @@ class Model
 		return $ds;
 	}
 
+
+	function createProdPict($prodArr)
+	{
+
+		if (!$prodArr) {
+			return false;
+		}
+
+		$arts = array();
+		foreach ($prodArr as $key => $value) {
+			$arts[] = "'".$key."'";
+		}
+
+		$arts = implode(', ', $arts);
+
+		$q = mysql_query("SELECT * FROM prod_items WHERE art IN ($arts) ") or die(mysql_error());
+		while ($buf = mysql_fetch_assoc($q)) {
+			$ds[$buf['art']] = $buf;
+		}
+
+		foreach ($prodArr as $key => &$value) {
+			$pict = explode('_',$ds[$key]['images']);
+			$pict = $pict[0];
+			$value['poster'] = $pict;
+		}
+
+		return $prodArr;
+
+	}
+
 	function createProdUrlByArt($prodArr)
 	{
 
@@ -145,6 +175,7 @@ class Model
 			$prod_cat[$buf['id']] = $buf;
 		}
 		unset($q);
+		// TODO: переписать без sql-запросов в цикле ><
 		foreach ($prodArr as &$product) {
 			$art = $product["art"];
 			$q = mysql_query("SELECT * FROM prod_items WHERE art='$art' ");

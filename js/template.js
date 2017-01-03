@@ -434,6 +434,7 @@ return 0;
 function BtnClickInit()
 {
 	$(document).on('click', 'button', function(event) {
+		console.log('btn clicked!');
 		BtnClickHandler($(this));
 	});
 	return 0;
@@ -465,6 +466,12 @@ function BtnClickHandler(obj)
 		case 'goProfile':
 			var targetIndex = obj.data().targetindex;
 			GoToProfile(targetIndex);
+			break;
+
+		case 'goLink':
+			var targetIndex = obj.data().targetindex;
+			console.log(targetIndex);
+			location.href=targetIndex;
 			break;
 
 		default:
@@ -627,7 +634,7 @@ function ModalInit(index)
 			$(el).attr('disabled', 'disabled');
 		});
 		var cartBody = modalBody.find('.cart-body');
-		cartBody.html("<div class='nothing'>Тут пока ничего нет.</div>");
+		cartBody.html("<div class='nothing'>Тут пока ничего нет.</div><div class='nothing'>Посмотрите наш <a href='/catalog' rel='nofollow'>каталог</a>.</div>");
 	}
 
 	modalBlock.modal();

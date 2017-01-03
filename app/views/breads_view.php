@@ -8,6 +8,7 @@
 				</a>
 			</div>
 			<?php
+			// var_dump();
 				foreach ($breadsData as $key => $value) {
 				?>
 				<span class="crumb-divider"> → </span>
