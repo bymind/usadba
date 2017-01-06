@@ -54,6 +54,10 @@ h1 {
 	border-radius: 2px !important;
 }
 
+.o-h {
+	overflow: hidden;
+}
+
 a {
 	color: #c63838;
 }

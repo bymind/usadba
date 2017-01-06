@@ -153,7 +153,7 @@ class Model
 		}
 
 		foreach ($prodArr as $key => &$value) {
-			$pict = explode('_',$ds[$key]['images']);
+			$pict = explode(',',$ds[$key]['images']);
 			$pict = $pict[0];
 			$value['poster'] = $pict;
 		}

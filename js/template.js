@@ -779,7 +779,7 @@ function ChangeInput()
 */
 function ClickOnPLus()
 {
-	$(document).on('click', '.prod-btn-block .plus', function(event) {
+	$(document).on('click', '.incs .plus', function(event) {
 		event.preventDefault();
 		var inpt = $(this).parent().find('input');
 		var counts = parseInt(inpt.val())+1;
@@ -803,7 +803,7 @@ return 0;
 */
 function ClickOnMinus()
 {
-	$(document).on('click', '.prod-btn-block .minus', function(event) {
+	$(document).on('click', '.incs .minus', function(event) {
 		event.preventDefault();
 		var inpt = $(this).parent().find('input');
 		var counts = parseInt(inpt.val())-1;
@@ -942,9 +942,10 @@ function CheckSessionCart()
 		data: {target: 'checkCart'},
 	})
 	.done(function(res) {
-		if (res === 'false') {
+		if (res === 'false' || !res || res == '') {
 			console.warn('SessionCartStorage response: '+res);
 		} else {
+			console.warn(res);
 			UpdateSessionCart(res);
 		}
 	})
