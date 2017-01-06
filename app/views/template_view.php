@@ -81,7 +81,8 @@ include $Modals;
 		include "css/owl-carousel/owl.transitions.css";
 		echo "</style>";
 	*/ ?>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
+<script src="/js/jquery/jquery-3.1.1.min.js"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
 <?php
 	if (is_array($scripts_content)) {
