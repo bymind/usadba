@@ -43,13 +43,13 @@
 					<div class="row">
 						<div class="col-xxs-10 col-xxs-offset-1 col-xs-8 col-xs-offset-2">
 							<form id="profile-form-reg" action="">
-								<div class="form-group">
+								<div class="form-group mb-20">
 									<label for="reg-name">Ваши имя и фамилия</label>
-									<input type="text" name="name" id="reg-name" class="mb-20 form-control" placeholder="Представьтесь, пожалуйста">
+									<input type="text" name="name" id="reg-name" class="form-control" placeholder="Представьтесь, пожалуйста" required>
 								</div>
 								<div class="form-group">
 									<label for="reg-email">Адрес электронной почты</label>
-									<input type="email" name="email" id="reg-email" placeholder="Введите email" class=" form-control">
+									<input type="email" name="email" id="reg-email" placeholder="Введите email" class=" form-control" required>
 									<span class="substring">
 										Мы отправим Вам письмо с персональной ссылкой на страницу задания пароля.
 									</span>
@@ -65,7 +65,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-8">
-						<button type="button" class="br-2 btn btn-primary">Зарегистрироваться</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="registration">Зарегистрироваться</button>
 					</div>
 				</div>
 			</div>
