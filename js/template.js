@@ -463,6 +463,11 @@ function BtnClickHandler(obj)
 			TryLogin(loginForm);
 			break;
 
+		case 'registration':
+			var registrationForm = $('#profile-form-reg');
+			TryRegistration(registrationForm);
+			break;
+
 		case 'goProfile':
 			var targetIndex = obj.data().targetindex;
 			GoToProfile(targetIndex);
@@ -490,13 +495,12 @@ function TryLogin(form)
 {
 	if (loginValidate(form)) {
 		var login ={};
-		login.email = form.find('input#login-email').val();
-		login.password = form.find('input#login-passw').val();
+		login.email = escapeHtml(form.find('input#login-email').val());
+		login.password = escapeHtml(form.find('input#login-passw').val());
 		var jsonLogin = JSON.stringify(login);
 		$.ajax({
 			url: '/user/login',
 			type: 'POST',
-			// dataType: 'json',
 			data: {target: 'login', jsonLogin: jsonLogin},
 		})
 		.done(function(res) {
@@ -536,8 +540,9 @@ function loginValidate(form)
 	var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
 	var errors = []; // тут будем хранить объекты ошибок
 	var login ={}; // тут данные с формы
-	login.email = form.find('input#login-email').val();
-	login.password = form.find('input#login-passw').val();
+	login.email = escapeHtml(form.find('input#login-email').val());
+	login.password = escapeHtml(form.find('input#login-passw').val());
+
 
 	var error = {}; // объект ошибки
 
@@ -564,6 +569,98 @@ function loginValidate(form)
 		if (login.password.length < 6) {
 			error.name = 'password';
 			error.msg = 'Минимум 6 символов';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		}
+	}
+
+	if (errors.length != 0) {
+		ShowErrors(form, errors);
+		return false;
+	}
+
+return true;
+}
+
+
+function TryRegistration(form)
+{
+	if (registrationValidate(form)) {
+		var login ={};
+		login.email = escapeHtml(form.find('input#reg-email').val());
+		login.name = escapeHtml(form.find('input#reg-name').val());
+		var jsonLogin = JSON.stringify(login);
+		$.ajax({
+			url: '/user/reg',
+			type: 'POST',
+			data: {target: 'registration', jsonLogin: jsonLogin},
+		})
+		.done(function(res) {
+			if ( res && res!='false') {
+				console.warn("TryRegistration() done");
+				$res = JSON.parse(res);
+				$res ? console.info($res) : console.info(res);
+				ShowGood(form.parents('.modal-content').find('button[data-target=registration]'));
+			} else {
+				console.error("TryRegistration() response FALSE");
+				console.error("jsonLogin: "+jsonLogin);
+				console.error(res);
+				var err = [{'name':"email",'msg':"Неверные данные"},{'name':"name",'msg':"Неверные данные"}];
+				ShowErrors(form,err);
+			}
+		})
+		.fail(function(res) {
+			console.error("TryRegistration() fail");
+			console.error("jsonLogin: "+jsonLogin);
+			console.error(res);
+		})
+		.always(function(res) {
+			console.info("TryRegistration() complete");
+			// console.info(res);
+		});
+
+	}
+}
+
+function registrationValidate(form)
+{
+	var inputs = form.find('.form-group');
+	inputs.each(function(index, el) {
+		$(el).removeClass('has-error');
+		$(el).find('.substring.red').remove();
+	});
+	var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
+	var errors = []; // тут будем хранить объекты ошибок
+	var login ={}; // тут данные с формы
+	login.name = escapeHtml(form.find('input#reg-name').val());
+	login.email = escapeHtml(form.find('input#reg-email').val());
+
+
+	var error = {}; // объект ошибки
+
+	if (login.email == "" || !login.email) {
+		error.name = 'email';
+		error.msg = 'Введите email';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if ( !emailReg.test(login.email)) {
+			error.name = 'email';
+			error.msg = 'Введите корректный email';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		}
+	}
+
+	if (login.name == "" || !login.name) {
+		error.name = 'name';
+		error.msg = 'Введите имя';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if (login.name.length < 2) {
+			error.name = 'name';
+			error.msg = 'Минимум 2 буквы';
 			errors.push(error);
 			error = {}; // обнуляем объект ошибки
 		}
@@ -986,4 +1083,18 @@ function UpdatePageCards()
 		SetActiveToCart(btnDom, true);
 	};
 
+}
+
+function escapeHtml(text) {
+	var map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#039;'
+	};
+
+	// return text;
+
+	return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
