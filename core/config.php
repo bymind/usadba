@@ -2,7 +2,11 @@
 
 // DB config
 
-//$dbHost='a103460.mysql.mchost.ru';
+/*$dbHost='a103460.mysql.mchost.ru';
+$dbName='a103460_usadba';
+$dbUser='a103460_usadba';
+$dbPass='usadba';
+*/
 $dbHost='localhost';
 $dbName='usadba';
 $dbUser='localhost';
@@ -20,3 +24,4 @@ mysql_select_db($dbName,$db);
 
 // DB charset configuration
 mysql_query("SET NAMES utf8");
+
