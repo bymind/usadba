@@ -1095,6 +1095,8 @@ function UpdateSessionCart(res)
 
 function UpdatePageCards()
 {
+	var sumPriceLineNum = $('.sum-number-price.all');
+	sumPriceLineNum.text(cartList.sumPrice);
 	ReloadPageCart();
 
 	console.info('UpdatePageCards()');

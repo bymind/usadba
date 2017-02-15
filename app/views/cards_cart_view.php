@@ -55,3 +55,15 @@
 <?php
 					}
 ?>
+				<div class="row">
+					<div class="col-xs-12 shadow br-2 bg-f pl-10 pr-20 pt-10 pb-10">
+						<div class="sum-item-price mt-10">
+							<div>Сумма заказа
+							<span class="sum-number-price all"><?php echo $pageData['sumPrice'] ?></span> руб
+							</div>
+							<div class="mt-20">
+								<button type="button" class="br-2 btn btn-primary order-btn" data-target="goLink" data-targetindex="/user/cart/order">Оформить заказ</button>
+							</div>
+						</div>
+					</div>
+				</div>

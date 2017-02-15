@@ -18,4 +18,27 @@
   position: relative;
   float: right;
   font-size: 18px;
+  text-align: right;
+}
+
+.btn.btn-primary.order-btn {
+	background: #c63838;
+	border: 0;
+	line-height: 20px !important;
+	will-change: background;
+	margin: 0;
+	height: 30px;
+	font-size: 13px;
+	font-weight: 900;
+	width: 160px;
+}
+
+.btn.btn-primary.order-btn:hover {
+	background: #d63c3c;
+}
+
+.btn.btn-primary.order-btn:active {
+	background: #a22727;
+	border: 0;
+	margin: 0 !important;
 }
