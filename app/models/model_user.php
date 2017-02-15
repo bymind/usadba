@@ -44,7 +44,7 @@ class Model_User extends Model
 		} else return false;
 	}
 
-	public function getUserData($pagename, $user)
+	public function getUserData($pagename, $user=NULL)
 	{
 		switch ($pagename) {
 			case 'profile':

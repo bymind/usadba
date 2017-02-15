@@ -15,6 +15,9 @@
 
 	</div>
 
+<?php
+	if (isset($_SESSION['user'])) {
+?>
 
 	<div class="col-xs-12 col-sm-2 col-sm-push-7">
 		<div class="profile-menu shadow br-2 mb-xs-10">
@@ -27,8 +30,18 @@
 		</div>
 	</div>
 
-
 	<div class="col-xs-12 col-sm-7 col-sm-pull-2">
+<?php
+	} else {
+?>
+	<div class="col-xs-12 col-sm-9">
+<?php
+	}
+ ?>
+
+
+
+
 		<div class="cart-box mb-20 mb-xxs-10">
 			<div class="container-fluid cart-cards-reload">
 				<div class="row">
