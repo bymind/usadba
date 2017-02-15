@@ -28,7 +28,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-7">
-						<button type="button" class="br-2 btn btn-primary">Перезвоните мне</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="goCallback">Перезвоните мне</button>
 					</div>
 				</div>
 			</div>

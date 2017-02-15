@@ -473,6 +473,13 @@ function BtnClickHandler(obj)
 			GoToProfile(targetIndex);
 			break;
 
+		case 'goCallback':
+			var targetIndex = {};
+			targetIndex.name = obj.parents('.modal-content').find('#callback-name').val();
+			targetIndex.phone = obj.parents('.modal-content').find('#callback-phone').val();
+			GoCallback(targetIndex, obj);
+			break;
+
 		case 'goLink':
 			var targetIndex = obj.data().targetindex;
 			console.log(targetIndex);
@@ -484,6 +491,26 @@ function BtnClickHandler(obj)
 	}
 
 	return 0;
+}
+
+function GoCallback(callTo, obj = null)
+{
+	console.info('GoCallback()');
+	console.log(callTo.name);
+	console.log(callTo.phone);
+	if (obj) {
+		obj.parents('.modal-content').find('.modal-footer').css('display', 'none');
+		var modalObj = obj.parents('.modal-callback');
+		var tempBody = obj.parents('.modal-content').find('.modal-body').html();
+		obj.parents('.modal-content').find('.modal-body').html('<div class="mb-20" style="text-align:center; font-size:16px">Спасибо!<br>Мы перезвоним Вам в течение 15 минут.</div>');
+		setTimeout(function(){
+			modalObj.modal('hide');
+				setTimeout(function(){
+					obj.parents('.modal-content').find('.modal-footer').removeAttr('style');
+					obj.parents('.modal-content').find('.modal-body').html(tempBody);
+				},500);
+		}, 3000);
+	}
 }
 
 function GoToProfile(uid)
