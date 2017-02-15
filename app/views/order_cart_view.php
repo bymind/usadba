@@ -81,12 +81,12 @@
 
 											<div class="row">
 												<div class="btn-group order-pay" data-toggle="buttons">
-													<div class="col-xs-4">
+													<div class="col-xxs-6 col-xs-4">
 														<label class="btn btn-order order-cash active">
 															<input type="radio" name="order-paytype" id="order-cash" autocomplete="off" checked> Наличными курьеру
 														</label>
 													</div>
-													<div class="col-xs-4">
+													<div class="col-xxs-6 col-xs-4">
 														<label class="btn btn-order order-cardonline">
 															<input type="radio" name="order-paytype" id="order-cardonline" autocomplete="off"> Картой онлайн
 														</label>
