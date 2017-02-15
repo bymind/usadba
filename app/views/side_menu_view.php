@@ -1,7 +1,7 @@
 <ul class="side-menu shadow mb-20 br-2">
-	<li><a href="/catalog/popular"><span class="label popular">хит!</span>Популярное</a></li>
-	<li><a href="/catalog/new"><span class="label new">new!</span>Новинки</a></li>
-	<li><a href="/catalog/sales"><span class="label sales">акция!</span>Акции</a></li>
+	<li><a href="/#"><span class="label popular">хит!</span>Популярное</a></li>
+	<li><a href="/#"><span class="label new">new!</span>Новинки</a></li>
+	<li><a href="/sales"><span class="label sales">акция!</span>Акции</a></li>
 
 <?php
 
