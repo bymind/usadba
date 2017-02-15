@@ -67,6 +67,18 @@ class Model_User extends Model
 				return $pageDataModel;
 				break;
 
+			case 'sendOrder':
+				$pageDataModel['title'] = "Оформление заказа";
+				if (isset($user['profile'])) {
+					$uid = $user['profile']['id'];
+					$name = $user['profile']['name'];
+					$url = '/user/'.$uid;
+					$crumbName = 'Личный кабинет, '.$name;
+					$pageDataModel['crumb'] = array( $url => $crumbName);
+				}
+				return $pageDataModel;
+				break;
+
 			default:
 				# code...
 				break;

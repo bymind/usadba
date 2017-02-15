@@ -1,0 +1,3 @@
+$(function() {
+	InitInputMask($('#order-phone'));
+});

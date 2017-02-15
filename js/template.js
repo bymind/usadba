@@ -10,7 +10,7 @@ $(function()
 	// ProdDay();
 	ProdImg();
 	BtnClickInit();
-	InitInputMask();
+	InitInputMask($("#callback-phone"));
 	ModalTabs();
 	ToCart();
 	ConstructCart();
@@ -746,9 +746,9 @@ return 0;
 * Инициализация масок на телефон
 * @return 0
 */
-function InitInputMask()
+function InitInputMask(phoneInput)
 {
-	var phoneInput = $("#callback-phone");
+	//var phoneInput = $("#callback-phone");
 	phoneInput.inputmask("+7 (999) 999-99-99", {clearMaskOnLostFocus: true });
 
 // показываем маску при ховере

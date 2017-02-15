@@ -24,13 +24,13 @@
 .btn.btn-primary.order-btn {
 	background: #c63838;
 	border: 0;
-	line-height: 20px !important;
+	line-height: 26px !important;
 	will-change: background;
 	margin: 0;
-	height: 30px;
-	font-size: 13px;
+	height: 36px;
+	font-size: 16px;
 	font-weight: 900;
-	width: 160px;
+	width: 180px;
 }
 
 .btn.btn-primary.order-btn:hover {
@@ -41,4 +41,58 @@
 	background: #a22727;
 	border: 0;
 	margin: 0 !important;
+}
+
+.order-box .sum-item-price {
+	float: none;
+	text-align: left;
+	padding: 0 5px;
+	font-size: 16px;
+}
+
+.order-box input[name=order-paytype] {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+	pointer-events: none;
+}
+
+.order-box .btn-group.order-pay{
+	width: 100%;
+}
+
+.btn-order {
+	width: 100%;
+	height: 80px;
+	outline: none;
+	border: 1px solid #7f7f7f;
+	line-height: 110px;
+	font-size: 13px;
+	color: #7f7f7f;
+	opacity: .7;
+}
+
+.btn-order:active,.btn-order.active,.btn-order:focus,.btn-order.focus,.btn-order:active:focus,.btn-order.active.focus {
+	outline: none;
+	box-shadow: none;
+	border: 1px solid #c63838;
+	color: #c63838;
+	opacity: 1;
+}
+
+.btn-order.order-cash{
+	background: url('/img/cash.png') no-repeat;
+	background-position: center -10px ;
+}
+
+.btn-order.order-cash.active {
+	background-position: center -90px;
+}
+
+.btn-order.order-cardonline{
+	background: url('/img/cardonline.png') no-repeat;
+	background-position: center -10px ;
+}
+
+.btn-order.order-cardonline.active {
+	background-position: center -90px;
 }

@@ -62,7 +62,7 @@
 							<span class="sum-number-price all"><?php echo $pageData['sumPrice'] ?></span> руб
 							</div>
 							<div class="mt-20">
-								<button type="button" class="br-2 btn btn-primary order-btn" data-target="goLink" data-targetindex="/user/cart/order">Оформить заказ</button>
+								<button type="button" class="br-2 btn btn-primary order-btn" data-target="goLink" data-targetindex="/user/cart/send">Оформить заказ</button>
 							</div>
 						</div>
 					</div>
