@@ -143,13 +143,15 @@ class Controller_User extends Controller
 																	'owl-carousel/owl.carousel.css',
 																	'owl-carousel/sales.theme.css',
 																	'owl-carousel/prod.theme.css',
-																	'public/user_profile_page.css'
+																	'public/user_profile_page.css',
+																	'public/cart_page.css'
 																	),
 					'scripts_content'=> array(
 																		'/js/magic-mask/jq.magic-mask.min.js',
 																		'/js/main_page.js',
 																		'/js/owl-carousel/owl.carousel.min.js',
-																		'/js/template.js'
+																		'/js/template.js',
+																		'/js/cart.js'
 																		),
 					'pageId' => '', // активный пункт меню
 					'pageData' => $cartData,

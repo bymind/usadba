@@ -1022,7 +1022,32 @@ function UpdateCart($issession = false)
 
 	cartCounter.text(cartList.count);
 	cartPrice.text(cartList.sumPrice);
+	UpdateCartView();
+}
 
+
+/*
+* UpdateCartView()
+* обновление вида страницы корзины после изменения кол-ва товара
+* @return 0
+*/
+function UpdateCartView()
+{
+	var cartItems = $('.prod-card.cart-item');
+	for (var i = 0; i < cartItems.length; i++) {
+		var cartItem = cartItems.eq(i);
+		var cartArt = cartItem.attr('data-art');
+		if (typeof(cartList.items[cartArt])=='undefined') {
+			cartItem.find('.incs').css('visibility','invisible');
+			cartItem.find('.sum-number-price').text('0');
+			cartItem.css('opacity', '.3');
+		} else {
+			var tempPrice = cartList.items[cartArt].count * cartList.items[cartArt].price;
+			var sumPrice = cartItem.find('.sum-number-price');
+			sumPrice.text(tempPrice);
+		}
+	}
+	return 0;
 }
 
 
@@ -1070,6 +1095,7 @@ function UpdateSessionCart(res)
 
 function UpdatePageCards()
 {
+	ReloadPageCart();
 
 	console.info('UpdatePageCards()');
 	var Cards = {};
@@ -1082,7 +1108,29 @@ function UpdatePageCards()
 		var btnDom = domElem.find('.to-cart');
 		SetActiveToCart(btnDom, true);
 	};
+}
 
+function ReloadPageCart()
+{
+	var jsonCart = JSON.stringify(cartList);
+	$.ajax({
+		url: '/cart',
+		type: 'POST',
+		data: {target: 'updCartCards', jsonCart: jsonCart},
+	})
+	.done(function(res) {
+		$('.cart-cards-reload').html(res);
+		console.log("ReloadPageCart() success");
+	})
+	.fail(function(err) {
+		console.error(err);
+		console.log("ReloadPageCart() error");
+	})
+	.always(function() {
+		console.log("ReloadPageCart() complete");
+	});
+
+	return 0;
 }
 
 function escapeHtml(text) {

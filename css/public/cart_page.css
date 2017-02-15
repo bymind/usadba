@@ -1,0 +1,21 @@
+.counts-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.one-item-price .prod-price{
+	visibility: visible;
+	font-weight: normal;
+	font-size: 12px;
+	opacity: .5;
+	text-transform: none;
+}
+
+.sum-item-price {
+  display: inline-block;
+  position: relative;
+  float: right;
+  font-size: 18px;
+}

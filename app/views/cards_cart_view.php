@@ -1,37 +1,4 @@
-<div class="container mb-20">
-	<div class="row">
-
-	<div class="hidden-xs col-sm-3">
-
-		<?php
-			if (is_array($sidebar)) {
-				foreach ($sidebar as $sidebar_item) {
-					include $sidebar_item;
-				}
-			} else {
-				include $sidebar;
-			}
-		?>
-
-	</div>
-
-
-	<div class="col-xs-12 col-sm-2 col-sm-push-7">
-		<div class="profile-menu shadow br-2 mb-xs-10">
-			<ul>
-				<li><a class="" href="/user/profile/<?php echo $userData['id'] ?>">Личный кабинет</a></li>
-				<li><a class="active" href="/user/cart">Корзина</a></li>
-				<li><a class="" href="/user/history">Заказы</a></li>
-				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
-			</ul>
-		</div>
-	</div>
-
-
-	<div class="col-xs-12 col-sm-7 col-sm-pull-2">
-		<div class="cart-box mb-20 mb-xxs-10">
-			<div class="container-fluid cart-cards-reload">
-				<div class="row">
+<div class="row">
 
 				<div class="col-xs-12">
 					<div class="title-wide mb-20 mb-xs-10">
@@ -45,7 +12,6 @@
 					 // Controller::dump($pageData);
 					$cartItems = $pageData['items'];
 					$cartCount = 1;
-					// var_dump($pageData);
 					foreach ($cartItems as $cartItem) {
 ?>
 					<div class="row">
@@ -89,24 +55,3 @@
 <?php
 					}
 ?>
-
-				</div>
-			</div>
-		</div>
-
-	<div class="col-xs-12 visible-xs">
-
-		<?php
-			if (is_array($sidebar)) {
-				foreach ($sidebar as $sidebar_item) {
-					include $sidebar_item;
-				}
-			} else {
-				include $sidebar;
-			}
-		?>
-
-	</div>
-
-	</div>
-</div>

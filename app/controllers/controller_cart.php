@@ -6,6 +6,7 @@ class Controller_Cart extends Controller
 	function __construct()
 	{
 		$this->model = new Model_Cart();
+		$this->view = new View();
 	}
 
 	function action_index()
@@ -15,6 +16,14 @@ class Controller_Cart extends Controller
 				case 'updCart':
 					if (isset($_POST['jsonCart'])) {
 						Self::updCart();
+					} else {
+						Route::Catch_Error('404');
+					};
+					break;
+
+				case 'updCartCards':
+					if (isset($_POST['jsonCart'])) {
+						Self::updCartCards();
 					} else {
 						Route::Catch_Error('404');
 					};
@@ -46,6 +55,30 @@ class Controller_Cart extends Controller
 		$jsonCart = json_encode($cartDecoded);
 		Controller::sessionEdit('edit', 'cart', $jsonCart);
 		echo $jsonCart;
+		return 0;
+	}
+
+	function updCartCards()
+	{
+		$jsonCart = $_POST['jsonCart'];
+		$cartDecoded = json_decode($jsonCart, true);
+		$cartDecoded['items'] = Model::createProdUrlByArt($cartDecoded['items']);
+		$jsonCart = json_encode($cartDecoded);
+		Controller::sessionEdit('edit', 'cart', $jsonCart);
+		$noCart = false;
+		if (!isset($_SESSION['cart'])) {
+			$noCart = true; // TODO: empty cart page
+			$cartData = NULL;
+		} else {
+			$cartData = json_decode($_SESSION['cart'], true);
+			$cartData['items'] = Model::createProdPict($cartData['items']);
+		}
+		$this->view->simpleGet(
+			'cards_cart_view.php', // вид контента
+			array( // $data
+					'pageData' => $cartData,
+				)
+			);
 		return 0;
 	}
 
