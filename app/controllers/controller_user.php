@@ -120,6 +120,21 @@ class Controller_User extends Controller
 	}
 
 
+	function action_recall()
+	{
+		if (isset($_POST['target'])) {
+			if ($_POST['target'] == 'recall') {
+				$sendData = json_decode($_POST['data'], true);
+				$msg = Controller::createMsg('callback',$sendData);
+				Controller::sendMsg('admin', $msg);
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+
 	function sendOrder()
 	{
 		$noCart = false;

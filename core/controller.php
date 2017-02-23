@@ -229,4 +229,45 @@ class Controller
 		return 0;
 	}
 
+	function createMsg( $typeOfMsg, $data)
+	{
+		switch ($typeOfMsg) {
+			case 'callback':
+				$msg_prefix = "Перезвон \r\n".$order->name."\r\n".$order->phone."\r\n".$order->gadget;
+				$title =  substr(htmlspecialchars(trim("Заявка - Перезвон")), 0, 1000);
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$difTextHeader = '<strong style="font-size:1.5em">Заявка на перезвон</strong><br><table style="">';
+				$difTextHeader = $difTextHeader.'<tr><td><span style="font-size:1em"><strong>Имя:</strong></span></td><td><span style="font-size:1em">'.$data['name'].'</span></td></tr><tr><td><span style="font-size:1em"><strong>Телефон:</strong></span></td><td><span style="font-size:1em">'.$data['phone'].'</span></td></tr>';
+				$closing = "</table>";
+
+				$letter = array('title' => $title,
+												'msg' => $difTextHeader.$closing
+												);
+				break;
+
+			default:
+				# code...
+				break;
+		}
+		return $letter;
+	}
+
+	function sendMsg($to, $msg)
+	{
+		switch ($to) {
+			case 'admin':
+				$to = 'keshapudelev@ya.ru';
+				$from='Перезвон <keshapudelev@ya.ru>';
+				$letter = $msg['msg'];
+				$title = $msg['title'];
+
+				mail($to, $title, $letter, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+				break;
+
+			default:
+				# code...
+				break;
+		}
+	}
+
 }

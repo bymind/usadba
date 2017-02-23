@@ -493,24 +493,119 @@ function BtnClickHandler(obj)
 	return 0;
 }
 
-function GoCallback(callTo, obj = null)
+function GoCallback(callTo, obj)
 {
-	console.info('GoCallback()');
-	console.log(callTo.name);
-	console.log(callTo.phone);
-	if (obj) {
-		obj.parents('.modal-content').find('.modal-footer').css('display', 'none');
-		var modalObj = obj.parents('.modal-callback');
-		var tempBody = obj.parents('.modal-content').find('.modal-body').html();
-		obj.parents('.modal-content').find('.modal-body').html('<div class="mb-20" style="text-align:center; font-size:16px">Спасибо!<br>Мы перезвоним Вам в течение 15 минут.</div>');
-		setTimeout(function(){
-			modalObj.modal('hide');
-				setTimeout(function(){
-					obj.parents('.modal-content').find('.modal-footer').removeAttr('style');
-					obj.parents('.modal-content').find('.modal-body').html(tempBody);
-				},500);
-		}, 3000);
+	if (obj === undefined) {
+		obj = null;
 	}
+	console.info('GoCallback()');
+	// console.log(callTo.name);
+	// console.log(callTo.phone);
+	if (obj) {
+		var form = obj.parents('.modal-content').find('form');
+		console.log(form);
+		if (CallbackValidate(form, callTo)) {
+			obj.parents('.modal-content').find('.modal-footer').css('display', 'none');
+			var modalObj = obj.parents('.modal-callback');
+			var tempBody = obj.parents('.modal-content').find('.modal-body').html();
+			obj.parents('.modal-content').find('.modal-body').html('<div class="mb-20" style="text-align:center; font-size:16px">Спасибо!<br>Мы перезвоним Вам в течение 15 минут.</div>');
+			SendRecall(callTo);
+			setTimeout(function(){
+				modalObj.modal('hide');
+					setTimeout(function(){
+						obj.parents('.modal-content').find('.modal-footer').removeAttr('style');
+						obj.parents('.modal-content').find('.modal-body').html(tempBody);
+						InitInputMask($("#callback-phone"));
+					},500);
+			}, 3000);
+		}
+	}
+}
+
+function SendRecall(data)
+{
+	if (data===undefined) {
+		data = null;
+	}
+
+	if (data) {
+		data = JSON.stringify(data);
+		$.ajax({
+			url: '/user/recall',
+			type: 'POST',
+			data: {target: 'recall', data: data},
+		})
+		.done(function(res) {
+			console.log("SendRecall(data) success");
+			console.log(res);
+		})
+		.fail(function(err) {
+			console.log("SendRecall(data) error");
+			console.error(err);
+		})
+		.always(function() {
+			console.log("SendRecall(data) complete");
+		});
+
+	} else {
+		return false;
+	}
+
+}
+
+function CallbackValidate(form, data)
+{
+	if (data===undefined) {
+		data = null;
+	}
+	var inputs = form.find('.form-group');
+	inputs.each(function(index, el) {
+		$(el).removeClass('has-error');
+		$(el).find('.substring.red').remove();
+	});
+	// var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
+	var errors = []; // тут будем хранить объекты ошибок
+	var callback ={}; // тут данные с формы
+
+	var phoneInput = form.find('input[name=phone]');
+
+	if (data) {
+		callback.name = data.name;
+		callback.phone = data.phone;
+	} else {
+		callback.name = escapeHtml(form.find('input#callback-name').val());
+		callback.phone = escapeHtml(form.find('input#callback-phone').val());
+	}
+
+	var error = {}; // объект ошибки
+
+	if (callback.name == "" || !callback.name) {
+		error.name = 'name';
+		error.msg = 'Введите имя';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	}
+
+	if (callback.phone == "" || !callback.phone) {
+		error.name = 'phone';
+		error.msg = 'Введите номер телефона';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if (!phoneInput.inputmask("isComplete")) {
+			error.name = 'phone';
+			error.msg = 'Введите корректный номер телефона';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		}
+	}
+
+	if (errors.length != 0) {
+		ShowErrors(form, errors);
+		return false;
+	}
+
+return true;
 }
 
 function GoToProfile(uid)
@@ -711,7 +806,6 @@ function ShowErrors(f, err)
 		var input = form.find('input[name='+errors[i].name+']');
 		form_group.addClass('has-error');
 		input.after('<span class="substring red">'+errors[i].msg+'</span>')
-
 	}
 }
 
@@ -817,8 +911,11 @@ function ModalTabs()
 return 0;
 }
 
-function SetActiveToCart($btn, $issession = false)
+function SetActiveToCart($btn, $issession)
 {
+	if ($issession === undefined) {
+		$issession = false;
+	}
 	var cardsArt = $btn.parents('.prod-card').data('art');
 	var cardsArray = $('.prod-card[data-art='+cardsArt+']');
 	cardsArray.each(function(index, el) {
@@ -1015,8 +1112,11 @@ function SendCountItem(inpt)
 * Изменение плавающей кнопки корзины
 * @return 0
 */
-function UpdateCart($issession = false)
+function UpdateCart($issession)
 {
+	if ($issession === undefined) {
+		$issession = false;
+	}
 	var cartBtn = $('button.cart');
 	var cartCounter = cartBtn.find('.counter');
 	var cartPrice = cartBtn.find('.price-counter .num');
