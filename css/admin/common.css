@@ -1,0 +1,136 @@
+/* font-family: "RobotoRegular"; */
+@font-face {
+		font-family: RobotoRegular;
+		src: url("../fonts/RobotoRegular/RobotoRegular.eot");
+		src: url("../fonts/RobotoRegular/RobotoRegular.eot?#iefix")format("embedded-opentype"),
+		url("../fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
+		url("../fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+/* font-family: "RobotoLight"; */
+@font-face {
+		font-family: RobotoLight;
+		src: url("../fonts/RobotoLight/RobotoLight.eot");
+		src: url("../fonts/RobotoLight/RobotoLight.eot?#iefix")format("embedded-opentype"),
+		url("../fonts/RobotoLight/RobotoLight.woff") format("woff"),
+		url("../fonts/RobotoLight/RobotoLight.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+/* font-family: "RobotoMedium"; */
+@font-face {
+		font-family: RobotoMedium;
+		src: url("../fonts/RobotoMedium/RobotoMedium.eot");
+		src: url("../fonts/RobotoMedium/RobotoMedium.eot?#iefix")format("embedded-opentype"),
+		url("../fonts/RobotoMedium/RobotoMedium.woff") format("woff"),
+		url("../fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+/* font-family: "RobotoBold"; */
+@font-face {
+		font-family: RobotoBold;
+		src: url("../fonts/RobotoBold/RobotoBold.eot");
+		src: url("../fonts/RobotoBold/RobotoBold.eot?#iefix")format("embedded-opentype"),
+		url("../fonts/RobotoBold/RobotoBold.woff") format("woff"),
+		url("../fonts/RobotoBold/RobotoBold.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+
+
+#content {
+	position: relative;
+	padding-left: 90px;
+
+	transition: all .2s ease-in;
+}
+
+#content.swiped{
+	//padding-left: 200px;
+}
+
+.gray-block {
+	position: relative;
+	display: block;
+
+	color: #555;
+
+	background-color: #aaa;
+	border-radius: 2px;
+	border: 1px solid;
+
+	text-align: center;
+	line-height: 40px;
+
+	overflow: hidden;
+}
+
+.row {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#wrapper{
+	background: #f5f5f5;
+
+}
+
+#overlay
+{
+	//height: calc(100vh);
+	background: #f5f5f5;
+}
+
+footer
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	background: rgba(0, 0, 0, 0);
+	height: 40px;
+	text-align: center;
+	font-size: 10px;
+	font-family: RobotoRegular, sans-serif;
+	color: rgb(102, 102, 102);
+	text-shadow: 1px 1px 0 rgb(255, 255, 255);
+	z-index: 0;
+	padding-left: 90px;
+}
+
+footer span
+{
+	display: block;
+	line-height: 15px;
+	opacity: .7;
+}
+
+footer span a
+{
+	color: inherit;
+	text-decoration: underline;
+}
+
+footer a:hover {
+	color: inherit;
+	text-decoration: none;
+}
+
+div.main-content
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: calc(100vh - 90px);
+	padding: 0 10px;
+}
+
+@media screen and (max-height: 430px)
+{
+	.main-content {
+		min-height: 380px !important;
+	}
+}
+

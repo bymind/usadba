@@ -1,0 +1,201 @@
+#wrapper
+{
+	background-color: #f5f5f5;
+}
+
+#overlay
+{
+	min-height: calc(100vh - 40px);
+}
+
+footer
+{
+	position: relative;
+	display: block;
+	margin-top: -40px;
+	width: 100%;
+	background: rgba(0, 0, 0, 0);
+	height: 40px;
+	text-align: center;
+	font-size: 10px;
+	font-family: "SegoeUiLight", sans-serif;
+	color: rgb(102, 102, 102);
+	text-shadow: 1px 1px 0 rgb(255, 255, 255);
+	z-index: 1;
+}
+
+footer span
+{
+	display: block;
+	line-height: 15px;
+	opacity: .7;
+}
+
+footer span a 
+{
+	color: inherit;
+}
+
+#content
+{
+	min-height: calc(100vh - 50px) !important;
+	background-color: #f5f5f5;
+}
+
+div.main-content
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+
+	background-color: #f5f5f5;
+
+	padding: 70px 0 20px;
+}
+
+div.main-content::before
+{
+	content: "";
+
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 120px;
+	top:0;
+
+	background-color: #0c1b23;
+}
+
+.login-box
+{
+	position: relative;
+	width: 290px;
+	height: 270px;
+
+	background-color: #ffffff;
+	border-radius: 4px;
+	border: 1px solid #999999;
+	box-shadow: 0 1px 11px rgba(0, 0, 0, 0.35);
+
+	margin: auto;
+	padding: 25px 23px;
+	margin-bottom: 40px;
+
+	font-family: 'SegoeUiRegular', sans-serif;
+	font-size: 12px;
+	text-align: center;
+	z-index: 2;
+}
+
+.login-box-title
+{
+	display: block;
+	position: relative;
+	width: 100%;
+
+	text-align: center;
+	line-height: 16px;
+
+	margin-bottom: 30px;
+}
+
+input
+{
+	position: relative;
+	display: block;
+	width: 112px;
+	height: 22px;
+
+	background-color: transparent;
+	border: 0;
+	border-bottom: 1px solid rgba(31, 69, 89, 0.5);
+
+	font-family: 'SegoeUiLight', sans-serif;
+	font-size: 14px;
+	text-align: center;
+
+	margin: 25px auto;
+}
+
+.underline
+{
+	position: relative;
+	display: block;
+}
+
+.underline .before
+{
+	position: absolute;
+	display: block;
+	width: 112px;
+	height: 22px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	font-family: 'SegoeUiLight', sans-serif;
+	font-size: 14px;
+
+	margin: 0 auto;
+
+	transition: all .2s ease-in-out;
+}
+
+.before.up
+{
+	margin-top: -20px;
+}
+
+.login-btn
+{
+	position: relative;
+	display: block;
+	width: 108px;
+	height: 32px;
+
+	background-color: #1f4559;
+	border: 0;
+	border-bottom: 2px solid #0c1b23;
+	border-radius: 4px;
+
+	font-family: "SegoeUiLight", sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+
+	margin: 30px auto 0;
+
+	cursor: pointer;
+
+	transition: all .1s ease-in-out;
+}
+
+.login-btn:hover,
+.login-btn:focus,
+.login-btn.hover
+{
+	background-color: #316682;
+}
+
+.login-btn:active,
+.login-btn.active
+{
+	background-color: #29566D;
+
+	border-top: 1px solid #0c1b23;
+	border-bottom: 1px solid #0c1b23;
+}
+
+.ans
+{
+	margin-top: 10px;
+}
+
+@media screen and (max-width:730px)
+{
+	div.main-content
+	{
+		padding-top: 20px;
+	}
+}

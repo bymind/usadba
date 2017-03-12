@@ -1,0 +1,12 @@
+table.users-table {
+	background-color: #fff;
+	border-radius: 2px;
+}
+
+.btn-title.btn-new-user {
+	padding: 0 10px !important;
+}
+
+table.users-table tbody tr {
+	cursor: pointer;
+}
