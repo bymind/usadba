@@ -30,12 +30,12 @@ class Model_Admin extends Model
 	getArticlesPosts()
 	Получение списка опубликованных статей
 	*/
-	public function getArticlesPosts()
+	public function getGoodsLists()
 	{
-		$select = mysql_query("SELECT * FROM articles WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
+		$select = mysql_query("SELECT * FROM prod_items ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$r['added_time'] = Controller::getGoodDate($r['added_time']);
 					$ds[]=$r;
 				}
 		return $ds;
