@@ -5,6 +5,7 @@ class Controller_Cart extends Controller
 
 	function __construct()
 	{
+		include 'app/models/model_cart.php';
 		$this->model = new Model_Cart();
 		$this->view = new View();
 	}
