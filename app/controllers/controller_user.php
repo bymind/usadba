@@ -100,6 +100,7 @@ class Controller_User extends Controller
 			array( // модальные окна
 					 'modal_callback_view.php',
 					 'modal_profile_view.php',
+					 'modal_profile_edit_view.php',
 					 'modal_cart_view.php'
 					 )
 			);

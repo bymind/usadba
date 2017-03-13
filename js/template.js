@@ -437,6 +437,10 @@ function BtnClickInit()
 		console.log('btn clicked!');
 		BtnClickHandler($(this));
 	});
+	$(document).on('click', '.like_button', function(event) {
+		console.log('btn clicked!');
+		BtnClickHandler($(this));
+	});
 	return 0;
 }
 

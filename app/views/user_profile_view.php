@@ -45,7 +45,7 @@
 							<div class="details-section clearfix  mb-20">
 								<div class="details-section-title">
 									Личные данные
-									<span class='edit'>изменить</span>
+									<span class='edit like_button' data-target="modal" data-targetindex="edit_profile">изменить</span>
 								</div>
 								<div class="details-section-data">
 
