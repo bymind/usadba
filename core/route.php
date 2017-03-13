@@ -146,7 +146,7 @@ class Route
 		if ($model_name=="Model_admin") {
 			self::loadModel('admin/'.$model_name);
 		} else
-			self::loadModel('admin/'.$model_name);
+			self::loadModel($model_name);
 
 		// та же херня с контроллером
 		// плюс ищем и выполняем экшен, если он есть

@@ -628,6 +628,7 @@ function TryLogin(form)
 		.done(function(res) {
 			if ( res && res!='false') {
 				console.warn("TryLogin() done");
+				console.info(res);
 				$res = JSON.parse(res);
 				$res ? console.info($res) : console.info(res);
 				ShowGood(form.parents('.modal-content').find('button[data-target=login]'));
