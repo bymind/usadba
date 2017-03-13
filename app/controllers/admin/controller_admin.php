@@ -100,7 +100,7 @@ class Controller_Admin extends Controller
 *************************************************************************************/
 /*	 ARTICLES INIT
 **********************************/
-	function adminArticles($params = '')
+	function adminGoods($params = '')
 	{
 		if ($params == '') {
 			$params['name'] = 'default';
@@ -142,7 +142,7 @@ class Controller_Admin extends Controller
 				break;
 
 			default :
-				$ds = $this->model->getArticlesPosts();
+				$ds = $this->model->getGoodsLists();
 				$this->view->generate(
 							'admin/articles_view.php',
 							'admin/template_admin_view.php',
@@ -992,11 +992,11 @@ class Controller_Admin extends Controller
 
 
 
-	function action_articles($params = '')
+	function action_goods($params = '')
 	{
 		if (Controller::is_logged())
 		{
-			self::adminArticles($params);
+			self::adminGoods($params);
 		} else
 		{
 			self::adminLogin();
