@@ -9,7 +9,8 @@ class Model_User extends Model
 	{
 		$login = $jsonLogin;
 		$loginEmail = $login['email'];
-		$loginPassword = md5($login['password']);
+		$salt = 'dsflFWR9u2xQa';
+		$loginPassword = md5($login['email'].$login['password'].$salt);
 
 		$q = mysql_query("SELECT * FROM users WHERE email='$loginEmail'") or die(mysql_error()) ;
 		$countq = mysql_num_rows($q);
