@@ -13,19 +13,19 @@
 							<form id="profile-form-login" action="">
 								<div class="mb-20 form-group">
 									<label for="profile-name">Имя</label>
-									<input type="text" name="name" id="profile-name" class="form-control" placeholder="Имя" required>
+									<input type="text" name="name" id="profile-name" class="form-control" placeholder="Имя" required value="<?php echo $pageDataView['name']; ?>">
 								</div>
 								<div class="mb-20 form-group">
 									<label for="profile-email">E-mail</label>
-									<input type="email" name="email" id="profile-email" class="form-control" placeholder="Введите email" required>
+									<input type="email" name="email" id="profile-email" class="form-control" placeholder="Введите email" required value="<?php echo $pageDataView['email']; ?>">
 								</div>
 								<div class="mb-20 form-group">
 									<label for="profile-phone">Телефон</label>
-									<input type="tel" id="profile-phone" class="form-control" name="phone" placeholder="+7 (___) ___-__-__">
+									<input type="tel" id="profile-phone" class="form-control" name="phone" placeholder="+7 (___) ___-__-__" value="<?php if (isset($pageDataView['phone'])) { echo $pageDataView['phone'];}?>">
 								</div>
 								<div class="mb-20 form-group">
 									<label for="profile-bd">День рождения</label>
-									<input type="date" id="profile-bd" class="form-control" name="bd" placeholder="+7 (___) ___-__-__">
+									<input type="date" id="profile-bd" class="form-control" name="bd" value="<?php if (isset($pageDataView['bday'])) { echo $pageDataView['bday'];} ?>">
 								</div>
 							</form>
 						</div>

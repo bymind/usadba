@@ -11,6 +11,7 @@ $(function()
 	ProdImg();
 	BtnClickInit();
 	InitInputMask($("#callback-phone"));
+	InitInputMask($("#profile-phone"));
 	ModalTabs();
 	ToCart();
 	ConstructCart();
