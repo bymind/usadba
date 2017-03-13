@@ -141,19 +141,27 @@ class Route
 			$action_name = 'action_index';
 		}
 
-
 		// врубаем модель, если есть
-		self::loadModel($model_name);
 		// TODO: перенести подключение модели в контроллер
+		if ($model_name=="Model_admin") {
+			self::loadModel('admin/'.$model_name);
+		} else
+			self::loadModel('admin/'.$model_name);
 
 		// та же херня с контроллером
 		// плюс ищем и выполняем экшен, если он есть
 		// если что-то не нашли - ебашим 404
 
+		if ($controller_name=="Controller_admin") {
+			$controller_path = self::CONTROLLERS_PATH. strtolower('admin/'.$controller_name).'.php';
+		} else
 		$controller_path = self::CONTROLLERS_PATH. strtolower($controller_name).'.php';
 		if ( file_exists($controller_path) )
 		{
-			self::loadController($controller_name);
+			if ($controller_name=="Controller_admin") {
+				Self::loadController('admin/'.$controller_name);
+			} else
+			Self::loadController($controller_name);
 			// создаем экземпляр класса контроллера
 			$controller = new $controller_name;
 			// создадим-ка еще одну переменную для имени экшена, старая переменная может нам еще пригодиться
