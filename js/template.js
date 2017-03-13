@@ -1210,9 +1210,9 @@ function CheckSessionCart()
 function UpdateSessionCart(res)
 {
 	console.info('UpdateSessionCart(res)');
+	console.info(res);
 	var Result = {};
 	Result = JSON.parse(res);
-	// console.info(Result);
 	cartList.count = Result.count;
 	cartList.items = Result.items == false? {} : Result.items;
 	cartList.sumPrice = Result.sumPrice;
