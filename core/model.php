@@ -113,11 +113,27 @@ class Model
 		return $ds;
 	}
 
-	public function get_login($login)
+	public function get_login($login, $type='login')
 	{
-		$select = mysql_query("SELECT * FROM users WHERE login = '$login'")or die(mysql_error());
 
-		$ds = mysql_fetch_assoc($select);
+		switch ($type) {
+			case 'login':
+				$select = mysql_query("SELECT * FROM users WHERE login = '$login'")or die(mysql_error());
+				$ds = mysql_fetch_assoc($select);
+				break;
+
+			case 'email':
+				$select = mysql_query("SELECT * FROM users WHERE email = '$login'")or die(mysql_error());
+				$ds = mysql_fetch_assoc($select);
+				$ds['login'] = $ds['email'];
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+
 
 		return $ds;
 	}
