@@ -148,19 +148,19 @@ class Controller
 			$errors[] = 'Ну-ну';
 		} else
 			{
-				$login =  substr(htmlspecialchars(trim($_POST['login'])), 0, 60);
-				$password = md5($_POST['passw']);
+				$login = substr(htmlspecialchars(trim($_POST['login'])), 0, 60);
+				$salt = 'dsflFWR9u2xQa';
+				$password = md5($login.$_POST['passw'].$salt);
+				$ds = Model::get_login($login,'email');
 
-				$ds = Model::get_login($login);
-
-				if($login == $ds['login'] && $password == $ds['passw']){
+				if($login == $ds['login'] && $password == $ds['pass']){
 					$_SESSION['id'] = $ds['id'];
 					$_SESSION['name'] = $ds['login'];
 					$_SESSION['is_su'] = $ds['is_super'];
 					$_SESSION['telegram_token'] = $ds['telegram_token'];
 					$_SESSION['telegram_id'] = $ds['telegram_id'];
 					$salt = 'dsflFWR9u2xQa';
-					$_SESSION['access_key'] = md5($ds['login'].$ds['passw'].$salt);
+					$_SESSION['access_key'] = md5($ds['login'].$ds['pass'].$salt);
 					setcookie("id",$_SESSION['id'], time()+60*60*24*30);
 					// var_dump($redirect);
 					// header('location:'.$redirect);
