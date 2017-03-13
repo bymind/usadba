@@ -8,7 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+<head manifest="default.appcache">
 	<meta charset="UTF-8">
 	<title><?php echo $Title; ?> - Кулинария Усадьба-Центр</title>
 	<?php include $Favicon; ?>
