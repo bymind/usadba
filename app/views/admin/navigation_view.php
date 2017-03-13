@@ -62,7 +62,7 @@
 <div class="navigation">
 	<ul class='side-nav' attr-active="<?php echo $active_menu_item; ?> ">
 		<li class="home"><a href="/admin" title="Рабочий стол"><span>Рабочий стол</span></a></li>
-		<li class="articles"><a href="/admin/articles" title="Статьи"><span>Статьи</span></a></li>
+		<li class="articles"><a href="/admin/goods" title="Товары"><span>Товары</span></a></li>
 		<li class="pages"><a href="/admin/pages"  title="Страницы сайта"><span>Страницы сайта</span></a></li>
 		<li class="files"><a href="/admin/files" title="Файлы"><span>Файлы</span></a></li>
 		<li class="users"><a href="/admin/users" title="Аккаунты"><span>Аккаунты</span></a></li>
