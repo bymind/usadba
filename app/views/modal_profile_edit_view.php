@@ -10,7 +10,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xxs-10 col-xxs-offset-1 col-xs-8 col-xs-offset-2">
-							<form id="profile-form-login" action="">
+							<form id="profile-form-edit" action="">
 								<div class="mb-20 form-group">
 									<label for="profile-name">Имя</label>
 									<input type="text" name="name" id="profile-name" class="form-control" placeholder="Имя" required value="<?php echo $pageDataView['name']; ?>">
