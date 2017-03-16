@@ -25,7 +25,7 @@
 								</div>
 								<div class="mb-20 form-group">
 									<label for="profile-bd">День рождения</label>
-									<input type="date" id="profile-bd" class="form-control" name="bd" value="<?php if (isset($pageDataView['bday'])) { echo $pageDataView['bday'];} ?>">
+									<input type="date" id="profile-bd" class="form-control" data-toggle="datepicker" name="bd" value="<?php if (isset($pageDataView['bday_raw'])) { echo $pageDataView['bday_raw'];} ?>">
 								</div>
 							</form>
 						</div>

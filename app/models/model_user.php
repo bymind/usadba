@@ -35,6 +35,7 @@ class Model_User extends Model
 			$userData['profile'] = mysql_fetch_assoc($q);
 			if (isset($userData['profile']['bday'])) {
 				$ts = $userData['profile']['bday'];
+				$userData['profile']['bday_raw'] = $ts;
 				$userData['profile']['bday'] = Controller::getGoodDate($ts, 'compact');
 			}
 			if (isset($userData['profile']['addresses'])) {
@@ -49,40 +50,40 @@ class Model_User extends Model
 	{
 		switch ($pagename) {
 			case 'profile':
-				$pageDataModel['title'] = "Личный кабинет";
-				if (isset($user['profile'])) {
-					$pageDataModel['title'] .= ", ".$user['profile']['name'];
-				}
-				return $pageDataModel;
-				break;
+			$pageDataModel['title'] = "Личный кабинет";
+			if (isset($user['profile'])) {
+				$pageDataModel['title'] .= ", ".$user['profile']['name'];
+			}
+			return $pageDataModel;
+			break;
 
 			case 'cart':
-				$pageDataModel['title'] = "Корзина";
-				if (isset($user['profile'])) {
-					$uid = $user['profile']['id'];
-					$name = $user['profile']['name'];
-					$url = '/user/'.$uid;
-					$crumbName = 'Личный кабинет, '.$name;
-					$pageDataModel['crumb'] = array( $url => $crumbName);
-				}
-				return $pageDataModel;
-				break;
+			$pageDataModel['title'] = "Корзина";
+			if (isset($user['profile'])) {
+				$uid = $user['profile']['id'];
+				$name = $user['profile']['name'];
+				$url = '/user/'.$uid;
+				$crumbName = 'Личный кабинет, '.$name;
+				$pageDataModel['crumb'] = array( $url => $crumbName);
+			}
+			return $pageDataModel;
+			break;
 
 			case 'sendOrder':
-				$pageDataModel['title'] = "Оформление заказа";
-				if (isset($user['profile'])) {
-					$uid = $user['profile']['id'];
-					$name = $user['profile']['name'];
-					$url = '/user/'.$uid;
-					$crumbName = 'Личный кабинет, '.$name;
-					$pageDataModel['crumb'] = array( $url => $crumbName);
-				}
-				return $pageDataModel;
-				break;
+			$pageDataModel['title'] = "Оформление заказа";
+			if (isset($user['profile'])) {
+				$uid = $user['profile']['id'];
+				$name = $user['profile']['name'];
+				$url = '/user/'.$uid;
+				$crumbName = 'Личный кабинет, '.$name;
+				$pageDataModel['crumb'] = array( $url => $crumbName);
+			}
+			return $pageDataModel;
+			break;
 
 			default:
 				# code...
-				break;
+			break;
 		}
 	}
 

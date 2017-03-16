@@ -23,6 +23,7 @@ $(function()
 
 	InitTooltips();
 
+	InitInputDatepicker($('#profile-bd'));
 });
 
 function InitTooltips()
@@ -110,20 +111,20 @@ function ConstructCart()
 	cartList.items = {};
 
 	cartList.addItem = function (item)
-		{
-			if (!this.inItems(item)) {
-				this.items[item.art] = item;
-					this.count++;
-				this.rePrice();
-				console.log('added '+item.art);
-			} else {
-				this.reCountItem(item);
-			}
-			UpdateCart();
+	{
+		if (!this.inItems(item)) {
+			this.items[item.art] = item;
+			this.count++;
+			this.rePrice();
+			console.log('added '+item.art);
+		} else {
+			this.reCountItem(item);
+		}
+		UpdateCart();
 			// UpdatePageCards();
 		};
 
-	cartList.rePrice = function()
+		cartList.rePrice = function()
 		{
 			var priceTemp = 0;
 			for (var i in this.items) {
@@ -132,7 +133,7 @@ function ConstructCart()
 			this.sumPrice = priceTemp;
 		}
 
-	cartList.inItems = function (item)
+		cartList.inItems = function (item)
 		{
 			if (item.art in this.items) {
 				return true;
@@ -141,14 +142,14 @@ function ConstructCart()
 			}
 		};
 
-	cartList.reCountItem = function (item)
+		cartList.reCountItem = function (item)
 		{
 			this.items[item.art] = item;
 			this.rePrice();
 			console.log('recount '+item.art+' '+item.count);
 		};
 
-	cartList.deleteItem = function (item)
+		cartList.deleteItem = function (item)
 		{
 			delete this.items[item.art];
 			this.rePrice();
@@ -158,7 +159,7 @@ function ConstructCart()
 			UpdatePageCards();
 		};
 
-}
+	}
 
 
 /*
@@ -208,27 +209,27 @@ function CountMenuPxls()
 	menu = $('nav.main_menu ul.menu_text_units:eq(0)');
 
 // отображаем как блок чтобы посмотреть длину
-	menu.css('display', 'inline-block');
-	menu.children('li.show-li').css({
-		'display': 'inline-block',
-		'overflow': 'hidden'
-	});
+menu.css('display', 'inline-block');
+menu.children('li.show-li').css({
+	'display': 'inline-block',
+	'overflow': 'hidden'
+});
 // длина видимого меню
-	allW = menu.width();
+allW = menu.width();
 
 // переменная для вычисления длины пунктов, забиваем первый пункт
-	countW = menu.children('li.item-li:eq(0)').width();
+countW = menu.children('li.item-li:eq(0)').width();
 // флаг надо ли скрывать текущий пункт
-	goHide = 0;
+goHide = 0;
 // длина пункта "еще"
-	elseW = Math.round(menu.children('li.else').width() + 0.5);
+elseW = Math.round(menu.children('li.else').width() + 0.5);
 // считаем кол-во пунктов
-	countLi = menu.children('li.item-li').length;
+countLi = menu.children('li.item-li').length;
 // считаем кол-во пуктов в "еще"
-	countElse = 0;
+countElse = 0;
 
 // запускаем цикл по пунктам
-	for (var i = 0; i < countLi; i++) {
+for (var i = 0; i < countLi; i++) {
 		// если надо скрыть текущий пункт
 		if (goHide) {
 			// скрываем текущий пункт
@@ -241,7 +242,7 @@ function CountMenuPxls()
 				// скрываем след пункт
 				menu.children('li.item-li:eq('+(i+1)+')').removeClass('show-li').addClass('hide-li').removeAttr('style');
 				// countW -= menu.children('li:eq('+(i+1)+')').width();
-		} else
+			} else
 			{
 				// если не надо скрывать - не скрываем, а показываем
 				menu.children('li.item-li:eq('+(i+1)+')').removeClass('hide-li').addClass('show-li');
@@ -250,13 +251,13 @@ function CountMenuPxls()
 				// обнуляем флаг
 				goHide = 0;
 			}
-	}
+		}
 
 // считаем кол-во пунктов в "еще"
 countElse = $('.else-li').length;
 
 // если есть скрытые пункты
-	if ((menu.children('li.hide-li').length > 0)&&(menu.children('li.hide-li').length != countElse)) {
+if ((menu.children('li.hide-li').length > 0)&&(menu.children('li.hide-li').length != countElse)) {
 		// показываем пункт "еще"
 		menu.children('li.hide-li-else').removeClass('hide-li-else').addClass('show-li-else').css({
 			'display': 'table-cell',
@@ -333,7 +334,7 @@ function ImgAdapt()
 					im.addClass('ww').removeClass('wh');//set width 100%
 			} else {//if landscape
 					im.addClass('wh').removeClass('ww');//set height 100%
-			}
+				}
 			//set offset
 			var nh = im.height(),//new image height
 					nw = im.width(),//new image width
@@ -343,8 +344,8 @@ function ImgAdapt()
 					im.css({marginLeft: '-'+wd+'px', marginTop: 0});//offset left
 			} else {//if landscape
 					im.css({marginTop: '-'+hd+'px', marginLeft: 0});//offset top
-			}
-	});
+				}
+			});
 	return 0;
 }
 
@@ -405,7 +406,7 @@ function ImgLabels()
 			plusTop+=20; // изменить отступ сверху для следующих лэйблов
 		}
 	}
-return 0;
+	return 0;
 }
 
 
@@ -423,7 +424,7 @@ function LikesInit()
 		$(this).toggleClass('liked');
 	});
 
-return 0;
+	return 0;
 }
 
 
@@ -459,40 +460,40 @@ function BtnClickHandler(obj)
 	switch(target) {
 
 		case 'modal':
-			var targetIndex = obj.data().targetindex;
-			ModalInit(targetIndex);
-			break;
+		var targetIndex = obj.data().targetindex;
+		ModalInit(targetIndex);
+		break;
 
 		case 'login':
-			var loginForm = $('#profile-form-login');
-			TryLogin(loginForm);
-			break;
+		var loginForm = $('#profile-form-login');
+		TryLogin(loginForm);
+		break;
 
 		case 'registration':
-			var registrationForm = $('#profile-form-reg');
-			TryRegistration(registrationForm);
-			break;
+		var registrationForm = $('#profile-form-reg');
+		TryRegistration(registrationForm);
+		break;
 
 		case 'goProfile':
-			var targetIndex = obj.data().targetindex;
-			GoToProfile(targetIndex);
-			break;
+		var targetIndex = obj.data().targetindex;
+		GoToProfile(targetIndex);
+		break;
 
 		case 'goCallback':
-			var targetIndex = {};
-			targetIndex.name = obj.parents('.modal-content').find('#callback-name').val();
-			targetIndex.phone = obj.parents('.modal-content').find('#callback-phone').val();
-			GoCallback(targetIndex, obj);
-			break;
+		var targetIndex = {};
+		targetIndex.name = obj.parents('.modal-content').find('#callback-name').val();
+		targetIndex.phone = obj.parents('.modal-content').find('#callback-phone').val();
+		GoCallback(targetIndex, obj);
+		break;
 
 		case 'goLink':
-			var targetIndex = obj.data().targetindex;
-			console.log(targetIndex);
-			location.href=targetIndex;
-			break;
+		var targetIndex = obj.data().targetindex;
+		console.log(targetIndex);
+		location.href=targetIndex;
+		break;
 
 		default:
-			break;
+		break;
 	}
 
 	return 0;
@@ -517,11 +518,11 @@ function GoCallback(callTo, obj)
 			SendRecall(callTo);
 			setTimeout(function(){
 				modalObj.modal('hide');
-					setTimeout(function(){
-						obj.parents('.modal-content').find('.modal-footer').removeAttr('style');
-						obj.parents('.modal-content').find('.modal-body').html(tempBody);
-						InitInputMask($("#callback-phone"));
-					},500);
+				setTimeout(function(){
+					obj.parents('.modal-content').find('.modal-footer').removeAttr('style');
+					obj.parents('.modal-content').find('.modal-body').html(tempBody);
+					InitInputMask($("#callback-phone"));
+				},500);
 			}, 3000);
 		}
 	}
@@ -610,7 +611,7 @@ function CallbackValidate(form, data)
 		return false;
 	}
 
-return true;
+	return true;
 }
 
 function GoToProfile(uid)
@@ -707,7 +708,7 @@ function loginValidate(form)
 		return false;
 	}
 
-return true;
+	return true;
 }
 
 
@@ -799,7 +800,7 @@ function registrationValidate(form)
 		return false;
 	}
 
-return true;
+	return true;
 }
 
 function ShowErrors(f, err)
@@ -865,7 +866,7 @@ function ModalInit(index)
 
 	console.log(modalIndex);
 
-return 0;
+	return 0;
 }
 
 /*
@@ -879,19 +880,36 @@ function InitInputMask(phoneInput)
 	phoneInput.inputmask("+7 (999) 999-99-99", {clearMaskOnLostFocus: true });
 
 // показываем маску при ховере
-	phoneInput.on('mouseover', function(event) {
-		event.preventDefault();
-		phoneInput.inputmask("+7 (999) 999-99-99");
-	});
+phoneInput.on('mouseover', function(event) {
+	event.preventDefault();
+	phoneInput.inputmask("+7 (999) 999-99-99");
+});
 
 // скрываем после ховера
-	phoneInput.on('mouseout', function(event) {
-		event.preventDefault();
-		phoneInput.inputmask('remove');
-	});
+phoneInput.on('mouseout', function(event) {
+	event.preventDefault();
+	phoneInput.inputmask('remove');
+});
 
 return 0;
 }
+
+
+function InitInputDatepicker(dateInput)
+{
+	if (dateInput.length > 0) {
+		dateInput.dateDropdowns({
+			dayLabel: "День",
+			monthLabel: "Месяц",
+			yearLabel: "Год",
+			daySuffixes: false,
+			minYear: 1917,
+			monthLongValues: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
+		});
+	}
+	return 0;
+}
+
 
 /*
 * ModalTabs()
@@ -914,7 +932,7 @@ function ModalTabs()
 		}
 	});
 
-return 0;
+	return 0;
 }
 
 function SetActiveToCart($btn, $issession)
@@ -950,7 +968,7 @@ function SetActiveToCart($btn, $issession)
 			card.find('.prod-avail').addClass('disabled');
 			card.find('.prod-rev').addClass('disabled');
 
-		InitTooltips();
+			InitTooltips();
 		}
 
 	});
@@ -964,18 +982,18 @@ function SetActiveToCart($btn, $issession)
 function ToCart()
 {
 // клик по кнопке купить
-	$(document).on('click', 'button.to-cart', function(event) {
-		event.preventDefault();
-		if ($(this).hasClass('active')) {
-			$('button.cart.float').click();
-		} else
-		SetActiveToCart( $(this) );
-	});
+$(document).on('click', 'button.to-cart', function(event) {
+	event.preventDefault();
+	if ($(this).hasClass('active')) {
+		$('button.cart.float').click();
+	} else
+	SetActiveToCart( $(this) );
+});
 
-	ClickOnPLus();
-	ClickOnMinus();
+ClickOnPLus();
+ClickOnMinus();
 
-	ChangeInput();
+ChangeInput();
 
 return 0;
 }
@@ -990,12 +1008,12 @@ function ChangeInput()
 {
 	$(document).on('focusout', '.prod-btn-block input', function(event) {
 		event.preventDefault();
-			if ((parseInt($(this).val()) <= 0) || ($(this).val() == "" ) || ($(this).val() == "-" )) {
+		if ((parseInt($(this).val()) <= 0) || ($(this).val() == "" ) || ($(this).val() == "-" )) {
 				ResetToCart($(this)); // если пусто - reset
 			} else {
 				SendCountItem($(this)); // если не пусто - обновляем счетчик товара в корзине
 			}
-	});
+		});
 }
 
 
@@ -1019,7 +1037,7 @@ function ClickOnPLus()
 		SendCountItem(inpt);
 	});
 
-return 0;
+	return 0;
 }
 
 
@@ -1047,7 +1065,7 @@ function ClickOnMinus()
 		}
 	});
 
-return 0;
+	return 0;
 }
 
 
@@ -1081,7 +1099,7 @@ function ResetToCart(inpt)
 		if (index == 0) cartList.deleteItem(prodItem);
 	});
 
-return 0;
+	return 0;
 }
 
 
