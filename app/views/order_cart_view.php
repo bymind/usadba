@@ -52,10 +52,6 @@
 
 				<div class="row">
 					<div class="col-xs-12 shadow br-2 bg-f pl-10 pr-20 pt-10 pb-10 order-box">
-						<div class="sum-item-price mb-20">
-							<div>Сумма заказа <?php echo $pageData['sumPrice'] ?> руб</div>
-						</div>
-
 						<div class="container-fluid">
 							<div class="row">
 								<div class=" col-xs-12">
@@ -89,6 +85,12 @@
 
 
 												<label for="">Способ оплаты</label>
+
+											<div class="row">
+												<div class="sum-item-price mb-10">
+													<div>Сумма заказа <b><?php echo $pageData['sumPrice'] ?> руб</b></div>
+												</div>
+											</div>
 
 											<div class="row">
 												<div class="btn-group order-pay" data-toggle="buttons">
