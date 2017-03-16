@@ -458,7 +458,6 @@ function BtnClickHandler(obj)
 	var target = obj.data().target;
 
 	switch(target) {
-
 		case 'modal':
 		var targetIndex = obj.data().targetindex;
 		ModalInit(targetIndex);
@@ -492,11 +491,50 @@ function BtnClickHandler(obj)
 		location.href=targetIndex;
 		break;
 
+		case 'save_edit_profile':
+			TryEditProfile(obj);
+		break;
+
+		case 'reopen-prev':
+			ReopenEditProfile(obj);
+		break;
+
 		default:
 		break;
 	}
 
 	return 0;
+}
+
+function ReopenEditProfile(obj)
+{
+	var btn = obj;
+	var modal = obj.parents('.modal');
+	modal.modal('hide');
+	modal.on('hidden.bs.modal', function(event) {
+		var reopenModal = $('.modal-edit_profile');
+		reopenModal.modal('show');
+		modal.off('hidden.bs.modal');
+	});
+}
+
+function TryEditProfile(obj)
+{
+	var btn = obj;
+	var modal = obj.parents('.modal');
+	var form = obj.parents('.modal-content').find('#profile-form-edit');
+	var profileEdit = {};
+	profileEdit.name = form.find('input#profile-name').val();
+	profileEdit.email = form.find('input#profile-email').val();
+	profileEdit.phone = form.find('input#profile-phone').val();
+	profileEdit.bd = form.find('input#profile-bd').val();
+	console.info(profileEdit);
+	modal.modal('hide');
+	modal.on('hidden.bs.modal', function (e) {
+		var passwModal = $('.modal-passw_check');
+		passwModal.modal('show');
+		modal.off('hidden.bs.modal');
+	})
 }
 
 function GoCallback(callTo, obj)
