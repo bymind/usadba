@@ -103,7 +103,8 @@ class Controller_User extends Controller
 					 'modal_callback_view.php',
 					 'modal_profile_view.php',
 					 'modal_profile_edit_view.php',
-					 'modal_cart_view.php'
+					 'modal_cart_view.php',
+					 'modal_pass_check_view.php'
 					 )
 			);
 	}
