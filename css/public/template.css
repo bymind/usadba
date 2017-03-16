@@ -1546,7 +1546,7 @@ span.link a:hover {
 	display: none;
 }
 
-.modal-callback .modal-body,.modal-profile .modal-body {
+.modal-callback .modal-body,.modal-profile .modal-body,.modal-edit_profile .modal-body,.modal-passw_check .modal-body {
 	padding: 40px 20px 20px;
 	font-size: 14px;
 	color: #222;
