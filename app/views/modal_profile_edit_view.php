@@ -38,7 +38,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-7">
-						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_profile">Сохранить</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_profile" data-targetindex="" data-targetcallback="reopen-prev">Сохранить</button>
 					</div>
 				</div>
 			</div>

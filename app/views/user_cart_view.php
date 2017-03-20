@@ -59,6 +59,23 @@
 					$cartItems = $pageData['items'];
 					$cartCount = 1;
 					// var_dump($pageData);
+					if (count($cartItems) == 0) {
+						?>
+						<div class="row">
+							<div class="shadow br-2 prod-card cart-item mb-10" >
+								<div class="row">
+
+									<div class="col-xxs-12">
+										<h3 style="text-align:center">
+											<div class="cart-body"><div class="nothing">Тут пока ничего нет.</div><div class="nothing">Посмотрите наш <a href="/catalog" rel="nofollow">каталог</a>.</div></div>
+										</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php
+					} else
+					{
 					foreach ($cartItems as $cartItem) {
 ?>
 					<div class="row">
@@ -114,6 +131,9 @@
 							</div>
 						</div>
 					</div>
+<?php
+}
+?>
 				</div>
 			</div>
 		</div>

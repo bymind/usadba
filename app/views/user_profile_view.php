@@ -107,7 +107,7 @@
 
 									<div class="col-xs-12">
 										<div class="new-passw">
-											<a href="#">Сменить пароль</a>
+											<span class="edit like_button" data-target="modal" data-targetindex="passw_new" data-targetcallback="new_passw">Сменить пароль</span>
 										</div>
 									</div>
 

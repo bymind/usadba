@@ -246,6 +246,15 @@ span.addr>.addr-count {
 	display: inline-block;
 }
 
+.new-passw span {
+	color: #c63838;
+	cursor: pointer;
+}
+
+.new-passw span:hover {
+	text-decoration: underline;
+}
+
 @media (min-width: 960px) {
 
 }

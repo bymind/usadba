@@ -43,14 +43,37 @@ class Controller_User extends Controller
 
 	function action_upduser()
 	{
-		$upduser = json_decode($_POST['data'], true);
 		$target = Route::PrepareUrl($_POST['target']);
 		if (isset($target)) {
 			switch ($target) {
 				case 'upduser':
+					$upduser = json_decode($_POST['data'], true);
 					$updRes = false;
 					$updRes = $this->model->updUser($upduser);
 					if ($updRes) {
+						echo 'true';
+					} else {
+						echo 'false';
+					}
+					break;
+
+				default:
+					Route::Catch_Error('404');
+					break;
+			}
+		}
+	}
+
+	function action_newpass()
+	{
+		$target = Route::PrepareUrl($_POST['target']);
+		if (isset($target)) {
+			switch ($target) {
+				case 'newpass':
+					$newpass = json_decode($_POST['data'], true);
+					$newpassRes = false;
+					$newpassRes = $this->model->updPass($newpass);
+					if ($newpassRes) {
 						echo 'true';
 					} else {
 						echo 'false';
@@ -150,7 +173,8 @@ class Controller_User extends Controller
 					 'modal_profile_view.php',
 					 'modal_profile_edit_view.php',
 					 'modal_cart_view.php',
-					 'modal_pass_check_view.php'
+					 'modal_pass_check_view.php',
+					 'modal_pass_new_view.php'
 					 )
 			);
 	}

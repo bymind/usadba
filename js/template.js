@@ -456,7 +456,11 @@ function BtnClickInit()
 function BtnClickHandler(obj)
 {
 	var target = obj.data().target;
-
+	var targetindex = obj.data().targetindex;
+	var targetcallback = obj.data().targetcallback;
+	if (typeof(publicProfEdit)==="undefined") {
+		publicProfEdit = null;
+	}
 	switch(target) {
 		case 'modal':
 		var targetIndex = obj.data().targetindex;
@@ -492,7 +496,7 @@ function BtnClickHandler(obj)
 		break;
 
 		case 'save_edit_profile':
-			TryEditProfile(obj);
+			TryEditProfile(obj, targetcallback);
 		break;
 
 		case 'reopen-prev':
@@ -500,7 +504,18 @@ function BtnClickHandler(obj)
 		break;
 
 		case 'send-passw-check':
-			TrySendProfEdit(obj, publicProfEdit);
+			switch (targetindex) {
+				case 'save-profile-info':
+					TrySendProfEdit(obj, publicProfEdit);
+				break;
+				case 'open-new-passw':
+					TrySendProfEdit(obj, publicProfEdit);
+				break;
+			}
+		break;
+
+		case 'send-passw-new':
+			TrySendPassEdit(obj);
 		break;
 
 		default:
@@ -510,9 +525,114 @@ function BtnClickHandler(obj)
 	return 0;
 }
 
+function TrySendPassEdit(obj)
+{
+	var btn = obj;
+	var btnDissmiss = btn.parents('.modal-footer').find('.dismiss-button');
+	DisableBtn(btn);
+	DisableBtn(btnDissmiss);
+	var modal = btn.parents('.modal-content');
+	var form = modal.find('form');
+	var passInput = form.find('input#passw-input');
+	var passInputNew = form.find('input#passw-input-new');
+	$.when(ValidatePass(form,passInput)).done(function(res){
+		if (res=='ok') {
+			console.info('OK!');
+			$.when(ValidateLength(passInputNew, 6)).done(function(res){
+					console.log('ok');
+					unDisableBtn(btn);
+					unDisableBtn(btnDissmiss);
+					ShowGood(btn, "Сохраняем");
+					SendNewPass(passInput,passInputNew);
+				}).fail(function(errors){
+					console.error('FAIL!');
+					unDisableBtn(btn);
+					unDisableBtn(btnDissmiss);
+					ShowErrors(form, errors);
+					return false;
+				});
+		} else {
+			console.info('WRONG!');
+		}
+		return true;
+	}).fail(function(errors){
+		console.error('FAIL!');
+		unDisableBtn(btn);
+		unDisableBtn(btnDissmiss);
+		ShowErrors(form, errors);
+		return false;
+	});
+}
+
+function SendNewPass(oldp, newp)
+{
+	var def = new $.Deferred();
+	var oldp = oldp.val();
+	var newp = newp.val();
+	var data = {};
+	data.oldp = oldp;
+	data.newp = newp;
+	data = JSON.stringify(data);
+
+	$.ajax({
+		url: '/user/newpass',
+		type: 'POST',
+		data: {target: 'newpass', data: data},
+	})
+	.done(function(res) {
+		console.log(res);
+		def.resolve(res);
+	})
+	.fail(function(error) {
+		console.log(error);
+		def.reject(error);
+	})
+	.always(function() {
+		console.log("complete");
+		return def.promise();
+	});
+
+}
+
+function ValidateLength(inp, l)
+{
+	var def = new $.Deferred();
+	var errors = []; // тут будем хранить объекты ошибок
+	var inpObj ={}; // тут данные с формы
+
+	inpObj.val = inp.val();
+	inpObj.name = inp.attr('name');
+
+	var error = {}; // объект ошибки
+
+	if (inpObj.val.length < l) {
+		error.name = inpObj.name;
+		error.msg = 'Не менее '+l+' символов';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+		def.reject(errors);
+	} else
+	{
+		def.resolve();
+	}
+return def.promise();
+}
+
+function DisableBtn(btnObj)
+{
+	btnObj.attr('disabled', 'disabled');
+}
+function unDisableBtn(btnObj)
+{
+	btnObj.removeAttr('disabled');
+}
+
 function TrySendProfEdit(obj, publicProfEdit)
 {
 	var btn = obj;
+	var btnDissmiss = btn.parents('.modal-footer').find('.dismiss-button');
+	DisableBtn(btn);
+	DisableBtn(btnDissmiss);
 	var modal = btn.parents('.modal-content');
 	var form = modal.find('form');
 	var passInput = form.find('input#passw-input');
@@ -521,7 +641,9 @@ function TrySendProfEdit(obj, publicProfEdit)
 			console.info('OK!');
 			$.when(SendNewProf(publicProfEdit)).done(function(res){
 				console.info(res);
-				location.reload();
+				unDisableBtn(btn);
+				unDisableBtn(btnDissmiss);
+				ShowGood(btn, "Сохраняем");
 			});
 		} else {
 			console.info('WRONG!');
@@ -529,6 +651,8 @@ function TrySendProfEdit(obj, publicProfEdit)
 		return true;
 	}).fail(function(errors){
 		console.error('FAIL!');
+		unDisableBtn(btn);
+		unDisableBtn(btnDissmiss);
 		ShowErrors(form, errors);
 		return false;
 	});
@@ -616,7 +740,11 @@ CheckPass = function (pass)
 		})
 		.done(function(res) {
 			console.log("CheckPass() success");
-			publicProfEdit.p = data;
+			if (publicProfEdit==null) {
+
+			} else {
+				publicProfEdit.p = data;
+			}
 			def.resolve(res);
 		})
 		.fail(function(err) {
@@ -642,8 +770,11 @@ function ReopenEditProfile(obj)
 	});
 }
 
-function TryEditProfile(obj)
+function TryEditProfile(obj,callback)
 {
+	if (typeof(callback)==="undefined") {
+		callback = null;
+	}
 	var btn = obj;
 	var modal = obj.parents('.modal');
 	var form = obj.parents('.modal-content').find('#profile-form-edit');
@@ -657,6 +788,7 @@ function TryEditProfile(obj)
 		var passwModal = $('.modal-passw_check');
 		publicProfEdit = profileEdit;
 		passwModal.modal('show');
+		passwModal.find('.dismiss-button').attr('data-target', callback);
 		modal.off('hidden.bs.modal');
 	})
 }
@@ -800,7 +932,7 @@ function TryLogin(form)
 				console.info(res);
 				$res = JSON.parse(res);
 				$res ? console.info($res) : console.info(res);
-				ShowGood(form.parents('.modal-content').find('button[data-target=login]'));
+				ShowGood(form.parents('.modal-content').find('button[data-target=login]'),"Входим");
 			} else {
 				console.error("TryLogin() response FALSE");
 				console.error("jsonLogin: "+jsonLogin);
@@ -892,7 +1024,7 @@ function TryRegistration(form)
 				console.warn("TryRegistration() done");
 				$res = JSON.parse(res);
 				$res ? console.info($res) : console.info(res);
-				ShowGood(form.parents('.modal-content').find('button[data-target=registration]'));
+				ShowGood(form.parents('.modal-content').find('button[data-target=registration]'),"Входим");
 			} else {
 				console.error("TryRegistration() response FALSE");
 				console.error("jsonLogin: "+jsonLogin);
@@ -980,11 +1112,11 @@ function ShowErrors(f, err)
 	return false;
 }
 
-function ShowGood(btn)
+function ShowGood(btn,str)
 {
 	var b = btn;
 	b.css('background-color', '#0dc95c');
-	b.text('Входим');
+	b.text(str);
 	location.reload();
 }
 
