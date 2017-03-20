@@ -542,8 +542,12 @@ function TrySendPassEdit(obj)
 					console.log('ok');
 					unDisableBtn(btn);
 					unDisableBtn(btnDissmiss);
-					ShowGood(btn, "Сохраняем");
-					SendNewPass(passInput,passInputNew);
+					$.when(SendNewPass(passInput,passInputNew)).done(function(res){
+						console.log(res);
+						ShowGood(btn, "Сохраняем");
+					}).fail(function(errors){
+						console.error('SendNewPass() went wrong');
+					});
 				}).fail(function(errors){
 					console.error('FAIL!');
 					unDisableBtn(btn);
