@@ -58,8 +58,7 @@
 					 // Controller::dump($pageData);
 					$cartItems = $pageData['items'];
 					$cartCount = 1;
-					// var_dump($pageData);
-					if (count($cartItems) == 0) {
+					if (count($cartItems) == 0 || !$cartItems) {
 						?>
 						<div class="row">
 							<div class="shadow br-2 prod-card cart-item mb-10" >
