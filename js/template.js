@@ -585,7 +585,11 @@ function SendNewPass(oldp, newp)
 	})
 	.done(function(res) {
 		console.log(res);
-		def.resolve(res);
+		if (res == "true") {
+			def.resolve(res);
+		} else {
+			def.reject(res);
+		}
 	})
 	.fail(function(error) {
 		console.log(error);
@@ -593,8 +597,8 @@ function SendNewPass(oldp, newp)
 	})
 	.always(function() {
 		console.log("complete");
-		return def.promise();
 	});
+return def.promise();
 
 }
 
