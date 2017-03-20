@@ -5,13 +5,15 @@ class Model_User extends Model
 
 	// public $userData;
 
+
+
 	public function getLogin($jsonLogin)
 	{
 		$login = $jsonLogin;
 		$loginEmail = $login['email'];
-		$salt = 'dsflFWR9u2xQa';
-		$loginPassword = md5($login['email'].$login['password'].$salt);
+		$loginPass = $login['password'];
 
+		$loginPassword = md5($loginEmail.$loginPass.Self::SALT);
 		$q = mysql_query("SELECT * FROM users WHERE email='$loginEmail'") or die(mysql_error()) ;
 		$countq = mysql_num_rows($q);
 		if ($countq>0) {
@@ -44,6 +46,31 @@ class Model_User extends Model
 			}
 			return $userData;
 		} else return false;
+	}
+
+	public function updUser($uData)
+	{
+		$uData['name'] = addslashes($uData['name']);
+		$uData['email'] = addslashes($uData['email']);
+		$uData['phone'] = addslashes($uData['phone']);
+		$uData['bd'] = addslashes($uData['bd']);
+		$newCrypt = md5($uData['email'].$uData['p'].Self::SALT);
+		$uid = $_SESSION['user']['id'];
+		$q = mysql_query("UPDATE users SET name = '".$uData['name']."', email='".$uData['email']."', phone='".$uData['phone']."', bday='".$uData['bd']."', pass='".$newCrypt."' WHERE id='".$uid."'") or die(mysql_error()) ;
+		return $q;
+	}
+
+	public function checkPass($pass)
+	{
+		$q = mysql_query("SELECT * FROM users WHERE id=".$_SESSION['user']['id']) or die(mysql_error()) ;
+		$userCheck = mysql_fetch_assoc($q);
+
+		$cryptPass = md5($userCheck['email'].$pass.self::SALT);
+		if ($cryptPass == $userCheck['pass']) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function getUserData($pagename, $user=NULL)

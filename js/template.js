@@ -499,11 +499,135 @@ function BtnClickHandler(obj)
 			ReopenEditProfile(obj);
 		break;
 
+		case 'send-passw-check':
+			TrySendProfEdit(obj, publicProfEdit);
+		break;
+
 		default:
 		break;
 	}
 
 	return 0;
+}
+
+function TrySendProfEdit(obj, publicProfEdit)
+{
+	var btn = obj;
+	var modal = btn.parents('.modal-content');
+	var form = modal.find('form');
+	var passInput = form.find('input#passw-input');
+	$.when(ValidatePass(form,passInput)).done(function(res){
+		if (res=='ok') {
+			console.info('OK!');
+			$.when(SendNewProf(publicProfEdit)).done(function(res){
+				console.info(res);
+				location.reload();
+			});
+		} else {
+			console.info('WRONG!');
+		}
+		return true;
+	}).fail(function(errors){
+		console.error('FAIL!');
+		ShowErrors(form, errors);
+		return false;
+	});
+
+}
+
+function SendNewProf(data)
+{
+	var def = new $.Deferred();
+	if (!data || data == "") {
+		def.reject();
+	}
+	var dataJson = JSON.stringify(data);
+	$.ajax({
+			url: '/user/upduser',
+			type: 'POST',
+			data: {target: 'upduser', data: dataJson},
+		})
+		.done(function(res) {
+			console.log("SendNewProf() success");
+			def.resolve(res);
+		})
+		.fail(function(err) {
+			console.log("SendNewProf() error");
+			def.reject(err);
+		})
+		.always(function() {
+			console.log("SendNewProf() complete");
+		});
+	return def.promise();
+}
+
+function ValidatePass(form, pass)
+{
+	var def = new $.Deferred();
+	var inputs = form.find('.form-group');
+	inputs.each(function(index, el) {
+		$(el).removeClass('has-error');
+		$(el).find('.substring.red').remove();
+	});
+	// var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
+	var errors = []; // тут будем хранить объекты ошибок
+	var passobj ={}; // тут данные с формы
+
+	var passInput = form.find('input[name=pass]');
+
+	passobj.password = passInput.val();
+
+	var error = {}; // объект ошибки
+
+	if (passobj.password.length <6) {
+		error.name = 'pass';
+		error.msg = 'Не менее 6 символов';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+		def.reject(errors);
+	} else
+	$.when(CheckPass(passobj.password)).done(function(res){
+		if (res =="false") {
+			error.name = 'pass';
+			error.msg = 'Неверный пароль';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+			def.reject(errors);
+		} else {
+			def.resolve('ok');
+		}
+	});
+
+return def.promise();
+
+}
+
+CheckPass = function (pass)
+{
+	var def = new $.Deferred();
+	if (!pass || pass == "") {
+		def.reject();
+	}
+	var data = pass;
+	$.ajax({
+			url: '/user/checkpass',
+			type: 'POST',
+			data: {target: 'checkpass', data: data},
+		})
+		.done(function(res) {
+			console.log("CheckPass() success");
+			publicProfEdit.p = data;
+			def.resolve(res);
+		})
+		.fail(function(err) {
+			console.log("CheckPass() error");
+			def.reject(err);
+		})
+		.always(function() {
+			console.log("CheckPass() complete");
+		});
+	return def.promise();
+
 }
 
 function ReopenEditProfile(obj)
@@ -528,10 +652,10 @@ function TryEditProfile(obj)
 	profileEdit.email = form.find('input#profile-email').val();
 	profileEdit.phone = form.find('input#profile-phone').val();
 	profileEdit.bd = form.find('input#profile-bd').val();
-	console.info(profileEdit);
 	modal.modal('hide');
 	modal.on('hidden.bs.modal', function (e) {
 		var passwModal = $('.modal-passw_check');
+		publicProfEdit = profileEdit;
 		passwModal.modal('show');
 		modal.off('hidden.bs.modal');
 	})
@@ -664,6 +788,7 @@ function TryLogin(form)
 		login.email = escapeHtml(form.find('input#login-email').val());
 		login.password = escapeHtml(form.find('input#login-passw').val());
 		var jsonLogin = JSON.stringify(login);
+		console.warn(jsonLogin);
 		$.ajax({
 			url: '/user/login',
 			type: 'POST',
@@ -852,6 +977,7 @@ function ShowErrors(f, err)
 		form_group.addClass('has-error');
 		input.after('<span class="substring red">'+errors[i].msg+'</span>')
 	}
+	return false;
 }
 
 function ShowGood(btn)

@@ -4,6 +4,8 @@
 class Model
 {
 
+	const SALT = 'dsflFWR9u2xQa';
+
 	public function getSimpleCrumbs($target)
 	{
 		$crumbs = array($target['name'] => $target['value']);

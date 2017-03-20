@@ -18,6 +18,52 @@ class Controller_User extends Controller
 		return 0;
 	}
 
+	function action_checkpass()
+	{
+		$checkpass = $_POST['data'];
+		$target = Route::PrepareUrl($_POST['target']);
+		if (isset($target)) {
+			switch ($target) {
+				case 'checkpass':
+					$checkRes = false;
+					$checkRes = $this->model->checkPass($checkpass);
+					if ($checkRes) {
+						echo 'true';
+					} else {
+						echo 'false';
+					}
+					break;
+
+				default:
+					Route::Catch_Error('404');
+					break;
+			}
+		}
+	}
+
+	function action_upduser()
+	{
+		$upduser = json_decode($_POST['data'], true);
+		$target = Route::PrepareUrl($_POST['target']);
+		if (isset($target)) {
+			switch ($target) {
+				case 'upduser':
+					$updRes = false;
+					$updRes = $this->model->updUser($upduser);
+					if ($updRes) {
+						echo 'true';
+					} else {
+						echo 'false';
+					}
+					break;
+
+				default:
+					Route::Catch_Error('404');
+					break;
+			}
+		}
+	}
+
 	function action_login()
 	{
 		$jsonLogin = json_decode($_POST['jsonLogin'], true);
