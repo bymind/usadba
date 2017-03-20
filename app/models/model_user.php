@@ -48,6 +48,27 @@ class Model_User extends Model
 		} else return false;
 	}
 
+	public function updPass($newpass)
+	{
+		$oldPass = $newpass['oldp'];
+		$newPass = $newpass['newp'];
+		$user = Self::getUser($_SESSION['user']['id']);
+		$cryptOld = md5($user['profile']['email'].$newpass['oldp'].Self::SALT);
+		if ($cryptOld == $user['profile']['pass']) {
+			if ($newPass) {
+				$u['name'] = $_SESSION['user']['name'];
+				$u['email'] = $_SESSION['user']['email'];
+				$u['phone'] = $_SESSION['user']['phone'];
+				$u['bd'] = $_SESSION['user']['bday'];
+				$u['p'] = $newPass;
+				if (Self::updUser($u)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public function updUser($uData)
 	{
 		$uData['name'] = addslashes($uData['name']);
