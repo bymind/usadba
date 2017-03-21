@@ -518,10 +518,40 @@ function BtnClickHandler(obj)
 			TrySendPassEdit(obj);
 		break;
 
+		case 'delete-addr':
+			var trObj = obj.parents('tr');
+			var trOpacity = trObj.hasClass('op-25');
+			if (trOpacity) {
+				RestoreAddr(obj);
+			} else {
+				DeleteAddr(obj);
+			}
+		break;
+
 		default:
+			console.log('nothing');
+			return false;
 		break;
 	}
 
+	return 0;
+}
+
+function RestoreAddr(obj)
+{
+	console.log('RestoreAddr()');
+	var addrObj = obj.parents('tr');
+	addrObj.removeClass('op-25');
+	obj.text('Удалить');
+	return 0;
+}
+
+function DeleteAddr(obj)
+{
+	console.log('DeleteAddr()');
+	var addrObj = obj.parents('tr');
+	addrObj.addClass('op-25');
+	obj.text('Вернуть');
 	return 0;
 }
 

@@ -10,18 +10,18 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xxs-12 col-xxs-offset-0 col-xs-10 col-xs-offset-1">
-									<form id="address-form-edit" class="mt-20" action="">
+									<form id="address-form-edit" class="mt-20">
 									<table class="table table-striped table-bordered table-hover" id='addresses'>
 							<?php
 							if (isset($pageDataView['addresses']) && count($pageDataView['addresses']) > 0) {
 								foreach ($pageDataView['addresses'] as $addr) {
 									?>
-									<tr>
+									<tr class="add-obj">
 										<td>
 											<label for=""><?php echo $addr; ?></label>
 										</td>
 										<td>
-											<button class="br-2 btn btn-default btn-delete">Удалить</button>
+											<button class="br-2 btn btn-default btn-delete" data-target="delete-addr" type="button">Удалить</button>
 										</td>
 									</tr>
 									<?php
@@ -32,9 +32,9 @@
 
 							?>
 									</table>
-
+											<form id="new-addr">
 											<div class="col-xs-9">
-											<input id="address" name="address" type="text" placeholder="Введите адрес"></input>
+											<input id="address" type="text" placeholder="Введите адрес"></input>
 											<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
 											<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 											<!--[if lt IE 10]>
@@ -54,8 +54,9 @@
 											</script>
 											</div>
 											<div class="col-xs-3">
-											<button class="br-2 btn btn-primary btn-add">Добавить</button>
-
+											<button class="br-2 btn btn-primary btn-add" data-target="add-addr" type="button">Добавить</button>
+											</div>
+											</form>
 									</form>
 						</div>
 					</div>
@@ -67,7 +68,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-7">
-						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_profile" data-targetindex="" data-targetcallback="reopen-prev">Сохранить</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_addr" data-targetindex="" data-targetcallback="reopen-prev">Сохранить</button>
 					</div>
 				</div>
 			</div>
