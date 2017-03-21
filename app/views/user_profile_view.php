@@ -117,7 +117,7 @@
 							<div class="details-section clearfix  mb-20">
 								<div class="details-section-title">
 									Адреса доставки
-									<span class='edit'>изменить</span>
+									<span class='edit like_button' data-target="modal" data-targetindex="edit_address">изменить</span>
 								</div>
 								<div class="details-section-data">
 								<div class="col-xs-12">
@@ -132,7 +132,7 @@
 									}
 								} else { ?>
 										<div class="new-addr">
-											<a href="#">Добавить адрес</a>
+											<span class="edit like_button" data-target="modal" data-targetindex="passw_new" data-targetcallback="new_passw">Добавить адрес</span>
 										</div>
 									<?php } ?>
 								</div>

@@ -255,6 +255,27 @@ span.addr>.addr-count {
 	text-decoration: underline;
 }
 
+#address-form-edit .btn-delete{
+	margin: 0;
+	height: 30px;
+	font-size: 13px;
+	font-weight: 900;
+	width: 100%;
+}
+
+#address-form-edit .btn-add{
+	margin: 0 auto;
+	height: 30px;
+	font-size: 13px;
+	font-weight: 900;
+  width: auto;
+  display: block;
+}
+
+#address-form-edit table.table td {
+	vertical-align: middle;
+}
+
 @media (min-width: 960px) {
 
 }
