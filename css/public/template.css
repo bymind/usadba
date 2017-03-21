@@ -1692,6 +1692,18 @@ span.link a:hover {
 	padding: 0 10px !important;
 }
 
+.op-25 {
+	opacity: .25;
+}
+
+.op-50 {
+	opacity: .5;
+}
+
+.op-75{
+	opacity: .75;
+}
+
 .mt-100{
 	margin-top: 100px !important;
 }
