@@ -84,7 +84,7 @@
 										<div class="value col-xs-8 col-xxs-12">
 											<span>
 											<?php if (isset($pageDataView['phone'])) { echo $pageDataView['phone'];} else { ?>
-												<a href="#">Добавить телефон</a>
+												<span class='edit like_button real' data-target="modal" data-targetindex="edit_profile">Добавить телефон</span>
 												<?php } ?>
 											</span>
 										</div>
@@ -99,7 +99,7 @@
 										<div class="value col-xs-8 col-xxs-12">
 											<span>
 											<?php if (isset($pageDataView['bday'])) { echo $pageDataView['bday'];} else { ?>
-												<a href="#">Указать день рождения</a>
+												<span class='edit like_button real' data-target="modal" data-targetindex="edit_profile">Указать день рождения</span>
 												<?php } ?>
 											</span>
 										</div>
@@ -132,7 +132,7 @@
 									}
 								} else { ?>
 										<div class="new-addr">
-											<span class="edit like_button" data-target="modal" data-targetindex="passw_new" data-targetcallback="new_passw">Добавить адрес</span>
+											<span class="edit like_button" data-target="modal" data-targetindex="edit_address" >Добавить адрес</span>
 										</div>
 									<?php } ?>
 								</div>
