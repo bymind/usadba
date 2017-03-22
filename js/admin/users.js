@@ -87,7 +87,7 @@ function isSuper()
 			confirm = $('.shure-modal-md');
 			confirm.on('show.bs.modal', function(event) {
 				var modal = $(this);
-				  modal.find('.modal-title').html('<h1>Лососни тунца!</h1>');
+				  modal.find('.modal-title').html('<h1>Отказ</h1>');
 				  modal.find('.modal-body').html('<h2>У Вас недостаточно полномочий.</h2>');
 				  modal.find('.modal-footer').remove();
 				  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
