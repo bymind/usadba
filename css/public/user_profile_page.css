@@ -246,12 +246,12 @@ span.addr>.addr-count {
 	display: inline-block;
 }
 
-.new-passw span {
+.new-passw span, .new-addr span, span.like_button.real {
 	color: #c63838;
 	cursor: pointer;
 }
 
-.new-passw span:hover {
+.new-passw span:hover, .new-addr span:hover, span.like_button.real:hover {
 	text-decoration: underline;
 }
 
