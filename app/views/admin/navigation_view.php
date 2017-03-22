@@ -42,7 +42,7 @@
 				<span class="date hidden-xs hidden-sm">13 октября 2015</span>
 			</div>
 			<div class="col-xs-1 col-sm-4 col-md-5">
-				<div class="usr-over<?php if (Controller_Admin::isSuper()){ echo ' bg-super'; } ?>">
+				<div class="usr-over<?php if (Controller_Admin::isSuper()){ echo ' bg-super'; } ?>" title="<?php echo $_SESSION['user']['name'];?>">
 					<div class="user-btn btn-title">
 						<span class="hidden-xs" style="white-space: nowrap;">
 							<?php echo $_SESSION['user']['name'];?>
@@ -50,7 +50,7 @@
 					</div>
 					<div class="list">
 						<a class="list-item" href="/admin/users/<?php echo $_SESSION['user']['id']; ?>">Профиль</a>
-						<a class="list-item logout" href="/admin/logout">Выход</a>
+						<a class="list-item logout" href="/user/logout">Выход</a>
 					</div>
 				</div>
 			</div>
