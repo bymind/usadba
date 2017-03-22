@@ -231,8 +231,6 @@ class Controller_User extends Controller
 		} else {
 			$pageDataController = $this->model->getUserData('sendOrder');
 			$breadCrumbs = array('Корзина' => '/user/cart', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
-			// echo $_SESSION['user'];
-			// Route::Catch_Error('404'); // TODO: cart page without login
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$pageDataProd = $this->model->getData('prods');
@@ -305,8 +303,6 @@ class Controller_User extends Controller
 		} else {
 			$pageDataController = $this->model->getUserData('cart');
 			$breadCrumbs = array($pageDataController['title'] => $_SERVER['REQUEST_URI']);
-			// echo $_SESSION['user'];
-			// Route::Catch_Error('404'); // TODO: cart page without login
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$pageDataProd = $this->model->getData('prods');
