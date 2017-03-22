@@ -24,7 +24,8 @@
 							<th>Логин</th>
 							<?php if ($_SESSION['is_su']==1){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
-							<th>Telegram token <button type="button" class="btn btn-xs btn-primary copy-token ml-10 " data-clipboard-text="<?php echo $user['telegram_token']; ?>" data-loading-text="Скопировано!">Скопировать</button></th>
+							<th>Права</th>
+							<!-- <th>Telegram token <button type="button" class="btn btn-xs btn-primary copy-token ml-10 " data-clipboard-text="<?php echo $user['telegram_token']; ?>" data-loading-text="Скопировано!">Скопировать</button></th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -33,7 +34,8 @@
 							<td style="vertical-align: middle;"><?php echo $user['login'] ?></td>
 							<?php if (Controller_Admin::isSuper()){ echo "<td style='vertical-align: middle;''>".$user['is_super']."</td>"; } ?>
 							<td style="vertical-align: middle;"><?php echo $user['email'] ?></td>
-							<td style="vertical-align: middle;"><?php echo $user['telegram_token']; ?></td>
+							<td style="vertical-align: middle;"><?php echo ('Администратор'); ?></td> <!-- TODO: отображение прав администраторов -->
+							<!-- <td style="vertical-align: middle;"><?php echo $user['telegram_token']; ?></td> -->
 						</tr>
 
 					</tbody>

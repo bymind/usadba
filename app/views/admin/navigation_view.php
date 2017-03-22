@@ -37,19 +37,19 @@
 		</div>
 		<div class="col-md-4 col-xs-2 pl-0 pr-0">
 
-			<div class="time-date hidden-xs hidden-sm col-md-8 col-lg-8">
+			<div class="time-date hidden-xs hidden-sm col-md-7">
 				<span class="time"></span>
 				<span class="date hidden-xs hidden-sm">13 октября 2015</span>
 			</div>
-			<div class="col-xs-1 col-sm-4 col-md-4 col-lg-4">
+			<div class="col-xs-1 col-sm-4 col-md-5">
 				<div class="usr-over<?php if (Controller_Admin::isSuper()){ echo ' bg-super'; } ?>">
 					<div class="user-btn btn-title">
-						<span class="hidden-xs">
-							<?php echo $_SESSION['name']; ?>
+						<span class="hidden-xs" style="white-space: nowrap;">
+							<?php echo $_SESSION['user']['name'];?>
 						</span>
 					</div>
 					<div class="list">
-						<a class="list-item" href="/admin/users/<?php echo $_SESSION['id']; ?>">Профиль</a>
+						<a class="list-item" href="/admin/users/<?php echo $_SESSION['user']['id']; ?>">Профиль</a>
 						<a class="list-item logout" href="/admin/logout">Выход</a>
 					</div>
 				</div>
