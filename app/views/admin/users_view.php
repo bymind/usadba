@@ -21,7 +21,7 @@
 						<tr>
 							<th style="width:40px">id</th>
 							<th>Логин</th>
-							<?php if ($_SESSION['is_su']==1){ echo "<th>SU</th>"; }?>
+							<?php if ($_SESSION['user']['is_super']==1){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
 						</tr>
 					</thead>

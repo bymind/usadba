@@ -85,7 +85,7 @@ class Model_Admin extends Model
 	public function updatePost($post)
 	{
 		extract($post);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$sql = "UPDATE articles SET url = '$url', title = '$title', subtitle = '$subtitle', poster = '$poster', prev_poster = '$poster', author = '$author', anons = '$anons', body = '$text' WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
 		echo "Статья сохранена";
@@ -101,7 +101,7 @@ class Model_Admin extends Model
 	public function archivePost($post)
 	{
 		extract($post);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$sql = "UPDATE articles SET archived = 1 WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
 		echo "Статья отправлена в архив";
@@ -117,7 +117,7 @@ class Model_Admin extends Model
 	public function unarchivePost($post)
 	{
 		extract($post);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$sql = "UPDATE articles SET archived = 0 WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
 		echo "Статья опубликована";
@@ -133,7 +133,7 @@ class Model_Admin extends Model
 	public function deletePost($post)
 	{
 		extract($post);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$sql = "DELETE FROM articles WHERE id='$id'";
 		mysql_query($sql) or die(mysql_error());
 		echo "Статья полностью удалена!";
@@ -149,7 +149,7 @@ class Model_Admin extends Model
 	public function newPost($post)
 	{
 		extract($post);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$url = htmlspecialchars($url);
 		if ((isset($archived)) && ($archived == 1)) {
 			$sql = "INSERT INTO articles (url, title, subtitle, poster, prev_poster, author, anons, body, archived) VALUES ('$url','$title','$subtitle','$poster','$poster','$author','$anons','$text', 1)";
@@ -181,7 +181,7 @@ class Model_Admin extends Model
 	*/
 	public function userIsSuper()
 	{
-		$account = $_SESSION['id'];
+		$account = $_SESSION['user']['id'];
 		$sql = mysql_query("SELECT * FROM users WHERE id='$account'") or die(mysql_error());
 		return mysql_fetch_assoc($sql);
 	}
@@ -196,7 +196,7 @@ class Model_Admin extends Model
 	public function addNewUser($user)
 	{
 		extract($user);
-		$passw = md5($passw);
+		$passw = md5($email.$passw.Self::SALT);
 		$users = self::getUsers();
 		foreach ($users as $haveUser) {
 			if ($login == $haveUser['login']) {
@@ -208,7 +208,7 @@ class Model_Admin extends Model
 				return false;
 			}
 		}
-		$sql = "INSERT INTO users (login, passw, email) VALUES ('$login','$passw','$email')";
+		$sql = "INSERT INTO users (name, login, pass, email) VALUES ('$login','$login','$passw','$email')";
 		mysql_query($sql) or die(mysql_error());
 		echo "Аккаун добавлен";
 	}
@@ -296,8 +296,8 @@ class Model_Admin extends Model
 		}
 
 		if ($personal=='1') {
-				$userIdForTickets = $_SESSION['id'];
-				$userNameForTickets = $_SESSION['name'];
+				$userIdForTickets = $_SESSION['user']['id'];
+				$userNameForTickets = $_SESSION['user']['name'];
 				if ( $personalMy != '0' ) {
 					$userMyCat = NULL;
 					if ($personalMy=='1') {
@@ -369,16 +369,16 @@ class Model_Admin extends Model
 				break;
 		}
 
-		if (isset($_SESSION['personalTickets'])) {
-			if ($_SESSION['personalTickets']=='1') {
-				$userIdForTickets = $_SESSION['id'];
-				$userNameForTickets = $_SESSION['name'];
-				if (isset($_SESSION['personalTicketsMy'])) {
+		if (isset($_SESSION['user']['personalTickets'])) {
+			if ($_SESSION['user']['personalTickets']=='1') {
+				$userIdForTickets = $_SESSION['user']['id'];
+				$userNameForTickets = $_SESSION['user']['name'];
+				if (isset($_SESSION['user']['personalTicketsMy'])) {
 					$userMyCat = NULL;
-					if ($_SESSION['personalTicketsMy']=='1') {
+					if ($_SESSION['user']['personalTicketsMy']=='1') {
 						$userMyCat = 'author';
 						$select = mysql_query("SELECT b.*, u.login as doer_name FROM `bugs` b LEFT JOIN `users` u ON b.doer = u.id WHERE ( archived = 0 AND ( author='".$userNameForTickets."')) ".$selectType.$orderBy)or die(mysql_error());
-					} else if ($_SESSION['personalTicketsMy']=='2') {
+					} else if ($_SESSION['user']['personalTicketsMy']=='2') {
 						$userMyCat = 'doer';
 						$select = mysql_query("SELECT b.*, u.login as doer_name FROM `bugs` b LEFT JOIN `users` u ON b.doer = u.id WHERE ( archived = 0 AND (b.doer = '".$userIdForTickets."' )) ".$selectType.$orderBy)or die(mysql_error());
 					}
@@ -431,7 +431,7 @@ class Model_Admin extends Model
 	public function newTicket($ticket)
 	{
 		extract($ticket);
-		$author = $_SESSION['name'];
+		$author = $_SESSION['user']['name'];
 		$title = Self::prepareToDB($title);
 		$body = Self::prepareToDB($body);
 		$author = Self::prepareToDB($author);
@@ -531,7 +531,7 @@ class Model_Admin extends Model
 	*/
 	public function deleteTicket($id, $reason = "Without explaning the reason")
 	{
-		$doer = $_SESSION['id'];
+		$doer = $_SESSION['user']['id'];
 		$date = date('Y-m-d h:i:s');
 			$sql = mysql_query("UPDATE bugs SET doer='$doer', archived=1, answer='$reason', answer_time='$date' WHERE id='$id'") or die(mysql_error());
 			echo 'Model_Admin::deleteTicket() - Ok!';
@@ -546,7 +546,7 @@ class Model_Admin extends Model
 	*/
 	public function restoreTicket($id)
 	{
-		$doer = $_SESSION['id'];
+		$doer = $_SESSION['user']['id'];
 		$date = date('Y-m-d h:i:s');
 			$sql = mysql_query("UPDATE bugs SET doer='$doer', archived=0, answer='', answer_time='$date' WHERE id='$id'") or die(mysql_error());
 			echo 'Model_Admin::restoreTicket() - Ok!';

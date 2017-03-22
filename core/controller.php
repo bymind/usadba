@@ -149,19 +149,17 @@ class Controller
 		} else
 			{
 				$login = substr(htmlspecialchars(trim($_POST['login'])), 0, 60);
-				$salt = 'dsflFWR9u2xQa';
-				$password = md5($login.$_POST['passw'].$salt);
+				$password = md5($login.$_POST['passw'].Model::SALT);
 				$ds = Model::get_login($login,'email');
 
 				if($login == $ds['login'] && $password == $ds['pass']){
-					$_SESSION['id'] = $ds['id'];
-					$_SESSION['name'] = $ds['login'];
-					$_SESSION['is_su'] = $ds['is_super'];
-					$_SESSION['telegram_token'] = $ds['telegram_token'];
-					$_SESSION['telegram_id'] = $ds['telegram_id'];
-					$salt = 'dsflFWR9u2xQa';
-					$_SESSION['access_key'] = md5($ds['login'].$ds['pass'].$salt);
-					setcookie("id",$_SESSION['id'], time()+60*60*24*30);
+					$_SESSION['user']['id'] = $ds['id'];
+					$_SESSION['user']['name'] = $ds['name'];
+					$_SESSION['user']['is_super'] = $ds['is_super'];
+					$_SESSION['user']['telegram_token'] = $ds['telegram_token'];
+					$_SESSION['user']['telegram_id'] = $ds['telegram_id'];
+					// $_SESSION['user']['access_key'] = md5($ds['login'].$ds['pass'].Model::SALT);
+					setcookie("id",$_SESSION['user']['id'], time()+60*60*24*30);
 					// var_dump($redirect);
 					// header('location:'.$redirect);
 					echo "<script>location.reload();</script>";
@@ -193,7 +191,7 @@ class Controller
 	function logout()
 	{
 		setcookie("id","");
-		unset($_SESSION['id']);
+		unset($_SESSION['user']['id']);
 		header('Location:/');
 		return 0;
 	}

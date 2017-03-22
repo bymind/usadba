@@ -16,7 +16,7 @@ class Controller_Admin extends Controller
 
 	function isSuper()
 	{
-		if ($_SESSION['is_su']==1) {
+		if ($_SESSION['user']['is_super']==1) {
 			return true;
 		} else return false;
 	}
@@ -241,7 +241,7 @@ class Controller_Admin extends Controller
 														 'text' => htmlspecialchars($post['text']),
 														 'tags' => $post['tags'],
 														),*/
-							'access_key' => $_SESSION['access_key'],
+							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'articles',
 							'actual_title' => '<a href="/admin/articles">Статьи</a>',
 							'second_title' => 'Новая статья',
@@ -295,7 +295,7 @@ class Controller_Admin extends Controller
 														 'text' => htmlspecialchars($post['body']),
 														 //'tags' => $post['tags'],
 														),
-							'access_key' => $_SESSION['access_key'],
+							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'articles',
 							'actual_title' => $actual_title,
 							'second_title' => 'Правка статьи',
