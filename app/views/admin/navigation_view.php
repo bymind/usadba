@@ -73,7 +73,7 @@
 
 <div style="visibility: hidden;display: none;">
 	<!-- @todo: собрать в спрайт -->
-	<img src="/img/admin/home-white.svg" alt="">
+	<img src="/img/admin/dashboard-white.svg" alt="">
 	<img src="/img/admin/blog-white.svg" alt="">
 	<img src="/img/admin/pages-white.svg" alt="">
 	<img src="/img/admin/files-white.svg" alt="">

@@ -253,7 +253,7 @@ li.back-to-site:hover a
 .navigation
 {
 		position: fixed;
-		width: 90px;
+		width: 60px;
 		height: 100%;
 		min-height: 460px;
 		left: 0;
@@ -305,7 +305,7 @@ ul.side-nav li
 {
 	display: block;
 	width: 100%;
-	height: 60px;
+	height: 40px;
 	position: relative;
 }
 
@@ -326,7 +326,7 @@ ul.side-nav li.bot
 {
 	content: "";
 	display: inline-block;
-	width: 35px;
+	width: 20px;
 	position: absolute;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -334,14 +334,22 @@ ul.side-nav li.bot
 	top: 0;
 	bottom: 0;
 	right: 0;
-	left: 25px;
+	left: 20px;
 	margin: auto 0;
+}
+
+.side-nav li.active::before {
+	left: 15px;
+}
+
+.side-nav li.home.active::before {
+	left: 13px;
 }
 
 .side-nav li.home.active::before,
 .side-nav li.home:hover::before
 {
-	background-image: url(../../img/admin/home-white.svg);
+	background-image: url(../../img/admin/dashboard-white.svg);
 }
 
 .side-nav li.articles.active::before,
@@ -389,8 +397,9 @@ ul.side-nav li.bot
 .side-nav li.home::before
 {
 	height: 28px;
-
-	background-image: url(../../img/admin/home.svg);
+	width: 24px;
+	left: 18px;
+	background-image: url(../../img/admin/dashboard.svg);
 }
 
 .side-nav li.articles::before
@@ -402,8 +411,7 @@ ul.side-nav li.bot
 
 .side-nav li.pages::before
 {
-	height: 28px;
-
+	height: 22px;
 	background-image: url(../../img/admin/pages.svg);
 }
 
@@ -440,10 +448,10 @@ ul.side-nav li.bot
 	position: relative;
 	width: 100%;
 	height: 100%;
-	padding-left: 75px;
+	padding-left: 55px;
 	font-family: 'RobotoLight', sans-serif;
-	font-size: 15px;
-	line-height: 60px;
+	font-size: 14px;
+	line-height: 40px;
 	color: #777;
 	text-decoration: none;
 	opacity: 0;
@@ -807,7 +815,7 @@ li.active a,
 	}
 	.side-nav li::before
 	{
-		left: 15px !important;
+		/* left: 15px; */
 	}
 	.side-nav li.home::before{
 		height: 20px !important;
