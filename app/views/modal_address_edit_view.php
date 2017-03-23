@@ -33,7 +33,7 @@
 							?>
 									</table>
 											<form id="new-addr">
-											<div class="col-xs-9">
+											<div class="col-xxs-8 col-xs-9">
 											<input id="address" type="text" placeholder="Введите адрес"></input>
 											<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
 											<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -53,7 +53,7 @@
 											    });
 											</script>
 											</div>
-											<div class="col-xs-3">
+											<div class="col-xxs-4 col-xs-3">
 											<button class="br-2 btn btn-primary btn-add" data-target="add-addr" type="button">Добавить</button>
 											</div>
 											</form>
