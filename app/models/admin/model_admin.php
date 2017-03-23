@@ -26,18 +26,70 @@ class Model_Admin extends Model
 
 
 
+
 	/*
-	getGoodsPosts()
+	getGoodsLists()
 	Получение списка товаров
 	*/
 	public function getGoodsLists()
 	{
-		$select = mysql_query("SELECT * FROM prod_items ORDER BY id DESC")or die(mysql_error());
+		$select = mysql_query("SELECT * FROM prod_items WHERE archived = 0 ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['added_time'] = Controller::getGoodDate($r['added_time']);
 					$ds[]=$r;
 				}
+		return $ds;
+	}
+
+
+
+	/*
+	getGoodsPostsArchived()
+	Получение списка товаров, которые не показываются
+	*/
+	public function getGoodsPostsArchived()
+	{
+		$select = mysql_query("SELECT * FROM prod_items WHERE archived = 1 ORDER BY added_time DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['added_time'] = Controller::getGoodDate($r['added_time']);
+					$ds[]=$r;
+
+		}
+
+		return $ds;
+	}
+
+
+	/*
+	getArticlesLists()
+	Получение списка статей в архиве
+	*/
+	public function getArticlesLists()
+	{
+		$select = mysql_query("SELECT * FROM articles WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$ds[]=$r;
+
+		}
+
+		return $ds;
+	}
+
+
+	/*
+	getProductItem($art)
+	Получение товара по его артикулу
+	$art [string] - артикул товара
+	*/
+	public function getProductItem($art)
+	{
+		$select = mysql_query("SELECT * FROM prod_items WHERE art = '$art'")or die(mysql_error());
+		$ds = mysql_fetch_assoc($select);
+
 		return $ds;
 	}
 
@@ -74,7 +126,6 @@ class Model_Admin extends Model
 
 		return $ds;
 	}
-
 
 
 	/*

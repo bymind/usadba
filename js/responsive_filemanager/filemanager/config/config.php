@@ -105,7 +105,7 @@ $config = array(
 	|
 	*/
 
-	'access_keys' => array($_SESSION['access_key']),
+	'access_keys' => array($_SESSION['user']['access_key']),
 
 	//--------------------------------------------------------------------------------------------------------
 	// YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS

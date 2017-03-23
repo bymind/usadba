@@ -173,7 +173,7 @@ class Controller
 					$_SESSION['user']['is_super'] = $ds['is_super'];
 					$_SESSION['user']['telegram_token'] = $ds['telegram_token'];
 					$_SESSION['user']['telegram_id'] = $ds['telegram_id'];
-					// $_SESSION['user']['access_key'] = md5($ds['login'].$ds['pass'].Model::SALT);
+					$_SESSION['user']['access_key'] = md5($ds['pass'].Model::SALT);
 					setcookie("id",$_SESSION['user']['id'], time()+60*60*24*30);
 					// var_dump($redirect);
 					// header('location:'.$redirect);

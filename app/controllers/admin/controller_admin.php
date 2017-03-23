@@ -95,10 +95,9 @@ class Controller_Admin extends Controller
 	}
 
 
-
-/*																		 ARTICLES
+/*																		 PRODUCTS
 *************************************************************************************/
-/*	 ARTICLES INIT
+/*	 PRODUCTS INIT
 **********************************/
 	function adminGoods($params = '')
 	{
@@ -114,38 +113,38 @@ class Controller_Admin extends Controller
 
 		switch ($name) {
 			case 'edit':
-				self::adminArticlesEdit($target);
+				self::adminProductEdit($value);
 				break;
 
 			case 'delete':
-				self::adminArticlesDelete($target);
+				self::adminProductsDelete($value);
 				break;
 
 			case 'archived':
-				self::adminArticlesArchived();
+				self::adminProductsArchived();
 				break;
 
 			case 'archive':
-				self::adminArticlesArchive($target);
+				self::adminProductsArchive($value);
 				break;
 
 			case 'unarchive':
-				self::adminArticlesUnArchive($target);
+				self::adminProductsUnArchive($value);
 				break;
 
 			case 'new':
-				self::adminArticlesNew();
+				self::adminProductsNew();
 				break;
 
 			case 'save':
-				self::adminArticlesSave();
+				self::adminProductsSave();
 				break;
 
 			default :
 				$ds = $this->model->getGoodsLists();
 				$ds = Model::createProdUrl($ds);
 				$this->view->generate(
-							'admin/goods_view.php',
+							'admin/products_view.php',
 							'admin/template_admin_view.php',
 							array(
 									'title'=>' - Товар',
@@ -170,6 +169,198 @@ class Controller_Admin extends Controller
 
 	}
 
+
+
+/*	 PRODUCTS ARCHIVED LIST
+**********************************/
+	function adminProductsArchived()
+	{
+		$prods = $this->model->getGoodsPostsArchived();
+		$this->view->generate(
+					'admin/products_archived_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Скрытые товары',
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/goods.css',
+							'products'=>$prods,
+							'active_menu_item' => 'goods',
+							'actual_title' => 'Товары (скрытые)',
+							//'second_title' => 'Записи в блоге',
+							'btns' => array(
+															'new-post' => 'Добавить товар',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
+/*	 PRODUCTS -> to archive
+**********************************/
+	function adminProductsArchive($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->archivePost($postArrive);
+	}
+
+
+
+/*	 PRODUCTS -> unarchive
+**********************************/
+	function adminProductsUnArchive($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->unarchivePost($postArrive);
+	}
+
+
+
+/*	 PRODUCT NEW
+**********************************/
+	function adminProductsNew()
+	{
+		$this->view->generate(
+					'admin/products_new_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Добавление товара',
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/goods.css',
+							/*'post'=>array (
+														 'id' => $post['id'],
+														 'url' => $post['url'],
+														 'title' => htmlspecialchars($post['title']) ,
+														 'poster' => $post['poster'],
+														 'date' => $post['date'],
+														 'anons' => htmlspecialchars($post['anons']),
+														 'text' => htmlspecialchars($post['text']),
+														 'tags' => $post['tags'],
+														),*/
+							'access_key' => $_SESSION['user']['access_key'],
+							'active_menu_item' => 'goods',
+							'actual_title' => '<a href="/admin/goods">Товары</a>',
+							'second_title' => 'Добавление товара',
+							'btns' => array(
+															'post-save new' => 'Сохранить',
+															'post-abort' => 'Отмена',
+															//'post-delete' => 'Удалить',
+															'post-archive btn-archive-new' => 'Сохранить как скрытый',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
+/*	 PRODUCT EDIT
+**********************************/
+	function adminProductEdit($art)
+	{
+		$product = $this->model->getProductItem($art);
+		if ($product['archived']==0) {
+			$archive_class = 'btn-archive';
+			$archive_text = 'Скрыть товар';
+			$actual_title = '<a href="/admin/goods">Товары</a>';
+		} else
+		{
+			$archive_class = 'btn-unarchive';
+			$archive_text = 'Опубликовать';
+			$actual_title = '<a href="/admin/goods/archived">Товары (скрытые)</a>';
+		}
+
+		$this->view->generate(
+					'admin/product_edit_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Редактирование товара - '.htmlspecialchars($product['title']),
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/goods.css',
+							'post'=>array (
+														 'id' => $product['id'],
+														 'url' => $product['url'],
+														 'art' => $product['art'],
+														 'title' => htmlspecialchars($product['name']) ,
+														 'subtitle' => htmlspecialchars($product['mini_desc']) ,
+														 'poster' => $product['images'],
+														 'date' => $product['added_time'],
+														 'anons' => htmlspecialchars($product['mini_desc']),
+														 'text' => htmlspecialchars($product['description']),
+														 //'tags' => $post['tags'],
+														),
+							'access_key' => $_SESSION['user']['access_key'],
+							'active_menu_item' => 'goods',
+							'actual_title' => $actual_title,
+							'second_title' => 'Редактирование товара',
+							'btns' => array(
+															'post-save edit' => 'Сохранить',
+															'post-abort' => 'Отмена',
+															'post-delete btn-delete' => 'Удалить',
+															'post-archive '.$archive_class => $archive_text,
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
+/*	 PRODUCT SAVE
+**********************************/
+	function adminProductsSave()
+	{
+		if (!isset($_POST['action'])) {
+			return "Не указан параметр action";
+		}
+		if (!isset($_POST['jsonPost'])) {
+			return "Параметры не переданы";
+		}
+		switch ($_POST['action']) {
+			case 'edit':
+					$postArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->updatePost($postArrive);
+				break;
+
+			case 'new':
+					$postArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->newPost($postArrive);
+				break;
+
+			default:
+				# code...
+				break;
+		}
+	}
+
+
+
+/*	 PRODUCT DELETE
+**********************************/
+	function adminProductsDelete($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->deletePost($postArrive);
+	}
+
+
+
+
+/*																		 ARTICLES
+*************************************************************************************/
+/*	 ARTICLES INIT
+**********************************/
+
 	function adminArticles($params = '')
 	{
 		if ($params == '') {
@@ -184,11 +375,11 @@ class Controller_Admin extends Controller
 
 		switch ($name) {
 			case 'edit':
-				self::adminArticlesEdit($target);
+				self::adminArticlesEdit($value);
 				break;
 
 			case 'delete':
-				self::adminArticlesDelete($target);
+				self::adminArticlesDelete($value);
 				break;
 
 			case 'archived':
@@ -196,11 +387,11 @@ class Controller_Admin extends Controller
 				break;
 
 			case 'archive':
-				self::adminArticlesArchive($target);
+				self::adminArticlesArchive($value);
 				break;
 
 			case 'unarchive':
-				self::adminArticlesUnArchive($target);
+				self::adminArticlesUnArchive($value);
 				break;
 
 			case 'new':
@@ -212,7 +403,7 @@ class Controller_Admin extends Controller
 				break;
 
 			default :
-				$ds = $this->model->getGoodsLists();
+				$ds = $this->model->getArticlesLists();
 				$this->view->generate(
 							'admin/articles_view.php',
 							'admin/template_admin_view.php',
@@ -272,7 +463,7 @@ class Controller_Admin extends Controller
 
 /*	 ARTICLES -> to archive
 **********************************/
-	function adminArticlesArchive($target)
+	function adminArticlesArchive($value)
 	{
 		$postArrive = json_decode($_POST['jsonPost'], true);
 		return $this->model->archivePost($postArrive);
@@ -282,7 +473,7 @@ class Controller_Admin extends Controller
 
 /*	 ARTICLES -> unarchive
 **********************************/
-	function adminArticlesUnArchive($target)
+	function adminArticlesUnArchive($value)
 	{
 		$postArrive = json_decode($_POST['jsonPost'], true);
 		return $this->model->unarchivePost($postArrive);
@@ -416,7 +607,7 @@ class Controller_Admin extends Controller
 
 /*	 ARTICLES DELETE
 **********************************/
-	function adminArticlesDelete($target)
+	function adminArticlesDelete($value)
 	{
 		$postArrive = json_decode($_POST['jsonPost'], true);
 		return $this->model->deletePost($postArrive);
@@ -624,10 +815,10 @@ class Controller_Admin extends Controller
 		} else
 		if ($name == 'count')
 		{
-			if ((isset($target))&&($target != "")) {
-				self::adminBugtrackerCount($target);
+			if ((isset($value))&&($value != "")) {
+				self::adminBugtrackerCount($value);
 			} else
-			if ((isset($target))&&($target == "")||(!isset($target))) {
+			if ((isset($value))&&($value == "")||(!isset($value))) {
 				self::adminBugtrackerCount('all');
 			} else {
 				Route::Catch_Error('404');
@@ -639,10 +830,10 @@ class Controller_Admin extends Controller
 		} else
 		if ($name=="ticket")
 		{
-			if ((isset($target))&&($target != "")) {
-				self::adminBugtrackerShowTicket($target);
+			if ((isset($value))&&($value != "")) {
+				self::adminBugtrackerShowTicket($value);
 			} else
-			if ((isset($target))&&($target == "")||(!isset($target))) {
+			if ((isset($value))&&($value == "")||(!isset($value))) {
 				self::adminBugtrackerShowTicket('last');
 			} else {
 				Route::Catch_Error('404');
@@ -662,7 +853,7 @@ class Controller_Admin extends Controller
 		} else
 		if ($name=="ajaxTickets")
 		{
-			self::adminBugtrackerAjaxTickets($target, $personal, $personalMy);
+			self::adminBugtrackerAjaxTickets($value, $personal, $personalMy);
 		} else
 			self::adminBugtrackerGetTickets($name);
 
@@ -688,12 +879,12 @@ class Controller_Admin extends Controller
 
 /*	 BUGTRACKER ONE TICKET PAGE
 **********************************/
-	function adminBugtrackerShowTicket($target="last")
+	function adminBugtrackerShowTicket($value="last")
 	{
-		$ticket = $this->model->getOneTicket($target);
+		$ticket = $this->model->getOneTicket($value);
 
 		if ($ticket == 'no ticket') {
-			$ticket1['id']=$target;
+			$ticket1['id']=$value;
 			$ticket1['status']='null';
 			self::adminBugtrackerShowTicketU($ticket1);
 		} else

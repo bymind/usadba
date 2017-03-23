@@ -1,15 +1,38 @@
+span.label {
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 13px;
+	background: black;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 2px 5px;
+	font-family: Roboto Slab;
+	border-radius: 2px;
+	margin-right: 10px;
+	vertical-align: top;
+}
+
+span.label.new {
+  background: #ff9912;
+}
+
+span.label.popular {
+  background: #0dc95c;
+}
+
+span.label.sales {
+  background: #c63838;
+}
+
 .blog-item {
 	position: relative;
 	height: 270px;
 	border-radius: 2px;
 	border: 1px solid rgba(0, 0, 0, .5);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
-
 	background-color: #fff;
-
 	margin-bottom: 30px;
 	padding: 0;
-
 	overflow: hidden;
 }
 
@@ -127,7 +150,6 @@
 
 .blog-item .tags {
 	position: relative;
-	height: 25px;
 }
 
 .blog-item .tags.open {
@@ -184,7 +206,6 @@
 	font-family: 'RobotoBold', sans-serif;
 	line-height: 16px;
 	max-height: 44px;
-	/* overflow: hidden; */
 }
 
 .details .title a {
@@ -283,9 +304,8 @@
 
 .cover .poster {
 	position: relative;
-  width: 100%;
-  height: 130px;
-	//background-image: url(/img/admin/picture-dark.svg);
+	width: 100%;
+	height: 130px;
 	background-size: 80px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -307,10 +327,10 @@
 
 .cover .controls {
 	position: relative;
-  display: block;
-  width: 100%;
-  height: 30px;
-  margin: 10px 0;
+	display: block;
+	width: 100%;
+	height: 30px;
+	margin: 10px 0;
 }
 
 .cover a.upload,
@@ -537,17 +557,17 @@ textarea#post-body {
 
 .btn-after-post {
 	position: relative;
-  display: inline-block;
-  float: left;
-  font: 14px/32px 'RobotoLight', sans-serif;
-  color: #fff;
-  border-radius: 2px;
-  padding: 0 15px 0 30px;
-  background-size: 16px;
-  background-repeat: no-repeat;
-  background-position: 9px center;
-  cursor: pointer;
-  margin: 10px 10px 0 0;
+	display: inline-block;
+	float: left;
+	font: 14px/32px 'RobotoLight', sans-serif;
+	color: #fff;
+	border-radius: 2px;
+	padding: 0 15px 0 30px;
+	background-size: 16px;
+	background-repeat: no-repeat;
+	background-position: 9px center;
+	cursor: pointer;
+	margin: 10px 10px 0 0;
 }
 
 .btn-after-post:hover {
@@ -564,10 +584,10 @@ textarea#post-body {
 
 .btn-after-post.post-abort {
 	background-image: url(/img/admin/cross.svg);
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #aaa;
-  color: #777;
-  background-size: 10px;
-  background-position: 12px center;
-  margin-right: 30px;
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #aaa;
+	color: #777;
+	background-size: 10px;
+	background-position: 12px center;
+	margin-right: 30px;
 }

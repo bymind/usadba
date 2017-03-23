@@ -167,7 +167,11 @@ class Route
 			// создадим-ка еще одну переменную для имени экшена, старая переменная может нам еще пригодиться
 			$action = $action_name;
 
-			// проверяем наличие такого экшена в контроллере
+			if ( (isset($params['value'])) && ($params['value']!=="") && ($controller_name=="Controller_admin"))
+				{ // если админка
+					// Route::Debug($controller_name, $action, $params);
+					$controller->$action($params);
+				} else// проверяем наличие такого экшена в контроллере
 			 if (method_exists($controller, $action))
 					{
 						// нашли - ебашим

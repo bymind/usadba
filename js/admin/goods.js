@@ -7,26 +7,26 @@ $(function() {
 		watch		: true,
 	});
 
-$('.iframe-btn').fancybox({
-	'type':'iframe',
-	'autoSize':true,
-	'minWidth':900,
-	'minHeight':500,
-	'iframe': {
+	$('.iframe-btn').fancybox({
+		'type':'iframe',
+		'autoSize':true,
+		'minWidth':900,
+		'minHeight':500,
+		'iframe': {
 		scrolling : 'visible', // 'auto', 'yes', 'no' or 'visible'
 		preload   : true
 	},
-	'title':'Смена обложки поста',
+	'title':'Смена картинки',
 	helpers:  {
-				title : {
+		title : {
 						type : 'float' // 'float', 'inside', 'outside' or 'over'
-				},
-				overlay : {
+					},
+					overlay : {
 						showEarly : true
-				}
-		},
-	'wrapCSS':'fancy-wrap'
-});
+					}
+				},
+				'wrapCSS':'fancy-wrap'
+			});
 
 });
 
@@ -53,7 +53,7 @@ function lookNewArchive()
 	$('.btn-archive-new').click(function(event) {
 		$(this).addClass('active');
 		$(this).text('Сохраняем');
-			newArchiveBtnClick();
+		newArchiveBtnClick();
 	});
 }
 
@@ -72,9 +72,9 @@ function newArchiveBtnClick()
 	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Не получилось');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text('Не все поля заполнены!');
+			modal.find('.modal-title').text('Не получилось');
+			modal.find('.modal-body .text').hide();
+			modal.find('.modal-body .response').text('Не все поля заполнены!');
 		});
 		$('.success-modal-md').modal();
 		btnSave.removeClass('active');
@@ -88,49 +88,49 @@ function newArchiveBtnClick()
 		title: $title,
 		poster: $poster,
 //		date: "",
-		anons: $anons,
-		text: $text,
-		archived: 1
-	};
+anons: $anons,
+text: $text,
+archived: 1
+};
 
-	var jsonPost = JSON.stringify(post);
+var jsonPost = JSON.stringify(post);
 
-	mainContent.animate({opacity:'.3'}, 200);
+mainContent.animate({opacity:'.3'}, 200);
 
-	$.ajax({
-		url: '/admin/articles/save',
-		type: 'POST',
-		data: {jsonPost: jsonPost, action: 'new'},
-	})
-	.done(function(response) {
-		console.log("success");
-		console.log(response);
-		$('.success-modal-md').on('show.bs.modal', function(event) {
-			var modal = $(this);
-			  modal.find('.modal-title').text('Успешно');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text(response);
-		});
-		$('.success-modal-md').modal();
-	})
-	.fail(function(response) {
-		console.log("error");
-		$('.success-modal-md').on('show.bs.modal', function(event) {
-			var modal = $(this);
-			  modal.find('.modal-title').text('Ошибка');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text(response);
-		});
-		$('.success-modal-md').modal();
-	})
-	.always(function() {
-		console.log("ajax complete");
-		btnSave.removeClass('active');
-		btnSave.text('Сохранить в архив');
-		$('.success-modal-md').on('hidden.bs.modal', function(event) {
-				location.href="/admin/articles/edit/"+$url;
-		});
+$.ajax({
+	url: '/admin/goods/save',
+	type: 'POST',
+	data: {jsonPost: jsonPost, action: 'new'},
+})
+.done(function(response) {
+	console.log("success");
+	console.log(response);
+	$('.success-modal-md').on('show.bs.modal', function(event) {
+		var modal = $(this);
+		modal.find('.modal-title').text('Успешно');
+		modal.find('.modal-body .text').hide();
+		modal.find('.modal-body .response').text(response);
 	});
+	$('.success-modal-md').modal();
+})
+.fail(function(response) {
+	console.log("error");
+	$('.success-modal-md').on('show.bs.modal', function(event) {
+		var modal = $(this);
+		modal.find('.modal-title').text('Ошибка');
+		modal.find('.modal-body .text').hide();
+		modal.find('.modal-body .response').text(response);
+	});
+	$('.success-modal-md').modal();
+})
+.always(function() {
+	console.log("ajax complete");
+	btnSave.removeClass('active');
+	btnSave.text('Сохранить в архив');
+	$('.success-modal-md').on('hidden.bs.modal', function(event) {
+		location.href="/admin/goods/edit/"+$url;
+	});
+});
 
 }
 
@@ -145,29 +145,29 @@ function lookUnArchive()
 			$post_id = $('#post-id').val();
 			$post_title = $('#post-title').val();
 		};
-		modalBox = $('.archive-modal-md');
+		modalBox = $('.hide-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Публикация поста из архива');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Опубликовать пост "<strong>'+$post_title+'</strong>"?');
-			  modal.find('.modal-footer .go-archive').text("Опубликовать");
-			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
+			modal.find('.modal-title').text('Публикация товара');
+			modal.find('.modal-body .text').hide();
+			modal.find('.modal-body .response').html('Опубликовать товар "<strong>'+$post_title+'</strong>"?');
+			modal.find('.modal-footer .go-archive').text("Опубликовать");
+			modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
 		});
 		modalBox.modal();
 
-			var post = {
-				id: $post_id,
-				title: $post_title
-			};
+		var post = {
+			id: $post_id,
+			title: $post_title
+		};
 
-			jsonPost = JSON.stringify(post);
-			console.log(jsonPost);
+		jsonPost = JSON.stringify(post);
+		console.log(jsonPost);
 		modalBox.find('button.go-archive').click(function(event) {
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/unarchive/'+$post_title,
+				url: '/admin/goods/unarchive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -176,22 +176,22 @@ function lookUnArchive()
 				console.log(response);
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Успешно');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Успешно');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/goods";
 				});
 			})
 			.fail(function(response) {
 				console.log("error");
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Ошибка');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Ошибка');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 			})
@@ -214,28 +214,28 @@ function lookArchive()
 			$post_id = $('#post-id').val();
 			$post_title = $('#post-title').val();
 		};
-		modalBox = $('.archive-modal-md');
+		modalBox = $('.hide-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Отправить пост в архив');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Архивировать пост "<strong>'+$post_title+'</strong>"?');
-			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
+			modal.find('.modal-title').text('Скрыть товар');
+			modal.find('.modal-body .text').hide();
+			modal.find('.modal-body .response').html('Скрыть товар "<strong>'+$post_title+'</strong>"?');
+			modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
 		});
 		modalBox.modal();
 
-			var post = {
-				id: $post_id,
-				title: $post_title
-			};
+		var post = {
+			id: $post_id,
+			title: $post_title
+		};
 
-			jsonPost = JSON.stringify(post);
-			console.log(jsonPost);
+		jsonPost = JSON.stringify(post);
+		console.log(jsonPost);
 		modalBox.find('button.go-archive').click(function(event) {
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/archive/'+$post_title,
+				url: '/admin/goods/archive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -244,22 +244,22 @@ function lookArchive()
 				console.log(response);
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Успешно');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Успешно');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/goods";
 				});
 			})
 			.fail(function(response) {
 				console.log("error");
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Ошибка');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Ошибка');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 			})
@@ -285,25 +285,25 @@ function lookDelete()
 		modalBox = $('.info-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Удаление поста');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Удалить пост "<strong>'+$post_title+'</strong>"?');
-			  modal.find('.modal-footer .go-delete').attr("data-id", $post_id);
+			modal.find('.modal-title').text('Удаление товара');
+			modal.find('.modal-body .text').hide();
+			modal.find('.modal-body .response').html('Удалить позицию "<strong>'+$post_title+'</strong>"?');
+			modal.find('.modal-footer .go-delete').attr("data-id", $post_id);
 		});
 		modalBox.modal();
 
-			var post = {
-				id: $post_id,
-				title: $post_title
-			};
+		var post = {
+			id: $post_id,
+			title: $post_title
+		};
 
-			jsonPost = JSON.stringify(post);
-			console.log(jsonPost);
+		jsonPost = JSON.stringify(post);
+		console.log(jsonPost);
 		modalBox.find('button.go-delete').click(function(event) {
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/delete/'+$post_title,
+				url: '/admin/goods/delete/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -312,22 +312,22 @@ function lookDelete()
 				console.log(response);
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Успешно');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Успешно');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/goods";
 				});
 			})
 			.fail(function(response) {
 				console.log("error");
 				$('.success-modal-md').on('show.bs.modal', function(event) {
 					var modal = $(this);
-					  modal.find('.modal-title').text('Ошибка');
-					  modal.find('.modal-body .text').hide();
-					  modal.find('.modal-body .response').text(response);
+					modal.find('.modal-title').text('Ошибка');
+					modal.find('.modal-body .text').hide();
+					modal.find('.modal-body .response').text(response);
 				});
 				$('.success-modal-md').modal();
 			})
@@ -342,14 +342,14 @@ function lookDelete()
 function lookNew()
 {
 	$('.new-post').click(function(event) {
-		location.href="/admin/articles/new";
+		location.href="/admin/goods/new";
 	});
 }
 
 function lookAbort()
 {
 	$('.post-abort').click(function(event) {
-		location.href='/admin/articles';
+		location.href='/admin/goods';
 	});
 }
 
@@ -383,9 +383,9 @@ function saveBtnClick($attr)
 	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Не получилось');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text('Не все поля заполнены!');
+			modal.find('.modal-title').text('Не получилось');
+			modal.find('.modal-body .text').hide();
+			modal.find('.modal-body .response').text('Не все поля заполнены!');
 		});
 		$('.success-modal-md').modal();
 		btnSave.removeClass('active');
@@ -400,53 +400,53 @@ function saveBtnClick($attr)
 		subtitle: $subtitle,
 		poster: $poster,
 //		date: "",
-		anons: $anons,
-		text: $text
+anons: $anons,
+text: $text
 //		tags: ""
-	};
+};
 
-	var jsonPost = JSON.stringify(post);
+var jsonPost = JSON.stringify(post);
 
-	mainContent.animate({opacity:'.3'}, 200);
+mainContent.animate({opacity:'.3'}, 200);
 
-	$.ajax({
-		url: '/admin/articles/save',
-		type: 'POST',
-		data: {jsonPost: jsonPost, action: $attr},
-	})
-	.done(function(response) {
-		console.log("success");
-		console.log(response);
-		$('.success-modal-md').on('show.bs.modal', function(event) {
-			var modal = $(this);
-			  modal.find('.modal-title').text('Успешно');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text(response);
-		});
-		$('.success-modal-md').modal();
-	})
-	.fail(function(response) {
-		console.log("error");
-		$('.success-modal-md').on('show.bs.modal', function(event) {
-			var modal = $(this);
-			  modal.find('.modal-title').text('Ошибка');
-			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').text(response);
-		});
-		$('.success-modal-md').modal();
-	})
-	.always(function() {
-		console.log("ajax complete");
-		btnSave.removeClass('active');
-		btnSave.text('Сохранить');
-		$('.success-modal-md').on('hidden.bs.modal', function(event) {
-			if ($attr=="edit") {
-					mainContent.animate({opacity:1}, 200);
-			} else if ($attr="new") {
-				location.href="/admin/articles/edit/"+$url;
-			};
-		});
+$.ajax({
+	url: '/admin/goods/save',
+	type: 'POST',
+	data: {jsonPost: jsonPost, action: $attr},
+})
+.done(function(response) {
+	console.log("success");
+	console.log(response);
+	$('.success-modal-md').on('show.bs.modal', function(event) {
+		var modal = $(this);
+		modal.find('.modal-title').text('Успешно');
+		modal.find('.modal-body .text').hide();
+		modal.find('.modal-body .response').text(response);
 	});
+	$('.success-modal-md').modal();
+})
+.fail(function(response) {
+	console.log("error");
+	$('.success-modal-md').on('show.bs.modal', function(event) {
+		var modal = $(this);
+		modal.find('.modal-title').text('Ошибка');
+		modal.find('.modal-body .text').hide();
+		modal.find('.modal-body .response').text(response);
+	});
+	$('.success-modal-md').modal();
+})
+.always(function() {
+	console.log("ajax complete");
+	btnSave.removeClass('active');
+	btnSave.text('Сохранить');
+	$('.success-modal-md').on('hidden.bs.modal', function(event) {
+		if ($attr=="edit") {
+			mainContent.animate({opacity:1}, 200);
+		} else if ($attr="new") {
+			location.href="/admin/goods/edit/"+$url;
+		};
+	});
+});
 
 }
 
@@ -481,10 +481,10 @@ function lookUrlEditOpacity()
 	var re = $('.really-edit');
 	var pu = $('#post-url');
 	if (pu.val() != "") {
-			re.addClass('on');
-		} else {
-			re.removeClass('on');
-		}
+		re.addClass('on');
+	} else {
+		re.removeClass('on');
+	}
 	$('#post-title').keypress(function(event) {
 		if (pu.val() != "") {
 			re.addClass('on');
@@ -522,74 +522,76 @@ function transliterate()
 {
 	var text=document.getElementById('post-title').value;
 	var transl=new Array();
-			transl['А']='A';			transl['а']='a';
-			transl['Б']='B';			transl['б']='b';
-			transl['В']='V';			transl['в']='v';
-			transl['Г']='G';			transl['г']='g';
-			transl['Д']='D';			transl['д']='d';
-			transl['Е']='E';			transl['е']='e';
-			transl['Ё']='Yo';			transl['ё']='yo';
-			transl['Ж']='Zh';			transl['ж']='zh';
-			transl['З']='Z';			transl['з']='z';
-			transl['И']='I';			transl['и']='i';
-			transl['Й']='J';			transl['й']='j';
-			transl['К']='K';			transl['к']='k';
-			transl['Л']='L';			transl['л']='l';
-			transl['М']='M';			transl['м']='m';
-			transl['Н']='N';			transl['н']='n';
-			transl['О']='O';			transl['о']='o';
-			transl['П']='P';			transl['п']='p';
-			transl['Р']='R';			transl['р']='r';
-			transl['С']='S';			transl['с']='s';
-			transl['Т']='T';			transl['т']='t';
-			transl['У']='U';			transl['у']='u';
-			transl['Ф']='F';			transl['ф']='f';
-			transl['Х']='X';			transl['х']='x';
-			transl['Ц']='C';			transl['ц']='c';
-			transl['Ч']='Ch';			transl['ч']='ch';
-			transl['Ш']='Sh';			transl['ш']='sh';
-			transl['Щ']='Shh';		transl['щ']='shh';
-			transl['Ъ']='';			transl['ъ']='';
-			transl['Ы']='Y';		transl['ы']='y';
-			transl['Ь']='';			transl['ь']='';
-			transl['Э']='E';		transl['э']='e';
-			transl['Ю']='Yu';			transl['ю']='yu';
-			transl['Я']='Ya';			transl['я']='ya';
-			transl[' ']='-';
-			transl['"']='';
-			transl["'"]='';
-			transl["."]='';
-			transl[","]='';
-			transl["?"]='';
-			transl["!"]='';
-			transl["<"]='';
-			transl[">"]='';
-			transl["@"]='';
-			transl["&"]='';
-			transl["$"]='';
-			transl["#"]='';
-			transl["№"]='';
-			transl["`"]='';
-			transl[";"]='';
-			transl[":"]='';
-			transl["^"]='';
-			transl["*"]='';
-			transl["("]='-';
-			transl[")"]='-';
-			transl["["]='-';
-			transl["]"]='-';
-			transl["\\"]='_';
-			transl["|"]='_';
-			transl["/"]='_';
+	transl['А']='a';			transl['а']='a';
+	transl['Б']='b';			transl['б']='b';
+	transl['В']='v';			transl['в']='v';
+	transl['Г']='g';			transl['г']='g';
+	transl['Д']='d';			transl['д']='d';
+	transl['Е']='e';			transl['е']='e';
+	transl['Ё']='yo';			transl['ё']='yo';
+	transl['Ж']='zh';			transl['ж']='zh';
+	transl['З']='z';			transl['з']='z';
+	transl['И']='i';			transl['и']='i';
+	transl['Й']='j';			transl['й']='j';
+	transl['К']='k';			transl['к']='k';
+	transl['Л']='l';			transl['л']='l';
+	transl['М']='m';			transl['м']='m';
+	transl['Н']='n';			transl['н']='n';
+	transl['О']='o';			transl['о']='o';
+	transl['П']='p';			transl['п']='p';
+	transl['Р']='r';			transl['р']='r';
+	transl['С']='s';			transl['с']='s';
+	transl['Т']='t';			transl['т']='t';
+	transl['У']='u';			transl['у']='u';
+	transl['Ф']='f';			transl['ф']='f';
+	transl['Х']='x';			transl['х']='x';
+	transl['Ц']='c';			transl['ц']='c';
+	transl['Ч']='ch';			transl['ч']='ch';
+	transl['Ш']='sh';			transl['ш']='sh';
+	transl['Щ']='shh';		transl['щ']='shh';
+	transl['Ъ']='';			transl['ъ']='';
+	transl['Ы']='y';		transl['ы']='y';
+	transl['Ь']='';			transl['ь']='';
+	transl['Э']='e';		transl['э']='e';
+	transl['Ю']='yu';			transl['ю']='yu';
+	transl['Я']='ya';			transl['я']='ya';
+	transl[' ']='-';
+	transl['"']='';
+	transl["'"]='';
+	transl["."]='';
+	transl[","]='';
+	transl["?"]='';
+	transl["!"]='';
+	transl["<"]='';
+	transl[">"]='';
+	transl["@"]='';
+	transl["&"]='';
+	transl["$"]='';
+	transl["#"]='';
+	transl["№"]='';
+	transl["`"]='';
+	transl[";"]='';
+	transl[":"]='';
+	transl["^"]='';
+	transl["*"]='';
+	transl["("]='-';
+	transl[")"]='-';
+	transl["["]='-';
+	transl["]"]='-';
+	transl["\\"]='_';
+	transl["|"]='_';
+	transl["/"]='_';
 
-			var result='';
-			for(i=0;i<text.length;i++) {
-					if(transl[text[i]]!=undefined) { result+=transl[text[i]]; }
-					else { result+=text[i]; }
-			}
-			nowDate = new Date();
-			timeStamp = "-" + nowDate.getDate() + "-" + (nowDate.getMonth()+1) + "-" + nowDate.getFullYear();
-			document.getElementById('post-url').value=result+timeStamp;
+	var result='';
+	for(i=0;i<text.length;i++) {
+		if(transl[text[i]]!=undefined) { result+=transl[text[i]]; }
+		else { result+=text[i]; }
+	}
+	res = result.substr(0,3);
+	nowDate = new Date();
+	rand = getRandom(1000,9999);
+	timeStamp = "-" + nowDate.getDate() + "-" + (nowDate.getMonth()+1) + "-" + nowDate.getFullYear();
+	document.getElementById('post-url').value=res+rand;
 }
 
 function tinymceInitialization(key)
@@ -600,11 +602,11 @@ function tinymceInitialization(key)
 		language: "ru",
 		body_class: "post-container",
 		plugins: [
-			"advlist autosave autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-			"searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",
-			"save table contextmenu directionality emoticons template paste textcolor responsivefilemanager",
-			"imagetools",
-			"autoresize"
+		"advlist autosave autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+		"searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",
+		"save table contextmenu directionality emoticons template paste textcolor responsivefilemanager",
+		"imagetools",
+		"autoresize"
 		],
 		content_css: "/css/admin/tinymce.css",
 		//content_css: "/css/public/dest.css",
@@ -619,32 +621,32 @@ function tinymceInitialization(key)
 		external_plugins: { "filemanager" : "/js/responsive_filemanager/filemanager/plugin.min.js"}
 	});
 
-tinymce.init({
-	selector:'textarea#post-anons',
-	skin: "chokky",
-	language: "ru",
-	body_class: "post-container",
-	plugins: [
+	tinymce.init({
+		selector:'textarea#post-anons',
+		skin: "chokky",
+		language: "ru",
+		body_class: "post-container",
+		plugins: [
 		"advlist autosave autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
 		"searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",
 		"save table contextmenu directionality emoticons template paste textcolor responsivefilemanager",
 		"imagetools",
 		"autoresize"
-	],
-	content_css: "/css/admin/tinymce.css",
-	toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview | code",
-	imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions | responsivefilemanager ',
-	menubar: false,
-	autosave_ask_before_unload: true,
-	max_height: 150,
-	height: 100,
-	image_advtab: true ,
-	plugin_preview_width: "960",
-	external_filemanager_path:"/js/responsive_filemanager/filemanager/",
-	filemanager_title:"Filemanager" ,
-	filemanager_access_key: key ,
-	external_plugins: { "filemanager" : "/js/responsive_filemanager/filemanager/plugin.min.js"}
-});
+		],
+		content_css: "/css/admin/tinymce.css",
+		toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview | code",
+		imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions | responsivefilemanager ',
+		menubar: false,
+		autosave_ask_before_unload: true,
+		max_height: 150,
+		height: 100,
+		image_advtab: true ,
+		plugin_preview_width: "960",
+		external_filemanager_path:"/js/responsive_filemanager/filemanager/",
+		filemanager_title:"Filemanager" ,
+		filemanager_access_key: key ,
+		external_plugins: { "filemanager" : "/js/responsive_filemanager/filemanager/plugin.min.js"}
+	});
 }
 
 function pinClick()
@@ -663,4 +665,9 @@ function pinClick()
 		liUnpin.removeClass('pinned');
 		return false;
 	});
+}
+
+function getRandom(min, max)
+{
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }

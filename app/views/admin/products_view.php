@@ -40,7 +40,32 @@
 				</div>
 				<div class="details">
 					<div class="tags">
-						<div class="tag-item"></div>
+					<?php
+						$labels = explode(",", $product['labels']);
+						foreach ($labels as $key => $label) {
+							switch ($label) {
+								case 'new':
+									?>
+									<span class='label new'>new!</span>
+									<?php
+									break;
+								case 'popular':
+									?>
+									<span class='label popular'>хит!</span>
+									<?php
+									break;
+								case 'sales':
+									?>
+									<span class='label sales'>акция!</span>
+									<?php
+									break;
+
+								default:
+									# code...
+									break;
+							}
+						}
+					?>
 					</div>
 					<div class="title"><a href="/admin/goods/edit/<?php echo $product['art'] ?>"><?php echo $product['name'] ?><br><?php echo $product['mini_desc'] ?></a></div>
 					<div class="post-date"><?php echo $product['added_time'] ?></div>

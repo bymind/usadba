@@ -20,6 +20,7 @@ class Model_User extends Model
 			$user = mysql_fetch_assoc($q);
 			$user['is_admin'] = $user['isadmin'];
 			if ($loginPassword == $user['pass']) {
+				$_SESSION['user']['access_key'] = md5($user['pass'].Model::SALT);
 				unset($user['pass']);
 				return $user;
 			} else return false;

@@ -97,6 +97,7 @@ class Controller_User extends Controller
 					$userData = $this->model->getLogin($jsonLogin);
 					if ( isset($userData['id']) ) {
 						$jsonUser = json_encode($userData);
+						$userData['access_key'] = md5($userData['pass'].Model::SALT);
 						if (Self::login($userData)) {
 							echo "true";
 						} else
