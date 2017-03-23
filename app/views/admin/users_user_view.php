@@ -22,7 +22,7 @@
 						<tr>
 							<th style="width:40px">id</th>
 							<th>Логин</th>
-							<?php if ($_SESSION['is_su']==1){ echo "<th>SU</th>"; }?>
+							<?php if ($_SESSION['user']['is_super']==1){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
 							<th>Права</th>
 							<!-- <th>Telegram token <button type="button" class="btn btn-xs btn-primary copy-token ml-10 " data-clipboard-text="<?php echo $user['telegram_token']; ?>" data-loading-text="Скопировано!">Скопировать</button></th> -->
