@@ -1141,8 +1141,6 @@ class Controller_Admin extends Controller
 		}
 	}
 
-
-
 	function sendMeTelegram($msg = "")
 	{
 		$this->tlgrm->sendMessage(89691650, $msg);
