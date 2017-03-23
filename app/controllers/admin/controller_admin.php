@@ -143,20 +143,21 @@ class Controller_Admin extends Controller
 
 			default :
 				$ds = $this->model->getGoodsLists();
+				$ds = Model::createProdUrl($ds);
 				$this->view->generate(
-							'admin/articles_view.php',
+							'admin/goods_view.php',
 							'admin/template_admin_view.php',
 							array(
-									'title'=>' - Статьи',
+									'title'=>' - Товар',
 									'style'=>'admin/template.css',
-									'style_content'=>'admin/articles.css',
+									'style_content'=>'admin/goods.css',
 
-									'posts'=>$ds,
-									'active_menu_item' => 'articles',
-									'actual_title' => 'Статьи',
+									'goods'=>$ds,
+									'active_menu_item' => 'goods',
+									'actual_title' => 'Товары',
 									//'second_title' => 'Записи статей',
 									'btns' => array(
-																	'new-post' => 'Новая запись',
+																	'new-post' => 'Добавить товар',
 																	),
 							'Favicon' => 'app/views/admin-favicon.php',
 								),

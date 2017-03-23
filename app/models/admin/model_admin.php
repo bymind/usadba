@@ -27,8 +27,8 @@ class Model_Admin extends Model
 
 
 	/*
-	getArticlesPosts()
-	Получение списка опубликованных статей
+	getGoodsPosts()
+	Получение списка товаров
 	*/
 	public function getGoodsLists()
 	{
