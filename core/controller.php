@@ -155,6 +155,7 @@ class Controller
 				if($login == $ds['login'] && $password == $ds['pass']){
 					$_SESSION['user']['id'] = $ds['id'];
 					$_SESSION['user']['name'] = $ds['name'];
+					$_SESSION['user']['is_admin'] = $ds['isadmin'];
 					$_SESSION['user']['is_super'] = $ds['is_super'];
 					$_SESSION['user']['telegram_token'] = $ds['telegram_token'];
 					$_SESSION['user']['telegram_id'] = $ds['telegram_id'];

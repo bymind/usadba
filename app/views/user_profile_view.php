@@ -25,6 +25,16 @@
 				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
 			</ul>
 		</div>
+		<?php if ($_SESSION['user']['is_admin']==1) {
+			?>
+			<div class="profile-menu shadow br-2 mt-10 mb-10 pb-10 pt-10">
+			<ul>
+				<li><a href="/admin">Админка</a></li>
+			</ul>
+			</div>
+			<?php
+		}
+		?>
 	</div>
 
 

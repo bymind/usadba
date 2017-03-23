@@ -18,6 +18,7 @@ class Model_User extends Model
 		$countq = mysql_num_rows($q);
 		if ($countq>0) {
 			$user = mysql_fetch_assoc($q);
+			$user['is_admin'] = $user['isadmin'];
 			if ($loginPassword == $user['pass']) {
 				unset($user['pass']);
 				return $user;
