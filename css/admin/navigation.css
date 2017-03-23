@@ -352,10 +352,10 @@ ul.side-nav li.bot
 	background-image: url(../../img/admin/dashboard-white.svg);
 }
 
-.side-nav li.articles.active::before,
-.side-nav li.articles:hover::before
+.side-nav li.goods.active::before,
+.side-nav li.goods:hover::before
 {
-	background-image: url(../../img/admin/blog-white.svg);
+	background-image: url(../../img/admin/goods-white.svg);
 }
 
 .side-nav li.pages.active::before,
@@ -402,11 +402,11 @@ ul.side-nav li.bot
 	background-image: url(../../img/admin/dashboard.svg);
 }
 
-.side-nav li.articles::before
+.side-nav li.goods::before
 {
 	height: 24px;
 
-	background-image: url(../../img/admin/blog.svg);
+	background-image: url(../../img/admin/goods.svg);
 }
 
 .side-nav li.pages::before
@@ -820,7 +820,7 @@ li.active a,
 	.side-nav li.home::before{
 		height: 20px !important;
 	}
-	.side-nav li.articles::before{
+	.side-nav li.goods::before{
 		height: 16px !important;
 	}
 	.side-nav li.pages::before{
