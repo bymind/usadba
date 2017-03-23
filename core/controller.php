@@ -27,6 +27,7 @@ class Controller
 		$this->view = new View();
 		$this->model = new Model();
 		$isLogged = Self::is_logged();
+		$isAdmin = Self::is_admin();
 	}
 
 	/**
@@ -42,6 +43,19 @@ class Controller
 		if (isset($_SESSION['user']))
 		{
 			return $_SESSION['user'];
+		} else
+		{
+			return false;
+		}
+	}
+
+	public function is_admin()
+	{
+		if (isset($_SESSION['user']))
+		{
+			if ($_SESSION['user']['is_admin']==1) {
+				return $_SESSION['user'];
+			} else return false;
 		} else
 		{
 			return false;

@@ -896,7 +896,7 @@ class Controller_Admin extends Controller
 				self::adminWorktable();
 				break;
 			case '':
-			if (Controller::is_logged())
+			if (Controller::is_admin())
 				{
 					self::adminWorktable();
 				} else
@@ -916,7 +916,7 @@ class Controller_Admin extends Controller
 
 	function action_login()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::action_main();
 		} else
@@ -957,7 +957,7 @@ class Controller_Admin extends Controller
 
 	function action_main()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminWorktable();
 		} else
@@ -969,7 +969,7 @@ class Controller_Admin extends Controller
 
 	function action_session()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminSession();
 		} else
@@ -981,7 +981,7 @@ class Controller_Admin extends Controller
 
 	function action_blog($params = '')
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminBlog($params);
 		} else
@@ -994,7 +994,7 @@ class Controller_Admin extends Controller
 
 	function action_goods($params = '')
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminGoods($params);
 		} else
@@ -1007,7 +1007,7 @@ class Controller_Admin extends Controller
 
 	function action_pages()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminPages();
 		} else
@@ -1020,7 +1020,7 @@ class Controller_Admin extends Controller
 
 	function action_files()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminFiles();
 		} else
@@ -1033,7 +1033,7 @@ class Controller_Admin extends Controller
 
 	function action_users($params = '')
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminUsers($params);
 		} else
@@ -1046,7 +1046,7 @@ class Controller_Admin extends Controller
 	function action_getuserbyname()
 	{
 		$param = $_POST['username'];
-		if (Controller::is_logged()) {
+		if (Controller::is_admin()) {
 			return Model_Admin::getUserByName($param);
 		} else {
 			return false;
@@ -1056,7 +1056,7 @@ class Controller_Admin extends Controller
 
 	function action_config()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminConfig();
 		} else
@@ -1069,7 +1069,7 @@ class Controller_Admin extends Controller
 
 	function action_bugtracker($params = '')
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminBugtracker($params);
 		} else
@@ -1081,7 +1081,7 @@ class Controller_Admin extends Controller
 
 	function action_ajaxTickets($params = '')
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			if (isset($_POST['action']) && ($_POST['action']=='ajaxTickets')) {
 				$params['name'] = 'ajaxTickets';
@@ -1122,7 +1122,7 @@ class Controller_Admin extends Controller
 
 	function action_telegram()
 	{
-		if (Controller::is_logged())
+		if (Controller::is_admin())
 		{
 			self::adminTelegram();
 		} else
