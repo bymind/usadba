@@ -69,7 +69,7 @@
 					</div>
 					<div class="title"><a href="/admin/goods/edit/<?php echo $product['art'] ?>"><?php echo $product['name'] ?><br><?php echo $product['mini_desc'] ?></a></div>
 					<div class="post-date"><?php echo $product['added_time'] ?></div>
-					<div class="author">Автор: <span><?php echo $product['author'] ?></span></div>
+					<div class="author">Автор: <span><a href="/admin/users/<?php echo $product['author']['id'] ?>"><?php echo $product['author']['name'] ?></a></span></div>
 				</div>
 			</div>
 			</div>

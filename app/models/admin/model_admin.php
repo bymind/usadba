@@ -33,10 +33,11 @@ class Model_Admin extends Model
 	*/
 	public function getGoodsLists()
 	{
-		$select = mysql_query("SELECT * FROM prod_items WHERE archived = 0 ORDER BY id DESC")or die(mysql_error());
+		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE archived = 0 ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['added_time'] = Controller::getGoodDate($r['added_time']);
+					$r['author'] = array('id'=>$r['uid'], 'name' => $r['uname']);
 					$ds[]=$r;
 				}
 		return $ds;
