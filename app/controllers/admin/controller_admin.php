@@ -169,6 +169,75 @@ class Controller_Admin extends Controller
 
 	}
 
+	function adminArticles($params = '')
+	{
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+					{
+						extract($params);
+					}
+				else
+					$name = $params;
+
+		switch ($name) {
+			case 'edit':
+				self::adminArticlesEdit($target);
+				break;
+
+			case 'delete':
+				self::adminArticlesDelete($target);
+				break;
+
+			case 'archived':
+				self::adminArticlesArchived();
+				break;
+
+			case 'archive':
+				self::adminArticlesArchive($target);
+				break;
+
+			case 'unarchive':
+				self::adminArticlesUnArchive($target);
+				break;
+
+			case 'new':
+				self::adminArticlesNew();
+				break;
+
+			case 'save':
+				self::adminArticlesSave();
+				break;
+
+			default :
+				$ds = $this->model->getGoodsLists();
+				$this->view->generate(
+							'admin/articles_view.php',
+							'admin/template_admin_view.php',
+							array(
+									'title'=>' - Статьи',
+									'style'=>'admin/template.css',
+									'style_content'=>'admin/articles.css',
+
+									'posts'=>$ds,
+									'active_menu_item' => 'articles',
+									'actual_title' => 'Статьи',
+									//'second_title' => 'Записи статей',
+									'btns' => array(
+																	'new-post' => 'Новая запись',
+																	),
+							'Favicon' => 'app/views/admin-favicon.php',
+								),
+							'admin/navigation_view.php',
+							'admin/footer_view.php',
+							'admin/modals_main_view.php'
+							);
+				break;
+		}
+
+	}
+
 
 
 /*	 ARTICLES ARCHIVED LIST
@@ -997,6 +1066,18 @@ class Controller_Admin extends Controller
 		if (Controller::is_admin())
 		{
 			self::adminGoods($params);
+		} else
+		{
+			self::adminLogin();
+		}
+	}
+
+
+	function action_articles($params = '')
+	{
+		if (Controller::is_admin())
+		{
+			self::adminArticles($params);
 		} else
 		{
 			self::adminLogin();
