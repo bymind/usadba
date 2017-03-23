@@ -1132,7 +1132,6 @@ class Controller_Admin extends Controller
 	}
 
 
-
 	function adminTelegram()
 	{
 		if (self::isSuper()) {
