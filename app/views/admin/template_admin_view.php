@@ -2,7 +2,7 @@
 <html lang="ru">
 <head  manifest="default.appcache">
 	<meta charset="UTF-8">
-	<title>Админка MacFix<?php echo $Title; ?></title>
+	<title>Админка<?php echo $Title; ?></title>
 	<?php include $Favicon; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/admin/bootstrap-panel.min.css">

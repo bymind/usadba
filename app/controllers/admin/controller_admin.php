@@ -641,7 +641,7 @@ class Controller_Admin extends Controller
 	{
 		$ticket = $this->model->getOneTicket();
 		$api = $this->tlgrm;
-		self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> macfix.ru/admin/bugtracker/ticket/".$ticket['id']);
+		self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> ".$_SERVER['HTTP_HOST']."/admin/bugtracker/ticket/".$ticket['id']);
 		$this->view->simpleGet(
 						'/admin/bugtracker_ticket_for_list_view.php',
 						array(
@@ -1136,7 +1136,7 @@ class Controller_Admin extends Controller
 	function adminTelegram()
 	{
 		if (self::isSuper()) {
-			$this->tlgrm->sendMessage(89691650, "Привет, Kesha! \r\nАдминка https://macfix.ru/admin");
+			$this->tlgrm->sendMessage(89691650, "Привет, Kesha! \r\nАдминка https://".$_SERVER['HTTP_HOST']."/admin");
 			echo "Ева(@macfix_eve_bot) отправила привет Кеше(@keshapudelev)";
 		} else {
 			echo "Access denied!";
