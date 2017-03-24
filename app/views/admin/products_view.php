@@ -80,6 +80,37 @@
 
 
 		</div>
+
+		<div class="col-xs-3">
+			<div class="col-md-12">
+							<div class="settings tags" style="margin-bottom:30px;">
+								<div class="title ">Категории<div class='reset'></div></div>
+								<div class="items cat_links pt-10 pb-20">
+									<?php
+												foreach ($cat_tree['tree'] as $parent => $arr) {
+													$text = $arr['name'];
+													$link = '/admin/goods/cat/'.$arr['id'];
+													if ($arr['id']==$goods[0]['cat_id']) {
+														echo "<a class='active' href='$link'>$text</a>";
+													} else
+													echo "<a href='$link'>$text</a>";
+													if (isset($arr['child'])) {
+														foreach ($arr['child'] as $child) {
+															$text = $child['name'];
+															$link = '/admin/goods/cat/'.$child['id'];
+															if ($child['id']==$goods[0]['cat_id']) {
+																echo "<a class='active' href='$link'>—$text</a>";
+															} else
+															echo "<a href='$link'>—$text</a>";
+														}
+													}
+												}
+									 ?>
+								</div>
+							</div>
+						</div>
+		</div>
+
 	</div>
 
 </div>

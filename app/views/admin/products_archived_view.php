@@ -87,76 +87,35 @@
 
 		</div>
 
-<!--
-
-		<div class="col-md-3 col-xs-12 pl-0">
-			<div class="col-md-9">
-				<div class="settings sort">
-					<div class="title ">Сортировка</div>
-					<div class="items">
-						<a href="#" class="selected"><span class="hidden-xs">сначала </span>самые новые</a>
-						<a href="#"><span class="hidden-xs">сначала </span>самые старые</a>
-						<a href="#"><span class="hidden-xs">сначала </span>популярные</a>
-						<a href="#"><span class="hidden-xs">сначала </span>непопулярные</a>
-						<a href="#">по авторам</a>
-						<a href="#">по площадкам</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-9">
-				<div class="settings select">
-					<div class="title ">Выборка <div class='reset'></div></div>
-					<div class="items">
-						<ul>
-							<li>
-								<span data-attr="автор">автор</span>
-								<div class="pins-list">
-									<div class="pin">author</div>
-									<div class="pin">author</div>
-									<div class="pin">author author author author author</div>
-									<div class="pin">author</div>
-									<div class="pin">author</div>
-									<div class="pin">author</div>
+<div class="col-xs-3">
+			<div class="col-md-12">
+							<div class="settings tags" style="margin-bottom:30px;">
+								<div class="title ">Категории<div class='reset'></div></div>
+								<div class="items cat_links pt-10 pb-20">
+									<?php
+												foreach ($cat_tree['tree'] as $parent => $arr) {
+													$text = $arr['name'];
+													$link = '/admin/goods/cat/'.$arr['id'];
+													if ($arr['id']==$goods[0]['cat_id']) {
+														echo "<a class='active' href='$link'>$text</a>";
+													} else
+													echo "<a href='$link'>$text</a>";
+													if (isset($arr['child'])) {
+														foreach ($arr['child'] as $child) {
+															$text = $child['name'];
+															$link = '/admin/goods/cat/'.$child['id'];
+															if ($child['id']==$goods[0]['cat_id']) {
+																echo "<a class='active' href='$link'>—$text</a>";
+															} else
+															echo "<a href='$link'>—$text</a>";
+														}
+													}
+												}
+									 ?>
 								</div>
-								<div class="unpin"></div>
-							</li>
-							<li>
-								<span data-attr="место">место</span>
-								<div class="pins-list">
-									<div class="pin">place</div>
-									<div class="pin">place</div>
-									<div class="pin">place</div>
-									<div class="pin">place</div>
-								</div>
-								<div class="unpin"></div>
-							</li>
-							<li>
-								<span data-attr="время">время</span>
-								<div class="pins-list">
-									<div class="pin">time</div>
-									<div class="pin">time</div>
-									<div class="pin">time</div>
-									<div class="pin">time</div>
-								</div>
-								<div class="unpin"></div>
-							</li>
-							<li>
-								<span data-attr="тэг">тэг</span>
-								<div class="pins-list">
-									<div class="pin">tag</div>
-									<div class="pin">tag</div>
-									<div class="pin">tag</div>
-									<div class="pin">tag</div>
-								</div>
-								<div class="unpin"></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+							</div>
+						</div>
 		</div>
-
--->
 
 	</div>
 

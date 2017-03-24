@@ -140,6 +140,51 @@ class Controller_Admin extends Controller
 				self::adminProductsSave();
 				break;
 
+			case 'cat':
+			case 'default':
+				include '/app/models/model_catalog.php';
+				$actual_title = 'Товары';
+				$title= ' - Товары';
+				if (isset($value)) {
+					$ds = $this->model->getGoodsLists($value);
+					// $ds = Model_Catalog::getCategoryData($value);
+					$actual_title = "<a href='/admin/goods'>Товары (все)</a>";
+					$second_title = $ds[0]['cat_title'];
+					$title .= " - ".$second_title;
+				} else
+				$ds = $this->model->getGoodsLists();
+				$ds = Model::createProdUrl($ds);
+				$q = mysql_query("SELECT * FROM prod_cat ORDER BY id") or die(mysql_error());
+				while ( $buf = mysql_fetch_assoc($q)) {
+					$prod_cats[$buf['id']] = $buf;
+				}
+				unset($q);
+				$cat_tree = $this->model->createCatTree($prod_cats);
+				unset($prod_cats);
+				$this->view->generate(
+							'admin/products_view.php',
+							'admin/template_admin_view.php',
+							array(
+									'title'=>$title,
+									'style'=>'admin/template.css',
+									'style_content'=>'admin/goods.css',
+
+									'goods'=>$ds,
+									'cat_tree'=>$cat_tree,
+									'active_menu_item' => 'goods',
+									'actual_title' => $actual_title,
+									'second_title' => $second_title,
+									'btns' => array(
+																	'new-post' => 'Добавить товар',
+																	),
+							'Favicon' => 'app/views/admin-favicon.php',
+								),
+							'admin/navigation_view.php',
+							'admin/footer_view.php',
+							'admin/modals_main_view.php'
+							);
+				break;
+
 			default :
 				$ds = $this->model->getGoodsLists();
 				$ds = Model::createProdUrl($ds);
