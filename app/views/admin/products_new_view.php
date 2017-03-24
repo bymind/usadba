@@ -11,8 +11,25 @@
 		<div class="col-md-9">
 			<div class="row mt-0">
 				<input type="hidden" id="post-id" value="">
-				<label for="post-title" class="post-label">Название товара</label>
-				<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="">
+				<div class="col-xs-8 pl-0">
+					<label for="post-title" class="post-label">Название товара</label>
+					<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="">
+				</div>
+				<div class="col-xs-4">
+					<label for="prod-cat" class="post-label">Категория товара</label>
+					<select class="form-control" id="prod-cat">
+					<?php
+																	foreach ($cat_tree['tree'] as $parent => $arr) {
+																			echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
+																		if (isset($arr['child'])) {
+																			foreach ($arr['child'] as $child) {
+																					echo "<option value='".$child['id']."'>—".$child['name']."</a>";
+																			}
+																		}
+																	}
+														 ?>
+					</select>
+				</div>
 			</div>
 
 			<div class="row mt-0">
@@ -23,6 +40,7 @@
 			<div class="row mt-0">
 				<label for="post-url" class="post-label">Артикул <span class="really-edit">изменить</span></label>
 				<input type="text" id="post-url" placeholder="art001" disabled  value="">
+				<input type="hidden" id="post-tech_name" value="">
 			</div>
 
 	<!-- 		<div class="row ">
@@ -38,13 +56,26 @@
 			</div>
 
 			<div class="row">
-				<div class="btn-after-post post-save">Сохранить</div>
+				<div class="btn-after-post post-save new">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
 			</div>
 
 		</div>
 
 		<div class="col-md-3 col-xs-12 pl-0">
+		<div class="col-md-9">
+				<div class="settings price">
+					<div class="title ">Цена</div>
+					<div class="items">
+						<div class="form-group mt-10">
+							<div class="input-group">
+								<input type="text" id="price" placeholder="0" value="">
+								 <span class="input-group-addon">руб</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col-md-9">
 				<div class="settings cover">
 					<div class="title ">Главная картинка</div>

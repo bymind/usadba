@@ -76,6 +76,24 @@ class Model_Admin extends Model
 
 
 	/*
+	getGoodsCatsTree()
+	Получение дерева каталогов
+	*/
+	public function getGoodsCatsTree()
+	{
+		$q = mysql_query("SELECT * FROM prod_cat ORDER BY id") or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$prod_cats[$buf['id']] = $buf;
+		}
+		unset($q);
+		$cat_tree = Self::createCatTree($prod_cats);
+		unset($prod_cats);
+
+		return $cat_tree;
+	}
+
+
+	/*
 	getArticlesLists()
 	Получение списка статей в архиве
 	*/
@@ -204,6 +222,21 @@ class Model_Admin extends Model
 	}
 
 
+	/*
+	deleteProd($prod)
+	Удалить статью
+	$post [assoc array] - массив с информацией о статье
+	*/
+	public function deleteProd($prod)
+	{
+		extract($prod);
+		$author = $_SESSION['user']['id'];
+		$sql = "DELETE FROM prod_items WHERE id='$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Позиция полностью удалена!";
+	}
+
+
 
 	/*
 	newPost($post)
@@ -221,6 +254,26 @@ class Model_Admin extends Model
 		$sql = "INSERT INTO articles (url, title, subtitle, poster, prev_poster, author, anons, body) VALUES ('$url','$title','$subtitle','$poster','$poster','$author','$anons','$text')";
 		mysql_query($sql) or die(mysql_error());
 		echo "Статья добавлена";
+	}
+
+
+	/*
+	newProd($prod)
+	Добавить новый товар
+	$prod [assoc array] - массив с информацией о товаре
+	*/
+	public function newProd($prod)
+	{
+		extract($prod);
+		$author = $_SESSION['user']['id'];
+		// $url = htmlspecialchars($url);
+		if ((isset($archived)) && ($archived == 1)) {
+			$sql = "INSERT INTO prod_items (art, name, tech_name, images, mini_desc, description, cat, author, price, archived) VALUES ('$art','$name','$tech_name','$images','$mini_desc','$description','$cat','$author','$price', 1)";
+		} else
+		$sql = "INSERT INTO prod_items (art, name, tech_name, images, mini_desc, description, cat, author, price) VALUES ('$art','$name','$tech_name','$images','$mini_desc','$description','$cat','$author', '$price')";
+		// TODO: edit inserting products with price
+		mysql_query($sql) or die(mysql_error());
+		echo "Позиция добавлена";
 	}
 
 

@@ -11,8 +11,31 @@
 		<div class="col-md-9">
 			<div class="row mt-0">
 				<input type="hidden" id="post-id" value="<?php echo $post['id'] ?>">
-				<label for="post-title" class="post-label">Название товара</label>
-				<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="<?php echo $post['title'] ?>">
+				<div class="col-xs-8 pl-0">
+					<label for="post-title" class="post-label">Название товара</label>
+					<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="<?php echo $post['title'] ?>">
+				</div>
+				<div class="col-xs-4">
+					<label for="prod-cat" class="post-label">Категория товара</label>
+					<select class="form-control" id="prod-cat">
+					<?php
+																	foreach ($cat_tree['tree'] as $parent => $arr) {
+																			if ($arr['id']==$post['cat']) {
+																				echo "<option selected alue='".$arr['id']."'>".$arr['name']."</a>";
+																			} else
+																			echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
+																		if (isset($arr['child'])) {
+																			foreach ($arr['child'] as $child) {
+																				if ($child['id']==$post['cat']) {
+																					echo "<option selected value='".$child['id']."'>—".$child['name']."</a>";
+																				} else
+																					echo "<option value='".$child['id']."'>—".$child['name']."</a>";
+																			}
+																		}
+																	}
+														 ?>
+					</select>
+				</div>
 			</div>
 
 			<div class="row mt-0">
@@ -23,6 +46,7 @@
 			<div class="row mt-0">
 				<label for="post-url" class="post-label">Артикул <span class="really-edit">изменить</span></label>
 				<input type="text" id="post-url" placeholder="art001" disabled  value="<?php echo $post['art'] ?>">
+				<input type="hidden" id="post-tech_name" value="<?php echo $post['tech_name'] ?>">
 			</div>
 <!--
 			<div class="row ">
@@ -45,6 +69,19 @@
 		</div>
 
 		<div class="col-md-3 col-xs-12 pl-0">
+			<div class="col-md-9">
+					<div class="settings price">
+						<div class="title ">Цена</div>
+						<div class="items">
+							<div class="form-group mt-10">
+								<div class="input-group">
+									<input type="text" id="price" placeholder="0" value="<?php echo $post['price'] ?>">
+									 <span class="input-group-addon">руб</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			<div class="col-md-9">
 				<div class="settings cover">
 					<div class="title ">Главная картинка</div>

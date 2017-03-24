@@ -269,6 +269,7 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsNew()
 	{
+		$cat_tree = $this->model->getGoodsCatsTree();
 		$this->view->generate(
 					'admin/products_new_view.php',
 					'admin/template_admin_view.php',
@@ -276,6 +277,7 @@ class Controller_Admin extends Controller
 							'title'=>' - Добавление товара',
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/goods.css',
+							'cat_tree'=>$cat_tree,
 							/*'post'=>array (
 														 'id' => $post['id'],
 														 'url' => $post['url'],
@@ -322,6 +324,9 @@ class Controller_Admin extends Controller
 			$actual_title = '<a href="/admin/goods/archived">Товары (скрытые)</a>';
 		}
 
+		$cat_tree = $this->model->getGoodsCatsTree();
+		// var_dump($cat_tree);
+
 		$this->view->generate(
 					'admin/product_edit_view.php',
 					'admin/template_admin_view.php',
@@ -329,17 +334,20 @@ class Controller_Admin extends Controller
 							'title'=>' - Редактирование товара - '.htmlspecialchars($product['title']),
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/goods.css',
+							'cat_tree' => $cat_tree,
 							'post'=>array (
 														 'id' => $product['id'],
 														 'url' => $product['url'],
 														 'art' => $product['art'],
+														 'tech_name' => $product['tech_name'],
 														 'title' => htmlspecialchars($product['name']) ,
 														 'subtitle' => htmlspecialchars($product['mini_desc']) ,
 														 'poster' => $product['images'],
+														 'price' => $product['price'],
+														 'cat' => $product['cat'],
 														 'date' => $product['added_time'],
-														 'anons' => htmlspecialchars($product['mini_desc']),
 														 'text' => htmlspecialchars($product['description']),
-														 //'tags' => $post['tags'],
+														 'tags' => htmlspecialchars($product['labels']),
 														),
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'goods',
@@ -378,8 +386,8 @@ class Controller_Admin extends Controller
 				break;
 
 			case 'new':
-					$postArrive = json_decode($_POST['jsonPost'], true);
-					return $this->model->newPost($postArrive);
+					$prodArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->newProd($prodArrive);
 				break;
 
 			default:
@@ -394,8 +402,8 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsDelete($value)
 	{
-		$postArrive = json_decode($_POST['jsonPost'], true);
-		return $this->model->deletePost($postArrive);
+		$prodArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->deleteProd($prodArrive);
 	}
 
 

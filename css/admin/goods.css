@@ -236,7 +236,8 @@ span.label.sales {
 }
 
 .settings.sort,
-.settings.cover {
+.settings.cover,
+.settings.price {
 	margin-bottom: 30px;
 }
 
@@ -307,6 +308,7 @@ span.label.sales {
 }
 
 .settings.sort .title,
+.settings.price .title,
 .settings.cover .title,
 .settings.tags .title,
 .settings.select .title {
@@ -326,6 +328,22 @@ span.label.sales {
 
 .settings.cover .title {
 	background-image: url(/img/admin/picture-white.svg);
+}
+
+.settings.price .title {
+	background-image: url(/img/admin/picture-white.svg);
+}
+
+input#price{
+	font: 18px/32px 'RobotoRegular', sans-serif;
+	background-color: rgba(255, 255, 255, 0.71);
+	border-bottom: 1px solid transparent;
+	position: relative;
+	display: block;
+	border: 1px solid #ccc;
+	padding: 0 4px;
+	border-radius: 4px 0 0 4px;
+	width: 100%;
 }
 
 .settings.tags .title {
@@ -563,6 +581,19 @@ textarea#post-anons {
 	padding: 0 4px;
 	border-radius: 4px;
 	width: 100%;
+}
+
+select#prod-cat {
+	font: 18px/32px 'RobotoRegular', sans-serif;
+	background-color: transparent;
+	border-bottom: 1px solid transparent;
+	position: relative;
+	display: block;
+	border: 1px solid #ccc;
+	padding: 0 4px;
+	border-radius: 4px;
+	width: 100%;
+	height: 32px;
 }
 
 input#post-url {

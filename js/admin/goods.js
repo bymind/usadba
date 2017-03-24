@@ -373,14 +373,16 @@ function saveBtnClick($attr)
 	mainContent = $('.main-content');
 	tinyMCE.triggerSave();
 	var $id = $('#post-id').val();
-	var $url = $('#post-url').val();
-	var $title = $('#post-title').val();
-	var $subtitle = $('#post-subtitle').val();
+	var $art = $('#post-url').val();
+	var $cat = $('#prod-cat').val();
+	var $name = $('#post-title').val();
+	var $tech_name = $('#post-tech_name').val();
 	var $poster = $('#cover-img').val();
-	var $anons = $('#post-anons').val();
+	var $mini_desc = $('#post-subtitle').val();
 	var $text = $('#post-body').val();
+	var $price = $('input#price').val();
 
-	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
+	if (($art=="")||($name=="")||($poster=="")||($cat=="")||($text=="")||($price=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
 			modal.find('.modal-title').text('Не получилось');
@@ -395,14 +397,14 @@ function saveBtnClick($attr)
 
 	var post = {
 		id: $id,
-		url: $url,
-		title: $title,
-		subtitle: $subtitle,
-		poster: $poster,
-//		date: "",
-anons: $anons,
-text: $text
-//		tags: ""
+		art: $art,
+		cat: $cat,
+		name: $name,
+		tech_name: $tech_name,
+		images: $poster,
+		mini_desc: $mini_desc,
+		description: $text,
+		price: $price
 };
 
 var jsonPost = JSON.stringify(post);
@@ -443,7 +445,7 @@ $.ajax({
 		if ($attr=="edit") {
 			mainContent.animate({opacity:1}, 200);
 		} else if ($attr="new") {
-			location.href="/admin/goods/edit/"+$url;
+			location.href="/admin/goods/edit/"+$art;
 		};
 	});
 });
@@ -592,6 +594,7 @@ function transliterate()
 	rand = getRandom(1000,9999);
 	timeStamp = "-" + nowDate.getDate() + "-" + (nowDate.getMonth()+1) + "-" + nowDate.getFullYear();
 	document.getElementById('post-url').value=res+rand;
+	document.getElementById('post-tech_name').value=result+"_"+rand;
 }
 
 function tinymceInitialization(key)
