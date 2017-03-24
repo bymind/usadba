@@ -46,7 +46,6 @@
 
 		<div class="col-md-3 col-xs-12 pl-0">
 			<div class="col-md-9">
-			<?php var_dump($_SESSION['user']); ?>
 				<div class="settings cover">
 					<div class="title ">Главная картинка</div>
 					<div class="items">
