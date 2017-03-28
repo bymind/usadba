@@ -728,14 +728,12 @@ li.active a,
 	width: auto;
 	min-width: 1.7em;
 	height: 1.4em;
-	top: 30px;
-	left: 45px;
-
+	top: 20px;
+	left: 25px;
 	font-size: .8em;
 	font-family: monospace;
 	line-height: 1.2em;
 	text-align: center;
-
 	padding: 0px 5px;
 	margin: 0;
 	border-radius: 0.7em;

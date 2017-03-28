@@ -18,13 +18,13 @@
 					<span class="glyphicon g-spin glyphicon-filter" title="Фильтр"></span>
 				</div>
 				<div class="btn-group ticket-personal-tag mb-10 mr-10" data-toggle="buttons">
-					<a href="#all" class="btn btn-default btn-sm all <?php if (isset($_SESSION['personalTickets']) && $_SESSION['personalTickets']=='0' ) { echo 'active'; } ?>" role="button" data-attr="all">Все тикеты</a>
-					<a href="#personal" class="btn btn-default personal btn-sm <?php if (isset($_SESSION['personalTickets']) && $_SESSION['personalTickets']=='1' ) { echo 'active'; } ?>" role="button" data-attr="personal">Мои</a>
+					<a href="#all" class="btn btn-default btn-sm all <?php if (isset($_SESSION['user']['personalTickets']) && $_SESSION['user']['personalTickets']=='0' ) { echo 'active'; } ?>" role="button" data-attr="all">Все тикеты</a>
+					<a href="#personal" class="btn btn-default personal btn-sm <?php if (isset($_SESSION['user']['personalTickets']) && $_SESSION['user']['personalTickets']=='1' ) { echo 'active'; } ?>" role="button" data-attr="personal">Мои</a>
 				</div>
 				<div class="btn-group ticket-personal-my-tag mb-10" data-toggle="buttons">
-					<a href="#all" class="btn btn-default btn-sm my-all <?php if (isset($_SESSION['personalTicketsMy']) && $_SESSION['personalTicketsMy']=='0' ) { echo 'active'; } ?>" role="button" data-attr="myall">Все мои</a>
-					<a href="#all" class="btn btn-default btn-sm my-author <?php if (isset($_SESSION['personalTicketsMy']) && $_SESSION['personalTicketsMy']=='1' ) { echo 'active'; } ?>" role="button" data-attr="myauthor">Я автор</a>
-					<a href="#personal" class="btn btn-default my-doer btn-sm <?php if (isset($_SESSION['personalTicketsMy']) && $_SESSION['personalTickets']=='1' ) { echo 'active'; } ?>" role="button" data-attr="mydoer">Я исполнитель</a>
+					<a href="#all" class="btn btn-default btn-sm my-all <?php if (isset($_SESSION['user']['personalTicketsMy']) && $_SESSION['user']['personalTicketsMy']=='0' ) { echo 'active'; } ?>" role="button" data-attr="myall">Все мои</a>
+					<a href="#all" class="btn btn-default btn-sm my-author <?php if (isset($_SESSION['user']['personalTicketsMy']) && $_SESSION['user']['personalTicketsMy']=='1' ) { echo 'active'; } ?>" role="button" data-attr="myauthor">Я автор</a>
+					<a href="#personal" class="btn btn-default my-doer btn-sm <?php if (isset($_SESSION['user']['personalTicketsMy']) && $_SESSION['user']['personalTickets']=='1' ) { echo 'active'; } ?>" role="button" data-attr="mydoer">Я исполнитель</a>
 				</div>
 			</div>
 </div>
@@ -77,11 +77,6 @@
 		</div>
 		<div class=" col-xs-12 col-sm-4">
 			<div class="btn btn-title btn-danger new-ticket" data-toggle="button" data-loading-text="Отправляем..." data-success-text="Готово!" type="button">
-			<!-- <span class="glyphicon glyphicon-exclamation-sign"></span> -->
-			<!-- <span class="glyphicon glyphicon-comment"></span> -->
-			<!-- <span class="glyphicon glyphicon-bullhorn"></span> -->
-			<!-- <span class="glyphicon glyphicon-bell"></span> -->
-			<!-- <span class="glyphicon glyphicon-pencil"></span> -->
 			<span class="glyphicon glyphicon-send"></span>
 			&nbsp;&nbsp;Создать тикет</div>
 		</div>
@@ -134,7 +129,7 @@
 
 
 	<!-- cadrs list here -->
-	<?php include 'application/views/admin/bugtracker_cards_list_view.php'; ?>
+	<?php include 'app/views/admin/bugtracker_cards_list_view.php'; ?>
 
 
 	</div>

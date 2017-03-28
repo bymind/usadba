@@ -87,7 +87,7 @@
 
 		</div>
 
-<div class="col-xs-3">
+		<!-- <div class="col-xs-3">
 			<div class="col-md-12">
 							<div class="settings tags" style="margin-bottom:30px;">
 								<div class="title ">Категории<div class='reset'></div></div>
@@ -115,7 +115,7 @@
 								</div>
 							</div>
 						</div>
-		</div>
+		</div> -->
 
 	</div>
 

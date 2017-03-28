@@ -78,7 +78,7 @@ function initCookie()
 			expires: 2592000,
 			path: '/'
 		});
-		setSession('personalTickets','0');
+		setSession('user','0','personalTickets');
 		personalMy.removeClass('active');
 	} else {
 		if (getCookie('personalTickets') == '1') {
@@ -125,7 +125,7 @@ function initCookie()
 				expires: 2592000,
 				path: '/'
 			});
-			$.when(setSession('personalTickets','0')).done(function(){
+			$.when(setSession('user','0','personalTickets')).done(function(){
 				$.when(loadTickets('0','0')).done(function(answer){
 					reloadCards(cardsList, answer, ticketsMDInit);
 				});
@@ -139,7 +139,7 @@ function initCookie()
 				expires: 2592000,
 				path: '/'
 			});
-			$.when(setSession('personalTickets','1')).done(function(){
+			$.when(setSession('user','1','personalTickets')).done(function(){
 				$.when(loadTickets('1','0')).done(function(answer){
 					reloadCards(cardsList, answer, ticketsMDInit);
 				});
@@ -163,7 +163,7 @@ function initCookie()
 				expires: 2592000,
 				path: '/'
 			});
-			$.when(setSession('personalTicketsMy','0')).done(function(){
+			$.when(setSession('user','0','personalTicketsMy')).done(function(){
 				$.when(loadTickets('1','0')).done(function(answer){
 					reloadCards(cardsList, answer, ticketsMDInit);
 				});
@@ -176,7 +176,7 @@ function initCookie()
 				expires: 2592000,
 				path: '/'
 			});
-			$.when(setSession('personalTicketsMy','1')).done(function(){
+			$.when(setSession('user','1','personalTicketsMy')).done(function(){
 				$.when(loadTickets('1','1')).done(function(answer){
 					reloadCards(cardsList, answer, ticketsMDInit);
 				});
@@ -187,7 +187,7 @@ function initCookie()
 				expires: 2592000,
 				path: '/'
 			});
-			$.when(setSession('personalTicketsMy','2')).done(function(){
+			$.when(setSession('user','2','personalTicketsMy')).done(function(){
 				$.when(loadTickets('1','2')).done(function(answer){
 					reloadCards(cardsList, answer, ticketsMDInit);
 				});

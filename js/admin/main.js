@@ -302,8 +302,9 @@ function getSession(name) {
 
 }
 
-setSession = function(name, value) {
+setSession = function(name, value, secondName) {
 	var def = new $.Deferred();
+	if (secondName=='undefined') {
 	$.ajax({
 		url: '/admin/session',
 		type: 'POST',
@@ -320,6 +321,24 @@ setSession = function(name, value) {
 	.always(function(answer) {
 		console.log("setSession() complete");
 	});
+} else {
+	$.ajax({
+		url: '/admin/session',
+		type: 'POST',
+		data: {action: 'setSession', name: name, value: value, secondName: secondName},
+	})
+	.done(function(answer) {
+		// console.log(answer);
+		def.resolve(answer);
+	})
+	.fail(function(answer) {
+		console.error(answer);
+		def.reject(answer);
+	})
+	.always(function(answer) {
+		console.log("setSession() complete");
+	});
+}
 	return def.promise();
 }
 

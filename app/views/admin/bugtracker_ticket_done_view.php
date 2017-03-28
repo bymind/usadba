@@ -139,7 +139,7 @@
 							?>
 							<div class="btn btn-default btn-xs card__btn__answer"><span class="glyphicon glyphicon-edit mr-5"></span>Написать ответ</div>
 							<?php } ?>
-							<?php if (Controller_Admin::isSuper() || ($_SESSION['name']==$ticket['author']) ){?>
+							<?php if (Controller_Admin::isSuper() || ($_SESSION['user']['name']==$ticket['author']) ){?>
 							<div class="btn btn-default btn-xs card__btn__delete"><span class="glyphicon glyphicon-trash mr-5"></span>Удалить</div>
 						<?php } ?>
 						<div class="btn btn-default btn-xs card__btn__files"><span class="glyphicon glyphicon-paperclip mr-5"></span>0 файлов</div>

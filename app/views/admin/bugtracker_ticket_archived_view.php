@@ -84,7 +84,7 @@
 	</div>
 	<div class="panel-footer clearfix">
 					<div class="card__actions">
-					<?php if (Controller_Admin::isSuper() || ($_SESSION['name']==$ticket['author']) ){?>
+					<?php if (Controller_Admin::isSuper() || ($_SESSION['user']['name']==$ticket['author']) ){?>
 						<div class="btn btn-default btn-xs card__btn__restore"><span class="glyphicon glyphicon-repeat mr-5"></span>Восстановить</div>
 						<?php
 					} ?>

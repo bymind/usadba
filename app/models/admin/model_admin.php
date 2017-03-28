@@ -180,6 +180,21 @@ class Model_Admin extends Model
 	Отправить статью в архив
 	$post [assoc array] - массив с информацией о статье
 	*/
+	public function archiveProd($prod)
+	{
+		extract($prod);
+		$author = $_SESSION['user']['name'];
+		$sql = "UPDATE prod_items SET archived = 1 WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Позиция скрыта от публикации";
+	}
+
+
+	/*
+	archivePost($post)
+	Отправить товар в архив
+	$prod [assoc array] - массив с информацией о товаре
+	*/
 	public function archivePost($post)
 	{
 		extract($post);
@@ -190,6 +205,20 @@ class Model_Admin extends Model
 	}
 
 
+
+	/*
+	unarchiveProd($prod)
+	Опубликовать товар из архива
+	$prod [assoc array] - массив с информацией о товаре
+	*/
+	public function unarchiveProd($prod)
+	{
+		extract($prod);
+		$author = $_SESSION['user']['name'];
+		$sql = "UPDATE prod_items SET archived = 0 WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Позиция опубликована";
+	}
 
 	/*
 	unarchivePost($post)

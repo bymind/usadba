@@ -81,10 +81,10 @@
 					<div class="title ">Главная картинка</div>
 					<div class="items">
 						<div class="poster">
-							<img src="/img/macfix-articles-default-cover.jpg" alt="" id="img">
+							<img src="/img/prod-default-cover.jpg" alt="" id="img">
 						</div>
 						<div class="controls">
-							<input type="text" id="cover-img" value="/img/macfix-articles-default-cover.jpg">
+							<input type="text" id="cover-img" value="/img/prod-default-cover.jpg">
 							<a href="/js/responsive_filemanager/filemanager/dialog.php?type=2&field_id=cover-img&relative_url=1&akey=<?php echo $access_key ?>" class="upload iframe-btn">заменить</a>
 							<div class="delete">удалить</div>
 						</div>

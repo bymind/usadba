@@ -221,6 +221,8 @@ class Controller_Admin extends Controller
 	function adminProductsArchived()
 	{
 		$prods = $this->model->getGoodsPostsArchived();
+		$prods = Model::createProdUrl($prods);
+		$cat_tree = $this->model->getGoodsCatsTree();
 		$this->view->generate(
 					'admin/products_archived_view.php',
 					'admin/template_admin_view.php',
@@ -231,7 +233,7 @@ class Controller_Admin extends Controller
 							'products'=>$prods,
 							'active_menu_item' => 'goods',
 							'actual_title' => 'Товары (скрытые)',
-							//'second_title' => 'Записи в блоге',
+							'cat_tree' => $cat_tree,
 							'btns' => array(
 															'new-post' => 'Добавить товар',
 															),
@@ -249,8 +251,8 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsArchive($value)
 	{
-		$postArrive = json_decode($_POST['jsonPost'], true);
-		return $this->model->archivePost($postArrive);
+		$prodArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->archiveProd($prodArrive);
 	}
 
 
@@ -291,7 +293,7 @@ class Controller_Admin extends Controller
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'goods',
 							'actual_title' => '<a href="/admin/goods">Товары</a>',
-							'second_title' => 'Добавление товара',
+							'second_title' => 'Добавление',
 							'btns' => array(
 															'post-save new' => 'Сохранить',
 															'post-abort' => 'Отмена',
@@ -352,7 +354,7 @@ class Controller_Admin extends Controller
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'goods',
 							'actual_title' => $actual_title,
-							'second_title' => 'Редактирование товара',
+							'second_title' => 'Редактирование',
 							'btns' => array(
 															'post-save edit' => 'Сохранить',
 															'post-abort' => 'Отмена',
@@ -954,8 +956,8 @@ class Controller_Admin extends Controller
 	function adminBugtrackerTicketForList()
 	{
 		$ticket = $this->model->getOneTicket();
-		$api = $this->tlgrm;
-		self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> ".$_SERVER['HTTP_HOST']."/admin/bugtracker/ticket/".$ticket['id']);
+		//$api = $this->tlgrm;
+		//self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> ".$_SERVER['HTTP_HOST']."/admin/bugtracker/ticket/".$ticket['id']);
 		$this->view->simpleGet(
 						'/admin/bugtracker_ticket_for_list_view.php',
 						array(
@@ -977,7 +979,6 @@ class Controller_Admin extends Controller
 									'title'=>' - Баг-трекер | #'.$ticket['id'],
 									'style'=>'admin/template.css',
 									'style_content'=>'admin/bugtracker.css',
-									//'posts'=>$ds,
 									'active_menu_item' => 'bugtracker',
 									'actual_title' => '<a href="/admin/bugtracker">Баг-трекер</a>',
 									'second_title' => 'Тикет #'.$ticket['id'],
@@ -1145,6 +1146,10 @@ class Controller_Admin extends Controller
 				case 'setSession':
 					$name = $this->model->prepareToDB($_POST['name']);
 					$value = $this->model->prepareToDB($_POST['value']);
+					if (isset($_POST['secondName'])) {
+						$secondName = $this->model->prepareToDB($_POST['secondName']);
+						Self::setSession($name, $value, $secondName);
+					} else
 					Self::setSession($name, $value);
 					break;
 
@@ -1166,9 +1171,13 @@ class Controller_Admin extends Controller
 	}
 
 
-	function setSession($name=NULL, $value=NULL)
+	function setSession($name=NULL, $value=NULL, $secondName = null)
 	{
 		if (isset($name) && isset($value)) {
+			if (isset($secondName)) {
+				$_SESSION[$name][$secondName] = $value;
+				echo 'установлено $_SESSION["'.$name.'"]["'.$secondName.'"] = '.$value;
+			}
 			$_SESSION[$name] = $value;
 			echo 'установлено $_SESSION["'.$name.'"] = '.$value;
 		} else {
@@ -1182,7 +1191,11 @@ class Controller_Admin extends Controller
 		if (isset($name)) {
 			if (isset($_SESSION[$name])) {
 				echo "$_SESSION[$name]";
-			} else Route::Catch_Error('404');
+			} else if (isset($_SESSION['user'][$name])) {
+				$ses = $_SESSION['user'][$name];
+				echo "$ses";
+			}
+			else Route::Catch_Error('404');
 		} else Route::Catch_Error('404');
 	}
 

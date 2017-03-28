@@ -463,7 +463,7 @@ function coverDelete()
 	$('.cover .poster').click(function(event) {
 		$(this).parent().find('a.upload').click();
 	});
-	var defaultUrl = "/img/macfix-ultra-big-blur.jpg";
+	var defaultUrl = "/img/prod-default-cover.jpg";
 	$('.cover .controls .delete').click(function(event) {
 		$("#img").attr('src', defaultUrl).css('opacity', '.5');
 		$("#cover-img").val(defaultUrl);
