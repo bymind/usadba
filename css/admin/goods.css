@@ -331,7 +331,8 @@ span.label.sales {
 }
 
 .settings.price .title {
-	background-image: url(/img/admin/picture-white.svg);
+	background-image: url(/img/admin/rub-white.svg);
+	background-size: 22px 18px;
 }
 
 input#price{

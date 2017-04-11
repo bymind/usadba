@@ -261,8 +261,8 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsUnArchive($value)
 	{
-		$postArrive = json_decode($_POST['jsonPost'], true);
-		return $this->model->unarchivePost($postArrive);
+		$prodArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->unarchiveProd($prodArrive);
 	}
 
 
