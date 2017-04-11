@@ -380,6 +380,12 @@ function saveBtnClick($attr)
 	var $poster = $('#cover-img').val();
 	var $mini_desc = $('#post-subtitle').val();
 	var $text = $('#post-body').val();
+	var $weight = $('#post-weight').val();
+	var $country = $('#post-country').val();
+	var $stor_cond = $('#post-stor_cond').val();
+	var $nut_val = $('#post-nut_val').val();
+	var $energy_val = $('#post-energy_val').val();
+	var $consist = $('#post-consist').val();
 	var $price = $('input#price').val();
 
 	if (($art=="")||($name=="")||($poster=="")||($cat=="")||($text=="")||($price=="")) {
@@ -404,8 +410,16 @@ function saveBtnClick($attr)
 		images: $poster,
 		mini_desc: $mini_desc,
 		description: $text,
+		weight: $weight,
+		country: $country,
+		stor_cond: $stor_cond,
+		nut_val: $nut_val,
+		energy_val: $energy_val,
+		consist: $consist,
 		price: $price
 };
+
+console.log(post);
 
 var jsonPost = JSON.stringify(post);
 

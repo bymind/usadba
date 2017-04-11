@@ -350,6 +350,13 @@ class Controller_Admin extends Controller
 														 'date' => $product['added_time'],
 														 'text' => htmlspecialchars($product['description']),
 														 'tags' => htmlspecialchars($product['labels']),
+														 'consist' => htmlspecialchars($product['consist']),
+														 'weight' => htmlspecialchars($product['weight']),
+														 'weight' => htmlspecialchars($product['weight']),
+														 'country' => htmlspecialchars($product['country']),
+														 'stor_cond' => htmlspecialchars($product['stor_cond']),
+														 'nut_val' => htmlspecialchars($product['nut_val']),
+														 'energy_val' => htmlspecialchars($product['energy_val'])
 														),
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'goods',
@@ -383,8 +390,8 @@ class Controller_Admin extends Controller
 		}
 		switch ($_POST['action']) {
 			case 'edit':
-					$postArrive = json_decode($_POST['jsonPost'], true);
-					return $this->model->updatePost($postArrive);
+					$prodArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->updateProd($prodArrive);
 				break;
 
 			case 'new':

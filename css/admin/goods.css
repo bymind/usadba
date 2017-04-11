@@ -571,7 +571,7 @@ textarea#post-anons {
 input#post-title,
 input#post-subtitle,
 input#post-url,
-textarea#post-anons {
+textarea#post-anons, input.prod-input, textarea.prod-input {
 	font: 18px/32px 'RobotoRegular', sans-serif;
 	background-color: transparent;
 	border-bottom: 1px solid transparent;
@@ -581,6 +581,10 @@ textarea#post-anons {
 	padding: 0 4px;
 	border-radius: 4px;
 	width: 100%;
+}
+
+textarea.prod-input {
+	resize: vertical;
 }
 
 select#prod-cat {

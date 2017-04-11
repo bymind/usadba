@@ -55,6 +55,36 @@
 			</form>
 			</div>
 
+			<div class="row mt-0">
+				<label for="post-weight" class="post-label">Вес</label>
+				<input type="text"  class="prod-input" id="post-weight" placeholder="Например, 1 кг" value="">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-country" class="post-label">Страна</label>
+				<input type="text"  class="prod-input" id="post-country" placeholder="Например, Россия, Москва" value="">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-stor_cond" class="post-label">Условия хранения</label>
+				<input type="text"  class="prod-input" id="post-stor_cond" placeholder="Например, 2 мес при -18С" value="">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-nut_val" class="post-label">Пищевая ценность</label>
+				<input type="text"  class="prod-input" id="post-nut_val" placeholder="Белки, жиры и углеводы" value="">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-energy_val" class="post-label">Энергетическая ценность</label>
+				<input type="text"  class="prod-input" id="post-energy_val" placeholder="Например, 100 Ккал" value="">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-consist" class="post-label">Состав</label>
+				<textarea name=""  class="prod-input" id="post-consist" cols="30" rows="4"></textarea>
+			</div>
+
 			<div class="row">
 				<div class="btn-after-post post-save new">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>

@@ -61,6 +61,36 @@
 			</form>
 			</div>
 
+			<div class="row mt-0">
+				<label for="post-weight" class="post-label">Вес</label>
+				<input type="text" class="prod-input" id="post-weight" placeholder="Например, 1 кг" value="<?php echo $post['weight'] ?>">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-country" class="post-label">Страна</label>
+				<input type="text" class="prod-input" id="post-country" placeholder="Например, Россия, Москва" value="<?php echo $post['country'] ?>">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-stor_cond" class="post-label">Условия хранения</label>
+				<input type="text" class="prod-input" id="post-stor_cond" placeholder="Например, 2 мес при -18С" value="<?php echo $post['stor_cond'] ?>">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-nut_val" class="post-label">Пищевая ценность</label>
+				<input type="text" class="prod-input" id="post-nut_val" placeholder="Белки, жиры и углеводы" value="<?php echo $post['nut_val'] ?>">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-energy_val" class="post-label">Энергетическая ценность</label>
+				<input type="text" class="prod-input" id="post-energy_val" placeholder="Например, 100 Ккал" value="<?php echo $post['energy_val'] ?>">
+			</div>
+
+			<div class="row mt-0">
+				<label for="post-consist" class="post-label">Состав</label>
+				<textarea name="" class="prod-input" id="post-consist" cols="30" rows="4"><?php echo $post['consist'] ?></textarea>
+			</div>
+
 			<div class="row">
 				<div class="btn-after-post post-save edit">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
