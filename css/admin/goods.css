@@ -330,6 +330,18 @@ span.label.sales {
 	background-image: url(/img/admin/picture-white.svg);
 }
 
+.settings .tags-items {
+	padding: 5px 20px;
+}
+
+.tags-items input[type=checkbox] {
+	height: 18px;
+	width: 18px;
+	vertical-align: middle;
+	margin-top: 0;
+	margin-left: -24px;
+}
+
 .settings.price .title {
 	background-image: url(/img/admin/rub-white.svg);
 	background-size: 22px 18px;

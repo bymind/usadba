@@ -124,12 +124,31 @@
 			<div class="col-md-9">
 				<div class="settings tags">
 					<div class="title ">Теги<div class='reset'></div></div>
-					<div class="items">
-
+					<div class="items tags-items">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name='labels' id='new'><span class="label new" style="">New!</span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="labels" id='popular'><span class="label popular" style="">Хит!</span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="labels" id='sales'><span class="label sales" style="">Акция!</span>
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
 	</div>
 

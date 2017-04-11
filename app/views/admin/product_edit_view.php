@@ -130,8 +130,42 @@
 			<div class="col-md-9">
 				<div class="settings tags" style="margin-bottom:30px;">
 					<div class="title ">Теги<div class='reset'></div></div>
-					<div class="items">
-
+					<div class="items tags-items">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name='labels' id='new'
+									<?php
+										if (strpos($post['tags'], 'new')!==false) {
+											echo 'checked';
+										}
+									 ?>
+									><span class="label new" style="">New!</span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="labels" id='popular' <?php
+										if (strpos($post['tags'], 'popular')!==false) {
+											echo 'checked';
+										}
+									 ?> ><span class="label popular" style="">Хит!</span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="labels" id='sales' <?php
+										if (strpos($post['tags'], 'sales')!==false) {
+											echo 'checked';
+										}
+									 ?> ><span class="label sales" style="">Акция!</span>
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

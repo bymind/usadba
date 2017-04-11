@@ -387,6 +387,17 @@ function saveBtnClick($attr)
 	var $energy_val = $('#post-energy_val').val();
 	var $consist = $('#post-consist').val();
 	var $price = $('input#price').val();
+	var $labels = $('.tags-items input[type=checkbox]');
+	var $tags = '';
+	for (var i = 0; i < $labels.length; i++) {
+		if ($labels.eq(i).prop("checked")) {
+			if (i>0) {
+				$tags += ",";
+			}
+			$tags += $labels.eq(i).attr('id');
+		}
+	}
+	console.log($tags);
 
 	if (($art=="")||($name=="")||($poster=="")||($cat=="")||($text=="")||($price=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
@@ -416,7 +427,8 @@ function saveBtnClick($attr)
 		nut_val: $nut_val,
 		energy_val: $energy_val,
 		consist: $consist,
-		price: $price
+		price: $price,
+		labels: $tags
 };
 
 console.log(post);
