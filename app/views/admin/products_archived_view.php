@@ -38,7 +38,7 @@
 						<a href="/admin/goods/edit/<?php echo $product['art'] ?>" class="btn-edit">Редактировать</a>
 						<a href="<?php echo $product['url'] ?>" class="look" target="_blank">Посмотреть на сайте</a>
 						<a href="/admin/goods/delete/<?php echo $product['art'] ?>" data-target="<?php echo htmlspecialchars($product['name']) ?>" data-id="<?php echo $product['id'] ?>" class="btn-delete">Удалить</a>
-						<a href="/admin/goods/archive/<?php echo $product['art'] ?>"  data-target="<?php echo htmlspecialchars($product['name']) ?>" data-id="<?php echo $product['id'] ?>" class="btn-archive">В архив</a>
+						<a href="/admin/articles/archive/<?php echo $product['art'] ?>" data-target="<?php echo htmlspecialchars($product['name']) ?>" data-id="<?php echo $product['id'] ?>" class="btn-archive btn-unarchive">Опубликовать</a>
 					</div>
 					<div class="controls visible-xs">
 						<a href="/admin/goods/edit/<?php echo $product['art'] ?>"></a>
