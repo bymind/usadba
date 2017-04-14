@@ -53,8 +53,10 @@ class Controller
 	{
 		if (isset($_SESSION['user']))
 		{
-			if ($_SESSION['user']['is_admin']==1) {
+		 if (isset($_SESSION['user']['is_admin'])) {
+			if ( $_SESSION['user']['is_admin']==1 ) {
 				return $_SESSION['user'];
+				} else return false;
 			} else return false;
 		} else
 		{
