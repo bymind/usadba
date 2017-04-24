@@ -17,18 +17,23 @@
 				</div>
 				<div class="col-xs-4">
 					<label for="prod-cat" class="post-label">Категория товара</label>
-					<select class="form-control" id="prod-cat">
-					<?php
-																	foreach ($cat_tree['tree'] as $parent => $arr) {
-																			echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
-																		if (isset($arr['child'])) {
-																			foreach ($arr['child'] as $child) {
-																					echo "<option value='".$child['id']."'>—".$child['name']."</a>";
+					<div class="col-xs-10 pl-0">
+						<select class="form-control" id="prod-cat">
+						<?php
+																		foreach ($cat_tree['tree'] as $parent => $arr) {
+																				echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
+																			if (isset($arr['child'])) {
+																				foreach ($arr['child'] as $child) {
+																						echo "<option value='".$child['id']."'>—".$child['name']."</a>";
+																				}
 																			}
 																		}
-																	}
-														 ?>
-					</select>
+															 ?>
+						</select>
+					</div>
+					<div class="col-xs-2 pl-0">
+						<button class="add_cat" title="Новая категория">+</button>
+					</div>
 				</div>
 			</div>
 

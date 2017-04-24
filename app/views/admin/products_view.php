@@ -23,6 +23,7 @@
 			<?php
 				foreach ($goods as $product) {
 					// var_dump($product);
+					if (isset($product['id'])) {
 			?>
 
 			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -75,8 +76,20 @@
 			</div>
 
 			<?php
+					} else {
+						?>
+						<div class="col-xs-12 col-sm-6">
+							<h4>Нет товаров в категории</h4>
+						</div>
+						<?php
+					}
 			}
+			echo "<pre class='col-xs-12 for_dev'>";
+			var_dump($goods);
+			echo "</pre>";
 			?>
+
+
 
 
 		</div>
@@ -84,7 +97,7 @@
 		<div class="col-xs-12 col-sm-3">
 			<div class="col-md-12">
 							<div class="settings tags" style="margin-bottom:30px;">
-								<div class="title ">Категории<div class='reset'></div></div>
+								<div class="title ">Категории <span class="cat_red">редактировать</span><div class='reset'></div></div>
 								<div class="items cat_links pt-10 pb-20">
 									<?php
 												foreach ($cat_tree['tree'] as $parent => $arr) {

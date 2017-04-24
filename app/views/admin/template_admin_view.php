@@ -34,7 +34,14 @@
 </div>
 
 <div class="modals-box">
-<?php include $Modals; ?>
+<?php
+if (is_array($Modals)) {
+	extract($Modals);
+	foreach ($Modals as $Modal) {
+		include $Modal;
+	}
+} else
+include $Modals; ?>
 </div>
 
 </body>
