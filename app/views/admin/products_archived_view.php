@@ -29,6 +29,7 @@
 					<?php
 				} else
 				foreach ($products as $product) {
+					if (isset($product['id'])) {
 			?>
 
 			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -75,36 +76,46 @@
 					</div>
 					<div class="title"><a href="/admin/goods/edit/<?php echo $product['art'] ?>"><?php echo $product['name'] ?><br><?php echo $product['mini_desc'] ?></a></div>
 					<div class="post-date"><?php echo $product['added_time'] ?></div>
-					<div class="author">Автор: <span><?php echo $product['author'] ?></span></div>
+					<div class="author">Автор: <span><a href="/admin/users/<?php echo $product['author']['id'] ?>"><?php echo $product['author']['name'] ?></a></span></div>
 				</div>
 			</div>
 			</div>
 
 			<?php
+			} else {
+						?>
+						<div class="col-xs-12 col-sm-6">
+							<h4>Нет товаров в категории</h4>
+						</div>
+						<?php
+					}
 			}
+			echo "<pre class='col-xs-12 for_dev'>";
+			var_dump($products);
+			echo "</pre>";
 			?>
 
 
 		</div>
 
-		<!-- <div class="col-xs-3">
+		<div class="col-xs-12 col-sm-3">
 			<div class="col-md-12">
 							<div class="settings tags" style="margin-bottom:30px;">
-								<div class="title ">Категории<div class='reset'></div></div>
+								<div class="title ">Категории <span class="cat_red">редактировать</span><div class='reset'></div></div>
 								<div class="items cat_links pt-10 pb-20">
 									<?php
 												foreach ($cat_tree['tree'] as $parent => $arr) {
 													$text = $arr['name'];
-													$link = '/admin/goods/cat/'.$arr['id'];
-													if ($arr['id']==$goods[0]['cat_id']) {
+													$link = '/admin/goods/archived/'.$arr['id'];
+													if ($arr['id']==$products[0]['cat_id']) {
 														echo "<a class='active' href='$link'>$text</a>";
 													} else
 													echo "<a href='$link'>$text</a>";
 													if (isset($arr['child'])) {
 														foreach ($arr['child'] as $child) {
 															$text = $child['name'];
-															$link = '/admin/goods/cat/'.$child['id'];
-															if ($child['id']==$goods[0]['cat_id']) {
+															$link = '/admin/goods/archived/'.$child['id'];
+															if ($child['id']==$products[0]['cat_id']) {
 																echo "<a class='active' href='$link'>—$text</a>";
 															} else
 															echo "<a href='$link'>—$text</a>";
@@ -115,7 +126,7 @@
 								</div>
 							</div>
 						</div>
-		</div> -->
+		</div>
 
 	</div>
 

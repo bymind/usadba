@@ -61,16 +61,27 @@ class Model_Admin extends Model
 	getGoodsPostsArchived()
 	Получение списка товаров, которые не показываются
 	*/
-	public function getGoodsPostsArchived()
+	public function getGoodsPostsArchived($cat_id=null)
 	{
-		$select = mysql_query("SELECT * FROM prod_items WHERE archived = 1 ORDER BY added_time DESC")or die(mysql_error());
+		$f = false;
+		if (isset($cat_id)) {
+			$f = true;
+			$select = mysql_query("SELECT p.*, u.id as uid,u.name as uname,c.name as cname,c.tech_name as ctech_name, c.parent as cparent FROM prod_items p LEFT JOIN prod_cat c on p.cat=c.id LEFT JOIN users u on p.author=u.id WHERE (c.id=".$cat_id." OR c.parent=".$cat_id.") AND archived = 1 ORDER BY added_time DESC")or die(mysql_error());
+		} else
+		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE archived = 1 ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['added_time'] = Controller::getGoodDate($r['added_time']);
+					$r['author'] = array('id'=>$r['uid'], 'name' => $r['uname']);
+					$r['category'] = array('id'=>$r['cat'],'name'=> $r['cname'], 'tech_name'=> $r['ctech_name'],'parent'=>$r['cparent']);
 					$ds[]=$r;
-
-		}
-
+				}
+				if ($f == true) {
+					$select = mysql_query("SELECT name FROM prod_cat WHERE id=$cat_id");
+					$cat_title = mysql_fetch_assoc($select);
+					$ds[0]['cat_title'] = $cat_title['name'];
+					$ds[0]['cat_id'] = $cat_id;
+				}
 		return $ds;
 	}
 
