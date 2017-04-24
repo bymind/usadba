@@ -46,6 +46,15 @@ function btnsInit()
 	lookArchive();
 	lookNewArchive();
 	lookUnArchive();
+	lookNewCat();
+}
+
+function lookNewCat()
+{
+	$('button.add_cat').click(function(event) {
+		$modal = $('.new-cat-modal');
+		$modal.modal();
+	});
 }
 
 function lookNewArchive()
