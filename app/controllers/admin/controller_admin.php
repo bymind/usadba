@@ -121,7 +121,9 @@ class Controller_Admin extends Controller
 				break;
 
 			case 'archived':
-				self::adminProductsArchived();
+				if (isset($value)) {
+					self::adminProductsArchived($value);
+				} else self::adminProductsArchived();
 				break;
 
 			case 'archive':
@@ -147,7 +149,6 @@ class Controller_Admin extends Controller
 				$title= ' - Товары';
 				if (isset($value)) {
 					$ds = $this->model->getGoodsLists($value);
-					// $ds = Model_Catalog::getCategoryData($value);
 					$actual_title = "<a href='/admin/goods'>Товары (все)</a>";
 					$second_title = $ds[0]['cat_title'];
 					$title .= " - ".$second_title;
@@ -218,8 +219,11 @@ class Controller_Admin extends Controller
 
 /*	 PRODUCTS ARCHIVED LIST
 **********************************/
-	function adminProductsArchived()
+	function adminProductsArchived($cat_id=null)
 	{
+		if (isset($cat_id)) {
+			$prods = $this->model->getGoodsPostsArchived($cat_id);
+		} else
 		$prods = $this->model->getGoodsPostsArchived();
 		$prods = Model::createProdUrl($prods);
 		$cat_tree = $this->model->getGoodsCatsTree();
@@ -304,7 +308,10 @@ class Controller_Admin extends Controller
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',
-					'admin/modals_main_view.php'
+					array(
+							'admin/modals_main_view.php',
+							'admin/modals_add_cat_view.php'
+					      )
 					);
 	}
 
