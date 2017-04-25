@@ -28,7 +28,38 @@ $(function() {
 				'wrapCSS':'fancy-wrap'
 			});
 
+/*	$('.cat-iframe-btn').fancybox({
+		'type':'iframe',
+		'autoSize':true,
+		'minWidth':900,
+		'minHeight':500,
+		'iframe': {
+		scrolling : 'visible', // 'auto', 'yes', 'no' or 'visible'
+		preload   : true
+	},
+	'title':'Смена картинки',
+	helpers:  {
+		title : {
+						type : 'float' // 'float', 'inside', 'outside' or 'over'
+					},
+					overlay : {
+						showEarly : true
+					}
+				},
+				'wrapCSS':'fancy-wrap'
+			});*/
+
+
 });
+
+	function open_popup(url)
+	{
+	    var w = 880;
+	    var h = 570;
+	    var l = Math.floor((screen.width - w) / 2);
+	    var t = Math.floor((screen.height - h) / 2);
+	    var win = window.open(url, 'ResponsiveFilemanager', "scrollbars=1,width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+	}
 
 function articlesEditInit($key)
 {
@@ -54,6 +85,55 @@ function lookNewCat()
 	$('button.add_cat').click(function(event) {
 		$modal = $('.new-cat-modal');
 		$modal.modal();
+		lookCatName($modal);
+		lookPosterEdit($modal);
+		lookNewCatSend($modal);
+	});
+}
+
+function lookPosterEdit(modal)
+{
+	modal.find('.poster').click(function(event) {
+		var akey = modal.find('a.upload').data('akey');
+		open_popup('/js/responsive_filemanager/filemanager/dialog.php?popup=1&type=2&field_id=cat_posterInput&relative_url=1&akey='+akey);
+	});
+}
+
+function lookCatName(modal)
+{
+	modal.find('input#nameInput').on( 'keyup', function(event) {
+		$(this).parents('.form-group').removeClass('has-error');
+		$(this).parents('.form-group').find('.substring.red').remove();
+		var techNameObj = modal.find('input#tech_nameInput');
+		var inputText = $(this).val();
+		$text = transliterate(inputText);
+		techNameObj.val($text);
+	});
+}
+
+function lookNewCatSend(modal)
+{
+	modal.find('button[type=submit]').click(function(event) {
+		event.preventDefault();
+		var form = modal.find('form');
+		if (form.find('input[name=name]').val() == "") {
+			$(this).addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+			setTimeout(function(){
+				modal.find('button[type=submit]').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+			},2000);
+			var formGroup = form.find('input[name=name]').parents('.form-group');
+			formGroup.addClass('has-error');
+			formGroup.append('<span class="substring red">Введите название категории</span>');
+		} else {
+			var newCat = {};
+			newCat.name = form.find('input[name=name]').val();
+			newCat.tech_name = form.find('input[name=tech_name]').val();
+			newCat.parent = form.find('select[name=parent]').val();
+			newCat.poster = form.find('input[name=poster]').val();
+			newCat.show_big = form.find('input#show_big').prop('checked') + 0;
+			newCat.show_popular = form.find('input#show_popular').prop('checked') + 0;
+			console.log(newCat);
+		}
 	});
 }
 
@@ -490,7 +570,8 @@ $.ajax({
 function responsive_filemanager_callback(field_id){
 	$('#'+field_id).val('/upload/'+$('#'+field_id).val());
 	var url=jQuery('#'+field_id).val();
-	$("#img").attr('src', url).css('opacity', '1');;
+	$("#img-"+field_id).attr('src', url).css('opacity', '1');
+	console.log('filemanager callback');
 }
 
 function coverDelete()
@@ -500,7 +581,7 @@ function coverDelete()
 	});
 	var defaultUrl = "/img/prod-default-cover.jpg";
 	$('.cover .controls .delete').click(function(event) {
-		$("#img").attr('src', defaultUrl).css('opacity', '.5');
+		$("#img-cover-img").attr('src', defaultUrl).css('opacity', '.5');
 		$("#cover-img").val(defaultUrl);
 	});
 }
@@ -551,13 +632,12 @@ function lookUrlEdit()
 function lookForUrl()
 {
 	$('#post-title').keyup(function(event) {
-		transliterate();
+		transliteratePostTitle();
 	});
 }
 
-function transliterate()
+function transliterate(text)
 {
-	var text=document.getElementById('post-title').value;
 	var transl=new Array();
 	transl['А']='a';			transl['а']='a';
 	transl['Б']='b';			transl['б']='b';
@@ -618,12 +698,20 @@ function transliterate()
 	transl["\\"]='_';
 	transl["|"]='_';
 	transl["/"]='_';
-
 	var result='';
 	for(i=0;i<text.length;i++) {
 		if(transl[text[i]]!=undefined) { result+=transl[text[i]]; }
 		else { result+=text[i]; }
 	}
+	return result;
+}
+
+function transliteratePostTitle()
+{
+	var text=document.getElementById('post-title').value;
+
+	var result = transliterate(text);
+
 	res = result.substr(0,3);
 	nowDate = new Date();
 	rand = getRandom(1000,9999);

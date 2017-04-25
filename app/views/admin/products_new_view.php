@@ -11,20 +11,20 @@
 		<div class="col-md-9">
 			<div class="row mt-0">
 				<input type="hidden" id="post-id" value="">
-				<div class="col-xs-8 pl-0">
+				<div class="col-xs-12 col-sm-8 pl-0 mb-10">
 					<label for="post-title" class="post-label">Название товара</label>
 					<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="">
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 mb-xs-10 pl-0 col-sm-4">
 					<label for="prod-cat" class="post-label">Категория товара</label>
 					<div class="col-xs-10 pl-0">
 						<select class="form-control" id="prod-cat">
 						<?php
 																		foreach ($cat_tree['tree'] as $parent => $arr) {
-																				echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
+																				echo "<option value='".$arr['id']."'>".$arr['name']."</option>";
 																			if (isset($arr['child'])) {
 																				foreach ($arr['child'] as $child) {
-																						echo "<option value='".$child['id']."'>—".$child['name']."</a>";
+																						echo "<option value='".$child['id']."'>—".$child['name']."</option>";
 																				}
 																			}
 																		}
@@ -116,7 +116,7 @@
 					<div class="title ">Главная картинка</div>
 					<div class="items">
 						<div class="poster">
-							<img src="/img/prod-default-cover.jpg" alt="" id="img">
+							<img src="/img/prod-default-cover.jpg" alt="" id="img-cover-img">
 						</div>
 						<div class="controls">
 							<input type="text" id="cover-img" value="/img/prod-default-cover.jpg">

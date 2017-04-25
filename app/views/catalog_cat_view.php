@@ -114,7 +114,10 @@
 	?>
 			<div class=" col-xxs-12 col-xs-12 col-sm-9">
 				<div class="title-wide mb-10">
-					<?php echo $popularCat['popular_name'] ?>
+					<?php
+						// echo $popularCat['popular_name'];
+						echo "Популярное из категории";
+					?>
 				</div>
 			</div>
 
