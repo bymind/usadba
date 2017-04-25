@@ -723,6 +723,18 @@ button.add_cat:hover, button.add_cat:active{
 	background: #2f5569;
 }
 
+button.add_cat.prod_list {
+	width: auto;
+	padding: 0 10px;
+	line-height: 32px;
+	margin-left: 4px;
+	height: 32px;
+	vertical-align: middle;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+}
+
 .cat_poster .poster {
 	position: relative;
 	width: 100%;

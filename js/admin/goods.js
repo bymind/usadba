@@ -77,10 +77,9 @@ function btnsInit()
 	lookArchive();
 	lookNewArchive();
 	lookUnArchive();
-	lookNewCat();
 }
 
-function lookNewCat(modal)
+function lookNewCat()
 {
 	$('button.add_cat').on('click', function(event) {
 		console.log('hi modal');
@@ -152,10 +151,11 @@ function lookNewCatSend(modal)
 	modal.find('button.btn-submit').unbind('click').on('click', function(event) {
 		event.preventDefault();
 		var form = modal.find('form');
+		var btnSubmit = form.find('button.btn-submit');
 		if (form.find('input[name=name]').val() == "") {
 			$(this).addClass('btn-danger').removeClass('btn-default').text('Ошибка');
 			setTimeout(function(){
-				modal.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+				btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
 			},2000);
 			var formGroup = form.find('input[name=name]').parents('.form-group');
 			formGroup.addClass('has-error');
@@ -169,14 +169,14 @@ function lookNewCatSend(modal)
 			newCat.show_big = form.find('input#show_big').prop('checked') + 0;
 			newCat.show_popular = form.find('input#show_popular').prop('checked') + 0;
 			console.log(newCat);
-			form.find('button.btn-submit').attr('disabled', 'disabled');
+			btnSubmit.attr('disabled', 'disabled');
 			$.when(sendNewCat(newCat)).done(function(res){
 				if (res!="Категория добавлена") {
 					console.info(res);
-					form.find('button.btn-submit').addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+					btnSubmit.addClass('btn-danger').removeClass('btn-default').text('Ошибка');
 					setTimeout(function(){
-						form.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
-						form.find('button.btn-submit').prop('disabled', false);
+						btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+						btnSubmit.prop('disabled', false);
 					},2000);
 					var formGroup = form.find('input[name=name]').parents('.form-group');
 					formGroup.addClass('has-error');
@@ -184,7 +184,7 @@ function lookNewCatSend(modal)
 				} else {
 					// Категория добавлена
 					console.info(res);
-					form.find('button.btn-submit').prop('disabled', false);
+					btnSubmit.prop('disabled', false);
 					form.trigger('reset');
 					modal.modal('hide');
 					form.find('.poster img').attr('src', form.find('input#cat_posterInput').val());
@@ -195,14 +195,14 @@ function lookNewCatSend(modal)
 						disabled: false
 					});
 					labelPopular.removeClass('disabled');
-					reloadCatsList(newCat.name);
+					reloadCatsList(newCat.name, btnSubmit.data('page'));
 				}
 			}).fail(function(res){
 				console.info(res);
-				form.find('button.btn-submit').addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+				btnSubmit.addClass('btn-danger').removeClass('btn-default').text('Ошибка');
 				setTimeout(function(){
-					form.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
-					form.find('button.btn-submit').prop('disabled', false);
+					btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+					btnSubmit.prop('disabled', false);
 				},2000);
 				var formGroup = form.find('input[name=name]').parents('.form-group');
 				formGroup.addClass('has-error');
@@ -212,47 +212,85 @@ function lookNewCatSend(modal)
 	});
 }
 
-function reloadCatsList(catName)
+function reloadCatsList(catName, page)
 {
-	var $select = $('select#prod-cat');
-
-	$.ajax({
-		url: '/admin/goods/getcattree',
-		type: 'POST',
-		data: {action: 'getcattree'},
-	})
-	.done(function(response) {
-		console.log("success");
-		$cattree = response;
-		$cattree = $.parseJSON($cattree);
-		console.warn($cattree.tree);
-		var $insert = "";
-		var $addSelected = "";
-		$.each($cattree.tree, function(index, val) {
-			if (val.name == catName) {
-				$addSelected="selected";
-			}
-			$insert += "<option "+$addSelected+" value='"+val.id+"'>"+val.name+"</option>";
-			$addSelected = "";
-			if ('child' in val) {
-				$.each(val.child, function(index1, val1) {
-					if (val1.name == catName) {
+	switch (page) {
+		case 'prod_item':
+			var $select = $('select#prod-cat');
+			$.ajax({
+				url: '/admin/goods/getcattree',
+				type: 'POST',
+				data: {action: 'getcattree'},
+			})
+			.done(function(response) {
+				console.log("success");
+				$cattree = response;
+				$cattree = $.parseJSON($cattree);
+				console.warn($cattree.tree);
+				var $insert = "";
+				var $addSelected = "";
+				$.each($cattree.tree, function(index, val) {
+					if (val.name == catName) {
 						$addSelected="selected";
 					}
-					$insert += "<option "+$addSelected+" value='"+val1.id+"'>—"+val1.name+"</option>";
+					$insert += "<option "+$addSelected+" value='"+val.id+"'>"+val.name+"</option>";
 					$addSelected = "";
+					if ('child' in val) {
+						$.each(val.child, function(index1, val1) {
+							if (val1.name == catName) {
+								$addSelected="selected";
+							}
+							$insert += "<option "+$addSelected+" value='"+val1.id+"'>—"+val1.name+"</option>";
+							$addSelected = "";
+						});
+					}
 				});
-			}
-		});
-		$select.html($insert);
-	})
-	.fail(function(response) {
-		console.log("error");
-		console.error(response);
-	})
-	.always(function() {
+				$select.html($insert);
+			})
+			.fail(function(response) {
+				console.log("error");
+				console.error(response);
+			});
+			break;
 
-	});
+		case 'prod_list':
+			var $catLinks = $('div.cat_links');
+			$.ajax({
+				url: '/admin/goods/getcattree',
+				type: 'POST',
+				data: {action: 'getcattree'},
+			})
+			.done(function(response) {
+				console.log("success");
+				$cattree = response;
+				$cattree = $.parseJSON($cattree);
+				console.warn($cattree.tree);
+				var $insert = "";
+				var $addSelected = "";
+				$.each($cattree.tree, function(index, val) {
+					if (val.name == catName) {
+						$addSelected="selected";
+					}
+					$insert += "<option "+$addSelected+" value='"+val.id+"'>"+val.name+"</option>";
+					$addSelected = "";
+					if ('child' in val) {
+						$.each(val.child, function(index1, val1) {
+							if (val1.name == catName) {
+								$addSelected="selected";
+							}
+							$insert += "<option "+$addSelected+" value='"+val1.id+"'>—"+val1.name+"</option>";
+							$addSelected = "";
+						});
+					}
+				});
+				$select.html($insert);
+			})
+			.fail(function(response) {
+				console.log("error");
+				console.error(response);
+			});
+			break;
+	}
 }
 
 function sendNewCat(catObj)
@@ -735,6 +773,7 @@ function articlesScriptsInit()
 	lookForUrl();
 	lookUrlEdit();
 	lookUrlEditOpacity();
+	lookNewCat();
 }
 
 function lookUrlEditOpacity()

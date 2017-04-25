@@ -163,7 +163,7 @@ class Controller_Admin extends Controller
 				} else
 				$ds = $this->model->getGoodsLists();
 				$ds = Model::createProdUrl($ds);
-				$q = mysql_query("SELECT * FROM prod_cat ORDER BY id") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_cats[$buf['id']] = $buf;
 				}
@@ -183,6 +183,7 @@ class Controller_Admin extends Controller
 									'active_menu_item' => 'goods',
 									'actual_title' => $actual_title,
 									'second_title' => $second_title,
+									'access_key' => $_SESSION['user']['access_key'],
 									'btns' => array(
 																	'new-post' => 'Добавить товар',
 																	),
@@ -190,7 +191,10 @@ class Controller_Admin extends Controller
 								),
 							'admin/navigation_view.php',
 							'admin/footer_view.php',
-							'admin/modals_main_view.php'
+							array(
+									'admin/modals_main_view.php',
+									'admin/modals_add_cat_view.php'
+										)
 							);
 				break;
 
@@ -208,7 +212,7 @@ class Controller_Admin extends Controller
 									'goods'=>$ds,
 									'active_menu_item' => 'goods',
 									'actual_title' => 'Товары',
-									//'second_title' => 'Записи статей',
+									'access_key' => $_SESSION['user']['access_key'],
 									'btns' => array(
 																	'new-post' => 'Добавить товар',
 																	),
@@ -216,7 +220,10 @@ class Controller_Admin extends Controller
 								),
 							'admin/navigation_view.php',
 							'admin/footer_view.php',
-							'admin/modals_main_view.php'
+							array(
+									'admin/modals_main_view.php',
+									'admin/modals_add_cat_view.php'
+										)
 							);
 				break;
 		}
@@ -293,6 +300,16 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsNew()
 	{
+		$ref = $this->model->getRef();
+		$ref = $ref[1];
+		$ref = split('/', $ref);
+		$addLink = "";
+		if ($ref[3]=="cat" && isset($ref[4])) {
+			$actualCat = $ref[4];
+		}
+		if (isset($actualCat)) {
+			$addLink = "/cat/".$actualCat;
+		}
 		$cat_tree = $this->model->getGoodsCatsTree();
 		$this->view->generate(
 					'admin/products_new_view.php',
@@ -302,19 +319,11 @@ class Controller_Admin extends Controller
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/goods.css',
 							'cat_tree'=>$cat_tree,
-							/*'post'=>array (
-														 'id' => $post['id'],
-														 'url' => $post['url'],
-														 'title' => htmlspecialchars($post['title']) ,
-														 'poster' => $post['poster'],
-														 'date' => $post['date'],
-														 'anons' => htmlspecialchars($post['anons']),
-														 'text' => htmlspecialchars($post['text']),
-														 'tags' => $post['tags'],
-														),*/
+							'ref' => $ref,
+							'actualCat' => $actualCat,
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'goods',
-							'actual_title' => '<a href="/admin/goods">Товары</a>',
+							'actual_title' => '<a href="/admin/goods'.$addLink.'">Товары</a>',
 							'second_title' => 'Добавление',
 							'btns' => array(
 															'post-save new' => 'Сохранить',
@@ -329,8 +338,9 @@ class Controller_Admin extends Controller
 					array(
 							'admin/modals_main_view.php',
 							'admin/modals_add_cat_view.php'
-					      )
+								)
 					);
+		unset($addLink);
 	}
 
 

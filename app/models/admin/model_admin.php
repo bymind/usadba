@@ -92,7 +92,7 @@ class Model_Admin extends Model
 	*/
 	public function getGoodsCatsTree()
 	{
-		$q = mysql_query("SELECT * FROM prod_cat ORDER BY id") or die(mysql_error());
+		$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
 		while ( $buf = mysql_fetch_assoc($q)) {
 			$prod_cats[$buf['id']] = $buf;
 		}
@@ -347,8 +347,8 @@ class Model_Admin extends Model
 		if (mysql_num_rows(mysql_query($checkName)) > 0) {
 			echo "Такая категория уже существует!";
 		} else {
-			if ($parent == "0") {
-				$sql = 'SELECT position FROM prod_cat WHERE parent=0 ORDER BY position DESC LIMIT 1';
+			// if ($parent == "0") {
+				$sql = "SELECT position FROM prod_cat WHERE parent='$parent' ORDER BY position DESC LIMIT 1";
 				$result = mysql_query($sql) or die(mysql_error());
 				if ($result) {
 					while ($row = mysql_fetch_array($result)) {
@@ -357,8 +357,9 @@ class Model_Admin extends Model
 				}
 				$lastPosition++;
 				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition')";
-			} else
-			$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular')";
+			/*} else {
+				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular')";
+			}*/
 			mysql_query($sql) or die(mysql_error());
 			echo "Категория добавлена";
 		}

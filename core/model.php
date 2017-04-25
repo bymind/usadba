@@ -6,6 +6,12 @@ class Model
 
 	const SALT = 'dsflFWR9u2xQa';
 
+	public function getRef()
+	{
+		$ref = split('//', $_SERVER['HTTP_REFERER']);
+		return $ref;
+	}
+
 	public function getSimpleCrumbs($target)
 	{
 		$crumbs = array($target['name'] => $target['value']);

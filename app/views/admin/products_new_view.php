@@ -21,10 +21,23 @@
 						<select class="form-control" id="prod-cat">
 						<?php
 																		foreach ($cat_tree['tree'] as $parent => $arr) {
-																				echo "<option value='".$arr['id']."'>".$arr['name']."</option>";
+																			$addAttr = "";
+																				if (isset($actualCat)) {
+																					if ($arr['id']==$actualCat) {
+																						$addAttr = "selected";
+																					}
+																				}
+																				echo "<option ".$addAttr." value='".$arr['id']."'>".$arr['name']."</option>";
+																				$addAttr = "";
 																			if (isset($arr['child'])) {
 																				foreach ($arr['child'] as $child) {
-																						echo "<option value='".$child['id']."'>—".$child['name']."</option>";
+																						if (isset($actualCat)) {
+																							if ($child['id']==$actualCat) {
+																								$addAttr = "selected";
+																							}
+																						}
+																						echo "<option ".$addAttr." value='".$child['id']."'>—".$child['name']."</option>";
+																						$addAttr = "";
 																				}
 																			}
 																		}
@@ -32,7 +45,7 @@
 						</select>
 					</div>
 					<div class="col-xs-2 pl-0">
-						<button class="add_cat" title="Новая категория">+</button>
+						<button class="add_cat" data-page="prod_item" title="Новая категория">+</button>
 					</div>
 				</div>
 			</div>
