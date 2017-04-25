@@ -138,6 +138,14 @@ class Controller_Admin extends Controller
 				self::adminProductsNew();
 				break;
 
+			case 'newcat':
+				self::adminProductsNewCat();
+				break;
+
+			case 'getcattree':
+				self::adminGetCatTree();
+				break;
+
 			case 'save':
 				self::adminProductsSave();
 				break;
@@ -217,6 +225,7 @@ class Controller_Admin extends Controller
 
 
 
+
 /*	 PRODUCTS ARCHIVED LIST
 **********************************/
 	function adminProductsArchived($cat_id=null)
@@ -270,6 +279,15 @@ class Controller_Admin extends Controller
 	}
 
 
+/*	 Get categoties (and products) tree
+**********************************/
+	function adminGetCatTree()
+	{
+		$cat_tree = $this->model->getGoodsCatsTree();
+		$jsonCatTree = json_encode($cat_tree);
+		echo $jsonCatTree;
+		return $jsonCatTree;
+	}
 
 /*	 PRODUCT NEW
 **********************************/
@@ -313,6 +331,30 @@ class Controller_Admin extends Controller
 							'admin/modals_add_cat_view.php'
 					      )
 					);
+	}
+
+
+/*	 PRODUCT NEW CATEGORY
+**********************************/
+	function adminProductsNewCat()
+	{
+		if (!isset($_POST['action'])) {
+			return "Не указан параметр action";
+		}
+		if (!isset($_POST['jsonPost'])) {
+			return "Параметры не переданы";
+		}
+		switch ($_POST['action']) {
+			case 'newcat':
+					$catArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->addCat($catArrive);
+				break;
+
+			default:
+				return false;
+				break;
+		}
+
 	}
 
 

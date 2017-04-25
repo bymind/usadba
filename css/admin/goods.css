@@ -768,3 +768,7 @@ button.add_cat:hover, button.add_cat:active{
 	position: absolute;
 	left: 4px;
 }
+
+.checkbox label.disabled {
+	opacity: .4;
+}

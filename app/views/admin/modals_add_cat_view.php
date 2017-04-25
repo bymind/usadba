@@ -75,7 +75,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-				<button type="submit" class="btn btn-primary">Добавить категорию</button>
+				<button type="button" class="btn btn-primary btn-submit">Добавить категорию</button>
 			</div>
 		</form>
 	</div>

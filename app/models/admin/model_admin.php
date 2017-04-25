@@ -332,6 +332,38 @@ class Model_Admin extends Model
 	}
 
 
+	/*
+	addCat($cat)
+	Добавить новую категорию
+	$cat [assoc array] - массив с информацией о категории
+	*/
+	public function addCat($cat)
+	{
+		extract($cat);
+		// $author = $_SESSION['user']['id'];
+		$name = htmlspecialchars($name);
+		$tech_name = htmlspecialchars($tech_name);
+		$checkName = "SELECT * FROM prod_cat WHERE name = '$name' OR tech_name='$tech_name'";
+		if (mysql_num_rows(mysql_query($checkName)) > 0) {
+			echo "Такая категория уже существует!";
+		} else {
+			if ($parent == "0") {
+				$sql = 'SELECT position FROM prod_cat WHERE parent=0 ORDER BY position DESC LIMIT 1';
+				$result = mysql_query($sql) or die(mysql_error());
+				if ($result) {
+					while ($row = mysql_fetch_array($result)) {
+						$lastPosition = (int)$row['position'];
+					}
+				}
+				$lastPosition++;
+				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition')";
+			} else
+			$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular')";
+			mysql_query($sql) or die(mysql_error());
+			echo "Категория добавлена";
+		}
+	}
+
 
 	/*
 	deleteUser($id)

@@ -54,11 +54,11 @@ $(function() {
 
 	function open_popup(url)
 	{
-	    var w = 880;
-	    var h = 570;
-	    var l = Math.floor((screen.width - w) / 2);
-	    var t = Math.floor((screen.height - h) / 2);
-	    var win = window.open(url, 'ResponsiveFilemanager', "scrollbars=1,width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+			var w = 880;
+			var h = 570;
+			var l = Math.floor((screen.width - w) / 2);
+			var t = Math.floor((screen.height - h) / 2);
+			var win = window.open(url, 'ResponsiveFilemanager', "scrollbars=1,width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
 	}
 
 function articlesEditInit($key)
@@ -80,14 +80,40 @@ function btnsInit()
 	lookNewCat();
 }
 
-function lookNewCat()
+function lookNewCat(modal)
 {
-	$('button.add_cat').click(function(event) {
-		$modal = $('.new-cat-modal');
-		$modal.modal();
-		lookCatName($modal);
-		lookPosterEdit($modal);
-		lookNewCatSend($modal);
+	$('button.add_cat').on('click', function(event) {
+		console.log('hi modal');
+		var modal = $('.new-cat-modal');
+		modal.modal();
+		lookCatName(modal);
+		lookParentSelect(modal);
+		lookPosterEdit(modal);
+		lookNewCatSend(modal);
+	});
+}
+
+function lookParentSelect(modal)
+{
+	var form = modal.find('form');
+	form.find('select').on('change', function(event) {
+		event.preventDefault();
+		var target = $(event.target);
+		var inputPopular = form.find('input#show_popular');
+		var labelPopular = inputPopular.parents('label');
+		if (target.val() != "0") {
+			inputPopular.prop({
+				checked: false,
+				disabled: true
+			});
+			labelPopular.addClass('disabled');
+		} else {
+			inputPopular.prop({
+				checked: true,
+				disabled: false
+			});
+			labelPopular.removeClass('disabled');
+		}
 	});
 }
 
@@ -101,25 +127,35 @@ function lookPosterEdit(modal)
 
 function lookCatName(modal)
 {
-	modal.find('input#nameInput').on( 'keyup', function(event) {
-		$(this).parents('.form-group').removeClass('has-error');
-		$(this).parents('.form-group').find('.substring.red').remove();
-		var techNameObj = modal.find('input#tech_nameInput');
-		var inputText = $(this).val();
-		$text = transliterate(inputText);
-		techNameObj.val($text);
+	var inputName = modal.find('input#nameInput');
+	inputName.on( 'keyup', function(event) {
+		if(event.keyCode == 13){
+				event.preventDefault();
+				console.info('enter submit stopped');
+		} else {
+			$(this).parents('.form-group').removeClass('has-error');
+			$(this).parents('.form-group').find('.substring.red').remove();
+			var techNameObj = modal.find('input#tech_nameInput');
+			var inputText = $(this).val();
+			$text = transliterate(inputText);
+			techNameObj.val($text);
+		}
+	});
+	modal.find('form').on('submit', function(event) {
+		event.preventDefault();
+		console.info('submit stopped');
 	});
 }
 
 function lookNewCatSend(modal)
 {
-	modal.find('button[type=submit]').click(function(event) {
+	modal.find('button.btn-submit').unbind('click').on('click', function(event) {
 		event.preventDefault();
 		var form = modal.find('form');
 		if (form.find('input[name=name]').val() == "") {
 			$(this).addClass('btn-danger').removeClass('btn-default').text('Ошибка');
 			setTimeout(function(){
-				modal.find('button[type=submit]').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+				modal.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
 			},2000);
 			var formGroup = form.find('input[name=name]').parents('.form-group');
 			formGroup.addClass('has-error');
@@ -133,8 +169,115 @@ function lookNewCatSend(modal)
 			newCat.show_big = form.find('input#show_big').prop('checked') + 0;
 			newCat.show_popular = form.find('input#show_popular').prop('checked') + 0;
 			console.log(newCat);
+			form.find('button.btn-submit').attr('disabled', 'disabled');
+			$.when(sendNewCat(newCat)).done(function(res){
+				if (res!="Категория добавлена") {
+					console.info(res);
+					form.find('button.btn-submit').addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+					setTimeout(function(){
+						form.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+						form.find('button.btn-submit').prop('disabled', false);
+					},2000);
+					var formGroup = form.find('input[name=name]').parents('.form-group');
+					formGroup.addClass('has-error');
+					formGroup.append('<span class="substring red">'+res+'</span>');
+				} else {
+					// Категория добавлена
+					console.info(res);
+					form.find('button.btn-submit').prop('disabled', false);
+					form.trigger('reset');
+					modal.modal('hide');
+					form.find('.poster img').attr('src', form.find('input#cat_posterInput').val());
+					var inputPopular = form.find('input#show_popular');
+					var labelPopular = inputPopular.parents('label');
+					inputPopular.prop({
+						checked: true,
+						disabled: false
+					});
+					labelPopular.removeClass('disabled');
+					reloadCatsList(newCat.name);
+				}
+			}).fail(function(res){
+				console.info(res);
+				form.find('button.btn-submit').addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+				setTimeout(function(){
+					form.find('button.btn-submit').removeClass('btn-danger').addClass('btn-default').text('Добавить категорию');
+					form.find('button.btn-submit').prop('disabled', false);
+				},2000);
+				var formGroup = form.find('input[name=name]').parents('.form-group');
+				formGroup.addClass('has-error');
+				formGroup.append('<span class="substring red">'+res+'</span>');
+			});
 		}
 	});
+}
+
+function reloadCatsList(catName)
+{
+	var $select = $('select#prod-cat');
+
+	$.ajax({
+		url: '/admin/goods/getcattree',
+		type: 'POST',
+		data: {action: 'getcattree'},
+	})
+	.done(function(response) {
+		console.log("success");
+		$cattree = response;
+		$cattree = $.parseJSON($cattree);
+		console.warn($cattree.tree);
+		var $insert = "";
+		var $addSelected = "";
+		$.each($cattree.tree, function(index, val) {
+			if (val.name == catName) {
+				$addSelected="selected";
+			}
+			$insert += "<option "+$addSelected+" value='"+val.id+"'>"+val.name+"</option>";
+			$addSelected = "";
+			if ('child' in val) {
+				$.each(val.child, function(index1, val1) {
+					if (val1.name == catName) {
+						$addSelected="selected";
+					}
+					$insert += "<option "+$addSelected+" value='"+val1.id+"'>—"+val1.name+"</option>";
+					$addSelected = "";
+				});
+			}
+		});
+		$select.html($insert);
+	})
+	.fail(function(response) {
+		console.log("error");
+		console.error(response);
+	})
+	.always(function() {
+
+	});
+}
+
+function sendNewCat(catObj)
+{
+	var catJSON = JSON.stringify(catObj);
+
+	var def = new $.Deferred();
+
+	$.ajax({
+		url: '/admin/goods/newcat',
+		type: 'POST',
+		data: {jsonPost: catJSON, action: 'newcat'},
+	})
+	.done(function(response) {
+		console.log("success");
+		def.resolve(response);
+	})
+	.fail(function(response) {
+		console.log("error");
+		def.reject(response);
+	})
+	.always(function() {
+
+	});
+	return def.promise();
 }
 
 function lookNewArchive()
