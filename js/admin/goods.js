@@ -151,7 +151,9 @@ function lookRedCatSelectCat(modal, redBox)
 			});
 			// формируем картинку
 			var $poster = catData.cat.poster;
-
+			if ($poster == '') {
+				$poster = "/img/prod-default-cover.jpg";
+			}
 			redBox.find('.red_cat_body.active').removeClass('active');
 			redBox.find('input#red_nameInput').val(catData.cat.name);
 			redBox.find('select#red_parentInput').html(inputParents);
