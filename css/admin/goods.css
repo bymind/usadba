@@ -726,13 +726,35 @@ button.add_cat:hover, button.add_cat:active{
 button.add_cat.prod_list {
 	width: auto;
 	padding: 0 10px;
-	line-height: 32px;
+	line-height: 28px;
+	font-size: 21px;
 	margin-left: 4px;
-	height: 32px;
+	height: 28px;
 	vertical-align: middle;
 	position: absolute;
 	top: 4px;
 	right: 4px;
+	background: transparent;
+	border: 2px solid #fff;
+	box-sizing: content-box;
+}
+
+button.red_cat.prod_list {
+	width: auto;
+	padding: 0 10px;
+	line-height: 28px;
+	font-size: 14px;
+	color: #fff;
+	margin-left: 4px;
+	height: 28px;
+	vertical-align: middle;
+	position: absolute;
+	top: 4px;
+	right: 50px;
+	background: transparent;
+	border: 2px solid #fff;
+	box-sizing: content-box;
+	border-radius: 4px;
 }
 
 .cat_poster .poster {
@@ -783,4 +805,58 @@ button.add_cat.prod_list {
 
 .checkbox label.disabled {
 	opacity: .4;
+}
+
+.red-cat-modal .cat_links span.catname{
+	display: block;
+	padding: 4px 12px;
+	border: 1px solid #d0d0d0;
+	border-radius: 2px;
+	margin-bottom: 8px;
+	border-left: 2px solid #ccc;
+	background: #ddd;
+	cursor: pointer;
+}
+
+.red-cat-modal .cat_links span.catname.subcat {
+	margin-left: 12px;
+	border-left: 1px solid #ddd;
+	background: #f8f8f8;
+}
+
+.red-cat-modal .cat_links span.catname:hover{
+	border-color: #888;
+}
+
+.red-cat-modal .cat_links span.catname.active{
+	border-color: #444;
+	background: #0c1b23;
+	color: #fff;
+}
+
+.red-cat-modal .red_cat_over {
+	position: relative;
+	background: #eee;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	padding: 8px 16px;
+	min-height: 100px;
+}
+
+.red_cat_over .red_cat_title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+.red_cat_over .red_cat_body {
+	display: none;
+}
+
+.red_cat_over .red_cat_body.active {
+	display: block;
+}
+
+.red_cat_body label {
+	/* font-weight: normal; */
 }

@@ -1,3 +1,4 @@
+<script src="/js/tinymce/tinymce.min.js"></script>
 <script src="/js/admin/main.js"></script>
 <script src="/js/admin/goods.js"></script>
 <div class="main-content">
@@ -99,34 +100,34 @@
 		</div>
 
 		<div class="col-xs-12 col-sm-3">
-			<div class="col-md-12">
-							<div class="settings tags" style="margin-bottom:30px;">
-								<div class="title ">Категории <span class="cat_red">редактировать</span><div class='reset'></div></div>
-								<div class="items cat_links pt-10 pb-20">
-									<?php
-												foreach ($cat_tree['tree'] as $parent => $arr) {
-													$text = $arr['name'];
-													$link = '/admin/goods/archived/'.$arr['id'];
-													if ($arr['id']==$products[0]['cat_id']) {
-														echo "<a class='active' href='$link'>$text</a>";
-													} else
-													echo "<a href='$link'>$text</a>";
-													if (isset($arr['child'])) {
-														foreach ($arr['child'] as $child) {
-															$text = $child['name'];
-															$link = '/admin/goods/archived/'.$child['id'];
-															if ($child['id']==$products[0]['cat_id']) {
-																echo "<a class='active' href='$link'>—$text</a>";
-															} else
-															echo "<a href='$link'>—$text</a>";
-														}
-													}
-												}
-									 ?>
-								</div>
-							</div>
+				<div class="col-md-12">
+					<div class="settings tags" style="margin-bottom:30px;">
+						<div class="title ">Категории <button class="red_cat prod_list" title="Редактировать категории" data-page="prod_list">ред.</button><button class="add_cat prod_list" data-page="prod_list" title="Новая категория">+</button></div>
+						<div class="items cat_links pt-10 pb-20">
+							<?php
+							foreach ($cat_tree['tree'] as $parent => $arr) {
+								$text = $arr['name'];
+								$link = '/admin/goods/cat/'.$arr['id'];
+								if ($arr['id']==$goods[0]['cat_id']) {
+									echo "<a class='active' href='$link'>$text</a>";
+								} else
+								echo "<a href='$link'>$text</a>";
+								if (isset($arr['child'])) {
+									foreach ($arr['child'] as $child) {
+										$text = $child['name'];
+										$link = '/admin/goods/cat/'.$child['id'];
+										if ($child['id']==$goods[0]['cat_id']) {
+											echo "<a class='active' href='$link'>—$text</a>";
+										} else
+										echo "<a href='$link'>—$text</a>";
+									}
+								}
+							}
+							?>
 						</div>
-		</div>
+					</div>
+				</div>
+			</div>
 
 	</div>
 
@@ -137,4 +138,5 @@
 	lookNew();
 	lookDelete();
 	lookUnArchive();
+	articlesEditInit("<?php echo $access_key ?>");
 </script>

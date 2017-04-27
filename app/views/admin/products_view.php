@@ -96,7 +96,7 @@
 			<div class="col-xs-12 col-sm-3">
 				<div class="col-md-12">
 					<div class="settings tags" style="margin-bottom:30px;">
-						<div class="title ">Категории <span class="cat_red">редактировать</span><button class="add_cat prod_list" data-page="prod_list" title="Новая категория">+</button></div>
+						<div class="title ">Категории <button class="red_cat prod_list" title="Редактировать категории" data-page="prod_list">ред.</button><button class="add_cat prod_list" data-page="prod_list" title="Новая категория">+</button></div>
 						<div class="items cat_links pt-10 pb-20">
 							<?php
 							foreach ($cat_tree['tree'] as $parent => $arr) {

@@ -82,13 +82,88 @@ function btnsInit()
 function lookNewCat()
 {
 	$('button.add_cat').on('click', function(event) {
+		var page = $(this).data('page');
 		console.log('hi modal');
 		var modal = $('.new-cat-modal');
 		modal.modal();
+		var insertPosterId = modal.find('input[name=poster]').attr('id');
 		lookCatName(modal);
 		lookParentSelect(modal);
-		lookPosterEdit(modal);
-		lookNewCatSend(modal);
+		lookPosterEdit(modal, insertPosterId);
+		lookNewCatSend(modal, page);
+	});
+}
+
+function lookRedCat()
+{
+	$('button.red_cat').on('click', function(event) {
+		var page = $(this).data('page');
+		console.log('hi modal');
+		var modal = $('.red-cat-modal');
+		var insertPosterId = modal.find('input[name=poster]').attr('id');
+		modal.modal();
+		var redBox = modal.find('.red_cat_over');
+		lookRedCatSelectCat(modal, redBox);
+		// lookCatName(modal);
+		// lookParentSelect(modal);
+		lookPosterEdit(modal, insertPosterId);
+		lookNewCatSend(modal, page);
+	});
+}
+
+function lookRedCatSelectCat(modal, redBox)
+{
+	modal.find('span.catname').unbind('click').on('click', function(event) {
+		event.preventDefault();
+		modal.find('.catname.active').removeClass('active');
+		$(this).addClass('active');
+		var category = {
+			catid: $(this).data('catid'),
+			cattechname: $(this).data('cattechname'),
+			catname: $(this).text()
+		};
+		redBox.find('.red_cat_title').text(category.catname);
+		$.ajax({
+			url: '/admin/goods/getcat/'+category.cattechname,
+			type: 'POST',
+			data: {action: 'getcat'},
+		})
+		.done(function(response) {
+			console.log("success");
+			console.warn($.parseJSON(response));
+			var catData = $.parseJSON(response);
+			// формируем список род. категорий
+			var inputParents = "<option value='0' >Без родителя (родительская категория)</option>";
+			$.each(catData.parents_cats, function(index, val) {
+				if (catData.cat.parent != "0") {
+				redBox.find('select#red_parentInput').prop('disabled', false);
+					if (catData.cat.parent == val.id) {
+						inputParents += "<option selected value='"+val.id+"'>"+val.name+"</option>";
+					} else
+					inputParents += "<option value='"+val.id+"'>"+val.name+"</option>";
+				} else {
+				redBox.find('select#red_parentInput').prop('disabled', true);
+				if (val.id != category.catid) {
+					console.log(val.id+" != "+category.catid);
+					inputParents += "<option value='"+val.id+"'>"+val.name+"</option>";
+				}
+				}
+			});
+			// формируем картинку
+			var $poster = catData.cat.poster;
+
+			redBox.find('.red_cat_body.active').removeClass('active');
+			redBox.find('input#red_nameInput').val(catData.cat.name);
+			redBox.find('select#red_parentInput').html(inputParents);
+			redBox.find('input#red_cat_posterInput').val($poster);
+			redBox.find('img#img-red_cat_posterInput').attr('src',$poster);
+			redBox.find('.red_cat_body').addClass('active');
+		})
+		.fail(function(response) {
+			console.log("error");
+			console.error(response);
+		});
+
 	});
 }
 
@@ -116,11 +191,11 @@ function lookParentSelect(modal)
 	});
 }
 
-function lookPosterEdit(modal)
+function lookPosterEdit(modal, posterId)
 {
 	modal.find('.poster').click(function(event) {
 		var akey = modal.find('a.upload').data('akey');
-		open_popup('/js/responsive_filemanager/filemanager/dialog.php?popup=1&type=2&field_id=cat_posterInput&relative_url=1&akey='+akey);
+		open_popup('/js/responsive_filemanager/filemanager/dialog.php?popup=1&type=2&field_id='+posterId+'&relative_url=1&akey='+akey);
 	});
 }
 
@@ -146,7 +221,7 @@ function lookCatName(modal)
 	});
 }
 
-function lookNewCatSend(modal)
+function lookNewCatSend(modal, page)
 {
 	modal.find('button.btn-submit').unbind('click').on('click', function(event) {
 		event.preventDefault();
@@ -195,7 +270,7 @@ function lookNewCatSend(modal)
 						disabled: false
 					});
 					labelPopular.removeClass('disabled');
-					reloadCatsList(newCat.name, btnSubmit.data('page'));
+					reloadCatsList(newCat.name, page);
 				}
 			}).fail(function(res){
 				console.info(res);
@@ -214,6 +289,7 @@ function lookNewCatSend(modal)
 
 function reloadCatsList(catName, page)
 {
+	console.log(page);
 	switch (page) {
 		case 'prod_item':
 			var $select = $('select#prod-cat');
@@ -254,36 +330,47 @@ function reloadCatsList(catName, page)
 			break;
 
 		case 'prod_list':
-			var $catLinks = $('div.cat_links');
+			var $catListBox = $('div.cat_links');
+			var addCatId = "";
+			if (location.href.split('/')[4] == "goods") {
+				if (location.href.split('/')[5] == "cat") {
+					if (typeof(location.href.split('/')[6] == "string") ) {
+						addCatId = "/"+location.href.split('/')[6];
+					}
+				}
+			}
 			$.ajax({
-				url: '/admin/goods/getcattree',
+				url: '/admin/goods/getcattree_prodlist'+addCatId,
 				type: 'POST',
-				data: {action: 'getcattree'},
+				data: {action: 'prodlist'},
 			})
 			.done(function(response) {
 				console.log("success");
-				$cattree = response;
-				$cattree = $.parseJSON($cattree);
-				console.warn($cattree.tree);
+				$result = response;
+				$result = $.parseJSON($result);
+				var $goods = $result[0];
+				var $cat_tree = $result[1];
 				var $insert = "";
 				var $addSelected = "";
-				$.each($cattree.tree, function(index, val) {
-					if (val.name == catName) {
-						$addSelected="selected";
-					}
-					$insert += "<option "+$addSelected+" value='"+val.id+"'>"+val.name+"</option>";
-					$addSelected = "";
+				$.each($cat_tree.tree, function(index, val) {
+					var $text = val.name;
+					var $link = "/admin/goods/cat/"+val.id;
+					if (val.id == $goods[0].cat_id) {
+						$insert += "<a class='active' href='"+$link+"'>"+$text+"</a>";
+					} else
+						$insert += "<a href='"+$link+"'>"+$text+"</a>";
 					if ('child' in val) {
 						$.each(val.child, function(index1, val1) {
-							if (val1.name == catName) {
-								$addSelected="selected";
-							}
-							$insert += "<option "+$addSelected+" value='"+val1.id+"'>—"+val1.name+"</option>";
-							$addSelected = "";
+							var $text = val1.name;
+							var $link = "/admin/goods/cat/"+val1.id;
+							if (val1.id == $goods[0].cat_id) {
+								$insert += "<a class='active' href='"+$link+"'>—"+$text+"</a>";
+							} else
+								$insert += "<a href='"+$link+"'>—"+$text+"</a>";
 						});
 					}
 				});
-				$select.html($insert);
+				$catListBox.html($insert);
 			})
 			.fail(function(response) {
 				console.log("error");
@@ -774,6 +861,7 @@ function articlesScriptsInit()
 	lookUrlEdit();
 	lookUrlEditOpacity();
 	lookNewCat();
+	lookRedCat();
 }
 
 function lookUrlEditOpacity()

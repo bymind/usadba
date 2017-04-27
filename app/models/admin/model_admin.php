@@ -36,9 +36,9 @@ class Model_Admin extends Model
 		$f = false;
 		if (isset($cat_id)) {
 			$f = true;
-			$select = mysql_query("SELECT p.*, u.id as uid,u.name as uname,c.name as cname,c.tech_name as ctech_name, c.parent as cparent FROM prod_items p LEFT JOIN prod_cat c on p.cat=c.id LEFT JOIN users u on p.author=u.id WHERE (c.id=".$cat_id." OR c.parent=".$cat_id.") AND archived = 0 ORDER BY added_time DESC")or die(mysql_error());
+			$select = mysql_query("SELECT p.*, u.id as uid,u.name as uname,c.name as cname,c.tech_name as ctech_name, c.parent as cparent FROM prod_items p LEFT JOIN prod_cat c on p.cat=c.id LEFT JOIN users u on p.author=u.id WHERE (c.id=".$cat_id." OR c.parent=".$cat_id.") AND p.archived = 0 ORDER BY added_time DESC")or die(mysql_error());
 		} else
-		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE archived = 0 ORDER BY id DESC")or die(mysql_error());
+		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE p.archived = 0 ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['added_time'] = Controller::getGoodDate($r['added_time']);
@@ -66,9 +66,9 @@ class Model_Admin extends Model
 		$f = false;
 		if (isset($cat_id)) {
 			$f = true;
-			$select = mysql_query("SELECT p.*, u.id as uid,u.name as uname,c.name as cname,c.tech_name as ctech_name, c.parent as cparent FROM prod_items p LEFT JOIN prod_cat c on p.cat=c.id LEFT JOIN users u on p.author=u.id WHERE (c.id=".$cat_id." OR c.parent=".$cat_id.") AND archived = 1 ORDER BY added_time DESC")or die(mysql_error());
+			$select = mysql_query("SELECT p.*, u.id as uid,u.name as uname,c.name as cname,c.tech_name as ctech_name, c.parent as cparent FROM prod_items p LEFT JOIN prod_cat c on p.cat=c.id LEFT JOIN users u on p.author=u.id WHERE (c.id=".$cat_id." OR c.parent=".$cat_id.") AND p.archived = 1 ORDER BY added_time DESC")or die(mysql_error());
 		} else
-		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE archived = 1 ORDER BY id DESC")or die(mysql_error());
+		$select = mysql_query("SELECT p.*, u.id as uid, u.name as uname FROM prod_items p LEFT JOIN users u on p.author=u.id WHERE p.archived = 1 ORDER BY id DESC")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['added_time'] = Controller::getGoodDate($r['added_time']);

@@ -146,6 +146,18 @@ class Controller_Admin extends Controller
 				self::adminGetCatTree();
 				break;
 
+
+			case 'getcat':
+				if (!isset($value)) {
+					echo "No category name arrived!";
+				} else
+				self::adminGetCat($value);
+				break;
+
+			case 'getcattree_prodlist':
+				self::adminGetCatTreeProdlist($value);
+				break;
+
 			case 'save':
 				self::adminProductsSave();
 				break;
@@ -193,7 +205,8 @@ class Controller_Admin extends Controller
 							'admin/footer_view.php',
 							array(
 									'admin/modals_main_view.php',
-									'admin/modals_add_cat_view.php'
+									'admin/modals_add_cat_view.php',
+									'admin/modals_red_cat_view.php'
 										)
 							);
 				break;
@@ -296,6 +309,55 @@ class Controller_Admin extends Controller
 		return $jsonCatTree;
 	}
 
+
+/*	 Get categoties (and products) data
+**********************************/
+	function adminGetCat($value)
+	{
+		include_once '/app/models/model_catalog.php';
+		$value = htmlspecialchars($value);
+		$q = mysql_query("SELECT * FROM prod_cat WHERE tech_name='$value'");
+		$categoryData = mysql_fetch_assoc($q);
+		if (!$categoryData) {
+			echo "No such category!";
+			return false;
+		}
+		$catData = Model_Catalog::getCategoryData($value);
+		$jsonCatData = json_encode($catData);
+		echo $jsonCatData;
+		return $jsonCatData;
+	}
+
+/*	 Get categoties (and products) tree for page "prod list"
+**********************************/
+	function adminGetCatTreeProdlist($cat_id=null)
+	{
+		include '/app/models/model_catalog.php';
+		if (isset($cat_id)) {
+			$ds = $this->model->getGoodsLists($cat_id);
+		} else
+		$ds = $this->model->getGoodsLists();
+		$ds = Model::createProdUrl($ds);
+		$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$prod_cats[$buf['id']] = $buf;
+		}
+		unset($q);
+		$cat_tree = $this->model->createCatTree($prod_cats);
+		unset($prod_cats);
+		$result[0] = $ds;
+		$result[1] = $cat_tree;
+		$jsonResult = json_encode($result);
+		echo $jsonResult;
+		return $result;
+		/*
+		$cat_tree = $this->model->getGoodsCatsTree();
+		$jsonCatTree = json_encode($cat_tree);
+		echo $jsonCatTree;
+		return $jsonCatTree;
+		*/
+	}
+
 /*	 PRODUCT NEW
 **********************************/
 	function adminProductsNew()
@@ -328,7 +390,6 @@ class Controller_Admin extends Controller
 							'btns' => array(
 															'post-save new' => 'Сохранить',
 															'post-abort' => 'Отмена',
-															//'post-delete' => 'Удалить',
 															'post-archive btn-archive-new' => 'Сохранить как скрытый',
 															),
 							'Favicon' => 'app/views/admin-favicon.php',

@@ -1,43 +1,75 @@
-<div class="modal fade new-cat-modal" role="dialog" aria-labelledby="newCatModal">
-	<div class="modal-dialog modal-md">
+<div class="modal fade red-cat-modal" role="dialog" aria-labelledby="newCatModal">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="newCatModal">Добавление категории</h4>
+				<h4 class="modal-title" id="newCatModal">Редактирование категорий</h4>
 			</div>
 			<form class="form">
 				<div class="modal-body clearfix">
-				 <div class="form-group col-xs-12 col-sm-6 pl-0">
-					<label for="nameInput">Название категории</label>
-					<input type="text" required name="name" class="form-control" id="nameInput" placeholder="Название">
-				</div>
+					<div class="row mb-0 mt-0">
+						<div class="col-xs-6">
+							<div class="items cat_links pb-20">
+								<?php
+								foreach ($cat_tree['tree'] as $parent => $arr) {
+									$text = $arr['name'];
+									$link = '/admin/goods/cat/'.$arr['id'];
+									/*if ($arr['id']==$goods[0]['cat_id']) {
+										echo "<a class='active' href='$link'>$text</a>";
+									} else*/
+									echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'>$text</span>";
+									if (isset($arr['child'])) {
+										foreach ($arr['child'] as $child) {
+											$text = $child['name'];
+											$link = '/admin/goods/cat/'.$child['id'];
+											/*if ($child['id']==$goods[0]['cat_id']) {
+												echo "<a class='active' href='$link'>—$text</a>";
+											} else*/
+											echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'>$text</span>";
+										}
+									}
+								}
+								?>
+							</div>
+						</div>
+						<div class="col-xs-6 pl-0">
+							<div class="red_cat_over">
+								<div class="red_cat_title mb-10">
+									<i>&larr; выберите категорию</i>
+								</div>
+								<div class="red_cat_body clearfix">
+									<div class="form-group">
+										<label for="nameInput">Название категории</label>
+										<input type="text" required name="name" class="form-control" id="red_nameInput" placeholder="Название">
+									</div>
+									<div class="form-group">
+										<label for="parentInput">Родительская категория</label>
+										<select class="form-control" id="red_parentInput" name="parent">
+											<option value='0' >+ Без родителя (новая главная категория)</option>
+											<?php
+												foreach ($cat_tree['tree'] as $parent => $arr) {
+														echo "<option value='".$arr['id']."'>".$arr['name']."</option>";
+												}
+											?>
+											</select>
+									</div>
+									<div class="form-group col-xs-12 col-sm-6 pl-0 cat_poster">
+										<label for="cat_posterInput">Картинка категории</label>
+											<input type="text" id="red_cat_posterInput" name="poster" value="/img/prod-default-cover.jpg" style="display:none">
+										<div class="poster">
+											<img src="/img/prod-default-cover.jpg" alt="" id="img-red_cat_posterInput" >
+										</div>
+										<div class="controls">
+											<a href="javascript:open_popup('/js/responsive_filemanager/filemanager/dialog.php?popup=1&type=2&field_id=cat_posterInput&relative_url=1&akey=<?php echo $access_key ?>')" data-akey="<?php echo $access_key ?>" class="upload cat-iframe-btn" style="display:none	">заменить</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				<div class="form-group col-xs-12 col-sm-6 pl-0">
 					<label for="tech_nameInput">Техническое имя</label>
 					<input type="text" disabled name="tech_name" class="form-control" id="tech_nameInput" placeholder="заполняется автоматически">
-				</div>
-				<div class="form-group">
-					<label for="parentInput">Родительская категория</label>
-					<select class="form-control" id="parentInput" name="parent">
-						<option value='0' >+ Без родителя (новая главная категория)</option>
-						<?php
-							foreach ($cat_tree['tree'] as $parent => $arr) {
-									echo "<option value='".$arr['id']."'>".$arr['name']."</option>";
-							}
-						?>
-						</select>
-				</div>
-				<div class="form-group col-xs-12 col-sm-6 pl-0 cat_poster">
-					<label for="cat_posterInput">Картинка категории</label>
-						<input type="text" id="cat_posterInput" name="poster" value="/img/prod-default-cover.jpg">
-					<div class="poster">
-						<img src="/img/prod-default-cover.jpg" alt="" id="img-cat_posterInput">
-					</div>
-					<div class="controls">
-						<!-- <a href="/js/responsive_filemanager/filemanager/dialog.php?type=2&field_id=cat_posterInput&relative_url=1&akey=<?php echo $access_key ?>" class="upload cat-iframe-btn">заменить</a> -->
-						<a href="javascript:open_popup('/js/responsive_filemanager/filemanager/dialog.php?popup=1&type=2&field_id=cat_posterInput&relative_url=1&akey=<?php echo $access_key ?>')" data-akey="<?php echo $access_key ?>" class="upload cat-iframe-btn" style="display:none	">заменить</a>
-						<!-- <div class="delete">удалить</div> -->
-					</div>
-					<!-- <input type="text" disabled name="tech_name" class="form-control" id="tech_nameInput" placeholder="заполняется автоматически"> -->
 				</div>
 				<div class="col-xs-12 col-sm-6 pl-0">
 					<div class="form-group col-xs-12 pl-0">
