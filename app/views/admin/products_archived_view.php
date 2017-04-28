@@ -8,7 +8,7 @@
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
 			<h4 class="blocked">
-				<a href="/admin/goods" class="disabled">
+				<a href="<?php echo $publicLink; ?>" class="disabled">
 				Опубликованные
 				</a>
 			</h4>
@@ -107,16 +107,16 @@
 							<?php
 							foreach ($cat_tree['tree'] as $parent => $arr) {
 								$text = $arr['name'];
-								$link = '/admin/goods/cat/'.$arr['id'];
-								if ($arr['id']==$goods[0]['cat_id']) {
+								$link = '/admin/goods/archived/'.$arr['id'];
+								if ($arr['id']==$products[0]['cat_id']) {
 									echo "<a class='active' href='$link'>$text</a>";
 								} else
 								echo "<a href='$link'>$text</a>";
 								if (isset($arr['child'])) {
 									foreach ($arr['child'] as $child) {
 										$text = $child['name'];
-										$link = '/admin/goods/cat/'.$child['id'];
-										if ($child['id']==$goods[0]['cat_id']) {
+										$link = '/admin/goods/archived/'.$child['id'];
+										if ($child['id']==$products[0]['cat_id']) {
 											echo "<a class='active' href='$link'>—$text</a>";
 										} else
 										echo "<a href='$link'>—$text</a>";

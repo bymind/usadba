@@ -167,11 +167,13 @@ class Controller_Admin extends Controller
 				include '/app/models/model_catalog.php';
 				$actual_title = 'Товары';
 				$title= ' - Товары';
+				$archivedLink = "/admin/goods/archived";
 				if (isset($value)) {
 					$ds = $this->model->getGoodsLists($value);
 					$actual_title = "<a href='/admin/goods'>Товары (все)</a>";
 					$second_title = $ds[0]['cat_title'];
 					$title .= " - ".$second_title;
+					$archivedLink = "/admin/goods/archived/".$value;
 				} else
 				$ds = $this->model->getGoodsLists();
 				$ds = Model::createProdUrl($ds);
@@ -186,10 +188,10 @@ class Controller_Admin extends Controller
 							'admin/products_view.php',
 							'admin/template_admin_view.php',
 							array(
+									'archivedLink' => $archivedLink,
 									'title'=>$title,
 									'style'=>'admin/template.css',
 									'style_content'=>'admin/goods.css',
-
 									'goods'=>$ds,
 									'cat_tree'=>$cat_tree,
 									'active_menu_item' => 'goods',
@@ -250,8 +252,14 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminProductsArchived($cat_id=null)
 	{
+		$publicLink = "/admin/goods";
+		$title = " - Скрытые товары";
 		if (isset($cat_id)) {
 			$prods = $this->model->getGoodsPostsArchived($cat_id);
+			$publicLink .= "/cat/".$cat_id;
+			$actual_title = "<a href='/admin/goods/'>Товары (все)</a>";
+			$second_title = $prods[0]['cat_title'];
+			$title .= " - ".$second_title;
 		} else
 		$prods = $this->model->getGoodsPostsArchived();
 		$prods = Model::createProdUrl($prods);
@@ -260,12 +268,15 @@ class Controller_Admin extends Controller
 					'admin/products_archived_view.php',
 					'admin/template_admin_view.php',
 					array(
-							'title'=>' - Скрытые товары',
+							'publicLink' => $publicLink,
+							'title'=>$title,
+							'second_title'=>$second_title,
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/goods.css',
 							'products'=>$prods,
 							'active_menu_item' => 'goods',
-							'actual_title' => 'Товары (скрытые)',
+							'actual_title' => $actual_title,
+							'access_key' => $_SESSION['user']['access_key'],
 							'cat_tree' => $cat_tree,
 							'btns' => array(
 															'new-post' => 'Добавить товар',
@@ -274,7 +285,11 @@ class Controller_Admin extends Controller
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',
-					'admin/modals_main_view.php'
+					array(
+								'admin/modals_main_view.php',
+								'admin/modals_add_cat_view.php',
+								'admin/modals_red_cat_view.php'
+								)
 					);
 	}
 

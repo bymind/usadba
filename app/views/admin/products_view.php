@@ -11,7 +11,7 @@
 					Опубликованные
 				</h1>
 				<h4 class="blocked">
-					<a href="/admin/goods/archived" class="disabled">
+					<a href="<?php echo $archivedLink; ?>" class="disabled">
 						Скрытые
 					</a>
 				</h4>

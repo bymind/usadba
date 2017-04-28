@@ -103,11 +103,21 @@ function lookRedCat()
 		var insertPosterId = modal.find('input[name=poster]').attr('id');
 		modal.modal();
 		var redBox = modal.find('.red_cat_over');
+		lookBtnMoveClick(modal, redBox);
 		lookRedCatSelectCat(modal, redBox);
 		// lookCatName(modal);
 		// lookParentSelect(modal);
 		lookPosterEdit(modal, insertPosterId);
 		lookNewCatSend(modal, page);
+	});
+}
+
+function lookBtnMoveClick(modal, redBox)
+{
+	modal.find('span div.move').unbind('click').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		console.log($(this).attr('class'));
 	});
 }
 
@@ -120,7 +130,7 @@ function lookRedCatSelectCat(modal, redBox)
 		var category = {
 			catid: $(this).data('catid'),
 			cattechname: $(this).data('cattechname'),
-			catname: $(this).text()
+			catname: $(this).find('span').text()
 		};
 		redBox.find('.red_cat_title').text(category.catname);
 		$.ajax({

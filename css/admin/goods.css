@@ -834,6 +834,35 @@ button.red_cat.prod_list {
 	color: #fff;
 }
 
+.cat_links span.catname div.move {
+	position: relative;
+	float: right;
+	width: 20px;
+	height: 20px;
+	background: #888;
+	border-radius: 2px;
+	margin: 0 4px;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 900;
+	opacity: .8;
+	border: 1px solid #888;
+}
+
+.cat_links span.catname div.move:hover {
+	opacity: 1;
+	border-color: #666;
+}
+
+.cat_links span.catname div.move.up {
+
+}
+
+.cat_links span.catname div.move.down {
+
+}
+
 .red-cat-modal .red_cat_over {
 	position: relative;
 	background: #eee;

@@ -28,9 +28,8 @@
 	display: inline-block;
 	float: left;
 	width: 90px;
-
 	background-color: transparent;
-
+	margin-bottom: 0;
 	z-index: 2;
 	height: 50px;
 

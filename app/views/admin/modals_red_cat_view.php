@@ -11,21 +11,43 @@
 						<div class="col-xs-6">
 							<div class="items cat_links pb-20">
 								<?php
+								$i = 0;
+								$len = count($cat_tree['tree']) - 1;
 								foreach ($cat_tree['tree'] as $parent => $arr) {
 									$text = $arr['name'];
 									$link = '/admin/goods/cat/'.$arr['id'];
-									/*if ($arr['id']==$goods[0]['cat_id']) {
-										echo "<a class='active' href='$link'>$text</a>";
-									} else*/
-									echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'>$text</span>";
+									if ($i>0 && $i<$len) {
+										echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'><span>$text</span><div class='move down' title='Переместить ниже'>&darr;</div><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+									} else
+									if ($i == 0 && $len == 0) {
+										echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'><span>$text</span></span>";
+									} else
+									if ($i == 0) {
+										echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'><span>$text</span><div class='move down' title='Переместить ниже'>&darr;</div></span>";
+									} else
+									if ($i==$len) {
+										echo "<span class='catname' data-catid='".$arr['id']."' data-cattechname='".$arr['tech_name']."'><span>$text</span><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+									}
+									$i++;
 									if (isset($arr['child'])) {
+									$ii = 0;
+									$llen = count($arr['child']) - 1;
 										foreach ($arr['child'] as $child) {
 											$text = $child['name'];
 											$link = '/admin/goods/cat/'.$child['id'];
-											/*if ($child['id']==$goods[0]['cat_id']) {
-												echo "<a class='active' href='$link'>—$text</a>";
-											} else*/
-											echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'>$text</span>";
+											if ($ii>0 && $ii<$llen) {
+												echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'><span>$text</span><div class='move down' title='Переместить ниже'>&darr;</div><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+											} else
+											if ($ii == 0 && $llen == 0) {
+												echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'><span>$text</span></span>";
+											} else
+											if ($ii == 0) {
+												echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'><span>$text</span><div class='move down' title='Переместить ниже'>&darr;</div></span>";
+											} else
+											if ($ii==$llen) {
+												echo "<span class='catname subcat' data-catid='".$child['id']."' data-cattechname='".$child['tech_name']."'><span>$text</span><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+											}
+											$ii++;
 										}
 									}
 								}
