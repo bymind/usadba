@@ -313,6 +313,19 @@ function MenuClickInit()
 		$(this).parent('li').children('ul.side-sub-menu').toggleClass('opened');
 	});
 
+	$(document).click(function(event) {
+			// if ($(event.target).parents(".menu_text_units").length) {
+				if ($(event.target).closest(".menu_text_units>li").length) return;
+				// event.preventDefault();
+				var $arrow = $('.menu_text_units .arrow.active');
+				$arrow.toggleClass('active');
+				$arrow.parent('li').toggleClass('active');
+				$arrow.children('ul.else-ul').toggleClass('hide-else-ul');
+				$arrow.parent('li').children('ul.side-sub-menu').toggleClass('opened');
+				event.stopPropagation();
+			// }
+		});
+
 	return 0;
 }
 
