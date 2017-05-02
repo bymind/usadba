@@ -80,6 +80,10 @@
 	background: url(AjaxLoader.gif) no-repeat center center
 }
 
+.sales-theme .owl-item {
+	backface-visibility: inherit;
+}
+
 .sales-theme .item {
 	position: relative;
 	display: block;
