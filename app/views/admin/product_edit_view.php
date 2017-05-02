@@ -15,8 +15,9 @@
 					<label for="post-title" class="post-label">Название товара</label>
 					<input type="text" id="post-title" placeholder="Например, очень вкусный пирожок" value="<?php echo $post['title'] ?>">
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 mb-xs-10 pl-0 col-sm-4">
 					<label for="prod-cat" class="post-label">Категория товара</label>
+					<div class="col-xs-10 pl-0">
 					<select class="form-control" id="prod-cat">
 					<?php
 																	foreach ($cat_tree['tree'] as $parent => $arr) {
@@ -35,6 +36,10 @@
 																	}
 														 ?>
 					</select>
+					</div>
+					<div class="col-xs-2 pl-0">
+						<button class="add_cat" data-page="prod_item" title="Новая категория">+</button>
+					</div>
 				</div>
 			</div>
 
