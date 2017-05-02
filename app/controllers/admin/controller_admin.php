@@ -507,7 +507,10 @@ class Controller_Admin extends Controller
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',
-					'admin/modals_main_view.php'
+					array(
+							'admin/modals_main_view.php',
+							'admin/modals_add_cat_view.php'
+								)
 					);
 	}
 
