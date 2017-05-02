@@ -196,7 +196,7 @@ class Model_Admin extends Model
 		$author = $_SESSION['user']['id'];
 		$sql = "UPDATE prod_items SET art = '$art', cat = '$cat', name = '$name', tech_name = '$tech_name', images = '$images', mini_desc = '$mini_desc', description = '$description', author = '$author', price = '$price', labels = '$labels', weight='$weight', country = '$country', stor_cond = '$stor_cond', nut_val = '$nut_val', energy_val='$energy_val', consist = '$consist' WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
-		echo "Статья сохранена";
+		echo "Позиция сохранена";
 	}
 
 
