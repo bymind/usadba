@@ -244,8 +244,10 @@ class Model
 	{
 		foreach ($catArr as &$cat) {
 			$cat_path = $cat['tech_name'];
-			if ($cat['parent'] > 0) {
-				$cat_path = $catArr[ $cat['parent'] ]['tech_name']."/".$cat_path;
+			if (isset($cat['parent'])) {
+				if ($cat['parent'] > 0) {
+					$cat_path = $catArr[ $cat['parent'] ]['tech_name']."/".$cat_path;
+				}
 			}
 			$cat['url'] = "/catalog/".$cat_path;
 		}

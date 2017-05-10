@@ -19,10 +19,10 @@
 
 <?php
 	foreach ($prodCats as $prodCat) {
-		if ($prodCat['show_big']==1) {
+		if ( ($prodCat['show_big']==1) && ($prodCat['parent'] == '0')) {
 ?>
 
-			<div class="col-xs-6 col-sm-3 mb-20 mb-xs-10">
+			<div class="col-xs-6 col-sm-3 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
 				<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
 					<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
 					<div class="title-cat">
@@ -33,6 +33,22 @@
 
 <?php
 		}
+	}
+	foreach ($prodCats as $prodCat) {
+				if (($prodCat['show_big']==1) && ($prodCat['parent'] != '0') ) {
+		?>
+
+					<div class="col-xs-6 col-sm-3 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
+						<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
+							<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
+							<div class="title-cat">
+								<?= $prodCat['name']; ?>
+							</div>
+						</div>
+			</div>
+
+		<?php
+				}
 	}
 ?>
 

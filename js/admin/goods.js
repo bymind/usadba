@@ -105,20 +105,97 @@ function lookRedCat()
 		var redBox = modal.find('.red_cat_over');
 		lookBtnMoveClick(modal, redBox);
 		lookRedCatSelectCat(modal, redBox);
-		// lookCatName(modal);
-		// lookParentSelect(modal);
+		lookRedCatName(modal);
+		lookBtnDeleteClick(modal, redBox);
 		lookPosterEdit(modal, insertPosterId);
-		lookNewCatSend(modal, page);
+		lookRedCatSend(modal, page);
 	});
 }
 
 function lookBtnMoveClick(modal, redBox)
 {
-	modal.find('span div.move').unbind('click').on('click', function(event) {
+	modal.find('span div.move').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
 		console.log($(this).attr('class'));
 	});
+}
+
+function lookBtnDeleteClick(modal, redBox)
+{
+	modal.find('span button.delete-cat').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		var delModal = $('.del-cat-modal');
+		var catData = $(this).parent().data();
+		catData.name = $(this).parent().find('span').eq(0).text();
+		delModal.find('.modal-title span').text(catData.name);
+		delModal.find('.modal-footer .btn-delete-cat').attr('data-catid',catData.catid);
+		delModal.modal();
+		lookDelTypeChoose(delModal, catData);
+	});
+}
+
+function lookDelTypeChoose(modal, cat)
+{
+	modal.find('input[name=del_type]').on('change', function(event) {
+		if (modal.find('input[name=del_type]').eq(0).prop('checked')) {
+			modal.find('.moveto-cat-box').addClass('unactive');
+		} else
+			modal.find('.moveto-cat-box').removeClass('unactive');
+	});
+	if (cat.parent == "0") {
+		modal.find('.if-parent').addClass('active');
+	} else
+		modal.find('.if-parent').removeClass('active');
+	var $cats = modal.find('#moveto-cat option');
+	$cats.prop('disabled', false).prop('selected', false).attr('title', '');
+	$.each($cats, function(index, val) {
+			if ($(val).val() ==cat.catid) {
+				$cats.eq(index).prop('disabled', true).attr('title', 'Нельзя переместить позиции в категорию, которую удаляешь').css('cursor', 'not-allowed');
+			}
+			if ($(val).val() == cat.parent) {
+				$cats.eq(index).prop('selected', true);
+			}
+	});
+	modal.on('hidden.bs.modal', function(event) {
+		$('body').addClass('modal-open');
+	});
+	modal.find('select#moveto-cat').on('change', function(event) {
+		event.preventDefault();
+		$(this).parents('.form-group').removeClass('has-error').find('span.substring').remove();
+	});
+	var delBtn = modal.find('.modal-footer .btn-delete-cat');
+	delBtn.unbind('click').on('click', function(event) {
+		event.preventDefault();
+			if (modal.find('input[name=del_type]').eq(0).prop('checked')) { // delete with all items
+				deleteCatAll(cat);
+			} else
+			if (modal.find('input[name=del_type]').eq(1).prop('checked')) { // delete with move to another category
+				if (cat.parent == "0") {
+
+					if ($('#moveto-cat').val() == null) {
+						$('#moveto-cat').parents('.form-group').addClass('has-error').append('<span style="left:24px" class="substring red">Выберите категорию для переноса товаров</span>');
+					} else {
+						var moveTo = $('#moveto-cat').val();
+						deleteCatMove(cat, moveTo);
+					}
+				} else {
+					var moveTo = $('#moveto-cat').val();
+					deleteCatMove(cat, moveTo);
+				}
+			}
+	});
+}
+
+function deleteCatAll(cat)
+{
+	console.log('delete all in category '+cat.name);
+}
+
+function deleteCatMove(cat, moveto)
+{
+	console.log('delete category '+cat.name+' and move to cat with id '+moveto);
 }
 
 function lookRedCatSelectCat(modal, redBox)
@@ -147,14 +224,18 @@ function lookRedCatSelectCat(modal, redBox)
 			$.each(catData.parents_cats, function(index, val) {
 				if (catData.cat.parent != "0") {
 				redBox.find('select#red_parentInput').prop('disabled', false);
+				redBox.find('input#red_show_popular').parents('label').addClass('disabled');
+				redBox.find('input#red_show_popular').prop('clicked', false);
+				redBox.find('input#red_show_popular').prop('disabled', true);
 					if (catData.cat.parent == val.id) {
 						inputParents += "<option selected value='"+val.id+"'>"+val.name+"</option>";
 					} else
 					inputParents += "<option value='"+val.id+"'>"+val.name+"</option>";
 				} else {
 				redBox.find('select#red_parentInput').prop('disabled', true);
+				redBox.find('input#red_show_popular').prop('disabled', false);
+				redBox.find('input#red_show_popular').parents('label').removeClass('disabled');
 				if (val.id != category.catid) {
-					console.log(val.id+" != "+category.catid);
 					inputParents += "<option value='"+val.id+"'>"+val.name+"</option>";
 				}
 				}
@@ -166,10 +247,21 @@ function lookRedCatSelectCat(modal, redBox)
 			}
 			redBox.find('.red_cat_body.active').removeClass('active');
 			redBox.find('input#red_nameInput').val(catData.cat.name);
+			redBox.find('input#red_idInput').val(catData.cat.id);
+			redBox.find('input#tech_nameInput').val(catData.cat.tech_name);
+			redBox.find('input#red_positionInput').val(catData.cat.position);
 			redBox.find('select#red_parentInput').html(inputParents);
 			redBox.find('input#red_cat_posterInput').val($poster);
 			redBox.find('img#img-red_cat_posterInput').attr('src',$poster);
 			redBox.find('.red_cat_body').addClass('active');
+			if (catData.cat.show_big == '1') {
+				redBox.find('input#red_show_big').prop('checked', true);
+			} else
+				redBox.find('input#red_show_big').prop('checked', false);
+			if (catData.cat.show_popular=='1') {
+				redBox.find('input#red_show_popular').prop('checked', true);
+			} else
+				redBox.find('input#red_show_popular').prop('checked', false);
 		})
 		.fail(function(response) {
 			console.log("error");
@@ -214,6 +306,28 @@ function lookPosterEdit(modal, posterId)
 function lookCatName(modal)
 {
 	var inputName = modal.find('input#nameInput');
+	inputName.on( 'keyup', function(event) {
+		if(event.keyCode == 13){
+				event.preventDefault();
+				console.info('enter submit stopped');
+		} else {
+			$(this).parents('.form-group').removeClass('has-error');
+			$(this).parents('.form-group').find('.substring.red').remove();
+			var techNameObj = modal.find('input#tech_nameInput');
+			var inputText = $(this).val();
+			$text = transliterate(inputText);
+			techNameObj.val($text);
+		}
+	});
+	modal.find('form').on('submit', function(event) {
+		event.preventDefault();
+		console.info('submit stopped');
+	});
+}
+
+function lookRedCatName(modal)
+{
+	var inputName = modal.find('input#red_nameInput');
 	inputName.on( 'keyup', function(event) {
 		if(event.keyCode == 13){
 				event.preventDefault();
@@ -299,6 +413,154 @@ function lookNewCatSend(modal, page)
 	});
 }
 
+function lookRedCatSend(modal, page)
+{
+	modal.find('button.btn-save-red').unbind('click').on('click', function(event) {
+		event.preventDefault();
+		var form = modal.find('form');
+		var btnSubmit = form.find('button.btn-save-red');
+		if (form.find('input[name=name]').val() == "") {
+			$(this).addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+			setTimeout(function(){
+				btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Сохранить изменения');
+			},2000);
+			var formGroup = form.find('input[name=name]').parents('.form-group');
+			formGroup.addClass('has-error');
+			formGroup.append('<span class="substring red">Введите название категории</span>');
+		} else {
+			var newCat = {};
+			newCat.id = form.find('input[name=id]').val();
+			newCat.name = form.find('input[name=name]').val();
+			newCat.tech_name = form.find('input[name=tech_name]').val();
+			newCat.parent = form.find('select[name=parent]').val();
+			newCat.position = form.find('input#red_positionInput').val();
+			newCat.poster = form.find('input[name=poster]').val();
+			newCat.show_big = form.find('input#red_show_big').prop('checked') + 0;
+			newCat.show_popular = form.find('input#red_show_popular').prop('checked') + 0;
+			console.log(newCat);
+			btnSubmit.attr('disabled', 'disabled');
+			$.when(sendRedCat(newCat)).done(function(res){
+				if (res!="Категория сохранена") {
+					console.info(res);
+					btnSubmit.addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+					setTimeout(function(){
+						btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Сохранить изменения');
+						btnSubmit.prop('disabled', false);
+					},2000);
+					var formGroup = form.find('input[name=name]').parents('.form-group');
+					formGroup.addClass('has-error');
+					formGroup.append('<span class="substring red">'+res+'</span>');
+				} else {
+					// Категория добавлена
+					console.info(res);
+					btnSubmit.prop('disabled', false);
+					// form.trigger('reset');
+					// modal.modal('hide');
+					// form.find('.poster img').attr('src', form.find('input#cat_posterInput').val());
+					// var inputPopular = form.find('input#show_popular');
+					// var labelPopular = inputPopular.parents('label');
+					// inputPopular.prop({
+					// 	checked: true,
+					// 	disabled: false
+					// });
+					// labelPopular.removeClass('disabled');
+					reloadModalCatsList(newCat.name, page);
+					reloadCatsList(newCat.name, page);
+				}
+			}).fail(function(res){
+				console.info(res);
+				btnSubmit.addClass('btn-danger').removeClass('btn-default').text('Ошибка');
+				setTimeout(function(){
+					btnSubmit.removeClass('btn-danger').addClass('btn-default').text('Сохранить изменения');
+					btnSubmit.prop('disabled', false);
+				},2000);
+				var formGroup = form.find('input[name=name]').parents('.form-group');
+				formGroup.addClass('has-error');
+				formGroup.append('<span class="substring red">'+res+'</span>');
+			});
+		}
+	});
+}
+
+function reloadModalCatsList(catName, page)
+{
+	console.log(page);
+	switch (page) {
+		case 'prod_item':
+			console.log('nope');
+			break;
+
+		case 'prod_list':
+			var $catListBox = $('.red-cat-modal div.cat_links');
+			var addCatId = "";
+			$.ajax({
+				url: '/admin/goods/getcattree_prodlist',
+				type: 'POST',
+				data: {action: 'prodlist'},
+			})
+			.done(function(response) {
+				console.log("reload modal cat list success");
+				$result = response;
+				$result = $.parseJSON($result);
+				var $goods = $result[0];
+				var $cat_tree = $result[1];
+				var $insert = "";
+				var $addSelected = "";
+				var $i = 0;
+				// var $len = $cat_tree.tree.length -1;
+				var $len = Object.keys($cat_tree.tree).length -1;
+				$.each($cat_tree.tree, function(index, arr) {
+					var $text = arr.name;
+					var $link = "/admin/goods/cat/"+arr.id;
+					if ($i>0 && $i<$len) {
+						$insert += "<span class='catname' data-catid='"+arr.id+"' data-parent='"+arr.parent+"' data-cattechname='"+arr.tech_name+"' data-position='"+arr.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move down' title='Переместить ниже'>&darr;</div><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+					} else
+					if ($i == 0 && $len == 0) {
+						$insert += "<span class='catname' data-catid='"+arr.id+"' data-parent='"+arr.parent+"' data-cattechname='"+arr.tech_name+"' data-position='"+arr.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button></span>";
+					} else
+					if ($i==0) {
+						$insert += "<span class='catname' data-catid='"+arr.id+"' data-parent='"+arr.parent+"' data-cattechname='"+arr.tech_name+"' data-position='"+arr.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move down' title='Переместить ниже'>&darr;</div></span>";
+					} else
+					if ($i==$len) {
+						$insert += "<span class='catname' data-catid='"+arr.id+"' data-parent='"+arr.parent+"' data-cattechname='"+arr.tech_name+"' data-position='"+arr.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+					}
+					$i++;
+					if ('child' in arr) {
+						var $ii = 0;
+						var $llen = arr.child.length -1;
+						$.each(arr.child, function(index1, arr1) {
+							$text = arr1.name;
+							$link = '/admin/goods/cat/'+arr1.id;
+							if ($ii>0 && $ii<$llen) {
+								$insert += "<span class='catname subcat' data-catid='"+arr1.id+"' data-parent='"+arr1.parent+"' data-cattechname='"+arr1.tech_name+"' data-position='"+arr1.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move down' title='Переместить ниже'>&darr;</div><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+							} else
+							if ($ii == 0 && $llen == 0) {
+								$insert += "<span class='catname subcat' data-catid='"+arr1.id+"' data-parent='"+arr1.parent+"' data-cattechname='"+arr1.tech_name+"' data-position='"+arr1.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button></span>";
+							} else
+							if ($ii==0) {
+								$insert += "<span class='catname subcat' data-catid='"+arr1.id+"' data-parent='"+arr1.parent+"' data-cattechname='"+arr1.tech_name+"' data-position='"+arr1.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move down' title='Переместить ниже'>&darr;</div></span>";
+							} else
+							if ($ii==$llen) {
+								$insert += "<span class='catname subcat' data-catid='"+arr1.id+"' data-parent='"+arr1.parent+"' data-cattechname='"+arr1.tech_name+"' data-position='"+arr1.position+"'><span>"+$text+"</span><button type='button' class='btn btn-default delete-cat' aria-label='Удалить'><span class='glyphicon glyphicon-remove-circle' title='Удалить' aria-hidden='true'></span></button><div class='move up' title='Переместить выше'>&uarr;</div></span>";
+							}
+							$ii++;
+						});
+					}
+				});
+				$catListBox.html($insert);
+				lookRedCatSelectCat($('.red-cat-modal'), $('.red-cat-modal div.red_cat_over'));
+				lookBtnMoveClick($('.red-cat-modal'), $('.red-cat-modal div.red_cat_over'));
+				$('.red-cat-modal div.red_cat_over .red_cat_body').removeClass('active');
+				$('.red-cat-modal div.red_cat_over .red_cat_title').html('<span>Сохранено!</span>');
+			})
+			.fail(function(response) {
+				console.log("error");
+				console.error(response);
+			});
+			break;
+	}
+}
+
 function reloadCatsList(catName, page)
 {
 	console.log(page);
@@ -342,7 +604,7 @@ function reloadCatsList(catName, page)
 			break;
 
 		case 'prod_list':
-			var $catListBox = $('div.cat_links');
+			var $catListBox = $('div.tags div.cat_links');
 			var addCatId = "";
 			if (location.href.split('/')[4] == "goods") {
 				if (location.href.split('/')[5] == "cat") {
@@ -390,6 +652,30 @@ function reloadCatsList(catName, page)
 			});
 			break;
 	}
+}
+
+function sendRedCat(catObj)
+{
+	var catJSON = JSON.stringify(catObj);
+
+	var def = new $.Deferred();
+
+	$.ajax({
+		url: '/admin/goods/redcat',
+		type: 'POST',
+		data: {jsonPost: catJSON, action: 'redcat'},
+	})
+	.done(function(response) {
+		def.resolve(response);
+	})
+	.fail(function(response) {
+		console.log("error");
+		def.reject(response);
+	})
+	.always(function() {
+
+	});
+	return def.promise();
 }
 
 function sendNewCat(catObj)

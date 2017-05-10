@@ -889,3 +889,90 @@ button.red_cat.prod_list {
 .red_cat_body label {
 	/* font-weight: normal; */
 }
+
+button.delete-cat {
+	padding: 0;
+	padding-top: 0px;
+	position: relative;
+	float: right;
+	display: block;
+	font-size: 20px;
+	box-sizing: border-box;
+	margin: 0 5px;
+	height: 20px;
+	width: 20px;
+	border: 0;
+	border-radius: 2px;
+	vertical-align: middle;
+	line-height: 20px;
+	background: transparent;
+	opacity: .7;
+	color: #F44336;
+}
+
+button.delete-cat:hover {
+	opacity: 1;
+	background: transparent;
+	color: #e53935;
+}
+
+button.delete-cat.active, button.delete-cat:active, button.delete-cat:focus, button.delete-cat:active:hover, button.delete-cat:active:focus{
+	background: rgba(255,255,255,.1);
+	color: #e53935;
+}
+
+button.delete-cat span.glyphicon {
+	line-height: 20px;
+	display: block;
+	position: relative;
+	vertical-align: top;
+	top: 0;
+}
+
+.red-cat-modal .cat_links{
+	max-height: 425px;
+	overflow-y: auto;
+	padding: 0 5px 0 0;
+}
+
+form.del-cat .form-group.if-parent{
+	display: none;
+}
+
+form.del-cat .form-group.if-parent.active {
+	display: block;
+}
+
+form.del-cat .btn-group{
+	width: 100%;
+}
+
+form.del-cat label.btn{
+	width: 50%;
+}
+
+form.del-cat label.btn.active {
+}
+
+form.del-cat label.btn.active::before{
+	position: absolute;
+	display: block;
+	content: '\2714';
+	font-size: 20px;
+	color: #fff;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	left: 5px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.form-group.moveto-cat-box{
+	display: block;
+}
+
+.form-group.moveto-cat-box.unactive{
+	display: none;
+}

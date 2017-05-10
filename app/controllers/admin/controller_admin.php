@@ -142,6 +142,10 @@ class Controller_Admin extends Controller
 				self::adminProductsNewCat();
 				break;
 
+			case 'redcat':
+				self::adminProductsRedCat();
+				break;
+
 			case 'getcattree':
 				self::adminGetCatTree();
 				break;
@@ -164,7 +168,7 @@ class Controller_Admin extends Controller
 
 			case 'cat':
 			case 'default':
-				include '/app/models/model_catalog.php';
+				include 'app/models/model_catalog.php';
 				$actual_title = 'Товары';
 				$title= ' - Товары';
 				$archivedLink = "/admin/goods/archived";
@@ -329,7 +333,7 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminGetCat($value)
 	{
-		include_once '/app/models/model_catalog.php';
+		include 'app/models/model_catalog.php';
 		$value = htmlspecialchars($value);
 		$q = mysql_query("SELECT * FROM prod_cat WHERE tech_name='$value'");
 		$categoryData = mysql_fetch_assoc($q);
@@ -347,7 +351,7 @@ class Controller_Admin extends Controller
 **********************************/
 	function adminGetCatTreeProdlist($cat_id=null)
 	{
-		include '/app/models/model_catalog.php';
+		include 'app/models/model_catalog.php';
 		if (isset($cat_id)) {
 			$ds = $this->model->getGoodsLists($cat_id);
 		} else
@@ -418,6 +422,31 @@ class Controller_Admin extends Controller
 					);
 		unset($addLink);
 	}
+
+
+/*	 PRODUCT edit CATEGORY
+**********************************/
+	function adminProductsRedCat()
+	{
+		if (!isset($_POST['action'])) {
+			return "Не указан параметр action";
+		}
+		if (!isset($_POST['jsonPost'])) {
+			return "Параметры не переданы";
+		}
+		switch ($_POST['action']) {
+			case 'redcat':
+					$catArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->redCat($catArrive);
+				break;
+
+			default:
+				return false;
+				break;
+		}
+
+	}
+
 
 
 /*	 PRODUCT NEW CATEGORY

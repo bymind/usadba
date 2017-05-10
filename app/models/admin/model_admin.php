@@ -333,6 +333,27 @@ class Model_Admin extends Model
 
 
 	/*
+	redCat($cat)
+	Редактирование категории
+	$cat [assoc array] - массив с информацией о категории
+	*/
+	public function redCat($cat)
+	{
+		extract($cat);
+		$name = htmlspecialchars($name);
+		$tech_name = htmlspecialchars($tech_name);
+		$checkName = "SELECT * FROM prod_cat WHERE (name = '$name' OR tech_name='$tech_name') AND (id != '$id')";
+		if (mysql_num_rows(mysql_query($checkName)) > 0) {
+			echo "Категория с таким именем уже существует!";
+		} else {
+				$sql = "UPDATE prod_cat SET name='$name', tech_name='$tech_name', parent='$parent', poster='$poster', show_big='$show_big', position='$position', show_popular='$show_popular' WHERE id='$id' ";
+			mysql_query($sql) or die(mysql_error());
+			echo "Категория сохранена";
+		}
+	}
+
+
+	/*
 	addCat($cat)
 	Добавить новую категорию
 	$cat [assoc array] - массив с информацией о категории
