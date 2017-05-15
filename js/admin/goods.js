@@ -104,9 +104,9 @@ function lookRedCat()
 		modal.modal();
 		var redBox = modal.find('.red_cat_over');
 		lookBtnMoveClick(modal, redBox);
+		lookBtnDeleteClick(modal, redBox);
 		lookRedCatSelectCat(modal, redBox);
 		lookRedCatName(modal);
-		lookBtnDeleteClick(modal, redBox);
 		lookPosterEdit(modal, insertPosterId);
 		lookRedCatSend(modal, page);
 	});
@@ -123,12 +123,13 @@ function lookBtnMoveClick(modal, redBox)
 
 function lookBtnDeleteClick(modal, redBox)
 {
-	modal.find('span button.delete-cat').on('click', function(event) {
+	modal.find('span.glyphicon-remove-circle').unbind('click').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
+		console.log('to delete');
 		var delModal = $('.del-cat-modal');
-		var catData = $(this).parent().data();
-		catData.name = $(this).parent().find('span').eq(0).text();
+		var catData = $(this).parents('button').parent().data();
+		catData.name = $(this).parents('button').parent().find('span').eq(0).text();
 		delModal.find('.modal-title span').text(catData.name);
 		delModal.find('.modal-footer .btn-delete-cat').attr('data-catid',catData.catid);
 		delModal.modal();
@@ -138,6 +139,7 @@ function lookBtnDeleteClick(modal, redBox)
 
 function lookDelTypeChoose(modal, cat)
 {
+	console.log(cat);
 	modal.find('input[name=del_type]').on('change', function(event) {
 		if (modal.find('input[name=del_type]').eq(0).prop('checked')) {
 			modal.find('.moveto-cat-box').addClass('unactive');
@@ -160,6 +162,7 @@ function lookDelTypeChoose(modal, cat)
 	});
 	modal.on('hidden.bs.modal', function(event) {
 		$('body').addClass('modal-open');
+		$(this).find('select').parents('.form-group').removeClass('has-error').find('span.substring').remove();
 	});
 	modal.find('select#moveto-cat').on('change', function(event) {
 		event.preventDefault();
@@ -550,6 +553,7 @@ function reloadModalCatsList(catName, page)
 				$catListBox.html($insert);
 				lookRedCatSelectCat($('.red-cat-modal'), $('.red-cat-modal div.red_cat_over'));
 				lookBtnMoveClick($('.red-cat-modal'), $('.red-cat-modal div.red_cat_over'));
+				lookBtnDeleteClick($('.red-cat-modal'), $('.red-cat-modal div.red_cat_over'));
 				$('.red-cat-modal div.red_cat_over .red_cat_body').removeClass('active');
 				$('.red-cat-modal div.red_cat_over .red_cat_title').html('<span>Сохранено!</span>');
 			})
