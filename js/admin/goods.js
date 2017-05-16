@@ -117,8 +117,63 @@ function lookBtnMoveClick(modal, redBox)
 	modal.find('span div.move').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
-		console.log($(this).attr('class'));
+		console.log($(this).parent().data());
+		if ($(this).hasClass('down')) {
+			movePosition($(this).parent().data(), 'down');
+		} else
+		if ($(this).hasClass('up')) {
+			movePosition($(this).parent().data(), 'up');
+		}
 	});
+}
+
+function movePosition(catdata, direction)
+{
+	switch (direction) {
+		case 'down':
+			catdata.direction = 1;
+			break;
+
+		case 'up':
+			catdata.direction = -1;
+			break;
+
+		default:
+			catdata.direction = 0;
+			break;
+	}
+	$.when(movePositionAjax(catdata)).done(function(res){
+		console.log(res);
+		reloadModalCatsList('', 'prod_list');
+		reloadCatsList('', 'prod_list');
+	}).fail(function(res){
+		console.log('movePositionAjax() fail');
+		console.log(res);
+	});
+
+}
+
+function movePositionAjax(catObj)
+{
+	var def = new $.Deferred();
+
+	var catJSON = JSON.stringify(catObj);
+	$.ajax({
+		url: '/admin/cats/movecat',
+		type: 'POST',
+		data: {action: 'movecat', catJSON: catJSON},
+	})
+	.done(function(response) {
+		def.resolve(response);
+	})
+	.fail(function(response) {
+		console.log("error");
+		def.reject(response);
+	})
+	.always(function() {
+
+	});
+	return def.promise();
 }
 
 function lookBtnDeleteClick(modal, redBox)
@@ -132,10 +187,12 @@ function lookBtnDeleteClick(modal, redBox)
 		catData.name = $(this).parents('button').parent().find('span').eq(0).text();
 		delModal.find('.modal-title span').text(catData.name);
 		delModal.find('.modal-footer .btn-delete-cat').attr('data-catid',catData.catid);
+		// delModalCreateCatList(delModal);
 		delModal.modal();
 		lookDelTypeChoose(delModal, catData);
 	});
 }
+
 
 function lookDelTypeChoose(modal, cat)
 {
@@ -172,7 +229,7 @@ function lookDelTypeChoose(modal, cat)
 	delBtn.unbind('click').on('click', function(event) {
 		event.preventDefault();
 			if (modal.find('input[name=del_type]').eq(0).prop('checked')) { // delete with all items
-				deleteCatAll(cat);
+				deleteCatAll(modal,cat);
 			} else
 			if (modal.find('input[name=del_type]').eq(1).prop('checked')) { // delete with move to another category
 				if (cat.parent == "0") {
@@ -181,24 +238,123 @@ function lookDelTypeChoose(modal, cat)
 						$('#moveto-cat').parents('.form-group').addClass('has-error').append('<span style="left:24px" class="substring red">Выберите категорию для переноса товаров</span>');
 					} else {
 						var moveTo = $('#moveto-cat').val();
-						deleteCatMove(cat, moveTo);
+						deleteCatMove(modal, cat, moveTo);
 					}
 				} else {
 					var moveTo = $('#moveto-cat').val();
-					deleteCatMove(cat, moveTo);
+					deleteCatMove(modal, cat, moveTo);
 				}
 			}
 	});
 }
 
-function deleteCatAll(cat)
+function deleteCatAll(modal,cat)
 {
-	console.log('delete all in category '+cat.name);
+	console.log(cat);
+	if (cat.parent == 0) {
+		console.log('moveChildCats('+cat.catid+')');
+		moveChildCats(cat.catid);
+	} else {
+	}
+	console.log('delete prods from cat '+cat.catid);
+	deleteProdsFromCat(cat.catid);
+	console.log('delete all in category');
+	deleteCategory(cat.catid, cat.position, cat.parent);
+	modal.modal('hide');
+	reloadModalCatsList(cat.name, 'prod_list');
+	reloadCatsList(cat.name, 'prod_list');
 }
 
-function deleteCatMove(cat, moveto)
+function deleteCategory(catid, position, parent)
 {
-	console.log('delete category '+cat.name+' and move to cat with id '+moveto);
+	$.ajax({
+		url: '/admin/cats/deletecategory',
+		type: 'POST',
+		data: {action: 'deletecategory', catid: catid, position: position, parent: parent},
+	})
+	.done(function(r) {
+		console.log("success");
+		console.log(r);
+	})
+	.fail(function(r) {
+		console.log("error");
+		console.log(r);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+
+function moveChildCats(catid)
+{
+	$.ajax({
+		url: '/admin/cats/childcatstoparent',
+		type: 'POST',
+		data: {action: 'childcatstoparent', catid: catid},
+	})
+	.done(function(r) {
+		console.log("success");
+		console.log(r);
+	})
+	.fail(function(r) {
+		console.log("error");
+		console.log(r);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+
+function deleteProdsFromCat(catid)
+{
+	$.ajax({
+		url: '/admin/cats/deleteprodsformcat',
+		type: 'POST',
+		data: {action: 'deleteprodsformcat', catid: catid},
+	})
+	.done(function(r) {
+		console.log("success");
+		console.log(r);
+	})
+	.fail(function(r) {
+		console.log("error");
+		console.log(r);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+
+function deleteCatMove(modal, cat, moveto)
+{
+	console.log(cat);
+	console.log('move prods from cat '+cat.catid+' to '+moveto);
+	moveProdsFromCatToCat(cat.catid, moveto);
+	console.log('delete category');
+	deleteCategory(cat.catid, cat.position, cat.parent);
+	modal.modal('hide');
+	reloadModalCatsList(cat.name, 'prod_list');
+	reloadCatsList(cat.name, 'prod_list');
+}
+
+function moveProdsFromCatToCat(fromcatid, tocatid)
+{
+	$.ajax({
+		url: '/admin/cats/movefromcattocat',
+		type: 'POST',
+		data: {action: 'movefromcattocat', fromcatid: fromcatid, tocatid: tocatid},
+	})
+	.done(function(r) {
+		console.log("success");
+		console.log(r);
+	})
+	.fail(function(r) {
+		console.log("error");
+		console.log(r);
+	})
+	.always(function() {
+		console.log("complete");
+	});
 }
 
 function lookRedCatSelectCat(modal, redBox)
@@ -400,6 +556,7 @@ function lookNewCatSend(modal, page)
 					});
 					labelPopular.removeClass('disabled');
 					reloadCatsList(newCat.name, page);
+					reloadModalCatsList(newCat.name, page);
 				}
 			}).fail(function(res){
 				console.info(res);
@@ -649,6 +806,28 @@ function reloadCatsList(catName, page)
 					}
 				});
 				$catListBox.html($insert);
+				var $plusCatSelect = $('.new-cat-modal select#parentInput');
+				$insert = "<option value='0' >+ Без родителя (новая главная категория)</option>";
+				$.each($cat_tree.tree, function(index, val) {
+					if (val.parent == 0) {
+						$insert += "<option value='"+val.id+"' >"+val.name+"</option>";
+					}
+				});
+				$plusCatSelect.html($insert);
+				var $select = $('.del-cat-modal').find('#moveto-cat');
+				$insert = "";
+				$.each($cat_tree.tree, function(index, val) {
+					var $text = val.name;
+					$insert += "<option value='"+val.id+"'>"+$text+"</option>";
+					if ('child' in val) {
+						$.each(val.child, function(index1, val1) {
+							var $text = val1.name;
+							$insert += "<option valie='"+val1.id+"'>—"+$text+"</option>";
+						});
+					}
+				});
+				$select.html($insert);
+
 			})
 			.fail(function(response) {
 				console.log("error");
@@ -1306,7 +1485,7 @@ function tinymceInitialization(key)
 		"imagetools",
 		"autoresize"
 		],
-		content_css: "/css/admin/tinymce.css",
+		content_css: "/css/admin/tinymce_new.css",
 		//content_css: "/css/public/dest.css",
 		toolbar: "responsivefilemanager | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist outdent indent | link media image | preview | code",
 		imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions | responsivefilemanager ',
@@ -1331,7 +1510,7 @@ function tinymceInitialization(key)
 		"imagetools",
 		"autoresize"
 		],
-		content_css: "/css/admin/tinymce.css",
+		content_css: "/css/admin/tinymce_new.css",
 		toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | preview | code",
 		imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions | responsivefilemanager ',
 		menubar: false,
