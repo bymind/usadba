@@ -1,0 +1,93 @@
+.news-card {
+	max-height: 240px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.news-card .poster-overlay {
+	overflow: hidden;
+	text-align: center;
+	height: 200px;
+}
+
+.news-card img.news-poster {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+}
+
+.news-card h3.news-title {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+.news-title a {
+	display: inline-block;
+	color: #222;
+	font-size: 18px;
+	text-decoration: none;
+	font-weight: 900;
+}
+
+.news-card a.more {
+	text-decoration: underline;
+	font-style: italic;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.news-card .sub-details{
+	font-size: 11px;
+	color: #1c1c1c;
+	opacity: .5;
+}
+
+.newspost-layer {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: auto;
+	background: #fff;
+	padding: 30px 20px;
+	color: #222;
+}
+
+.mini-desc {
+	text-align: center;
+	font-size: 13px;
+	line-height: 20px;
+	opacity: .6;
+}
+
+.sidecat {
+	position: relative;
+	font-size: 13px;
+	display: inline-block;
+	margin: 0;
+	height: 20px;
+	line-height: 20px;
+	margin-left: -10px;
+}
+
+.newspost-layer .text {
+	line-height: 24px;
+}
+
+.newspost-layer img.main {
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+
+@media screen and (min-width: 320px) and (max-width: 479px) {
+
+	.news-card {
+		min-height: 150px;
+	}
+
+}

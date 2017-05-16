@@ -29,15 +29,17 @@
 
 <?php
 
-					 // Controller::dump($pageData);
 					$saleItems = $pageData;
 					$saleCount = 1;
-					// var_dump($pageData);
 					foreach ($saleItems as $saleItem) {
 ?>
 					<div class="row">
 						<div class="shadow br-2 bg-f sale-card mb-20" data-saleid="<?php echo $saleItem['poster']?>">
-						<?php /*var_dump($saleItem);*/ ?>
+						<a href="/sales/<?php echo $saleItem['tech_name']?>" class="sale-overlay"></a>
+							<div class="details">
+								<div class="start">Акция запущена <?php echo $saleItem['start_time']?></div>
+								<div class="end">Завершится <?php echo $saleItem['end_time']?></div>
+							</div>
 						</div>
 					</div>
 <?php

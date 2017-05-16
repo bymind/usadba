@@ -19,7 +19,7 @@
 
 	<div class="row">
 		<div class="col-md-9 pl-0">
-			
+
 			<?php
 				if (!$posts) {
 					?>
@@ -45,7 +45,7 @@
 					</div>
 				</div>
 				<div class="details">
-					<div class="tags">
+					<div class="tags" style="display:none">
 						<div class="tag-item"></div>
 					</div>
 					<div class="title"><a href="/admin/articles/edit/<?php echo $post['url'] ?>"><?php echo $post['title'] ?><br><?php echo $post['subtitle'] ?></a></div>

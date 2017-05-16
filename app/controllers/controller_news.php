@@ -1,23 +1,32 @@
 <?php
 
-class Controller_Sales extends Controller
+class Controller_News extends Controller
 {
 
 	function __construct()
 	{
-		$this->model = new Model_Sales();
+		$this->model = new Model_News();
 		$this->view = new View();
 	}
 
+	public function actionShowPost($url)
+	{
+		echo "Show post ".$url;
+		return 0;
+	}
 
 	public function action_param($url)
 	{
-		$pageDataController = $this->model->getSalesPost($url);
+		// $pageDataController = $this->model->getData('newsPage');
+		// $pageDataController = $this->model->getData('newsPost');
+		$pageDataController = $this->model->getNewsPost($url);
 		$pageDataProd = $this->model->getData('prods');
+		// $pageData = $this->model->getData('news');
+		// $pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
-		$breadCrumbs = array('Акции' => '/sales', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
+		$breadCrumbs = array('Новости' => '/news', $pageDataController['title'] => $_SERVER['REQUEST_URI'],);
 		$this->view->generate(
-			'sales_post_view.php', // вид контента
+			'news_post_view.php', // вид контента
 			'template_view.php', // вид шаблона
 			array( // $data
 					'title'=> $pageDataController['title'],
@@ -27,7 +36,7 @@ class Controller_Sales extends Controller
 																	'owl-carousel/owl.carousel.css',
 																	'owl-carousel/sales.theme.css',
 																	'owl-carousel/prod.theme.css',
-																	'public/sales_page.css'
+																	'public/news_page.css'
 																	),
 					'scripts_content'=> array(
 																		'/js/magic-mask/jq.magic-mask.min.js',
@@ -36,7 +45,7 @@ class Controller_Sales extends Controller
 																		'/js/template.js',
 																		'/js/sales_page.js'
 																		),
-					'pageId' => 'sales', // активный пункт меню
+					'pageId' => 'news', // активный пункт меню
 					'pageData' => $pageDataController,
 					'pageDataView' => $userData['profile'],
 					'sidebar' => array(
@@ -63,15 +72,16 @@ class Controller_Sales extends Controller
 	}
 
 
-	public function action_index()
+	public function action_index($param=NULL)
 	{
-		$pageDataController = $this->model->getData('salesPage');
+		$pageDataController = $this->model->getData('newsPage');
 		$pageDataProd = $this->model->getData('prods');
-		$pageSales = $this->model->getData('sales');
+		// $pageData = $this->model->getData('news');
+		// $pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
-		$breadCrumbs = array('Акции' => $_SERVER['REQUEST_URI']);
+		$breadCrumbs = array('Новости' => $_SERVER['REQUEST_URI']);
 		$this->view->generate(
-			'sales_view.php', // вид контента
+			'news_view.php', // вид контента
 			'template_view.php', // вид шаблона
 			array( // $data
 					'title'=> $pageDataController['title'],
@@ -81,7 +91,7 @@ class Controller_Sales extends Controller
 																	'owl-carousel/owl.carousel.css',
 																	'owl-carousel/sales.theme.css',
 																	'owl-carousel/prod.theme.css',
-																	'public/sales_page.css'
+																	'public/news_page.css'
 																	),
 					'scripts_content'=> array(
 																		'/js/magic-mask/jq.magic-mask.min.js',
@@ -90,8 +100,8 @@ class Controller_Sales extends Controller
 																		'/js/template.js',
 																		'/js/sales_page.js'
 																		),
-					'pageId' => 'sales', // активный пункт меню
-					'pageData' => $pageDataController['sales'],
+					'pageId' => 'news', // активный пункт меню
+					'pageData' => $pageDataController['news'],
 					'pageDataView' => $userData['profile'],
 					'sidebar' => array(
 														'app/views/side_menu_view.php',

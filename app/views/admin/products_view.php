@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-9 pl-0">
+			<div class="col-sm-9 col-md-9 pl-0">
 
 				<?php
 				foreach ($goods as $product) {
@@ -27,7 +27,7 @@
 					if (isset($product['id'])) {
 						?>
 
-						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="col-xs-12 col-sm-4 col-md-3">
 							<div class="blog-item">
 								<div class="poster" style="background-image: url(<?php echo $product['images'] ?>);">
 									<div class="controls hidden-xs">
@@ -93,8 +93,8 @@
 
 			</div>
 
-			<div class="col-xs-12 col-sm-3">
-				<div class="col-md-12">
+			<div class="col-xs-12 col-sm-3 pl-0 pr-0">
+				<!-- <div class="col-md-12"> -->
 					<div class="settings tags" style="margin-bottom:30px;">
 						<div class="title ">Категории <button class="red_cat prod_list" title="Редактировать категории" data-page="prod_list">ред.</button><button class="add_cat prod_list" data-page="prod_list" title="Новая категория">+</button></div>
 						<div class="items cat_links pt-10 pb-20">
@@ -120,7 +120,7 @@
 							?>
 						</div>
 					</div>
-				</div>
+				<!-- </div> -->
 			</div>
 
 		</div>

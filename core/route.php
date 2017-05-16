@@ -191,7 +191,6 @@ class Route
 										{
 											$controller->$action($param);
 										}else {
-
 											self::Catch_Error('404');
 										}
 								} else

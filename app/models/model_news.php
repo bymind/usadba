@@ -1,6 +1,6 @@
 <?php
 
-class Model_Sales extends Model
+class Model_News extends Model
 {
 	/**
 	* getData($pageName)
@@ -11,24 +11,26 @@ class Model_Sales extends Model
 
 	public $pageDataModel;
 
-
-	public function getSalesPost($url)
+	public function getNewsPost($url)
 	{
 		$url = addslashes($url);
-		$nowDate = time();
-		$q = mysql_query("SELECT * FROM sales WHERE  end_time > '$nowDate' AND tech_name='$url' LIMIT 1")or die(mysql_error());
+		$q = mysql_query("SELECT * FROM articles WHERE archived=0 AND url='$url' LIMIT 1")or die(mysql_error());
 		$buf = mysql_fetch_assoc($q);
 		if (!$buf) {
 			Route::Catch_Error('404');
 		}
-		$buf['start_time'] = Controller::getGoodDate($buf['start_time'], 'compact');
-		$buf['end_time'] = Controller::getGoodDate($buf['end_time']);
-		$dataSales = $buf;
-		$pageDataModel = $dataSales;
-		$pageDataModel['title'] = $dataSales['name'];
+		$buf['datetime'] = Controller::getGoodDate($buf['datetime'], 'compact');
+		$dataNews = $buf;
+		// echo "<pre>";
+		// var_dump($dataNews);
+		// echo "</pre>";
+		$pageDataModel['text'] = "Main page - Welcome! Hello from Model_Main =)";
+		$pageDataModel['title'] = $dataNews['title'];
+		// $nowTime = time();
+		// $dataSales = array();
+		$pageDataModel = $dataNews;
 	return $pageDataModel;
 	}
-
 
 	public function getData($pageName)
 	{
@@ -47,14 +49,24 @@ class Model_Sales extends Model
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$endTime = strtotime($buf['end_time']);
 					if ($endTime > $nowTime) {
-						$buf['start_time'] = Controller::getGoodDate($buf['start_time'], 'compact');
-						$buf['end_time'] = Controller::getGoodDate($buf['end_time']);
 						$dataSales[] = $buf;
 					}
 				}
 				$pageDataModel['sales'] = $dataSales;
 				break;
 
+			case 'newsPage':
+				$pageDataModel['text'] = "Main page - Welcome! Hello from Model_Main =)";
+				$pageDataModel['title'] = "Наши новости";
+				$nowTime = time();
+				$dataSales = array();
+				$q = mysql_query("SELECT * FROM articles WHERE archived=0 ORDER BY `datetime` DESC");
+				while ( $buf = mysql_fetch_assoc($q)) {
+						$buf['datetime'] = Controller::getGoodDate($buf['datetime'], 'compact');
+						$dataSales[] = $buf;
+				}
+				$pageDataModel['news'] = $dataSales;
+				break;
 
 			case 'sales':
 				$nowTime = time();

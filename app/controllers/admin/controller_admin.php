@@ -97,6 +97,149 @@ class Controller_Admin extends Controller
 
 /*																		 PRODUCTS
 *************************************************************************************/
+
+function adminCats($params = '')
+{
+	if ($params == '') {
+		$params['name'] = 'default';
+	}
+	if (is_array($params))
+				{
+					extract($params);
+				}
+			else
+				$name = $params;
+
+	switch ($name) {
+		case 'childcatstoparent':
+			self::adminMoveCatsToParent();
+			break;
+
+		case 'deleteprodsformcat':
+			self::adminDeleteProdsFromCat();
+			break;
+
+		case 'deletecategory':
+			self::adminDeleteCategory();
+			break;
+
+		case 'movefromcattocat':
+			self::adminMoveFromCatToCat();
+			break;
+
+		case 'movecat':
+			self::adminMoveCat();
+			break;
+
+		default :
+			$ds = $this->model->getGoodsLists();
+			$ds = Model::createProdUrl($ds);
+			$this->view->generate(
+						'admin/products_view.php',
+						'admin/template_admin_view.php',
+						array(
+								'title'=>' - Товар',
+								'style'=>'admin/template.css',
+								'style_content'=>'admin/goods.css',
+
+								'goods'=>$ds,
+								'active_menu_item' => 'goods',
+								'actual_title' => 'Товары',
+								'access_key' => $_SESSION['user']['access_key'],
+								'btns' => array(
+																'new-post' => 'Добавить товар',
+																),
+						'Favicon' => 'app/views/admin-favicon.php',
+							),
+						'admin/navigation_view.php',
+						'admin/footer_view.php',
+						array(
+								'admin/modals_main_view.php',
+								'admin/modals_add_cat_view.php'
+									)
+						);
+			break;
+	}
+
+}
+
+
+function adminMoveCat()
+{
+	if ($_POST['action'] == 'movecat') {
+		$catData = json_decode($_POST['catJSON'], true);
+		if ($this->model->moveCat($catData)) {
+			echo "true";
+		} else {
+			echo "false action";
+		}
+	} else {
+		echo "false action";
+	}
+}
+
+function adminDeleteCategory()
+{
+	if ($_POST['action'] == 'deletecategory') {
+		$parentCatId = $_POST['catid'];
+		$catPosition = $_POST['position'];
+		$catParent = $_POST['parent'];
+		if ($this->model->deleteCategory($parentCatId,$catPosition,$catParent)) {
+			echo "true";
+		} else {
+			echo "false action";
+		}
+	} else {
+		echo "false action";
+	}
+}
+
+function adminMoveCatsToParent()
+{
+	if ($_POST['action'] == 'childcatstoparent') {
+		$parentCatId = $_POST['catid'];
+		if ($this->model->moveCatsToParent($parentCatId)) {
+			echo "true";
+		} else {
+			echo "false action";
+		}
+	} else {
+		echo "false action";
+	}
+}
+
+
+function adminMoveFromCatToCat()
+{
+	if ($_POST['action'] == 'movefromcattocat') {
+		$fromCatId = $_POST['fromcatid'];
+		$toCatId = $_POST['tocatid'];
+		if ($this->model->moveFromCatToCat($fromCatId,$toCatId)) {
+			echo "true";
+		} else {
+			echo "false action";
+		}
+	} else {
+		echo "false action";
+	}
+}
+
+
+function adminDeleteProdsFromCat()
+{
+	if ($_POST['action'] == 'deleteprodsformcat') {
+		$parentCatId = $_POST['catid'];
+		if ($this->model->deleteProdsFromCat($parentCatId)) {
+			echo "true";
+		} else {
+			echo "false action";
+		}
+	} else {
+		echo "false action";
+	}
+}
+
+
 /*	 PRODUCTS INIT
 **********************************/
 	function adminGoods($params = '')
@@ -585,6 +728,138 @@ class Controller_Admin extends Controller
 
 
 
+/*																		 SALES
+*************************************************************************************/
+/*	 SALES INIT
+**********************************/
+
+	function adminSales($params = '')
+	{
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+					{
+						extract($params);
+					}
+				else
+					$name = $params;
+
+		switch ($name) {
+			case 'edit':
+				self::adminSalesEdit($value);
+				break;
+
+			case 'delete':
+				self::adminSalesDelete($value);
+				break;
+
+			case 'archived':
+				self::adminSalesArchived();
+				break;
+
+			case 'archive':
+				self::adminSalesArchive($value);
+				break;
+
+			case 'unarchive':
+				self::adminSalesUnArchive($value);
+				break;
+
+			case 'new':
+				self::adminSalesNew();
+				break;
+
+			case 'save':
+				self::adminSalesSave();
+				break;
+
+			default :
+				$ds = $this->model->getSalesLists();
+				$this->view->generate(
+							'admin/sales_view.php',
+							'admin/template_admin_view.php',
+							array(
+									'title'=>' - Акции',
+									'style'=>'admin/template.css',
+									// 'style_content'=>'admin/articles.css',
+									'style_content'=>'admin/sales.css',
+
+									'posts'=>$ds,
+									'active_menu_item' => 'sales',
+									'actual_title' => 'Акции',
+									//'second_title' => 'Записи статей',
+									'btns' => array(
+																	'new-post' => 'Новая акция',
+																	),
+							'Favicon' => 'app/views/admin-favicon.php',
+								),
+							'admin/navigation_view.php',
+							'admin/footer_view.php',
+							'admin/modals_main_view.php'
+							);
+				break;
+		}
+
+	}
+
+
+	/*	 SALES EDIT
+	**********************************/
+		function adminSalesEdit($post_url)
+		{
+			$post = $this->model->getSalesPost($post_url);
+			if ($post['archived']==0) {
+				$archive_class = 'btn-archive';
+				$archive_text = 'В архив';
+				$actual_title = '<a href="/admin/sales">Акции</a>';
+			} else
+			{
+				$archive_class = 'btn-unarchive';
+				$archive_text = 'Опубликовать';
+				$actual_title = '<a href="/admin/sales/archived">Акции(архив)</a>';
+			}
+
+			$this->view->generate(
+						'admin/sales_edit_view.php',
+						'admin/template_admin_view.php',
+						array(
+								'title'=>' - Редактирование акции - '.htmlspecialchars($post['name']),
+								'style'=>'admin/template.css',
+								'style_content'=>'admin/goods.css',
+								'post'=>array (
+															 'id' => $post['id'],
+															 'url' => $post['tech_name'],
+															 'title' => htmlspecialchars($post['name']) ,
+															 // 'subtitle' => htmlspecialchars($post['subtitle']) ,
+															 'poster' => $post['poster'],
+															 'start_time' => $post['start_time'],
+															 'end_time' => $post['end_time'],
+															 // 'anons' => htmlspecialchars($post['anons']),
+															 'text' => htmlspecialchars($post['description']),
+															 //'tags' => $post['tags'],
+															),
+								'access_key' => $_SESSION['user']['access_key'],
+								'active_menu_item' => 'sales',
+								'actual_title' => $actual_title,
+								'second_title' => 'Правка акции',
+								'btns' => array(
+																'post-save edit' => 'Сохранить',
+																'post-abort' => 'Отмена',
+																'post-delete btn-delete' => 'Удалить',
+																'post-archive '.$archive_class => $archive_text,
+																),
+								'Favicon' => 'app/views/admin-favicon.php',
+							),
+						'admin/navigation_view.php',
+						'admin/footer_view.php',
+						'admin/modals_main_view.php'
+						);
+		}
+
+
+
+
 /*																		 ARTICLES
 *************************************************************************************/
 /*	 ARTICLES INIT
@@ -637,13 +912,13 @@ class Controller_Admin extends Controller
 							'admin/articles_view.php',
 							'admin/template_admin_view.php',
 							array(
-									'title'=>' - Статьи',
+									'title'=>' - Новости',
 									'style'=>'admin/template.css',
 									'style_content'=>'admin/articles.css',
 
 									'posts'=>$ds,
 									'active_menu_item' => 'articles',
-									'actual_title' => 'Статьи',
+									'actual_title' => 'Новости',
 									//'second_title' => 'Записи статей',
 									'btns' => array(
 																	'new-post' => 'Новая запись',
@@ -675,7 +950,7 @@ class Controller_Admin extends Controller
 							'style_content'=>'admin/articles.css',
 							'posts'=>$posts,
 							'active_menu_item' => 'articles',
-							'actual_title' => 'Статьи (архив)',
+							'actual_title' => 'Новости (архив)',
 							//'second_title' => 'Записи в блоге',
 							'btns' => array(
 															'new-post' => 'Новый пост',
@@ -718,9 +993,10 @@ class Controller_Admin extends Controller
 					'admin/articles_new_view.php',
 					'admin/template_admin_view.php',
 					array(
-							'title'=>' - Новая статья',
+							'title'=>' - Новая новость',
 							'style'=>'admin/template.css',
-							'style_content'=>'admin/articles.css',
+							// 'style_content'=>'admin/articles.css',
+							'style_content'=>'admin/goods.css',
 							/*'post'=>array (
 														 'id' => $post['id'],
 														 'url' => $post['url'],
@@ -733,8 +1009,8 @@ class Controller_Admin extends Controller
 														),*/
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'articles',
-							'actual_title' => '<a href="/admin/articles">Статьи</a>',
-							'second_title' => 'Новая статья',
+							'actual_title' => '<a href="/admin/articles">Новости</a>',
+							'second_title' => 'Новая новость',
 							'btns' => array(
 															'post-save new' => 'Сохранить',
 															'post-abort' => 'Отмена',
@@ -759,21 +1035,21 @@ class Controller_Admin extends Controller
 		if ($post['archived']==0) {
 			$archive_class = 'btn-archive';
 			$archive_text = 'В архив';
-			$actual_title = '<a href="/admin/articles">Статьи</a>';
+			$actual_title = '<a href="/admin/articles">Новости</a>';
 		} else
 		{
 			$archive_class = 'btn-unarchive';
 			$archive_text = 'Опубликовать';
-			$actual_title = '<a href="/admin/articles/archived">Статьи(архив)</a>';
+			$actual_title = '<a href="/admin/articles/archived">Новости(архив)</a>';
 		}
 
 		$this->view->generate(
 					'admin/articles_edit_view.php',
 					'admin/template_admin_view.php',
 					array(
-							'title'=>' - Редактирование статьи - '.htmlspecialchars($post['title']),
+							'title'=>' - Редактирование новости - '.htmlspecialchars($post['title']),
 							'style'=>'admin/template.css',
-							'style_content'=>'admin/articles.css',
+							'style_content'=>'admin/goods.css',
 							'post'=>array (
 														 'id' => $post['id'],
 														 'url' => $post['url'],
@@ -788,7 +1064,7 @@ class Controller_Admin extends Controller
 							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'articles',
 							'actual_title' => $actual_title,
-							'second_title' => 'Правка статьи',
+							'second_title' => 'Правка новости',
 							'btns' => array(
 															'post-save edit' => 'Сохранить',
 															'post-abort' => 'Отмена',
@@ -1505,11 +1781,36 @@ class Controller_Admin extends Controller
 	}
 
 
+
+	function action_cats($params = '')
+	{
+		if (Controller::is_admin())
+		{
+			self::adminCats($params);
+		} else
+		{
+			self::adminLogin();
+		}
+	}
+
+
 	function action_articles($params = '')
 	{
 		if (Controller::is_admin())
 		{
 			self::adminArticles($params);
+		} else
+		{
+			self::adminLogin();
+		}
+	}
+
+
+	function action_sales($params = '')
+	{
+		if (Controller::is_admin())
+		{
+			self::adminSales($params);
 		} else
 		{
 			self::adminLogin();

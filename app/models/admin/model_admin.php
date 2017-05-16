@@ -24,6 +24,72 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+	/*
+	moveCatsToParent()
+	Перемещение категорий в корень после удаления родительской категории
+	*/
+	public function moveCatsToParent($parentCatId)
+	{
+		$parentCatId = htmlspecialchars($parentCatId);
+		$countChild = mysql_num_rows(mysql_query("SELECT * FROM prod_cat WHERE parent = $parentCatId"));
+		$sql = "SELECT position FROM prod_cat WHERE parent=0 ORDER BY position DESC LIMIT 1";
+		$result = mysql_query($sql) or die(mysql_error());
+		if ($result) {
+			while ($row = mysql_fetch_array($result)) {
+				$lastPosition = (int)$row['position'];
+			}
+		}
+		$lastPosition++;
+		for ($i = 0; $i < $countChild; $i++) {
+			$select = mysql_query("UPDATE prod_cat SET parent = 0, position = ".$lastPosition." WHERE parent = ".$parentCatId." LIMIT 1") or die(mysql_error());
+			$lastPosition++;
+		}
+		// $q = "UPDATE prod_cat SET parent = 0, position=".$lastPosition." WHERE parent = ".$parentCatId;
+		return true;
+	}
+
+
+	public function moveFromCatToCat($fromid, $toid)
+	{
+		$fromid = htmlspecialchars($fromid);
+		$toid = htmlspecialchars($toid);
+		$select = mysql_query("UPDATE prod_items SET cat = '$toid' WHERE cat = '$fromid'") or die(mysql_error());
+		return true;
+	}
+
+	public function moveCat($catData)
+	{
+		$catParent = (int)$catData['parent'];
+		$catId = (int)$catData['catid'];
+		$catMoveIndex = (int)$catData['direction'];
+		$catMovePosition = (int)$catData['position'] + $catMoveIndex;
+		$catAnotherPosition = (int)$catData['position'] - $catMoveIndex;
+		$catMoveAnotherPosition = (int)$catData['position'];
+		$select = mysql_query("UPDATE prod_cat SET position = '$catMoveAnotherPosition' WHERE position = '$catMovePosition' AND id !='$catId' AND parent='$catParent'") or die(mysql_error());
+		$select = mysql_query("UPDATE prod_cat SET position = '$catMovePosition' WHERE id='$catId'") or die(mysql_error());
+		return true;
+	}
+
+	public function deleteCategory($parentCatId, $position, $parent)
+	{
+		$parentCatId = htmlspecialchars($parentCatId);
+		$position = htmlspecialchars($position);
+		$parent = htmlspecialchars($parent);
+		$select = mysql_query("UPDATE prod_cat SET `position` = `position`-1 WHERE parent='".$parent."' and position > ".$position) or die(mysql_error());
+		$select = mysql_query("DELETE FROM prod_cat WHERE id = ".$parentCatId) or die(mysql_error());
+	}
+
+
+	/*
+	moveCatsToParent()
+	Перемещение категорий в корень после удаления родительской категории
+	*/
+	public function deleteProdsFromCat($parentCatId)
+	{
+		$parentCatId = htmlspecialchars($parentCatId);
+		$select = mysql_query("DELETE FROM prod_items WHERE cat = ".$parentCatId) or die(mysql_error());
+		return true;
+	}
 
 
 
@@ -121,6 +187,35 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+
+	/*
+	getSalesLists()
+	Получение списка акции
+	*/
+	public function getSalesLists()
+	{
+		$nowDate = date('Y-m-d h:i:s');
+		$select = mysql_query("SELECT * FROM sales WHERE end_time > '$nowDate' ORDER BY id DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['start_time'] = Controller::getGoodDate($r['start_time']);
+					$r['end_time'] = Controller::getGoodDate($r['end_time']);
+					$r['url'] = $r['tech_name'];
+					$ds[]=$r;
+		}
+
+		return $ds;
+	}
+
+	/*
+	getSalesPost($url)
+	*/
+	public function getSalesPost($post_url)
+	{
+		$select = mysql_query("SELECT * FROM sales WHERE tech_name = '$post_url'")or die(mysql_error());
+		$ds = mysql_fetch_assoc($select);
+		return $ds;
+	}
 
 	/*
 	getProductItem($art)

@@ -155,7 +155,7 @@ li.back-to-site
 
 li.back-to-site:hover a
 {
-		opacity: 1;
+		opacity: 1 !important;
 }
 
 .nav-title
@@ -357,10 +357,22 @@ ul.side-nav li.bot
 	background-image: url(../../img/admin/goods-white.svg);
 }
 
+.side-nav li.articles.active::before,
+.side-nav li.articles:hover::before
+{
+	background-image: url(../../img/admin/articles-white.svg);
+}
+
 .side-nav li.pages.active::before,
 .side-nav li.pages:hover::before
 {
 	background-image: url(../../img/admin/pages-white.svg);
+}
+
+.side-nav li.sales.active::before,
+.side-nav li.sales:hover::before
+{
+	background-image: url(../../img/admin/sales-white.svg);
 }
 
 .side-nav li.files.active::before,
@@ -406,6 +418,18 @@ ul.side-nav li.bot
 	height: 24px;
 
 	background-image: url(../../img/admin/goods.svg);
+}
+
+.side-nav li.articles::before
+{
+	height: 16px;
+	background-image: url(../../img/admin/articles.svg);
+}
+
+.side-nav li.sales::before
+{
+	height: 18px;
+	background-image: url(../../img/admin/sales.svg);
 }
 
 .side-nav li.pages::before

@@ -24,7 +24,17 @@
 		<?php include $Navigation; ?>
 	</nav>
 	<div id="content">
-		<link rel="stylesheet" href="/css/<?php echo $Style_content; ?>">
+		<?php
+		if (is_array($Style_content)) {
+			extract($Style_content);
+			foreach ($Style_content as $Style_c) {
+				?><link rel="stylesheet" href="/css/<?php echo $Style_c; ?>"><?php
+			}
+		} else
+		{ ?>
+			<link rel="stylesheet" href="/css/<?php echo $Style_content; ?>">
+			<?php }
+		 ?>
 		<?php include $Content; ?>
 	</div>
 </div>

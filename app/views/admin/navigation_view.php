@@ -63,11 +63,13 @@
 	<ul class='side-nav' attr-active="<?php echo $active_menu_item; ?> ">
 		<li class="home"><a href="/admin" title="Рабочий стол"><span>Рабочий стол</span></a></li>
 		<li class="goods"><a href="/admin/goods" title="Товары"><span>Товары</span></a></li>
-		<li class="pages"><a href="/admin/pages"  title="Страницы сайта"><span>Страницы сайта</span></a></li>
+		<li class="sales"><a href="/admin/sales" title="Акции"><span>Акции</span></a></li>
+		<li class="articles"><a href="/admin/articles" title="Новости"><span>Новости</span></a></li>
+		<li class="pages"><a href="/admin/pages"  title="Страницы сайта"><span>Страницы</span></a></li>
 		<li class="files"><a href="/admin/files" title="Файлы"><span>Файлы</span></a></li>
 		<li class="users"><a href="/admin/users" title="Аккаунты"><span>Аккаунты</span></a></li>
 		<li class="config"><a href="/admin/config" title="Настройки"><span>Настройки</span></a></li>
-		<li class="bot bugtracker"><span class="alert danger tickets-counter"></span><a href="/admin/bugtracker" title="Баг-трекер"><span>Баг-трекер</span></a></li>
+		<li class="bot bugtracker" style="display:none"><span class="alert danger tickets-counter"></span><a href="/admin/bugtracker" title="Баг-трекер"><span>Баг-трекер</span></a></li>
 	</ul>
 </div>
 
@@ -75,6 +77,8 @@
 	<!-- @todo: собрать в спрайт -->
 	<img src="/img/admin/dashboard-white.svg" alt="">
 	<img src="/img/admin/goods-white.svg" alt="">
+	<img src="/img/admin/articles-white.svg" alt="">
+	<img src="/img/admin/sales-white.svg" alt="">
 	<img src="/img/admin/pages-white.svg" alt="">
 	<img src="/img/admin/files-white.svg" alt="">
 	<img src="/img/admin/users-white.svg" alt="">

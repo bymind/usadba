@@ -1,6 +1,7 @@
 $(function() {
 
 	articlesScriptsInit();
+	// dateInit();
 
 	$('.pins-list .pin').dotdotdot({
 		ellipsis:'...',
@@ -29,6 +30,36 @@ $('.iframe-btn').fancybox({
 });
 
 });
+
+function dateInit()
+{
+	var d = new Date();
+	var curr_date = d.getDate();
+	if (curr_date<10) {
+		curr_date = '0'+curr_date;
+	}
+	var curr_month = d.getMonth() + 1;
+	if (curr_month<10) {
+		curr_month = '0'+curr_month;
+	}
+	var endM = new Date();
+	endM.setMonth(endM.getMonth()+2);
+	var end_month = endM.getMonth();
+	if (end_month<10) {
+		end_month = '0'+end_month;
+	}
+	console.log(end_month);
+	var curr_year = d.getFullYear();
+	var nowDayBox = $('.date-dropdowns.start_time');
+	nowDayBox.find('select.day option[value='+curr_date+']').prop('selected', true);
+	nowDayBox.find('select.month option[value='+curr_month+']').prop('selected', true);
+	nowDayBox.find('select.year option[value='+curr_year+']').prop('selected', true);
+	var endDayBox = $('.date-dropdowns.end_time');
+	endDayBox.find('select.day option[value='+curr_date+']').prop('selected', true);
+	endDayBox.find('select.month option[value='+end_month+']').prop('selected', true);
+	endDayBox.find('select.year option[value='+curr_year+']').prop('selected', true);
+
+}
 
 function articlesEditInit($key)
 {

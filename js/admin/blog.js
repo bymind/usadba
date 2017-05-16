@@ -13,7 +13,7 @@ $('.iframe-btn').fancybox({
 	'minWidth':900,
 	'minHeight':500,
 	'iframe': {
-		scrolling : 'visible', // 'auto', 'yes', 'no' or 'visible'	
+		scrolling : 'visible', // 'auto', 'yes', 'no' or 'visible'
 		preload   : true
 	},
 	'title':'Смена обложки поста',
@@ -56,7 +56,7 @@ function lookNewArchive()
 			newArchiveBtnClick();
 	});
 }
- 
+
 function newArchiveBtnClick()
 {
 	btnSave = $('.btn-archive-new');
@@ -131,7 +131,7 @@ function newArchiveBtnClick()
 				location.href="/admin/blog/edit/"+$url;
 		});
 	});
-	
+
 }
 
 function lookUnArchive()
@@ -198,7 +198,7 @@ function lookUnArchive()
 			.always(function() {
 				console.log("ajax complete");
 			});
-			
+
 		});
 	});
 }
@@ -266,7 +266,7 @@ function lookArchive()
 			.always(function() {
 				console.log("ajax complete");
 			});
-			
+
 		});
 	});
 }
@@ -334,7 +334,7 @@ function lookDelete()
 			.always(function() {
 				console.log("ajax complete");
 			});
-			
+
 		});
 	});
 }
@@ -445,7 +445,7 @@ function saveBtnClick($attr)
 			};
 		});
 	});
-	
+
 }
 
 function responsive_filemanager_callback(field_id){
@@ -568,7 +568,7 @@ function tinymceInitialization(key)
 			"autoresize"
 		],
 		//content_css: "/css/admin/tinymce.css",
-		content_css: "/css/admin/tinymce.css",
+		content_css: "/css/admin/tinymce_new.css",
 		toolbar: "responsivefilemanager | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist outdent indent | link media image | preview | code",
 		imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions | responsivefilemanager ',
 		autosave_ask_before_unload: true,
