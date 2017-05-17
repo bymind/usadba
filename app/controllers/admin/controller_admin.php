@@ -811,7 +811,7 @@ function adminDeleteProdsFromCat()
 			$post = $this->model->getSalesPost($post_url);
 			if ($post['archived']==0) {
 				$archive_class = 'btn-archive';
-				$archive_text = 'В архив';
+				$archive_text = 'Закончить акцию';
 				$actual_title = '<a href="/admin/sales">Акции</a>';
 			} else
 			{
@@ -856,6 +856,34 @@ function adminDeleteProdsFromCat()
 						'admin/modals_main_view.php'
 						);
 		}
+
+
+		/*	 SALES SAVE
+		**********************************/
+			function adminSalesSave()
+			{
+				if (!isset($_POST['action'])) {
+					return "Не указан параметр action";
+				}
+				if (!isset($_POST['jsonPost'])) {
+					return "Параметры не переданы";
+				}
+				switch ($_POST['action']) {
+					case 'edit':
+							$postArrive = json_decode($_POST['jsonPost'], true);
+							return $this->model->updateSale($postArrive);
+						break;
+
+					case 'new':
+							$postArrive = json_decode($_POST['jsonPost'], true);
+							return $this->model->newSale($postArrive);
+						break;
+
+					default:
+						# code...
+						break;
+				}
+			}
 
 
 
@@ -936,6 +964,35 @@ function adminDeleteProdsFromCat()
 
 
 
+/*	 SALES ARCHIVED LIST
+**********************************/
+	function adminSalesArchived()
+	{
+		$posts = $this->model->getSalesArchived();
+		$this->view->generate(
+					'admin/sales_archived_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Архив акций',
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/sales.css',
+							'posts'=>$posts,
+							'active_menu_item' => 'sales',
+							'actual_title' => 'Акции (архив)',
+							//'second_title' => 'Записи в блоге',
+							'btns' => array(
+															'new-post' => 'Новая акция',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
 /*	 ARTICLES ARCHIVED LIST
 **********************************/
 	function adminArticlesArchived()
@@ -964,6 +1021,14 @@ function adminDeleteProdsFromCat()
 	}
 
 
+
+/*	 SALES -> to archive
+**********************************/
+	function adminSalesArchive($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->archiveSale($postArrive);
+	}
 
 /*	 ARTICLES -> to archive
 **********************************/
@@ -1108,6 +1173,15 @@ function adminDeleteProdsFromCat()
 		}
 	}
 
+
+
+/*	 SALES DELETE
+**********************************/
+	function adminSalesDelete($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->deleteSale($postArrive);
+	}
 
 
 /*	 ARTICLES DELETE
