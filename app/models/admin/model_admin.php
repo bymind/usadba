@@ -448,6 +448,24 @@ class Model_Admin extends Model
 
 
 	/*
+	newSale($post)
+	$post [assoc array] - массив с информацией
+	*/
+	public function newSale($post)
+	{
+		extract($post);
+		$sales_prod = json_decode($sales_prod, true);
+		$sales_prods_ids = $sales_prod['prod'];
+		$sales_cats_ids = $sales_prod['cat'];
+		$sales_prods = implode(",", $sales_prods_ids);
+		$sales_cats = implode(",", $sales_cats_ids);;
+
+		$sql = "INSERT INTO sales (name, tech_name, poster, start_time, end_time, description, cats, prods) VALUES ('$title','$url','$poster','$start_time','$end_time','$text','$sales_cats','$sales_prods')";
+		mysql_query($sql) or die(mysql_error());
+		echo "Акция добавлена";
+	}
+
+	/*
 	newPost($post)
 	Добавить новую статью
 	$post [assoc array] - массив с информацией о статье

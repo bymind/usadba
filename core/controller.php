@@ -93,13 +93,21 @@ class Controller
 		$nowUnix = (int)date('U');
 		$delta = $nowUnix - $timeStamp;
 
-		if ($delta < (60*60*24)) {
+		if (($delta < (60*60*24))&&($delta > 0)) {
 			if ( $nowDay == ($postDay + 1) ) {
 				return 'вчера';
 			}
 			if ( $nowDay == $postDay ) {
 				return 'сегодня';
 			}
+		} else
+		if (($delta > -(60*60*24))&&($delta < 0)) {
+			if ( $nowDay == ($postDay - 1) ) {
+							return 'завтра';
+						}
+						if ( $nowDay == $postDay ) {
+							return 'сегодня';
+						}
 		} else
 			return $postDay;
 	}
@@ -123,8 +131,8 @@ class Controller
 		$xyear = (int) $xday[0];
 		$xm = (int) $xday[1];
 		$xday = (int) $xday[2];
-		$xmonth = array ('','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
-		$xmonth = $xmonth[$xm];
+		$xmonth = array ('января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
+		$xmonth = $xmonth[$xm-1];
 		if (isset($xtime)) {
 			$xtime = explode(':', $xtime);
 			$xh = $xtime[0];

@@ -28,7 +28,6 @@
 			</div>
 
 <?php
-
 					$saleItems = $pageData;
 					$saleCount = 1;
 					foreach ($saleItems as $saleItem) {

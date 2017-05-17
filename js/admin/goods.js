@@ -50,6 +50,13 @@ $(function() {
 			});*/
 
 
+			$('.sales-select-items .spoiler-title label').click(function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				console.log('hi label');
+			});
+
+
 });
 
 	function open_popup(url)

@@ -21,7 +21,16 @@
 			<div class="sale-card" data-saleid="<?php echo $pageData['poster']?>">
 				<div class="details">
 					<div class="start">Акция запущена <?php echo $pageData['start_time']?></div>
+					<?php
+						$today = date('Y-m-d H:i:s');
+						// echo $today."<br>".$pageData['raw_end_time'];
+						if ($pageData['raw_end_time']<=$today) { ?>
+						<div class="end">Завершилась <?php echo $pageData['end_time']?></div>
+						<?php } else {
+					?>
 					<div class="end">Завершится <?php echo $pageData['end_time']?></div>
+					<?php }
+					?>
 				</div>
 			</div>
 			<div class="description">

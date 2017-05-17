@@ -29,6 +29,69 @@ $('.iframe-btn').fancybox({
 	'wrapCSS':'fancy-wrap'
 });
 
+$('.sales-select-items .spoiler-title label input').unbind('click').on('click',function(event) {
+	// event.preventDefault();
+	// event.stopPropagation();
+});
+$('.sales-select-items .spoiler-title label').unbind('click').on('click',function(event) {
+	event.preventDefault();
+	event.stopPropagation();
+	console.log('title clicked');
+	$(this).find('input[type=checkbox]').prop('checked', !$(this).find('input[type=checkbox]').prop('checked') );
+	var $checked = $(this).children('input').prop('checked');
+	console.log('input changed');
+	$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').find('input[type=checkbox]').prop('checked', $checked);
+	if ($checked) {
+		$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').addClass('selected');
+	} else
+		$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').removeClass('selected');
+});
+
+/*$('.sales-select-items .spoiler-title label>input').unbind('change').on('change', function(event) {
+	event.preventDefault();
+	var $checked = $(this).prop('checked');
+	console.log('input changed');
+	$(this).parent().parent().parent().children('.spoiler-body').find('.item-box').find('input[type=checkbox]').prop('checked', $checked);
+});*/
+
+$('.item-box input[type=checkbox]').on('change',function(event) {
+		console.log('check input');
+		$(this).parent().toggleClass('selected');
+	// if ($(this).prop('checked')==true) {
+		var $catspoiler = $(this).parent().parent().parent().parent();
+		var $countCheck = $catspoiler.children('.spoiler-body').children('.row').children('.item-box').length;
+		var $checkCat = true;
+		for (var i=0; i<$countCheck; i++){
+			if ($catspoiler.find('.item-box:eq('+i+') input').prop('checked')) {
+				// $checkCat = true;
+			} else $checkCat = false;
+		}
+		if ($checkCat) {
+			console.info('check cat');
+			$catspoiler.children('.spoiler-title').find('input').prop('checked',true);
+		} else {
+			console.info('uncheck cat');
+			$catspoiler.children('.spoiler-title').find('input').prop('checked',false);
+		}
+	// }
+	});
+
+$('.item-box input').on('click', function(event) {
+	// event.preventDefault();
+	event.stopPropagation();
+	// console.log('over click input');
+	 // $(this).prop('checked', !$(this).prop('checked'));
+});
+
+$('.item-box').on('click', function(event) {
+	event.stopPropagation();
+	console.log('.item-box click');
+	$(this).find('input').click();
+	// event.preventDefault();
+	// $(this).children('input').prop('checked', !$(this).children('input').prop('checked'));
+	// $(this).toggleClass('selected');
+});
+
 });
 
 function dateInit()
@@ -431,8 +494,26 @@ function saveBtnClick($attr)
 	var $text = $('#post-body').val();
 	var $start_time = $('input#start_time').val();
 	var $end_time = $('input#end_time').val();
+	var $sales_prod = {};
+	$sales_prod.cat = [];
+	$sales_prod.prod = [];
+	for (var i=0; i<$('input.cat-prod-input').length; i++ ) {
+		if ($('input.cat-prod-input').eq(i).prop('checked')) {
+			var prod_add = true;
+			var cat_id = $('input.cat-prod-input').eq(i).data('catid');
+			$sales_prod['cat'].push(cat_id);
+		}
+	}
+	for (var i=0; i<$('input.sales-prod-input').length; i++ ) {
+		if ($('input.sales-prod-input').eq(i).prop('checked')) {
+			var prod_id = $('input.sales-prod-input').eq(i).data('prodid');
+			$sales_prod['prod'].push(prod_id);
+		}
+	}
 
-	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")||($start_time=="")||($end_time=="")) {
+	$sales_prod = JSON.stringify($sales_prod);
+
+	if (($url=="")||($title=="")||($poster=="")||($poster=="/img/prod-default-cover.jpg")||($anons=="")||($text=="")||($start_time=="")||($end_time=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
 			  modal.find('.modal-title').text('Не получилось');
@@ -449,13 +530,14 @@ function saveBtnClick($attr)
 		id: $id,
 		url: $url,
 		title: $title,
-		subtitle: $subtitle,
+		// subtitle: $subtitle,
 		poster: $poster,
 //		date: "",
-		anons: $anons,
+		// anons: $anons,
 		text: $text,
 		start_time: $start_time,
-		end_time: $end_time
+		end_time: $end_time+" 23:59:59",
+		sales_prod: $sales_prod
 //		tags: ""
 	};
 

@@ -996,3 +996,102 @@ form.del-cat label.btn.active::before{
 .date-dropdowns select.year {
 	width: 35%;
 }
+
+select#sales-cat, select#sales-prod {
+	width: 100%;
+	height: auto;
+	padding: 8px 10px;
+	min-height: 200px;
+	border-radius: 4px;
+}
+
+select#sales-cat option, select#sales-prod option {
+	padding: 2px 5px;
+	margin: 2px 0;
+	border-radius: 2px;
+}
+
+.spoiler .spoiler-title::after {
+	content: "▼";
+	display: block;
+	position: relative;
+	color: #444;
+	width: 20px;
+	height: 20px;
+	float: right;
+	font-size: 16px;
+	line-height: 20px;
+	margin: 5px 0;
+}
+
+.spoiler.open>.spoiler-title::after {
+	content: "▲";
+}
+
+.spoiler-title input[type=checkbox] {
+	margin: auto 5px auto 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.spoiler label {
+	margin: 5px;
+}
+
+.spoiler label span {
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+}
+
+.spoiler label span:hover {
+	color: #333;
+	text-decoration: underline;
+}
+
+.spoiler-body .item-box {
+	position: relative;
+	padding: 5px;
+	border-radius: 2px;
+	border: 1px solid #aaa;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: auto;
+	min-height: 100px;
+	margin: 0 5px 0 0;
+	cursor: pointer;
+}
+
+.spoiler-body .item-box.selected{
+	border-color: #f44336;
+	background: #FFEBEE;
+}
+
+.spoiler-body .item-box input{
+	position: absolute;
+	z-index: 5;
+	margin-left: 5px;
+	/* display: none; */
+}
+
+.spoiler-body .item-box .poster{
+	position: relative;
+	border-radius: 2px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 60px;
+	padding: 5px;
+	width: 100%;
+}
+
+.spoiler-body .item-box .art{
+	opacity: .7;
+	font-size: 12px;
+}
+
+.spoiler-body .item-box .name {
+	font-size: 14px;
+	line-height: 16px;
+}

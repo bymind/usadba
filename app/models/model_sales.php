@@ -22,6 +22,7 @@ class Model_Sales extends Model
 			Route::Catch_Error('404');
 		}
 		$buf['start_time'] = Controller::getGoodDate($buf['start_time'], 'compact');
+		$buf['raw_end_time'] = $buf['end_time'];
 		$buf['end_time'] = Controller::getGoodDate($buf['end_time']);
 		$dataSales = $buf;
 		$pageDataModel = $dataSales;
@@ -43,11 +44,13 @@ class Model_Sales extends Model
 				$pageDataModel['title'] = "Акции и скидки.";
 				$nowTime = time();
 				$dataSales = array();
-				$q = mysql_query("SELECT * FROM sales");
+				$today = date('Y-m-d H:i:s');
+				$q = mysql_query("SELECT * FROM sales WHERE end_time > '$today'");
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$endTime = strtotime($buf['end_time']);
 					if ($endTime > $nowTime) {
 						$buf['start_time'] = Controller::getGoodDate($buf['start_time'], 'compact');
+						$buf['raw_end_time'] = $buf['end_time'];
 						$buf['end_time'] = Controller::getGoodDate($buf['end_time']);
 						$dataSales[] = $buf;
 					}

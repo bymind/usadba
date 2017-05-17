@@ -20,7 +20,18 @@ $(function() {
 		$(this).css('margin-bottom', '-'+$mb+'px');
 	});
 
+	spoilersInit();
+
 });
+
+function spoilersInit()
+{
+	$('.spoiler-title').unbind('click').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		$(this).parent('.spoiler').toggleClass('open');
+	});
+}
 
 function mainPageInit()
 {

@@ -1050,6 +1050,51 @@ function adminDeleteProdsFromCat()
 
 
 
+/*	 SALES NEW
+**********************************/
+	function adminSalesNew()
+	{
+		$prods = $this->model->getData('prods');
+		$this->view->generate(
+					'admin/sales_new_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Новая акция',
+							'style'=>'admin/template.css',
+							// 'style_content'=>'admin/articles.css',
+							'style_content'=>'admin/goods.css',
+							/*'post'=>array (
+														 'id' => $post['id'],
+														 'url' => $post['url'],
+														 'title' => htmlspecialchars($post['title']) ,
+														 'poster' => $post['poster'],
+														 'date' => $post['date'],
+														 'anons' => htmlspecialchars($post['anons']),
+														 'text' => htmlspecialchars($post['text']),
+														 'tags' => $post['tags'],
+														),*/
+							'access_key' => $_SESSION['user']['access_key'],
+							'prods' => $prods,
+							'active_menu_item' => 'sales',
+							'actual_title' => '<a href="/admin/sales">Акции</a>',
+							'second_title' => 'Новая акция',
+							'btns' => array(
+															'post-save new' => 'Сохранить',
+															'post-abort' => 'Отмена',
+															//'post-delete' => 'Удалить',
+															// 'post-archive btn-archive-new' => 'Сохранить в архив',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
+
 /*	 ARTICLES NEW
 **********************************/
 	function adminArticlesNew()
