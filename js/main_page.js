@@ -36,9 +36,10 @@ function InitOwlCarousel() {
 	for (var i = $('#sales-carousel .item').length - 1; i >= 0; i--) {
 		curItem = $('#sales-carousel .item:eq('+i+') a');
 		if (deviceW <= 600) {
-			jpgName = "/img/sales/" + curItem.data('saleid') + "-min.jpg";
+			// jpgName = "/img/sales/" + curItem.data('saleid') + "-min.jpg";
+			jpgName = "" + curItem.data('saleid') + "";
 		} else {
-			jpgName = "/img/sales/" + curItem.data('saleid') + ".jpg";
+			jpgName = "" + curItem.data('saleid') + "";
 		}
 		curItem.css({
 			'background-image': 'url('+jpgName+')'

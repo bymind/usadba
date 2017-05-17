@@ -47,7 +47,7 @@
 		<div class="col-md-3 col-xs-12 pl-0">
 			<div class="col-md-9">
 				<div class="settings cover">
-					<div class="title ">Обложка</div>
+					<div class="title ">Изображение</div>
 					<div class="items">
 						<div class="poster">
 							<img src="/img/prod-default-cover.jpg" alt="" id="img">

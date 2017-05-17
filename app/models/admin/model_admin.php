@@ -246,6 +246,24 @@ class Model_Admin extends Model
 	}
 
 
+	/*
+	getSalesArchived()
+	Получение списка статей в архиве
+	*/
+	public function getSalesArchived()
+	{
+		$cur_date = date('Y-m-d h:i:s');
+		$select = mysql_query("SELECT * FROM sales WHERE end_time < '$cur_date' ORDER BY start_time DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['start_time'] = Controller::getGoodDate($r['start_time']);
+					$r['end_time'] = Controller::getGoodDate($r['end_time']);
+					$ds[]=$r;
+		}
+		return $ds;
+	}
+
+
 
 	/*
 	getArticlesPostsArchived()
@@ -258,11 +276,25 @@ class Model_Admin extends Model
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['datetime'] = Controller::getGoodDate($r['datetime']);
 					$ds[]=$r;
-
 		}
-
 		return $ds;
 	}
+
+
+	/*
+	updateSale($post)
+	$post [assoc array] - массив с информацией о статье
+	*/
+	public function updateSale($post)
+	{
+		extract($post);
+		// $author = $_SESSION['user']['name'];
+		$end_time = $end_time." 23:59:59";
+		$sql = "UPDATE sales SET tech_name = '$url', name = '$title', poster = '$poster', description = '$text', start_time='$start_time', end_time='$end_time' WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Акция сохранена";
+	}
+
 
 
 	/*
@@ -294,6 +326,20 @@ class Model_Admin extends Model
 		echo "Позиция сохранена";
 	}
 
+
+
+	/*
+	archiveSale($post)
+	$post [assoc array] - массив с информацией
+	*/
+	public function archiveSale($prod)
+	{
+		extract($prod);
+		$cur_date = date('Y-m-d h:i:s');
+		$sql = "UPDATE sales SET end_time = '$cur_date' WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Акция завершена";
+	}
 
 
 	/*
@@ -355,6 +401,19 @@ class Model_Admin extends Model
 		echo "Статья опубликована";
 	}
 
+
+
+	/*
+	deleteSale($post)
+	$post [assoc array] - массив с информацией о статье
+	*/
+	public function deleteSale($post)
+	{
+		extract($post);
+		$sql = "DELETE FROM sales WHERE id='$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Акция полностью удалена!";
+	}
 
 
 	/*

@@ -7,11 +7,11 @@
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
 			<h1 class="blocked">
-				Текущие
+					Архив
 			</h1>
 			<h4 class="blocked">
-				<a href="/admin/sales/archived" class="disabled">
-					Архив
+				<a href="/admin/sales" class="disabled">
+				Текущие
 				</a>
 			</h4>
 		</div>
@@ -21,20 +21,27 @@
 		<div class="col-md-9 pl-0">
 
 			<?php
+				if (!$posts) {
+					?>
+					<div class="col-md-6 col-md-offset-3" style="text-align:center;">
+						<h2>Нет завершенных акций</h2>
+					</div>
+					<?php
+				} else
 				foreach ($posts as $post) {
 			?>
+
 
 			<div class="col-xs-12 col-sm-4 col-md-3">
 			<div class="blog-item">
 				<div class="poster" style="background-image: url(<?php echo $post['poster'] ?>);">
 					<div class="controls hidden-xs">
-						<a href="/admin/sales/edit/<?php echo $post['url'] ?>" class="btn-edit">Редактировать</a>
-						<a href="/sales/<?php echo $post['url'] ?>" class="look" target="_blank">Посмотреть на сайте</a>
-						<a href="/admin/sales/delete/<?php echo $post['url'] ?>" data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-delete">Удалить</a>
-						<a href="/admin/sales/archive/<?php echo $post['url'] ?>"  data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-archive">В архив</a>
+						<a href="/admin/sales/edit/<?php echo $post['tech_name'] ?>" class="btn-edit">Редактировать</a>
+
+						<a href="/admin/sales/delete/<?php echo $post['tech_name'] ?>" data-target="<?php echo htmlspecialchars($post['name']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-delete" style="width: 90%;margin: 10px 5% 0;">Удалить</a>
 					</div>
 					<div class="controls visible-xs">
-						<a href="/admin/sales/edit/<?php echo $post['url'] ?>"></a>
+						<a href="/admin/sales/edit/<?php echo $post['tech_name'] ?>"></a>
 					</div>
 				</div>
 				<div class="details">
@@ -53,6 +60,8 @@
 
 
 		</div>
+
+
 	</div>
 
 </div>
@@ -61,5 +70,5 @@
 <script>
 	lookNew();
 	lookDelete();
-	lookArchive();
+	lookUnArchive();
 </script>

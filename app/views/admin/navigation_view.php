@@ -84,6 +84,7 @@
 	<img src="/img/admin/users-white.svg" alt="">
 	<img src="/img/admin/config-white.svg" alt="">
 	<img src="/img/admin/bugtracker-white.svg" alt="">
+	<img src="/img/admin/new-post.svg" alt="">
 </div>
 
 <!-- nav -->

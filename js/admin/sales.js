@@ -17,7 +17,7 @@ $('.iframe-btn').fancybox({
 		scrolling : 'visible', // 'auto', 'yes', 'no' or 'visible'
 		preload   : true
 	},
-	'title':'Смена обложки поста',
+	'title':'Смена обложки акции',
 	helpers:  {
 				title : {
 						type : 'float' // 'float', 'inside', 'outside' or 'over'
@@ -129,7 +129,7 @@ function newArchiveBtnClick()
 	mainContent.animate({opacity:'.3'}, 200);
 
 	$.ajax({
-		url: '/admin/articles/save',
+		url: '/admin/sales/save',
 		type: 'POST',
 		data: {jsonPost: jsonPost, action: 'new'},
 	})
@@ -159,7 +159,7 @@ function newArchiveBtnClick()
 		btnSave.removeClass('active');
 		btnSave.text('Сохранить в архив');
 		$('.success-modal-md').on('hidden.bs.modal', function(event) {
-				location.href="/admin/articles/edit/"+$url;
+				location.href="/admin/sales/edit/"+$url;
 		});
 	});
 
@@ -179,9 +179,9 @@ function lookUnArchive()
 		modalBox = $('.archive-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Публикация поста из архива');
+			  modal.find('.modal-title').text('Публикация акции из архива');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Опубликовать пост "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-body .response').html('Опубликовать акцию "<strong>'+$post_title+'</strong>"?');
 			  modal.find('.modal-footer .go-archive').text("Опубликовать");
 			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
 		});
@@ -198,7 +198,7 @@ function lookUnArchive()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/unarchive/'+$post_title,
+				url: '/admin/sales/unarchive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -213,7 +213,7 @@ function lookUnArchive()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/sales";
 				});
 			})
 			.fail(function(response) {
@@ -248,10 +248,10 @@ function lookArchive()
 		modalBox = $('.archive-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Отправить пост в архив');
+			  modal.find('.modal-title').text('Завершить акцию');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Архивировать пост "<strong>'+$post_title+'</strong>"?');
-			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
+			  modal.find('.modal-body .response').html('Срок окончания акции будет установлен на прошедшую дату.<br>Завершить акцию "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id).text('Завершить акцию');
 		});
 		modalBox.modal();
 
@@ -266,7 +266,7 @@ function lookArchive()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/archive/'+$post_title,
+				url: '/admin/sales/archive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -281,7 +281,7 @@ function lookArchive()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/sales";
 				});
 			})
 			.fail(function(response) {
@@ -316,9 +316,9 @@ function lookDelete()
 		modalBox = $('.info-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Удаление поста');
+			  modal.find('.modal-title').text('Удаление акции');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Удалить пост "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-body .response').html('Удалить акцию "<strong>'+$post_title+'</strong>"?');
 			  modal.find('.modal-footer .go-delete').attr("data-id", $post_id);
 		});
 		modalBox.modal();
@@ -334,7 +334,7 @@ function lookDelete()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/delete/'+$post_title,
+				url: '/admin/sales/delete/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -349,7 +349,7 @@ function lookDelete()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/sales";
 				});
 			})
 			.fail(function(response) {
@@ -373,19 +373,38 @@ function lookDelete()
 function lookNew()
 {
 	$('.new-post').click(function(event) {
-		location.href="/admin/articles/new";
+		location.href="/admin/sales/new";
 	});
 }
 
 function lookAbort()
 {
 	$('.post-abort').click(function(event) {
-		location.href='/admin/articles';
+		location.href='/admin/sales';
+	});
+}
+
+function lookTimeChange()
+{
+	$('.start_time select').change(function(event) {
+		var inputStart = $(this).parent().find('input#start_time');
+		var start_day = $(this).parent().find('select.day').val();
+		var start_month = $(this).parent().find('select.month').val();
+		var start_year = $(this).parent().find('select.year').val();
+		inputStart.val(start_year+"-"+start_month+"-"+start_day);
+	});
+	$('.end_time select').change(function(event) {
+		var inputend = $(this).parent().find('input#end_time');
+		var end_day = $(this).parent().find('select.day').val();
+		var end_month = $(this).parent().find('select.month').val();
+		var end_year = $(this).parent().find('select.year').val();
+		inputend.val(end_year+"-"+end_month+"-"+end_day);
 	});
 }
 
 function lookSave()
 {
+	lookTimeChange();
 	$('.post-save').click(function(event) {
 		$(this).addClass('active');
 		$(this).text('Сохраняем');
@@ -410,8 +429,10 @@ function saveBtnClick($attr)
 	var $poster = $('#cover-img').val();
 	var $anons = $('#post-anons').val();
 	var $text = $('#post-body').val();
+	var $start_time = $('input#start_time').val();
+	var $end_time = $('input#end_time').val();
 
-	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
+	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")||($start_time=="")||($end_time=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
 			  modal.find('.modal-title').text('Не получилось');
@@ -432,7 +453,9 @@ function saveBtnClick($attr)
 		poster: $poster,
 //		date: "",
 		anons: $anons,
-		text: $text
+		text: $text,
+		start_time: $start_time,
+		end_time: $end_time
 //		tags: ""
 	};
 
@@ -441,7 +464,7 @@ function saveBtnClick($attr)
 	mainContent.animate({opacity:'.3'}, 200);
 
 	$.ajax({
-		url: '/admin/articles/save',
+		url: '/admin/sales/save',
 		type: 'POST',
 		data: {jsonPost: jsonPost, action: $attr},
 	})
@@ -474,7 +497,7 @@ function saveBtnClick($attr)
 			if ($attr=="edit") {
 					mainContent.animate({opacity:1}, 200);
 			} else if ($attr="new") {
-				location.href="/admin/articles/edit/"+$url;
+				location.href="/admin/sales/edit/"+$url;
 			};
 		});
 	});

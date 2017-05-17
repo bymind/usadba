@@ -1,10 +1,21 @@
-<link rel="apple-touch-icon" sizes="152x152" href="/img/admin/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="/img/admin/favicon/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/img/admin/favicon/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/img/admin/favicon/safari-pinned-tab.svg" color="#111111">
-<meta name="apple-mobile-web-app-title" content="Admin">
-<meta name="application-name" content="Admin">
-<meta name="msapplication-TileColor" content="#222222">
-<meta name="msapplication-TileImage" content="/mstile-150x150.png">
-<meta name="theme-color" content="#0C1B23">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon/admin/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon/admin/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon/admin/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon/admin/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon/admin/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon/admin/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon/admin/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon/admin/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/admin/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/admin/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/admin/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/admin/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/admin/favicon-16x16.png">
+<link rel="icon" type="image/ico" sizes="16x16" href="/favicon/admin/favicon.ico">
+<link rel="manifest" href="/favicon/admin/manifest.json">
+<meta name="msapplication-TileImage" content="favicon/admin/ms-icon-144x144.png">
+<!-- <meta name="msapplication-TileColor" content="#14767f">
+<meta name="theme-color" content="#14767f">
+ -->
+ <meta name="theme-color" content="#102028">
+<meta name="msapplication-TileColor" content="#444">

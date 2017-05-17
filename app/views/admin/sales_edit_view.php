@@ -38,7 +38,7 @@
 		<div class="col-md-3 col-xs-12 pl-0">
 			<div class="col-md-9">
 				<div class="settings cover">
-					<div class="title ">Обложка</div>
+					<div class="title ">Изображение</div>
 					<div class="items">
 						<div class="poster">
 							<img src="<?php echo $post['poster'] ?>" alt="" id="img">
@@ -57,15 +57,17 @@
 					<div class="items">
 						<div class="mb-20 form-group">
 							<label for="start_time">Начало</label>
-							<div class="date-dropdowns start_time"><input type="hidden" id="start_time" class="form-control" data-toggle="datepicker" name="start_time" value="">
+							<?php
+							$start_time = explode(" ", $post['start_time']);
+							$start_time = explode("-", $start_time[0]);
+							$start_day = $start_time[2];
+							$start_month = $start_time[1];
+							$start_year = $start_time[0];
+							?>
+							<div class="date-dropdowns start_time"><input type="hidden" id="start_time" class="form-control" data-toggle="datepicker" name="start_time" value="<?php echo $start_time[0].'-'.$start_time[1].'-'.$start_time[2]; ?>">
 							<select class="day" name="date_[day]">
 								<option value="">День</option>
 								<?php
-									$start_time = explode(" ", $post['start_time']);
-									$start_time = explode("-", $start_time[0]);
-									$start_day = $start_time[2];
-									$start_month = $start_time[1];
-									$start_year = $start_time[0];
 									for ($i = 1; $i<=31; $i++){
 									$selected = "";
 										if ($i<10) {
@@ -116,15 +118,17 @@
 						</div>
 						<div class="mb-20 form-group">
 							<label for="start_time">Конец</label>
-							<div class="date-dropdowns end_time"><input type="hidden" id="start_time" class="form-control" data-toggle="datepicker" name="start_time" value="">
+							<?php
+							$end_time = explode(" ", $post['end_time']);
+							$end_time = explode("-", $end_time[0]);
+							$end_day = $end_time[2];
+							$end_month = $end_time[1];
+							$end_year = $end_time[0];
+							 ?>
+							<div class="date-dropdowns end_time"><input type="hidden" id="end_time" class="form-control" data-toggle="datepicker" name="start_time" value="<?php echo $end_time[0].'-'.$end_time[1].'-'.$end_time[2]; ?>">
 							<select class="day" name="date_[day]">
 								<option value="">День</option>
 								<?php
-									$end_time = explode(" ", $post['end_time']);
-									$end_time = explode("-", $end_time[0]);
-									$end_day = $end_time[2];
-									$end_month = $end_time[1];
-									$end_year = $end_time[0];
 									for ($i = 1; $i<=31; $i++){
 									$selected = "";
 										if ($i<10) {
