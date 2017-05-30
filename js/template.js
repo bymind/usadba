@@ -839,9 +839,24 @@ function TryEditProfile(obj,callback)
 		var passwModal = $('.modal-passw_check');
 		publicProfEdit = profileEdit;
 		passwModal.modal('show');
+		PreventEnter(passwModal,"#passw-input","send-passw-check");
 		passwModal.find('.dismiss-button').attr('data-target', callback);
 		modal.off('hidden.bs.modal');
 	})
+}
+
+function PreventPasswEnter(modal,input_id, btn_data_target)
+{
+	console.log('PreventEnter(modal);');
+	var form = modal.find('form');
+	var passInput = form.find('input'+input_id);
+	passInput.on('keypress', function(event) {
+		console.log('keypress');
+		if (event.keyCode == 13){
+			event.preventDefault();
+			modal.find('button[data-target='+btn_data_target+']').click();
+		}
+	});
 }
 
 function GoCallback(callTo, obj)
@@ -1187,6 +1202,10 @@ function ModalInit(index)
 	var modalBody = modalContent.children('.modal-body');
 	var modalFooter = modalContent.children('.modal-footer');
 	var btns = modalFooter.find('button');
+
+	if ((index == "passw_new")) {
+		PreventPasswEnter(modalBlock, "#passw-input-new", "send-passw-new");
+	}
 
 
 	if ((index == "cart") && (cartList.count > 0)) {

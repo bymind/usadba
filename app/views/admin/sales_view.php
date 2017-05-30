@@ -7,7 +7,7 @@
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
 			<h1 class="blocked">
-				Текущие
+				Действующие
 			</h1>
 			<h4 class="blocked">
 				<a href="/admin/sales/archived" class="disabled">

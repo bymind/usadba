@@ -22,7 +22,7 @@
 					<?php
 																	foreach ($cat_tree['tree'] as $parent => $arr) {
 																			if ($arr['id']==$post['cat']) {
-																				echo "<option selected alue='".$arr['id']."'>".$arr['name']."</a>";
+																				echo "<option selected value='".$arr['id']."'>".$arr['name']."</a>";
 																			} else
 																			echo "<option value='".$arr['id']."'>".$arr['name']."</a>";
 																		if (isset($arr['child'])) {

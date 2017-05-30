@@ -1028,6 +1028,11 @@ select#sales-cat option, select#sales-prod option {
 	content: "▲";
 }
 
+.spoiler.checked>.spoiler-title {
+	border-color: #f44336;
+	background: #FFEBEE;
+}
+
 .spoiler-title input[type=checkbox] {
 	margin: auto 5px auto 0;
 	display: inline-block;
@@ -1094,4 +1099,15 @@ select#sales-cat option, select#sales-prod option {
 .spoiler-body .item-box .name {
 	font-size: 14px;
 	line-height: 16px;
+}
+
+
+.settings.cover .controls .info {
+	position: relative;
+	width: 100%;
+	font-size: 11px;
+	line-height: 16px;
+	float: left;
+	text-align: center;
+	margin-top: 3px;
 }

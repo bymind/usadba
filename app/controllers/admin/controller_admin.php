@@ -809,6 +809,7 @@ function adminDeleteProdsFromCat()
 		function adminSalesEdit($post_url)
 		{
 			$post = $this->model->getSalesPost($post_url);
+			$prods = $this->model->getData('prods');
 			if ($post['archived']==0) {
 				$archive_class = 'btn-archive';
 				$archive_text = 'Закончить акцию';
@@ -837,10 +838,13 @@ function adminDeleteProdsFromCat()
 															 'end_time' => $post['end_time'],
 															 // 'anons' => htmlspecialchars($post['anons']),
 															 'text' => htmlspecialchars($post['description']),
+															 'sales_prods' => htmlspecialchars($post['prods']),
+															 'sales_cats' => htmlspecialchars($post['cats'])
 															 //'tags' => $post['tags'],
 															),
 								'access_key' => $_SESSION['user']['access_key'],
 								'active_menu_item' => 'sales',
+								'prods' => $prods,
 								'actual_title' => $actual_title,
 								'second_title' => 'Правка акции',
 								'btns' => array(

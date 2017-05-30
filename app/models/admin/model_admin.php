@@ -288,14 +288,87 @@ class Model_Admin extends Model
 	public function updateSale($post)
 	{
 		extract($post);
-		// $author = $_SESSION['user']['name'];
+		$sales_prod = json_decode($sales_prod, true);
+		$sales_prods_ids = $sales_prod['prod'];
+		$sales_cats_ids = $sales_prod['cat'];
+		$sales_prods = implode(",", $sales_prods_ids);
+		$sales_cats = implode(",", $sales_cats_ids);;
+
 		$end_time = $end_time." 23:59:59";
-		$sql = "UPDATE sales SET tech_name = '$url', name = '$title', poster = '$poster', description = '$text', start_time='$start_time', end_time='$end_time' WHERE id = '$id'";
+		$sql = "UPDATE sales SET tech_name = '$url', name = '$title', poster = '$poster', description = '$text', start_time='$start_time', end_time='$end_time', cats = '$sales_cats', prods = '$sales_prods' WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
+		Self::updateSaleProds($sales_prods, $id);
 		echo "Акция сохранена";
 	}
 
+	function updateSaleProds($prods_ids, $sale_id)
+	{
+		// $sql = "UPDATE prod_items SET sales_id = NULL WHERE sales_id = '$sale_id'";
+		// mysql_query($sql) or die(mysql_error());
 
+		$sql = "SELECT id,labels FROM prod_items WHERE sales_id = '$sale_id' AND id NOT IN ($prods_ids)";
+		$res = mysql_query($sql) or die(mysql_error());
+		$ds = [];
+		while ($row = mysql_fetch_assoc($res)) {
+			// var_dump($row);
+			$ds[] = $row;
+		}
+		$sql = "";
+		foreach ($ds as $row) {
+			// echo "hello \r\n";
+			$labels = explode(",",$row['labels']);
+			$newLabels = [];
+			foreach ($labels as $label) {
+				if ($label!="sales") {
+					$newLabels[] = $label;
+				}
+				// var_dump($newLabels);
+			}
+			$row['labels'] = implode(",", $newLabels);
+			// var_dump($row['labels']);
+			$sql = "UPDATE prod_items SET labels = '".$row['labels']."', sales_id = NULL WHERE id=".$row['id'];
+			// var_dump($sql);
+			mysql_query($sql) or die(mysql_error());
+		}
+		// if ($sql!="") {
+		// }
+
+		$sql = "UPDATE prod_items SET sales_id = '$sale_id' WHERE id in ($prods_ids)";
+		mysql_query($sql) or die(mysql_error());
+		// $prods = explode(",", $prods_ids);
+		$ds = [];
+		$sql = "SELECT id,labels FROM prod_items WHERE id in ($prods_ids)";
+		$res = mysql_query($sql) or die(mysql_error());
+		while ($row = mysql_fetch_assoc($res)) {
+			if (strripos($row['labels'], "sales") === false) {
+				if ($row['labels']=="") {
+					$row['labels'] = "sales";
+				} else
+				$row['labels'] .= ",sales";
+				$ds[] = $row;
+			} else {
+				$ds[] = $row;
+			}
+		}
+		$sql = "UPDATE prod_items SET `labels`= CASE ";
+		foreach ($ds as $value) {
+			// echo ('DS!');
+			$sql .= "WHEN id='".$value['id']."' THEN '".$value['labels']."' ";
+		}
+		$sql .=" END WHERE id in ($prods_ids)";
+		if ($sql!="") {
+			// var_dump($sql);
+			// echo "\r\n";
+			// var_dump($prods_ids);
+			// echo "\r\n";
+			// var_dump($sale_id);
+			// echo "\r\n";
+			// var_dump($ds);
+			// echo "\r\n";
+			mysql_query($sql) or die(mysql_error());
+		}
+
+	}
 
 	/*
 	updatePost($post)

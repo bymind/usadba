@@ -1,7 +1,6 @@
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script src="/js/admin/main.js"></script>
 <!-- <script src="/js/admin/articles.js"></script> -->
-<script src="/js/admin/sales.js"></script>
 
 <div class="main-content">
 
@@ -29,6 +28,94 @@
 			</div>
 
 			<div class="row">
+				<label for="" class="post-label">Продукты по акции</label>
+				<?php
+					$sales_cats = explode(",", $post['sales_cats']);
+					$json_sales_cats = json_encode($sales_cats,true);
+					// var_dump($json_sales_cats);
+					// echo "<br>";
+					$sales_prods = explode(",", $post['sales_prods']);
+					$json_sales_prods = json_encode($sales_prods,true);
+					// var_dump($json_sales_prods);
+
+					// echo "<div class='json_sales_cats' style='display:none'>$json_sales_cats</div>";
+					// echo "<div class='json_sales_prods' style='display:none'>$json_sales_prods</div>";
+					// echo "<script>initSelectedProds($json_sales_cats,$json_sales_prods);</script>";
+				?>
+				<div class="col-xs-12">
+				<div class="sales-select-items">
+				<?php
+					foreach ($prods['prodCats']['tree'] as $prod) {
+						?>
+						<div class="spoiler">
+							<div class="spoiler-title" data-catid="<?php echo $prod['id']; ?>">
+								<label for="cat-<?php echo $prod['id']; ?>"><input <?php echo $checked;?> type="checkbox" class="cat-prod-input" id="cat-<?php echo $prod['id']; ?>" data-catid="<?php echo $prod['id']; ?>"> <span title="Выбрать категорию"><?php echo $prod['name']; ?></span></label>
+							</div>
+							<div class="spoiler-body">
+							<div class="row m-0">
+						<?php
+						foreach ($prods['prodItems']['all'] as $item) {
+							if ($item['cat']==$prod['id']) {
+								?>
+									<div class="col-xs-2 item-box" data-prodid="<?php echo $item['id']; ?>">
+										<input <?php echo $checked;?> type="checkbox" class="sales-prod-input" data-prodid="<?php echo $item['id']; ?>" value="<?php echo $item['id']; ?>">
+										<div class="poster" data-poster="<?php echo $item['images']; ?>" style="background-image:url(<?php echo $item['images']; ?>)"></div>
+										<div class="art"><?php echo $item['art']; ?></div>
+										<div class="name"><?php echo $item['name']; ?></div>
+									</div>
+								<?php
+							}
+						}
+						?>
+						</div>
+						<?php
+						if (isset($prod['child'])) {
+							?>
+								<div class="row m-0">
+							<?php
+							foreach ($prod['child'] as $child) {
+								?>
+								<div class="spoiler">
+									<div class="spoiler-title" data-catid="<?php echo $child['id']; ?>">
+										<label for="cat-<?php echo $child['id']; ?>"><input <?php echo $checked;?> type="checkbox" class="cat-prod-input" id="cat-<?php echo $child['id']; ?>" data-catid="<?php echo $child['id']; ?>"> <span title="Выбрать категорию"><?php echo $child['name']; ?></span></label>
+									</div>
+									<div class="spoiler-body">
+									<div class="row m-0">
+								<?php
+								foreach ($prods['prodItems']['all'] as $item) {
+									if ($item['cat']==$child['id']) {
+										?>
+											<div class="col-xs-2 item-box" data-prodid="<?php echo $item['id']; ?>">
+												<input <?php echo $checked;?> type="checkbox" class="sales-prod-input" data-prodid="<?php echo $item['id']; ?>" value="<?php echo $item['id']; ?>">
+												<div class="poster" data-poster="<?php echo $item['images']; ?>" style="background-image:url(<?php echo $item['images']; ?>)"></div>
+												<div class="art">Артикул: <?php echo $item['art']; ?></div>
+												<div class="name"><?php echo $item['name']; ?></div>
+											</div>
+										<?php
+									}
+								}
+								?>
+									</div>
+									</div>
+								</div>
+								<?php
+							}
+							?>
+							</div>
+							<?php
+						}
+						?>
+							</div>
+						</div>
+						<?php
+					}
+				?>
+
+				</div>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="btn-after-post post-save edit">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
 			</div>
@@ -47,6 +134,7 @@
 							<input type="text" id="cover-img" value="<?php echo $post['poster'] ?>">
 							<a href="/js/responsive_filemanager/filemanager/dialog.php?type=2&field_id=cover-img&relative_url=1&akey=<?php echo $access_key ?>" class="upload iframe-btn">заменить</a>
 							<div class="delete">удалить</div>
+							<div class="info">изображение на белом фоне</div>
 						</div>
 					</div>
 				</div>
@@ -187,7 +275,14 @@
 
 </div>
 </div>
-
+<script src="/js/admin/sales.js"></script>
+<script>
+	$(function() {
+		$cats = <?php echo $json_sales_cats; ?>;
+		$prods = <?php echo $json_sales_prods; ?>;
+		initSelectedProds($cats,$prods);
+	});
+</script>
 <script>
 	articlesEditInit("<?php echo $access_key ?>");
 </script>

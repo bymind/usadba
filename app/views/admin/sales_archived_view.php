@@ -11,7 +11,7 @@
 			</h1>
 			<h4 class="blocked">
 				<a href="/admin/sales" class="disabled">
-				Текущие
+				Действующие
 				</a>
 			</h4>
 		</div>

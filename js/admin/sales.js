@@ -42,9 +42,12 @@ $('.sales-select-items .spoiler-title label').unbind('click').on('click',functio
 	console.log('input changed');
 	$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').find('input[type=checkbox]').prop('checked', $checked);
 	if ($checked) {
+		$(this).parent().parent().addClass('checked');
 		$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').addClass('selected');
-	} else
+	} else {
+		$(this).parent().parent().removeClass('checked');
 		$(this).parent().parent().children('.spoiler-body').children('.row').children('.item-box').removeClass('selected');
+	}
 });
 
 /*$('.sales-select-items .spoiler-title label>input').unbind('change').on('change', function(event) {
@@ -69,9 +72,11 @@ $('.item-box input[type=checkbox]').on('change',function(event) {
 		if ($checkCat) {
 			console.info('check cat');
 			$catspoiler.children('.spoiler-title').find('input').prop('checked',true);
+			$catspoiler.addClass('checked');
 		} else {
 			console.info('uncheck cat');
 			$catspoiler.children('.spoiler-title').find('input').prop('checked',false);
+			$catspoiler.removeClass('checked');
 		}
 	// }
 	});
@@ -91,6 +96,8 @@ $('.item-box').on('click', function(event) {
 	// $(this).children('input').prop('checked', !$(this).children('input').prop('checked'));
 	// $(this).toggleClass('selected');
 });
+
+// initSelectedProds($cats,$prods);
 
 });
 
@@ -799,4 +806,15 @@ function pinClick()
 		liUnpin.removeClass('pinned');
 		return false;
 	});
+}
+
+function initSelectedProds($cats, $prods)
+{
+	console.log($cats);
+	console.log($prods);
+	$.each($prods, function(index, val) {
+		$('.item-box[data-prodid='+val+']').click();
+		$('.item-box[data-prodid='+val+']').parents('.spoiler').addClass('open');
+	});
+
 }
