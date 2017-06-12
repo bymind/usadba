@@ -292,7 +292,7 @@ class Model_Admin extends Model
 		$sales_prods_ids = $sales_prod['prod'];
 		$sales_cats_ids = $sales_prod['cat'];
 		$sales_prods = implode(",", $sales_prods_ids);
-		$sales_cats = implode(",", $sales_cats_ids);;
+		$sales_cats = implode(",", $sales_cats_ids);
 
 		$end_time = $end_time." 23:59:59";
 		$sql = "UPDATE sales SET tech_name = '$url', name = '$title', poster = '$poster', description = '$text', start_time='$start_time', end_time='$end_time', cats = '$sales_cats', prods = '$sales_prods' WHERE id = '$id'";

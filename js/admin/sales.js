@@ -518,6 +518,21 @@ function saveBtnClick($attr)
 		}
 	}
 
+
+	if ($sales_prod['prod'].length == 0) {
+		$('.success-modal-md').on('show.bs.modal', function(event) {
+			var modal = $(this);
+			  modal.find('.modal-title').text('Не получилось');
+			  modal.find('.modal-body .text').hide();
+			  modal.find('.modal-body .response').text('Не указаны товары по акции.');
+		});
+		$('.success-modal-md').modal();
+		btnSave.removeClass('active');
+		btnSave.text('Сохранить');
+		return false;
+	}
+
+	// $sales_array = $sales_prod['prod'].length);
 	$sales_prod = JSON.stringify($sales_prod);
 
 	if (($url=="")||($title=="")||($poster=="")||($poster=="/img/prod-default-cover.jpg")||($anons=="")||($text=="")||($start_time=="")||($end_time=="")) {
@@ -810,11 +825,10 @@ function pinClick()
 
 function initSelectedProds($cats, $prods)
 {
-	console.log($cats);
-	console.log($prods);
-	$.each($prods, function(index, val) {
-		$('.item-box[data-prodid='+val+']').click();
-		$('.item-box[data-prodid='+val+']').parents('.spoiler').addClass('open');
-	});
-
+	if ($prods[0] != "") {
+		$.each($prods, function(index, val) {
+			$('.item-box[data-prodid='+val+']').click();
+			$('.item-box[data-prodid='+val+']').parents('.spoiler').addClass('open');
+		});
+	}
 }
