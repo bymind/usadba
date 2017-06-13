@@ -625,7 +625,9 @@ function adminDeleteProdsFromCat()
 		if ($product['archived']==0) {
 			$archive_class = 'btn-archive';
 			$archive_text = 'Скрыть товар';
-			$actual_title = '<a href="/admin/goods">Товары</a>';
+			$catName = $this->model->getCatName($product['cat']);
+			// var_dump($catName);
+			$actual_title = '<a href="/admin/goods/cat/'.$product['cat'].'">'.$catName['name'].'</a>';
 		} else
 		{
 			$archive_class = 'btn-unarchive';
@@ -1271,7 +1273,7 @@ function adminDeleteProdsFromCat()
 	function adminFiles()
 	{
 		$this->view->generate(
-					'admin/main_view.php',
+					'admin/files_view.php',
 					'admin/template_admin_view.php',
 					array(
 							'title'=>' - Файловый менеджер',

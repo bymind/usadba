@@ -169,6 +169,20 @@ class Model_Admin extends Model
 		return $cat_tree;
 	}
 
+	/*
+	getCatName()
+	Получение имени категории
+	*/
+	public function getCatName($catid)
+	{
+		$q = mysql_query("SELECT name FROM prod_cat WHERE id = '$catid' LIMIT 1") or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$catName  = $buf;
+		}
+
+		return $catName;
+	}
+
 
 	/*
 	getArticlesLists()
