@@ -26,9 +26,9 @@
 							</a>
 						</span>
 					</div>
-					<?php
+					<h1><?php
 						echo $prodCat['name'];
-					?>
+					?></h1>
 					<div class="sidecat nextcat hidden-xs">
 						<span class="nextcat">
 							<a href="/catalog/<?php echo $prodCat['next']['tech_name']; ?>">
