@@ -19,11 +19,11 @@
 				<div class="product-layer shadow br-2 clearfix">
 
 					<!-- TITLE -->
-					<div class="title-wide" data-prodname="true">
+					<h1 class="title-wide" data-prodname="true">
 						<?php
 							echo $currentProduct['name'];
 						?>
-					</div>
+					</h1>
 					<div class="mini-desc mb-10">
 						<?php
 							echo $currentProduct['mini_desc'];

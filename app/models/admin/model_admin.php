@@ -186,7 +186,7 @@ class Model_Admin extends Model
 
 	/*
 	getArticlesLists()
-	Получение списка статей в архиве
+	Получение списка статей
 	*/
 	public function getArticlesLists()
 	{
@@ -196,6 +196,24 @@ class Model_Admin extends Model
 					$r['datetime'] = Controller::getGoodDate($r['datetime']);
 					$ds[]=$r;
 
+		}
+
+		return $ds;
+	}
+
+
+
+	/*
+	getPagesLists()
+	Получение списка страниц
+	*/
+	public function getPagesLists()
+	{
+		$select = mysql_query("SELECT * FROM pages WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$ds[]=$r;
 		}
 
 		return $ds;

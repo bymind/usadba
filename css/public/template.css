@@ -676,6 +676,9 @@ span.label.new{
 	font-size: 26px;
 	line-height: 26px;
 	text-align: center;
+	display: block;
+	margin: 0;
+	font-weight: normal;
 }
 
 .sidecat {

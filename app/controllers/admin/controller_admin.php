@@ -1247,25 +1247,74 @@ function adminDeleteProdsFromCat()
 
 /*																		 PAGES
 *************************************************************************************/
-	function adminPages()
-	{
-		$this->view->generate(
-					'admin/main_view.php',
-					'admin/template_admin_view.php',
-					array(
-							'title'=>' - Страницы',
-							'style'=>'admin/template.css',
-							'style_content'=>'admin/main.css',
-							//'posts'=>$ds,
-							'active_menu_item' => 'pages',
-							'actual_title' => 'Страницы',
-							'Favicon' => 'app/views/admin-favicon.php',
-						),
-					'admin/navigation_view.php',
-					'admin/footer_view.php'
-					);
+
+
+function adminPages($params = '')
+{
+	if ($params == '') {
+		$params['name'] = 'default';
+	}
+	if (is_array($params))
+				{
+					extract($params);
+				}
+			else
+				$name = $params;
+
+	switch ($name) {
+		case 'edit':
+			self::adminPagesEdit($value);
+			break;
+
+		case 'delete':
+			self::adminPagesDelete($value);
+			break;
+
+		case 'archived':
+			self::adminPagesArchived();
+			break;
+
+		case 'archive':
+			self::adminPagesArchive($value);
+			break;
+
+		case 'unarchive':
+			self::adminPagesUnArchive($value);
+			break;
+
+		case 'new':
+			self::adminPagesNew();
+			break;
+
+		case 'save':
+			self::adminPagesSave();
+			break;
+
+		default :
+			$ds = $this->model->getPagesLists();
+			$this->view->generate(
+						'admin/pages_view.php',
+						'admin/template_admin_view.php',
+						array(
+								'title'=>' - Страницы',
+								'style'=>'admin/template.css',
+								'style_content'=>'admin/pages.css',
+								'active_menu_item' => 'pages',
+								'actual_title' => 'Страницы',
+								'posts'=>$ds,
+								'btns' => array(
+																'new-post' => 'Новая страница',
+																),
+						'Favicon' => 'app/views/admin-favicon.php',
+							),
+						'admin/navigation_view.php',
+						'admin/footer_view.php',
+						'admin/modals_main_view.php'
+						);
+			break;
 	}
 
+}
 
 
 /*																		 FILES
@@ -1279,7 +1328,7 @@ function adminDeleteProdsFromCat()
 							'title'=>' - Файловый менеджер',
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/main.css',
-							//'posts'=>$ds,
+							'access_key' => $_SESSION['user']['access_key'],
 							'active_menu_item' => 'files',
 							'actual_title' => 'Файловый менеджер',
 							'Favicon' => 'app/views/admin-favicon.php',
@@ -1944,11 +1993,11 @@ function adminDeleteProdsFromCat()
 
 
 
-	function action_pages()
+	function action_pages($params='')
 	{
 		if (Controller::is_admin())
 		{
-			self::adminPages();
+			self::adminPages($params);
 		} else
 		{
 			self::adminLogin();

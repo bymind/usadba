@@ -62,6 +62,7 @@ class Route
 
 		if ( file_exists($model_path) )
 		{
+			// echo "Модуль $model_path подключен!";
 			include $model_path;
 		} else {
 			// echo "Модуль $model_path не найден!";
@@ -231,8 +232,21 @@ class Route
 						}
 		}
 		else {
-			// echo "$controller_path not found";
-			self::Catch_Error('404');
+			$param = Self::PrepareUrl($routes[1]);
+			$controller_name= "Controller_Pages";
+			$controller_path = self::CONTROLLERS_PATH.strtolower($controller_name).'.php';
+			// var_dump($controller_path);
+			if ( file_exists($controller_path) )
+			{
+				Self::loadModel('model_pages');
+				Self::loadController($controller_name);
+				// создаем экземпляр класса контроллера
+				$controller = new $controller_name;
+				// создадим-ка еще одну переменную для имени экшена, старая переменная может нам еще пригодиться
+				$action = "action_index";
+				$controller->$action($param);
+			} else
+				self::Catch_Error('404');
 		}
 	}
 
