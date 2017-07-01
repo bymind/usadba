@@ -999,6 +999,34 @@ function adminDeleteProdsFromCat()
 
 
 
+/*	 PAGES ARCHIVED LIST
+**********************************/
+	function adminPagesArchived()
+	{
+		$posts = $this->model->getPagesPostsArchived();
+		$this->view->generate(
+					'admin/pages_archived_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Архив страниц',
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/articles.css',
+							'posts'=>$posts,
+							'active_menu_item' => 'pages',
+							'actual_title' => 'Страницы (архив)',
+							//'second_title' => 'Записи в блоге',
+							'btns' => array(
+															'new-post' => 'Новая страница',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
 /*	 ARTICLES ARCHIVED LIST
 **********************************/
 	function adminArticlesArchived()
@@ -1036,6 +1064,14 @@ function adminDeleteProdsFromCat()
 		return $this->model->archiveSale($postArrive);
 	}
 
+/*	PAGES -> to archive
+**********************************/
+	function adminPagesArchive($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->archivePage($postArrive);
+	}
+
 /*	 ARTICLES -> to archive
 **********************************/
 	function adminArticlesArchive($value)
@@ -1044,7 +1080,13 @@ function adminDeleteProdsFromCat()
 		return $this->model->archivePost($postArrive);
 	}
 
-
+/*	 PAGES -> unarchive
+**********************************/
+	function adminPagesUnArchive($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->unarchivePage($postArrive);
+	}
 
 /*	 ARTICLES -> unarchive
 **********************************/
@@ -1101,6 +1143,48 @@ function adminDeleteProdsFromCat()
 
 
 
+/*	 PAGES NEW
+**********************************/
+	function adminPagesNew()
+	{
+		$this->view->generate(
+					'admin/pages_new_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Новая страница',
+							'style'=>'admin/template.css',
+							// 'style_content'=>'admin/articles.css',
+							'style_content'=>'admin/goods.css',
+							/*'post'=>array (
+														 'id' => $post['id'],
+														 'url' => $post['url'],
+														 'title' => htmlspecialchars($post['title']) ,
+														 'poster' => $post['poster'],
+														 'date' => $post['date'],
+														 'anons' => htmlspecialchars($post['anons']),
+														 'text' => htmlspecialchars($post['text']),
+														 'tags' => $post['tags'],
+														),*/
+							'access_key' => $_SESSION['user']['access_key'],
+							'active_menu_item' => 'pages',
+							'actual_title' => '<a href="/admin/pages">Страницы</a>',
+							'second_title' => 'Новая страница',
+							'btns' => array(
+															'post-save new' => 'Сохранить',
+															'post-abort' => 'Отмена',
+															//'post-delete' => 'Удалить',
+															'post-archive btn-archive-new' => 'Сохранить в архив',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
 /*	 ARTICLES NEW
 **********************************/
 	function adminArticlesNew()
@@ -1132,6 +1216,60 @@ function adminDeleteProdsFromCat()
 															'post-abort' => 'Отмена',
 															//'post-delete' => 'Удалить',
 															'post-archive btn-archive-new' => 'Сохранить в архив',
+															),
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
+
+
+
+/*	 PAGES EDIT
+**********************************/
+	function adminPagesEdit($post_url)
+	{
+		$post = $this->model->getPagesPost($post_url);
+		if ($post['archived']==0) {
+			$archive_class = 'btn-archive';
+			$archive_text = 'В архив';
+			$actual_title = '<a href="/admin/pages">Страницы</a>';
+		} else
+		{
+			$archive_class = 'btn-unarchive';
+			$archive_text = 'Опубликовать';
+			$actual_title = '<a href="/admin/pages/archived">Страницы(архив)</a>';
+		}
+
+		$this->view->generate(
+					'admin/pages_edit_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - Редактирование страницы - '.htmlspecialchars($post['title']),
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/goods.css',
+							'post'=>array (
+														 'id' => $post['id'],
+														 'url' => $post['tech_name'],
+														 'title' => htmlspecialchars($post['title']) ,
+														 'subtitle' => htmlspecialchars($post['subtitle']) ,
+														 'poster' => $post['poster'],
+														 'date' => $post['datetime'],
+														 // 'anons' => htmlspecialchars($post['anons']),
+														 'text' => htmlspecialchars($post['body']),
+														 //'tags' => $post['tags'],
+														),
+							'access_key' => $_SESSION['user']['access_key'],
+							'active_menu_item' => 'pages',
+							'actual_title' => $actual_title,
+							'second_title' => 'Правка страницы',
+							'btns' => array(
+															'post-save edit' => 'Сохранить',
+															'post-abort' => 'Отмена',
+															'post-delete btn-delete' => 'Удалить',
+															'post-archive '.$archive_class => $archive_text,
 															),
 							'Favicon' => 'app/views/admin-favicon.php',
 						),
@@ -1193,6 +1331,35 @@ function adminDeleteProdsFromCat()
 					'admin/footer_view.php',
 					'admin/modals_main_view.php'
 					);
+	}
+
+
+
+/*	 PAGES SAVE
+**********************************/
+	function adminPagesSave()
+	{
+		if (!isset($_POST['action'])) {
+			return "Не указан параметр action";
+		}
+		if (!isset($_POST['jsonPost'])) {
+			return "Параметры не переданы";
+		}
+		switch ($_POST['action']) {
+			case 'edit':
+					$postArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->updatePage($postArrive);
+				break;
+
+			case 'new':
+					$postArrive = json_decode($_POST['jsonPost'], true);
+					return $this->model->newPage($postArrive);
+				break;
+
+			default:
+				# code...
+				break;
+		}
 	}
 
 
@@ -1367,13 +1534,17 @@ function adminPages($params = '')
 				self::adminUserIssuper();
 				break;
 
+			case 'all':
+				self::adminShowAll();
+				break;
+
 			case 'default':
-				$users = $this->model->getUsers();
+				$users = $this->model->getAdminUsers();
 				$this->view->generate(
 							'admin/users_view.php',
 							'admin/template_admin_view.php',
 							array(
-									'title'=>' - Аккаунты',
+									'title'=>' - Администраторы',
 									'style'=>'admin/template.css',
 									'style_content'=>'admin/users.css',
 									'users'=>$users,
@@ -1417,6 +1588,30 @@ function adminPages($params = '')
 		}
 
 	}
+
+public function adminShowAll()
+{
+	$users = $this->model->getSimpleUsers();
+	$this->view->generate(
+				'admin/users_all_view.php',
+				'admin/template_admin_view.php',
+				array(
+						'title'=>' - Пользователи',
+						'style'=>'admin/template.css',
+						'style_content'=>'admin/users.css',
+						'users'=>$users,
+						'active_menu_item' => 'users',
+						'actual_title' => 'Аккаунты',
+						'btns' => array(
+														'btn-primary btn-new-user' => 'Создать аккаунт',
+														),
+				'Favicon' => 'app/views/admin-favicon.php',
+					),
+				'admin/navigation_view.php',
+				'admin/footer_view.php',
+				'admin/modals_users_view.php'
+				);
+}
 
 
 /*	 USERS ISSUPER

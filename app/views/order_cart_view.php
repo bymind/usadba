@@ -59,19 +59,56 @@
 										<div class="row">
 										<div class="form-group mb-20 col-xs-10 col-sm-7 ">
 											<label for="order-name">Имя получателя</label>
+											<?php if ($userData['name']) {
+												?>
+													<input type="text" name="name" id="order-name" class="form-control" placeholder="На это имя будет оформлен заказ" required value="<?php echo $userData['name'];?>">
+												<?php
+											}  else {?>
 											<input type="text" name="name" id="order-name" class="form-control" placeholder="На это имя будет оформлен заказ" required>
+											<?php }?>
 										</div>
 										</div>
 										<div class="row">
 										<div class="form-group mb-20 col-xs-10 col-sm-7">
 											<label for="order-phone">Контактный телефон</label>
+											<?php if ($userData['phone']) {
+												?>
+													<input type="tel" name="phone" id="order-phone" class="form-control" placeholder="+7 (___) ___-__-__" required value="<?php echo $userData['phone'];?>">
+												<?php
+											}  else {?>
 											<input type="tel" name="phone" id="order-phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+											<?php }?>
 										</div>
 										</div>
 										<div class="row">
 										<div class="form-group mb-20 col-xs-10 col-sm-7">
 											<label for="order-address">Адрес</label>
-											<input type="text" name="address" id="order-address" class="form-control" placeholder="Укажите адрес доставки" required>
+											<?php
+												if ($userData['addresses']) {
+													?>
+													<input type="text" name="address" id="order-address" class="form-control" placeholder="Укажите адрес доставки" required value="<?php echo $userData['addresses'][0];?>">
+													<?php
+												} else {
+											 ?>
+											<input type="text" name="address" id="order-address" class="form-control suggestions-input" placeholder="Укажите адрес доставки" required>
+											<?php }?>
+											<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+											<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+											<!--[if lt IE 10]>
+											<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+											<![endif]-->
+											<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
+											<script type="text/javascript">
+											    $("#order-address").suggestions({
+											        token: "f11ed4cbf3102dd5f4560d48c433ba0a36903275",
+											        type: "ADDRESS",
+											        count: 5,
+											        /* Вызывается, когда пользователь выбирает одну из подсказок */
+											        onSelect: function(suggestion) {
+											            console.log(suggestion);
+											        }
+											    });
+											</script>
 										</div>
 										</div>
 										<div class="row">

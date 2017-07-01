@@ -541,6 +541,10 @@ function BtnClickHandler(obj)
 			}
 		break;
 
+		case "goSendOrder":
+			goSendOrder(obj);
+		break;
+
 		default:
 			console.log('nothing');
 			return false;
@@ -548,6 +552,20 @@ function BtnClickHandler(obj)
 	}
 
 	return 0;
+}
+
+function goSendOrder(obj)
+{
+	console.log('send order');
+	var order = {};
+	order.name = $('#order-name').val();
+	order.phone = $('#order-phone').val();
+	order.addr = $('#order-address').val();
+	order.comm = $('#order-comment').val();
+	order.cash = $('#order-cash').prop('checked');
+	order.payonline = $('#order-cardonline').prop('checked');
+	order.prods = cartList;
+	console.info(order);
 }
 
 function RestoreAddr(obj)

@@ -66,6 +66,7 @@ function isSuper()
 					modalBox.find('.modal-body').html(response);
 					modalBox.find('.modal-footer .btn-primary').text('Ок');
 					console.log(response);
+					location.reload();
 				})
 				.fail(function(response) {
 					console.log("error");
@@ -112,11 +113,14 @@ function newUserBtn()
 			var $login = modalBox.find('#loginInput').val();
 			var $email = modalBox.find('#emailInput').val();
 			var $passw = modalBox.find('#passwInput').val();
+			var $isadmin = modalBox.find('#isAdminInput').prop('checked');
 			var dataArray = {
 				login: $login,
 				email: $email,
-				passw: $passw
+				passw: $passw,
+				isadmin: $isadmin
 			}
+			console.info(dataArray);
 			dataPost = JSON.stringify(dataArray);
 			$.ajax({
 				url: '/admin/users/addnew',
@@ -137,7 +141,8 @@ function newUserBtn()
 			.always(function() {
 				console.log("complete");
 				modalBox.on('hidden.bs.modal', function(event) {
-					location.href="/admin/users";
+					// location.href="/admin/users";
+					location.reload();
 				});
 			});
 

@@ -65,11 +65,11 @@ function newArchiveBtnClick()
 	var $id = $('#post-id').val();
 	var $url = $('#post-url').val();
 	var $title = $('#post-title').val();
+	var $subtitle = $('#post-subtitle').val();
 	var $poster = $('#cover-img').val();
-	var $anons = $('#post-anons').val();
 	var $text = $('#post-body').val();
 
-	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
+	if (($url=="")||($title=="")||($text=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
 			  modal.find('.modal-title').text('Не получилось');
@@ -86,9 +86,9 @@ function newArchiveBtnClick()
 		id: $id,
 		url: $url,
 		title: $title,
+		subtitle: $subtitle,
 		poster: $poster,
 //		date: "",
-		anons: $anons,
 		text: $text,
 		archived: 1
 	};
@@ -98,7 +98,7 @@ function newArchiveBtnClick()
 	mainContent.animate({opacity:'.3'}, 200);
 
 	$.ajax({
-		url: '/admin/articles/save',
+		url: '/admin/pages/save',
 		type: 'POST',
 		data: {jsonPost: jsonPost, action: 'new'},
 	})
@@ -128,7 +128,7 @@ function newArchiveBtnClick()
 		btnSave.removeClass('active');
 		btnSave.text('Сохранить в архив');
 		$('.success-modal-md').on('hidden.bs.modal', function(event) {
-				location.href="/admin/articles/edit/"+$url;
+				location.href="/admin/pages/edit/"+$url;
 		});
 	});
 
@@ -148,9 +148,9 @@ function lookUnArchive()
 		modalBox = $('.archive-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Публикация поста из архива');
+			  modal.find('.modal-title').text('Публикация страницы из архива');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Опубликовать пост "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-body .response').html('Опубликовать страницу "<strong>'+$post_title+'</strong>"?');
 			  modal.find('.modal-footer .go-archive').text("Опубликовать");
 			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
 		});
@@ -167,7 +167,7 @@ function lookUnArchive()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/unarchive/'+$post_title,
+				url: '/admin/pages/unarchive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -182,7 +182,7 @@ function lookUnArchive()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/pages";
 				});
 			})
 			.fail(function(response) {
@@ -217,9 +217,9 @@ function lookArchive()
 		modalBox = $('.archive-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Отправить пост в архив');
+			  modal.find('.modal-title').text('Отправить страницу в архив');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Архивировать пост "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-body .response').html('Архивировать страницу "<strong>'+$post_title+'</strong>"?');
 			  modal.find('.modal-footer .go-archive').attr("data-id", $post_id);
 		});
 		modalBox.modal();
@@ -235,7 +235,7 @@ function lookArchive()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/archive/'+$post_title,
+				url: '/admin/pages/archive/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -250,7 +250,7 @@ function lookArchive()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/pages";
 				});
 			})
 			.fail(function(response) {
@@ -285,9 +285,9 @@ function lookDelete()
 		modalBox = $('.info-modal-md');
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
-			  modal.find('.modal-title').text('Удаление поста');
+			  modal.find('.modal-title').text('Удаление страницы');
 			  modal.find('.modal-body .text').hide();
-			  modal.find('.modal-body .response').html('Удалить пост "<strong>'+$post_title+'</strong>"?');
+			  modal.find('.modal-body .response').html('Удалить страницу "<strong>'+$post_title+'</strong>"?');
 			  modal.find('.modal-footer .go-delete').attr("data-id", $post_id);
 		});
 		modalBox.modal();
@@ -303,7 +303,7 @@ function lookDelete()
 			modalBox.modal('hide');
 			mainContent.animate({opacity:'.3'}, 200);
 			$.ajax({
-				url: '/admin/articles/delete/'+$post_title,
+				url: '/admin/pages/delete/'+$post_title,
 				type: 'POST',
 				data: {jsonPost: jsonPost},
 			})
@@ -318,7 +318,7 @@ function lookDelete()
 				});
 				$('.success-modal-md').modal();
 				$('.success-modal-md').on('hidden.bs.modal', function(event) {
-					location.href="/admin/articles";
+					location.href="/admin/pages";
 				});
 			})
 			.fail(function(response) {
@@ -342,14 +342,14 @@ function lookDelete()
 function lookNew()
 {
 	$('.new-post').click(function(event) {
-		location.href="/admin/articles/new";
+		location.href="/admin/pages/new";
 	});
 }
 
 function lookAbort()
 {
 	$('.post-abort').click(function(event) {
-		location.href='/admin/articles';
+		location.href='/admin/pages';
 	});
 }
 
@@ -377,10 +377,10 @@ function saveBtnClick($attr)
 	var $title = $('#post-title').val();
 	var $subtitle = $('#post-subtitle').val();
 	var $poster = $('#cover-img').val();
-	var $anons = $('#post-anons').val();
+	// var $anons = $('#post-anons').val();
 	var $text = $('#post-body').val();
 
-	if (($url=="")||($title=="")||($poster=="")||($anons=="")||($text=="")) {
+	if (($url=="")||($title=="")||($text=="")) {
 		$('.success-modal-md').on('show.bs.modal', function(event) {
 			var modal = $(this);
 			  modal.find('.modal-title').text('Не получилось');
@@ -400,7 +400,7 @@ function saveBtnClick($attr)
 		subtitle: $subtitle,
 		poster: $poster,
 //		date: "",
-		anons: $anons,
+		// anons: $anons,
 		text: $text
 //		tags: ""
 	};
@@ -410,7 +410,7 @@ function saveBtnClick($attr)
 	mainContent.animate({opacity:'.3'}, 200);
 
 	$.ajax({
-		url: '/admin/articles/save',
+		url: '/admin/pages/save',
 		type: 'POST',
 		data: {jsonPost: jsonPost, action: $attr},
 	})

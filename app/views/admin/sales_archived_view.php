@@ -6,14 +6,14 @@
 
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
-			<h1 class="blocked">
-					Архив
-			</h1>
 			<h4 class="blocked">
 				<a href="/admin/sales" class="disabled">
 				Действующие
 				</a>
 			</h4>
+			<h1 class="blocked">
+					Архив
+			</h1>
 		</div>
 	</div>
 

@@ -12,6 +12,9 @@ class Controller_Pages extends Controller
 	public function action_index($param)
 	{
 		$pageDataController = $this->model->getData("page", $param);
+		if ($pageDataController['page']['archived']==1) {
+			Route::Catch_Error('404');
+		}
 		$pageDataProd = $this->model->getData('prods');
 		// $pageData = $this->model->getData('news');
 		// $pageSales = $this->model->getData('sales');

@@ -6,14 +6,14 @@
 
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
-			<h1 class="blocked">
-					Архив
-			</h1>
 			<h4 class="blocked">
 				<a href="/admin/articles" class="disabled">
 				Опубликованные
 				</a>
 			</h4>
+			<h1 class="blocked">
+					Архив
+			</h1>
 		</div>
 	</div>
 
@@ -33,10 +33,14 @@
 
 			<div class="col-md-3">
 			<div class="blog-item">
-				<div class="poster" style="background-image: url(<?php echo $post['poster'] ?>);">
+				<div class="poster" style="background-image: url(<?php
+																													 if ($post['poster']) {
+					                                                 echo $post['poster'];
+				                                                 } else
+				                                                 	echo "/upload/prod-default-cover.jpg";
+				                                                 	 ?>);">
 					<div class="controls hidden-xs">
 						<a href="/admin/articles/edit/<?php echo $post['url'] ?>" class="btn-edit">Редактировать</a>
-						<!-- <a href="/articles/<?php echo $post['url'] ?>" class="look" target="_blank">Посмотреть на сайте</a> -->
 						<a href="/admin/articles/delete/<?php echo $post['url'] ?>" data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-delete">Удалить</a>
 						<a href="/admin/articles/archive/<?php echo $post['url'] ?>"  data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-archive btn-unarchive">Опубликовать</a>
 					</div>

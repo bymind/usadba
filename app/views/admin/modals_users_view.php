@@ -16,8 +16,12 @@
 					<input type="email" required name="email" class="form-control" id="emailInput" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<label for="passwInput">Пароль</label>
+					<label for="passwInput">Пароль(не меньше 6 знаков)</label>
 					<input type="password" required name="passw" class="form-control" id="passwInput" placeholder="passw">
+				</div>
+				<div class="form-group" style="text-align: center;margin-top: 30px;margin-bottom: 0;">
+					<label for="isAdminInput" style="vertical-align: middle;margin-left: auto;margin-right: auto;position: relative;">
+					<input type="checkbox" name="isadmin" class="form-control" id="isAdminInput" style="margin: 0 10px 0 0;width: 16px;box-shadow: none;display: inline-block;vertical-align: middle;height: 16px;">Администратор</label>
 				</div>
 			</div>
 			<div class="modal-footer">

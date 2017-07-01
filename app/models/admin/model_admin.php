@@ -265,6 +265,20 @@ class Model_Admin extends Model
 
 
 	/*
+	getPagesPost($url)
+	Получение страницы по её url
+	$url [string] - url страницы
+	*/
+	public function getPagesPost($post_url)
+	{
+		$select = mysql_query("SELECT * FROM pages WHERE tech_name = '$post_url'")or die(mysql_error());
+		$ds = mysql_fetch_assoc($select);
+
+		return $ds;
+	}
+
+
+	/*
 	getArticlesPost($url)
 	Получение статьи по её url
 	$url [string] - url статьи
@@ -295,6 +309,22 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+
+
+	/*
+	getPagesPostsArchived()
+	Получение списка статей в архиве
+	*/
+	public function getPagesPostsArchived()
+	{
+		$select = mysql_query("SELECT * FROM pages WHERE archived = 1 ORDER BY datetime DESC")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$ds[]=$r;
+		}
+		return $ds;
+	}
 
 
 	/*
@@ -403,6 +433,20 @@ class Model_Admin extends Model
 	}
 
 	/*
+	updatePage($post)
+	Изменение страницы
+	$post [assoc array] - массив с информацией о странице
+	*/
+	public function updatePage($post)
+	{
+		extract($post);
+		$author = $_SESSION['user']['name'];
+		$sql = "UPDATE pages SET tech_name = '$url', title = '$title', subtitle = '$subtitle', poster = '$poster', author = '$author', body = '$text' WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Страница сохранена";
+	}
+
+	/*
 	updatePost($post)
 	Изменение статьи
 	$post [assoc array] - массив с информацией о статье
@@ -444,6 +488,21 @@ class Model_Admin extends Model
 		$sql = "UPDATE sales SET end_time = '$cur_date' WHERE id = '$id'";
 		mysql_query($sql) or die(mysql_error());
 		echo "Акция завершена";
+	}
+
+
+	/*
+	archivePage($post)
+	Отправить страницу в архив
+	$post [assoc array] - массив с информацией о страницей
+	*/
+	public function archivePage($prod)
+	{
+		extract($prod);
+		$author = $_SESSION['user']['name'];
+		$sql = "UPDATE pages SET archived = 1 WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Страница скрыта от публикации";
 	}
 
 
@@ -491,6 +550,21 @@ class Model_Admin extends Model
 		mysql_query($sql) or die(mysql_error());
 		echo "Позиция опубликована";
 	}
+
+	/*
+	unarchivePage($post)
+	Опубликовать страницу из архива
+	$post [assoc array] - массив с информацией о странице
+	*/
+	public function unarchivePage($post)
+	{
+		extract($post);
+		$author = $_SESSION['user']['name'];
+		$sql = "UPDATE pages SET archived = 0 WHERE id = '$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Страница опубликована";
+	}
+
 
 	/*
 	unarchivePost($post)
@@ -568,6 +642,24 @@ class Model_Admin extends Model
 		$sql = "INSERT INTO sales (name, tech_name, poster, start_time, end_time, description, cats, prods) VALUES ('$title','$url','$poster','$start_time','$end_time','$text','$sales_cats','$sales_prods')";
 		mysql_query($sql) or die(mysql_error());
 		echo "Акция добавлена";
+	}
+
+	/*
+	newPage($post)
+	Добавить новую страницу
+	$post [assoc array] - массив с информацией о странице
+	*/
+	public function newPage($post)
+	{
+		extract($post);
+		$author = $_SESSION['user']['name'];
+		$url = htmlspecialchars($url);
+		if ((isset($archived)) && ($archived == 1)) {
+			$sql = "INSERT INTO pages (tech_name, title, subtitle, poster, author, body, archived) VALUES ('$url','$title','$subtitle','$poster','$author','$text', 1)";
+		} else
+		$sql = "INSERT INTO pages (tech_name, title, subtitle, poster, author, body) VALUES ('$url','$title','$subtitle','$poster','$author','$text')";
+		mysql_query($sql) or die(mysql_error());
+		echo "Страница добавлена";
 	}
 
 	/*
@@ -711,12 +803,44 @@ class Model_Admin extends Model
 				return false;
 			}
 		}
-		$sql = "INSERT INTO users (name, login, pass, email) VALUES ('$login','$login','$passw','$email')";
+		if ($isadmin) {
+			$isadmin = "1";
+		} else $isadmin = "0";
+		$sql = "INSERT INTO users (name, login, pass, email, isadmin) VALUES ('$login','$login','$passw','$email', '$isadmin')";
 		mysql_query($sql) or die(mysql_error());
 		echo "Аккаун добавлен";
 	}
 
 
+
+	/*
+	getUsers()
+	Получение всех юзеров
+	*/
+	public function getAdminUsers()
+	{
+		$select = mysql_query("SELECT * FROM users WHERE isadmin=1 ORDER BY id ASC")or die(mysql_error());
+		$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$ds[]=$r;
+		}
+		return $ds;
+	}
+
+
+	/*
+	getUsers()
+	Получение всех юзеров
+	*/
+	public function getSimpleUsers()
+	{
+		$select = mysql_query("SELECT * FROM users WHERE isadmin=0 ORDER BY id ASC")or die(mysql_error());
+		$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$ds[]=$r;
+		}
+		return $ds;
+	}
 
 	/*
 	getUsers()

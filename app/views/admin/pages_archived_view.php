@@ -6,14 +6,14 @@
 
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
-			<h1 class="blocked">
-				Опубликованные
-			</h1>
 			<h4 class="blocked">
-				<a href="/admin/pages/archived" class="disabled">
-					Архив
+				<a href="/admin/pages" class="disabled">
+				Опубликованные
 				</a>
 			</h4>
+			<h1 class="blocked">
+					Архив
+			</h1>
 		</div>
 	</div>
 
@@ -21,6 +21,13 @@
 		<div class="col-md-9 pl-0">
 
 			<?php
+				if (!$posts) {
+					?>
+					<div class="col-md-6 col-md-offset-3" style="text-align:center;">
+						<h2>Нет записей в архиве</h2>
+					</div>
+					<?php
+				} else
 				foreach ($posts as $post) {
 			?>
 
@@ -34,9 +41,8 @@
 				                                                 	 ?>);">
 					<div class="controls hidden-xs">
 						<a href="/admin/pages/edit/<?php echo $post['tech_name'] ?>" class="btn-edit">Редактировать</a>
-						<a href="/<?php echo $post['tech_name'] ?>" class="look" target="_blank">Посмотреть на сайте</a>
 						<a href="/admin/pages/delete/<?php echo $post['tech_name'] ?>" data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-delete">Удалить</a>
-						<a href="/admin/pages/archive/<?php echo $post['tech_name'] ?>"  data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-archive">В архив</a>
+						<a href="/admin/pages/archive/<?php echo $post['tech_name'] ?>"  data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-archive btn-unarchive">Опубликовать</a>
 					</div>
 					<div class="controls visible-xs">
 						<a href="/admin/pages/edit/<?php echo $post['tech_name'] ?>"></a>
@@ -67,5 +73,5 @@
 <script>
 	lookNew();
 	lookDelete();
-	lookArchive();
+	lookUnArchive();
 </script>

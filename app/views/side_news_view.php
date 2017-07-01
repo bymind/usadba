@@ -1,6 +1,6 @@
 <div class="hidden-xs side-news shadow br-2 mb-20">
 	<div class="side-news-title">
-		Новости
+		<a href="/news">Новости</a>
 	</div>
 	<div class="arr">
 		<div class="prev disable"></div>

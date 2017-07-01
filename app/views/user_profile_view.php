@@ -25,7 +25,8 @@
 				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
 			</ul>
 		</div>
-		<?php if ($_SESSION['user']['is_admin']==1) {
+		<?php
+		if ($_SESSION['user']['is_admin']==1) {
 			?>
 			<div class="profile-menu shadow br-2 mt-10 mb-10 pb-10 pt-10">
 			<ul>
@@ -93,7 +94,7 @@
 										</div>
 										<div class="value col-xs-8 col-xxs-12">
 											<span>
-											<?php if (isset($pageDataView['phone'])) { echo $pageDataView['phone'];} else { ?>
+											<?php if ($pageDataView['phone']) { echo $pageDataView['phone'];} else { ?>
 												<span class='edit like_button real' data-target="modal" data-targetindex="edit_profile">Добавить телефон</span>
 												<?php } ?>
 											</span>
@@ -108,7 +109,7 @@
 										</div>
 										<div class="value col-xs-8 col-xxs-12">
 											<span>
-											<?php if (isset($pageDataView['bday'])) { echo $pageDataView['bday'];} else { ?>
+											<?php if (($pageDataView['bday']) && ($pageDataView['bday']>"0 0")) { echo $pageDataView['bday'];} else { ?>
 												<span class='edit like_button real' data-target="modal" data-targetindex="edit_profile">Указать день рождения</span>
 												<?php } ?>
 											</span>
