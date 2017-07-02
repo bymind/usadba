@@ -77,6 +77,7 @@ class Controller_Admin extends Controller
 *************************************************************************************/
 	function adminWorktable()
 	{
+		$orders = $this->model->getOrders();
 		$this->view->generate(
 					'admin/worktable_view.php',
 					'admin/template_admin_view.php',
@@ -87,6 +88,7 @@ class Controller_Admin extends Controller
 							'active_menu_item' => 'home',
 							'actual_title' => 'Рабочий стол',
 							'Favicon' => 'app/views/admin-favicon.php',
+							'orders' => $orders
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',

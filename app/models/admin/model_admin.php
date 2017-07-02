@@ -896,6 +896,17 @@ class Model_Admin extends Model
 		}
 	}
 
+	public function getOrders()
+	{
+		$q = mysql_query("SELECT * FROM orders ORDER BY id DESC") or die(mysql_error());
+		while ($r = mysql_fetch_assoc($q)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$r['prod_list'] = json_decode($r['prod_list'], true);
+			$ds[] = $r;
+		}
+		return $ds;
+	}
+
 	/*
 	getBugTicketsAjax($type, $personal, $personalMy)
 	Получение тикетов баг-трекера для вывода через ajax

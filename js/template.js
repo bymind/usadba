@@ -159,6 +159,16 @@ function ConstructCart()
 			UpdatePageCards();
 		};
 
+		// clear all itemss
+		cartList.clearCart = function()
+		{
+			this.items = [];
+			this.count = 0;
+			this.rePrice();
+			console.log('cart cleared');
+			UpdateCart();
+			UpdatePageCards();
+		}
 	}
 
 
@@ -558,6 +568,7 @@ function goSendOrder(obj)
 {
 	console.log('send order');
 	var order = {};
+	order.uid = $('button.login.logged').data('targetindex');
 	order.name = $('#order-name').val();
 	order.phone = $('#order-phone').val();
 	order.addr = $('#order-address').val();
@@ -565,7 +576,60 @@ function goSendOrder(obj)
 	order.cash = $('#order-cash').prop('checked');
 	order.payonline = $('#order-cardonline').prop('checked');
 	order.prods = cartList;
+	if ((order.name=="")||(order.phone=="")||(order.addr=="")) {
+		console.error('No');
+		showModalOrderError("Пожалуйста, заполните контактные данные.");
+		return false;
+	}
+	if (!$('#order-phone').inputmask("isComplete")) {
+		console.error('No');
+		showModalOrderError("Пожалуйста, укажите номер телефона.");
+		return false;
+	}
+	if (order.prods.count == 0) {
+		console.error('No');
+		showModalOrderError("Нет товаров в заказе. Корзина пуста.");
+		return false;
+	}
+	if (order.uid) {
+		order.logged = true;
+	} else
+		order.logged = false;
 	console.info(order);
+	orderJson = JSON.stringify(order);
+	$.ajax({
+		url: '/user/cart/sendOrder',
+		type: 'POST',
+		data: {order: orderJson},
+	})
+	.done(function(res) {
+		console.log("success");
+		console.log(res);
+		showModalAfterSended();
+	})
+	.fail(function(res) {
+		console.error(res);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+
+}
+
+function showModalAfterSended()
+{
+	var modal = $('.modal-order-ok');
+	modal.modal();
+	cartList.clearCart();
+}
+
+function showModalOrderError(text)
+{
+	var modal = $('.modal-order-error');
+	if (text) {
+		modal.find('.nothing').text(text);
+	}
+	modal.modal();
 }
 
 function RestoreAddr(obj)

@@ -189,12 +189,24 @@ class Controller_User extends Controller
 				Self::sendOrder();
 				break;
 
+			case 'sendOrder':
+				Self::sendOrderPost();
+				break;
+
 			default:
 				Self::showCart();
 				break;
 		}
 	}
 
+
+	function sendOrderPost()
+	{
+		$order = $_POST['order'];
+		$order = json_decode($order, true);
+		$this->model->addOrder($order);
+		return 0;
+	}
 
 	function action_recall()
 	{

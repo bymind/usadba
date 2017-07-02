@@ -2,11 +2,6 @@
 
 class Model_User extends Model
 {
-
-	// public $userData;
-
-
-
 	public function getLogin($jsonLogin)
 	{
 		$login = $jsonLogin;
@@ -69,6 +64,24 @@ class Model_User extends Model
 			}
 		}
 		return false;
+	}
+
+	public function addOrder($orderData)
+	{
+		extract($orderData);
+		$orderProds = json_encode($prods, true);
+		if ($logged) {
+		} else
+			$uid = 0;
+		$comm = addslashes($comm);
+		$name = addslashes($name);
+		$addr = addslashes($addr);
+		if ($cash) {
+			$paytype = "cash";
+		} else if ($payonline) {
+			$paytype = "online";
+		}
+		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 'new')") or die(mysql_error());
 	}
 
 	public function updUser($uData)
