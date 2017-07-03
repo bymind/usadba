@@ -77,7 +77,7 @@ class Controller_Admin extends Controller
 *************************************************************************************/
 	function adminWorktable()
 	{
-		$orders = $this->model->getOrders();
+		$orders = $this->model->getOrders('last', 10);
 		$this->view->generate(
 					'admin/worktable_view.php',
 					'admin/template_admin_view.php',

@@ -5,7 +5,7 @@
 
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			<h2>Заказы</h2>
+			<h3>Заказы</h3>
 			<div class="table-responsive" style="background:white;">
 				<table class="table table-hover">
 					<thead>
@@ -13,6 +13,7 @@
 							<th>Статус</th>
 							<th>Время</th>
 							<th>Телефон</th>
+							<th>Имя</th>
 							<th>Сумма</th>
 						</tr>
 					</thead>
@@ -24,6 +25,7 @@
 							<td class="order-stat"><?php echo $order['stat']; ?></td>
 							<td class="order-time"><?php echo $order['datetime']; ?></td>
 							<td class="order-phone"><?php echo $order['phone']; ?></td>
+							<td class="order-phone"><?php echo $order['name']; ?></td>
 							<td class="order-price"><?php echo $order['prod_list']['sumPrice']; ?> руб.</td>
 						</tr>
 						<?php

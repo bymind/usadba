@@ -896,15 +896,51 @@ class Model_Admin extends Model
 		}
 	}
 
-	public function getOrders()
+	public function getOrders($param =NULL, $startNum =NULL, $endNum =NULL)
 	{
-		$q = mysql_query("SELECT * FROM orders ORDER BY id DESC") or die(mysql_error());
-		while ($r = mysql_fetch_assoc($q)) {
-			$r['datetime'] = Controller::getGoodDate($r['datetime']);
-			$r['prod_list'] = json_decode($r['prod_list'], true);
-			$ds[] = $r;
+		switch ($param) {
+			case 'last':
+				# последние startNum штук
+			if ($startNum==NULL) {
+				$startNum = 10;
+			}
+				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT $startNum") or die(mysql_error());
+				while ($r = mysql_fetch_assoc($q)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$r['prod_list'] = json_decode($r['prod_list'], true);
+					$ds[] = $r;
+				}
+				return $ds;
+				break;
+
+			case 'mid':
+				# средние со startNum по endNum
+				if ($startNum == NULL) {
+					echo "$startNum error";
+					return false;
+				}
+				if ($endNum==NULL) {
+					$endNum = $startNum + 10;
+				}
+				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT $startNum-1, $endNum") or die(mysql_error());
+				while ($r = mysql_fetch_assoc($q)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$r['prod_list'] = json_decode($r['prod_list'], true);
+					$ds[] = $r;
+				}
+				return $ds;
+				break;
+
+			default:
+				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT 10") or die(mysql_error());
+				while ($r = mysql_fetch_assoc($q)) {
+					$r['datetime'] = Controller::getGoodDate($r['datetime']);
+					$r['prod_list'] = json_decode($r['prod_list'], true);
+					$ds[] = $r;
+				}
+				return $ds;
+				break;
 		}
-		return $ds;
 	}
 
 	/*
