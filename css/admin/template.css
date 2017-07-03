@@ -265,3 +265,45 @@ p {
 .spoiler.open>.spoiler-body{
 	display: block;
 }
+
+.badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px 5px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #fff;
+	line-height: 1;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+	background-color: #999;
+	border-radius: 10px;
+	margin: 0 2px;
+	cursor: pointer;
+	opacity: .8;
+}
+
+.badge:hover {
+	opacity: 1;
+}
+
+.badge.danger {
+	background-color: #EF5350;
+}
+
+.badge.warning {
+	background-color: #FFA726;
+}
+
+.badge.success {
+	background-color: #66BB6A;
+}
+
+.badge.fail {
+	background-color: #546E7A;
+}
+
+.badge.info {
+	background-color: #2196F3;
+}

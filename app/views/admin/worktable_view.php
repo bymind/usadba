@@ -5,7 +5,13 @@
 
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			<h3>Заказы</h3>
+			<h3>Заказы
+			<span class="badge danger" title="новые">2 новых</span>
+			<span class="badge warning" title="в пути">0 в пути</span>
+			<span class="badge success" title="доставлены">0 доставлены</span>
+			<span class="badge fail" title="отмена">0 отмена</span>
+			<span class="badge info" title="всего">2 всего</span>
+			</h3>
 			<div class="table-responsive" style="background:white;">
 				<table class="table table-hover">
 					<thead>
