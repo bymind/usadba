@@ -898,19 +898,20 @@ class Model_Admin extends Model
 
 	public function getOrders($param =NULL, $startNum =NULL, $endNum =NULL)
 	{
+		$statLabels = ['new','progress','done','fail'];
+		$q = mysql_query("SELECT * FROM stat_text ORDER BY id") or die(mysql_error());
+		$statText = array();
+		while ($r = mysql_fetch_assoc($q)) {
+			$statText[] = $r['text'];
+		}
+
 		switch ($param) {
 			case 'last':
 				# последние startNum штук
 			if ($startNum==NULL) {
 				$startNum = 10;
 			}
-				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT $startNum") or die(mysql_error());
-				while ($r = mysql_fetch_assoc($q)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$r['prod_list'] = json_decode($r['prod_list'], true);
-					$ds[] = $r;
-				}
-				return $ds;
+				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum") or die(mysql_error());
 				break;
 
 			case 'mid':
@@ -922,25 +923,24 @@ class Model_Admin extends Model
 				if ($endNum==NULL) {
 					$endNum = $startNum + 10;
 				}
-				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT $startNum-1, $endNum") or die(mysql_error());
-				while ($r = mysql_fetch_assoc($q)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$r['prod_list'] = json_decode($r['prod_list'], true);
-					$ds[] = $r;
-				}
-				return $ds;
+				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum-1, $endNum") or die(mysql_error());
 				break;
 
 			default:
-				$q = mysql_query("SELECT * FROM orders ORDER BY id DESC LIMIT 10") or die(mysql_error());
-				while ($r = mysql_fetch_assoc($q)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$r['prod_list'] = json_decode($r['prod_list'], true);
-					$ds[] = $r;
-				}
-				return $ds;
+				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT 10") or die(mysql_error());
 				break;
 		}
+		while ($r = mysql_fetch_assoc($q)) {
+			$r['timestamp'] = Controller::getGoodDate($r['datetime'],'compact');
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$r['prod_list'] = json_decode($r['prod_list'], true);
+			$r['stat_label'] = $statLabels[$r['stat']-1];
+			$r['stat_text'] = $statText[$r['stat']-1];
+			$r['user'] = Self::getUser($r['uid']);
+
+			$ds[] = $r;
+		}
+		return $ds;
 	}
 
 	/*

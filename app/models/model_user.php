@@ -69,7 +69,7 @@ class Model_User extends Model
 	public function addOrder($orderData)
 	{
 		extract($orderData);
-		$orderProds = json_encode($prods, true);
+		$orderProds = json_encode($prods, JSON_UNESCAPED_UNICODE);
 		if ($logged) {
 		} else
 			$uid = 0;
@@ -81,7 +81,7 @@ class Model_User extends Model
 		} else if ($payonline) {
 			$paytype = "online";
 		}
-		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 'new')") or die(mysql_error());
+		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 1)") or die(mysql_error());
 	}
 
 	public function updUser($uData)

@@ -288,22 +288,72 @@ p {
 	opacity: 1;
 }
 
-.badge.danger {
-	background-color: #EF5350;
+.badge.danger,.order-new-row,.order-new-row:hover {
+	background-color: #EF5350 !important;
 }
 
-.badge.warning {
-	background-color: #FFA726;
+.badge.warning,.order-progress-row,.order-progress-row:hover {
+	background-color: #FFA726 !important;
 }
 
-.badge.success {
-	background-color: #66BB6A;
+.badge.success,.order-done-row,.order-done-row:hover {
+	background-color: #66BB6A !important;
 }
 
-.badge.fail {
-	background-color: #546E7A;
+.badge.fail,.order-fail-row,.order-fail-row:hover {
+	background-color: #546E7A !important;
 }
 
 .badge.info {
 	background-color: #2196F3;
+}
+
+td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
+	color: #fff;
+}
+
+.order-header{
+	cursor: pointer;
+}
+
+.order-body{
+	height: 0;
+	overflow: hidden;
+	transition: height .3s ease-in-out;
+}
+
+.order-body>td {
+	display: none;
+}
+
+.order-body.on{
+	height: auto;
+}
+
+.order-body.on>td {
+	display: table-cell;
+}
+
+.order-details-table tr {
+	height: 26px;
+	line-height: 26px;
+}
+
+.order-details-table tr th {
+	padding-right: 10px;
+}
+
+.order-prods-table {
+	position: relative;
+	width: 100%;
+}
+
+.order-prods-table th, .order-prods-table td{
+	padding: 2px 4px;
+	word-wrap: break-word;
+	vertical-align: top;
+}
+
+.order-prods-table td.prod-name-cell {
+	max-width: 230px;
 }
