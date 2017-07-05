@@ -1433,7 +1433,7 @@ function ToCart()
 $(document).on('click', 'button.to-cart', function(event) {
 	event.preventDefault();
 	if ($(this).hasClass('active')) {
-		$('button.cart.float').click();
+		$('button.cart').click();
 	} else
 	SetActiveToCart( $(this) );
 });

@@ -644,6 +644,13 @@ class Model_Admin extends Model
 		echo "Акция добавлена";
 	}
 
+	public function setSoundSetting($param)
+	{
+		$uid = $_SESSION['user']['id'];
+		$q = mysql_query("UPDATE users SET sound='$param' WHERE id ='$uid' ") or die(mysql_error());
+		return true;
+	}
+
 	/*
 	newPage($post)
 	Добавить новую страницу
@@ -876,10 +883,20 @@ class Model_Admin extends Model
 	}
 
 
-	/**
-	* @param string $userName - username юзера, которого тащим
-	* @return array|null - инфа о юзере либо NULL, если юзер не найден
-	*/
+	public function setOrderNewStat($orderId, $status)
+	{
+		if (mysql_num_rows(mysql_query("SELECT * FROM orders WHERE id=$orderId")) > 0) {
+			if (mysql_num_rows(mysql_query("SELECT * FROM stat_text WHERE id=($status+1)")) > 0) {
+				mysql_query("UPDATE orders SET stat=($status+1) WHERE id=$orderId")or die(mysql_error());
+				echo "ok";
+				return true;
+			}
+		} else {
+			echo "Error";
+			return false;
+		}
+	}
+
 	public function getUserByName($userName)
 	{
 		$result = false;
@@ -896,6 +913,60 @@ class Model_Admin extends Model
 		}
 	}
 
+	public function countOrders($param =NULL)
+	{
+		switch ($param) {
+
+			case 'new':
+			$ds = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0 AND stat=1"));
+			break;
+
+			case 'actual':
+			default:
+				$statLabels = ['new','progress','done','fail'];
+				$ds['new'] = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0 AND stat=1"));
+				$ds['progress'] = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0 AND stat=2"));
+				$ds['done'] = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0 AND stat=3"));
+				$ds['fail'] = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0 AND stat=4"));
+				$ds['all'] = mysql_num_rows(mysql_query("SELECT * FROM orders WHERE archived=0"));
+				break;
+		}
+		return $ds;
+	}
+
+	public function getLastOrderId()
+	{
+		$q = mysql_query("SELECT id FROM orders ORDER BY id DESC LIMIT 1") or die(mysql_error());
+		$q = mysql_fetch_array($q);
+		return $q[0];
+	}
+
+	public function getOrder($orderId)
+	{
+		$statLabels = ['new','progress','done','fail'];
+		$q = mysql_query("SELECT * FROM stat_text ORDER BY id") or die(mysql_error());
+		$statText = array();
+		while ($r = mysql_fetch_assoc($q)) {
+			$statText[] = $r['text'];
+		}
+		$orderId = Self::prepareToDB($orderId);
+		$q = mysql_query("SELECT * FROM orders WHERE id=$orderId") or die(mysql_error());
+		if (!$q) {
+			echo "Error: no order";
+			return false;
+		}
+		$r = mysql_fetch_assoc($q);
+		$r['timestamp'] = Controller::getGoodDate($r['datetime'],'compact');
+		$r['datetime'] = Controller::getGoodDate($r['datetime']);
+		$r['prod_list'] = json_decode($r['prod_list'], true);
+		$r['stat_label'] = $statLabels[$r['stat']-1];
+		$r['stat_text'] = $statText[$r['stat']-1];
+		$r['user'] = Self::getUser($r['uid']);
+		$r['stats'] = $statText;
+
+		return $r;
+	}
+
 	public function getOrders($param =NULL, $startNum =NULL, $endNum =NULL)
 	{
 		$statLabels = ['new','progress','done','fail'];
@@ -909,7 +980,7 @@ class Model_Admin extends Model
 			case 'last':
 				# последние startNum штук
 			if ($startNum==NULL) {
-				$startNum = 10;
+				$startNum = 20;
 			}
 				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum") or die(mysql_error());
 				break;
@@ -921,7 +992,7 @@ class Model_Admin extends Model
 					return false;
 				}
 				if ($endNum==NULL) {
-					$endNum = $startNum + 10;
+					$endNum = $startNum + 20;
 				}
 				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum-1, $endNum") or die(mysql_error());
 				break;
@@ -937,7 +1008,7 @@ class Model_Admin extends Model
 			$r['stat_label'] = $statLabels[$r['stat']-1];
 			$r['stat_text'] = $statText[$r['stat']-1];
 			$r['user'] = Self::getUser($r['uid']);
-
+			$r['stats'] = $statText;
 			$ds[] = $r;
 		}
 		return $ds;

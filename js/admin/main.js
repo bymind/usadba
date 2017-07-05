@@ -295,22 +295,27 @@ function deleteCookie(name) {
 	})
 }
 
-function getSession(name) {
+function getSession(name)
+{
+	var def = new $.Deferred();
+
 	$.ajax({
 		url: '/admin/session',
 		type: 'POST',
 		data: {action: 'getSession', name: name},
 	})
 	.done(function(answer) {
-		console.log(answer);
+		// console.log(answer);
+		def.resolve(answer);
 	})
 	.fail(function(answer) {
-		console.error(answer);
+		// console.error(answer);
+		def.reject(answer);
 	})
 	.always(function() {
-		console.log("getSession() complete");
+		// console.log("getSession() complete");
 	});
-
+	return def.promise();
 }
 
 setSession = function(name, value, secondName) {

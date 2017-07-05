@@ -77,7 +77,8 @@ class Controller_Admin extends Controller
 *************************************************************************************/
 	function adminWorktable()
 	{
-		$orders = $this->model->getOrders('last', 10);
+		$orders = $this->model->getOrders('last', 20);
+		$ordersCounter = $this->model->countOrders('actual');
 		$this->view->generate(
 					'admin/worktable_view.php',
 					'admin/template_admin_view.php',
@@ -88,7 +89,8 @@ class Controller_Admin extends Controller
 							'active_menu_item' => 'home',
 							'actual_title' => 'Рабочий стол',
 							'Favicon' => 'app/views/admin-favicon.php',
-							'orders' => $orders
+							'orders' => $orders,
+							'ordersCounter' => $ordersCounter
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',
@@ -96,6 +98,152 @@ class Controller_Admin extends Controller
 					);
 	}
 
+
+/*																		 ORDERS
+*************************************************************************************/
+	function adminOrders($params)
+	{
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+			{
+				extract($params);
+			}
+		else
+			$param = $params;
+
+		switch ($param) {
+			case 'countNew':
+				Self::adminOrdersCount('new');
+				break;
+
+			case 'newStat':
+				Self::adminOrderNewStat();
+				break;
+
+			case 'getOrderHeader':
+				Self::adminGetOrderHeader();
+				break;
+
+			case 'getOrderBody':
+				Self::adminGetOrderBody();
+				break;
+
+			case 'getOrderTitle':
+				Self::adminGetOrderTitle();
+				break;
+
+			case 'getLastOrderId':
+				Self::adminGetLastOrderId();
+				break;
+
+			default:
+				# code...
+				break;
+		}
+}
+
+function adminGetLastOrderId()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getOrder') {
+		echo "-1";
+		return false;
+	} else {
+		$lastOrderId = $this->model->getLastOrderId();
+		echo $lastOrderId;
+		return true;
+	}
+}
+
+function adminGetOrderTitle()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getOrder') {
+		return false;
+	} else {
+		$ordersCounter = $this->model->countOrders('actual');
+		if ($ordersCounter) {
+			$this->view->simpleGet(
+				"admin/order_title_view.php",
+				array('ordersCounter'=>$ordersCounter)
+			);
+		}
+		return true;
+	}
+}
+
+function adminGetOrderBody()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getOrder') {
+		return false;
+	} else {
+		$orderId = $this->model->prepareToDB($_POST['orderId']);
+		$orderId = (int) $orderId;
+		$order = $this->model->getOrder($orderId);
+		if ($order) {
+			$this->view->simpleGet(
+				"admin/order_body_view.php",
+				array('order'=>$order)
+			);
+		}
+		return true;
+	}
+}
+
+function adminGetOrderHeader()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getOrder') {
+		return false;
+	} else {
+		$orderId = $this->model->prepareToDB($_POST['orderId']);
+		$orderId = (int) $orderId;
+		$order = $this->model->getOrder($orderId);
+		if ($order) {
+			$this->view->simpleGet(
+				"admin/order_header_view.php",
+				array('order'=>$order)
+			);
+		}
+		return true;
+	}
+}
+
+function adminOrderNewStat()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'ajaxCount') {
+		return false;
+	} else {
+		$newStat = json_decode($_POST['newStat'], true);
+		$this->model->setOrderNewStat($newStat['id'], $newStat['status']);
+		return true;
+	}
+}
+
+function adminOrdersCount($param)
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'ajaxCount') {
+		return false;
+	} else {
+
+			switch ($param) {
+				case 'new':
+					$ordersCounter = $this->model->countOrders('new');
+					break;
+
+				default:
+					# code...
+					break;
+			}
+		echo $ordersCounter;
+		return true;
+	}
+}
 
 /*																		 PRODUCTS
 *************************************************************************************/
@@ -403,10 +551,12 @@ function adminDeleteProdsFromCat()
 	{
 		$publicLink = "/admin/goods";
 		$title = " - Скрытые товары";
+		$actual_title = "<a href='/admin/goods/'>Товары (все)</a>";
+		$second_title = "Все скрытые";
 		if (isset($cat_id)) {
 			$prods = $this->model->getGoodsPostsArchived($cat_id);
 			$publicLink .= "/cat/".$cat_id;
-			$actual_title = "<a href='/admin/goods/'>Товары (все)</a>";
+			// $actual_title = "<a href='/admin/goods/'>Товары (все)</a>";
 			$second_title = $prods[0]['cat_title'];
 			$title .= " - ".$second_title;
 		} else
@@ -1566,7 +1716,6 @@ function adminPages($params = '')
 				default:
 					$user = Model_Admin::getUserByName($name);
 					if (!$user) {
-
 						$user = $this->model->getUser($name);
 					}
 					$this->view->generate(
@@ -1969,6 +2118,7 @@ public function adminShowAll()
 					$value = $this->model->prepareToDB($_POST['value']);
 					if (isset($_POST['secondName'])) {
 						$secondName = $this->model->prepareToDB($_POST['secondName']);
+						echo "$name - $value - $secondName";
 						Self::setSession($name, $value, $secondName);
 					} else
 					Self::setSession($name, $value);
@@ -2007,6 +2157,7 @@ public function adminShowAll()
 	}
 
 
+
 	function getSession($name=NULL)
 	{
 		if (isset($name)) {
@@ -2029,6 +2180,21 @@ public function adminShowAll()
 				echo 'удалено $_SESSION["'.$name.'"]';
 			} else Route::Catch_Error('404');
 		} else Route::Catch_Error('404');
+	}
+
+	function adminSetSoundSetting()
+	{
+		$token = $this->model->prepareToDB($_POST['token']);
+		if ($token != 'setSound') {
+			echo "-1";
+			return false;
+		} else {
+			$soundParam = (int)$this->model->prepareToDB($_POST['param']);
+			$this->model->setSoundSetting($soundParam);
+			$_SESSION['user']['sound'] = $soundParam;
+			echo "ok";
+			return true;
+		}
 	}
 
 /*
@@ -2060,6 +2226,17 @@ public function adminShowAll()
 
 	}
 
+
+	function action_orders($param = null)
+	{
+		if (Controller::is_admin())
+		{
+			self::adminOrders($param);
+		} else
+				{
+					self::adminLogin();
+				}
+	}
 
 
 	function action_login()
@@ -2120,6 +2297,17 @@ public function adminShowAll()
 		if (Controller::is_admin())
 		{
 			self::adminSession();
+		} else
+		{
+			self::adminLogin();
+		}
+	}
+
+	function action_setsoundsetting()
+	{
+		if (Controller::is_admin())
+		{
+			self::adminSetSoundSetting();
 		} else
 		{
 			self::adminLogin();

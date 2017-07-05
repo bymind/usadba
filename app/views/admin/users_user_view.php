@@ -34,7 +34,9 @@
 							<td style="vertical-align: middle;"><?php echo $user['login'] ?></td>
 							<?php if (Controller_Admin::isSuper()){ echo "<td style='vertical-align: middle;''>".$user['is_super']."</td>"; } ?>
 							<td style="vertical-align: middle;"><?php echo $user['email'] ?></td>
-							<td style="vertical-align: middle;"><?php echo ('Администратор'); ?></td> <!-- TODO: отображение прав администраторов -->
+							<td style="vertical-align: middle;">
+							<?php if ($user['isadmin']){ echo "Администратор"; } else { echo "Пользователь"; } ?>
+							</td> <!-- TODO: отображение прав администраторов -->
 							<!-- <td style="vertical-align: middle;"><?php echo $user['telegram_token']; ?></td> -->
 						</tr>
 

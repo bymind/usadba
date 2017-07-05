@@ -39,6 +39,7 @@
 						<tr>
 							<th style="width:40px">id</th>
 							<th>Логин</th>
+							<th>Имя</th>
 							<th>E-mail</th>
 						</tr>
 					</thead>
@@ -46,9 +47,10 @@
 					<?php
 						foreach ($users as $user) {
 						?>
-						<tr>
+						<tr class="all-users">
 							<th scope="row"><?php echo $user['id'] ?></th>
 							<td><?php echo $user['login'] ?></td>
+							<td><?php echo $user['name'] ?></td>
 							<td><?php echo $user['email'] ?></td>
 						</tr>
 						<?php

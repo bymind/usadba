@@ -254,16 +254,17 @@ li.back-to-site:hover a
 		position: fixed;
 		width: 60px;
 		height: 100%;
-		min-height: 460px;
+		/* min-height: 460px; */
 		left: 0;
 		top: 50px;
 		z-index: 2;
 
 		background-color: #0c1b23;
 
-		padding-bottom: 20px;
+		/* padding-bottom: 20px; */
 
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
 
 		transition: all .2s ease-in-out;
 		box-shadow: 1px 0 0 rgba(0,0,0,.3);
@@ -296,7 +297,7 @@ ul.side-nav
 {
 	list-style: none;
 	display: block;
-	height: 100%;
+	height: auto;
 	width: 100%;
 }
 
@@ -752,7 +753,7 @@ li.active a,
 	min-width: 1.7em;
 	height: 1.4em;
 	top: 20px;
-	left: 25px;
+	left: 30px;
 	font-size: .8em;
 	font-family: monospace;
 	line-height: 1.2em;

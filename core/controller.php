@@ -178,6 +178,7 @@ class Controller
 
 				if($login == $ds['login'] && $password == $ds['pass']){
 					$_SESSION['user']['id'] = $ds['id'];
+					$_SESSION['user']['sound'] = $ds['sound'];
 					$_SESSION['user']['name'] = $ds['name'];
 					$_SESSION['user']['is_admin'] = $ds['isadmin'];
 					$_SESSION['user']['is_super'] = $ds['is_super'];

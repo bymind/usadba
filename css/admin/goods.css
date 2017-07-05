@@ -696,6 +696,7 @@ textarea#post-body {
 pre.for_dev{
 	background: #444;
 	color: #eee;
+	display: none;
 }
 
 pre.for_dev::before{

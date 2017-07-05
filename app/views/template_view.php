@@ -13,7 +13,6 @@
 	<title><?php echo $Title; ?> - Кулинария Усадьба-Центр</title>
 	<?php include $Favicon; ?>
 
-	<!-- <meta name="yandex-verification" content="7977f67a872b193c" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $Description; ?>">
 	<meta property="og:description" content="<?php echo $Description; ?>">
@@ -24,13 +23,7 @@
 	<meta property="og:url" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; ?>">
 	<meta itemprop="image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
 	<meta name="twitter:card" content="summary">
-	<!-- <meta name="twitter:site" content="@russiantravelguitar"> -->
-	<!-- <meta name="twitter:title" content="<?php echo $Title; ?> - Laika.pro"> -->
-	<!-- <meta name="twitter:description" content="<?php echo $Title; ?> - Laika.pro"> -->
-	<!-- <meta name="twitter:creator" content="russiantravelguitar"> -->
-	<!-- <meta name="twitter:image:src" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>"> -->
-	<!-- <meta name="twitter:domain" content="laika.pro"> -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet"> -->
 	<link href="/css/<?php echo $style; ?>" rel="stylesheet">
 	<?php
 		if (is_array($style_content)) {

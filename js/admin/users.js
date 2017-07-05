@@ -17,7 +17,7 @@ function btnsInit()
 
 function rowClick()
 {
-	rowUser = $('.users-table tbody tr');
+	rowUser = $('.users-table tbody tr.admin-users');
 	var modalBox = $('.user-modal-md');
 	rowUser.click(function(event) {
 		$id = $(this).find('th').text();
@@ -32,6 +32,11 @@ function rowClick()
 		$('.go-delete').click(function(event) {
 			isSuper();
 		});
+	});
+
+	$('.users-table tbody tr.all-users').click(function(event) {
+		var $userId = $(this).find('th').text();
+		location.href = "/admin/users/"+$userId;
 	});
 }
 

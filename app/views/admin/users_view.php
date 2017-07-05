@@ -24,6 +24,7 @@
 						<tr>
 							<th style="width:40px">id</th>
 							<th>Логин</th>
+							<th>Имя</th>
 							<?php if ($_SESSION['user']['is_super']==1){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
 						</tr>
@@ -32,9 +33,10 @@
 					<?php
 						foreach ($users as $user) {
 						?>
-						<tr>
+						<tr class="admin-users">
 							<th scope="row"><?php echo $user['id'] ?></th>
 							<td><?php echo $user['login'] ?></td>
+							<td><?php echo $user['name'] ?></td>
 							<?php if (Controller_Admin::isSuper()){ echo "<td>".$user['is_super']."</td>"; } ?>
 							<td><?php echo $user['email'] ?></td>
 						</tr>
