@@ -89,14 +89,14 @@ function switchSound()
 			$('li.sound .glyphicon[data-soundstate=off]').addClass('off');
 			$toOn.removeClass('off');
 			$('li.sound .sound-state').text('включён');
-			setCookie('sound','1', {expires: (new Date(new Date().getTime() + 365*24*60*60*1000))} );
+			setCookie('sound','1', {expires: (new Date(new Date().getTime() + 365*24*60*60*1000)), path: "/"} );
 			saveSoundSettings('1');
 		}
 		if ($toOn.data('soundstate')=="off") {
 			$('li.sound .glyphicon[data-soundstate=on]').addClass('off');
 			$toOn.removeClass('off');
 			$('li.sound .sound-state').text('выключен');
-			setCookie('sound','0', {expires: (new Date(new Date().getTime() + 365*24*60*60*1000))} );
+			setCookie('sound','0', {expires: (new Date(new Date().getTime() + 365*24*60*60*1000)), path: "/"} );
 			saveSoundSettings('0');
 		}
 	});
@@ -127,7 +127,7 @@ function checkLastOrder()
 		if (getCookie('lastOrder') && (getCookie('lastOrder')==lastOrder)) {
 		} else {
 			lastVisibleOrder = getCookie('lastOrder');
-			setCookie('lastOrder', lastOrder, {expires: (new Date(new Date().getTime() + 365*24*60*60*1000))});
+			setCookie('lastOrder', lastOrder, {expires: (new Date(new Date().getTime() + 365*24*60*60*1000)), path: "/"});
 			soundCheck = lastOrder%10;
 			var sound = $('#sound'+soundCheck)[0];
 			$.when(getSession('sound')).then(

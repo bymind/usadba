@@ -983,6 +983,7 @@ class Model_Admin extends Model
 				$startNum = 20;
 			}
 				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum") or die(mysql_error());
+				$curPage = 1;
 				break;
 
 			case 'mid':
@@ -994,7 +995,7 @@ class Model_Admin extends Model
 				if ($endNum==NULL) {
 					$endNum = $startNum + 20;
 				}
-				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum-1, $endNum") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum, 20") or die(mysql_error());
 				break;
 
 			default:

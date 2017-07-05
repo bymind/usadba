@@ -30,7 +30,7 @@
 			foreach ($Style_content as $Style_c) {
 				?><link rel="stylesheet" href="/css/<?php echo $Style_c; ?>"><?php
 			}
-		} else
+		} else if (isSet($Style_content))
 		{ ?>
 			<link rel="stylesheet" href="/css/<?php echo $Style_content; ?>">
 			<?php }

@@ -78,7 +78,9 @@ class Controller_Admin extends Controller
 	function adminWorktable()
 	{
 		$orders = $this->model->getOrders('last', 20);
+		$curPage = 1;
 		$ordersCounter = $this->model->countOrders('actual');
+		$pagesCount = ceil( $ordersCounter['all'] / 20);
 		$this->view->generate(
 					'admin/worktable_view.php',
 					'admin/template_admin_view.php',
@@ -90,7 +92,9 @@ class Controller_Admin extends Controller
 							'actual_title' => 'Рабочий стол',
 							'Favicon' => 'app/views/admin-favicon.php',
 							'orders' => $orders,
-							'ordersCounter' => $ordersCounter
+							'ordersCounter' => $ordersCounter,
+							'curPage' => $curPage,
+							'pagesCount' => $pagesCount
 						),
 					'admin/navigation_view.php',
 					'admin/footer_view.php',
@@ -128,6 +132,14 @@ class Controller_Admin extends Controller
 
 			case 'getOrderBody':
 				Self::adminGetOrderBody();
+				break;
+
+			case 'getFirstPage':
+				Self::adminGetOrderFirstPage();
+				break;
+
+			case 'getPage':
+				Self::adminGetOrderPage();
 				break;
 
 			case 'getOrderTitle':
@@ -170,6 +182,52 @@ function adminGetOrderTitle()
 				array('ordersCounter'=>$ordersCounter)
 			);
 		}
+		return true;
+	}
+}
+
+function adminGetOrderFirstPage()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getPage') {
+		return false;
+	} else {
+		$orders = $this->model->getOrders('last');
+		$curPage = 1;
+		$ordersCounter = $this->model->countOrders('actual');
+		$pagesCount = ceil( $ordersCounter['all'] / 20);
+		$this->view->simpleGet(
+			'admin/worktable_reload_view.php',
+			array('orders'=>$orders,
+						'curPage' => $curPage,
+						'ordersCounter'=>$ordersCounter,
+						'pagesCount'=>$pagesCount
+						)
+		);
+		return true;
+	}
+}
+
+function adminGetOrderPage()
+{
+	$token = $this->model->prepareToDB($_POST['token']);
+	if ($token != 'getPage') {
+		return false;
+	} else {
+		$startId = $this->model->prepareToDB($_POST['startId']);
+		$startId = (int) $startId;
+		$orders = $this->model->getOrders('mid',$startId);
+		$curPage = ceil($startId/20 +1);
+		$ordersCounter = $this->model->countOrders('actual');
+		$pagesCount = ceil( $ordersCounter['all'] / 20);
+		$this->view->simpleGet(
+			'admin/worktable_reload_view.php',
+			array('orders'=>$orders,
+						'curPage' => $curPage,
+						'ordersCounter'=>$ordersCounter,
+						'pagesCount'=>$pagesCount
+						)
+		);
 		return true;
 	}
 }

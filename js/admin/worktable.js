@@ -1,11 +1,99 @@
 $(function() {
 	orderRowClick();
 	lookForStatusEdit();
+	paginationOrders();
 });
+
+function paginationOrders()
+{
+	$('#content').on('click','ul.pagination li>a', function(event) {
+		event.preventDefault();
+		$curPage = $('ul.pagination').data('curpage');
+		$target = $(this).data('target');
+		if (($target==$curPage)||($(this).parent().hasClass('disabled'))) {} else
+		switch ($target){
+			case 'minus':
+				if ($curPage>2) {
+					loadOrdersPage($curPage-1);
+				} else loadFirstPage();
+				break;
+
+			case 'plus':
+				loadOrdersPage($curPage+1);
+				break;
+
+			case 1:
+				loadFirstPage();
+				break;
+
+			default:
+				loadOrdersPage($target);
+				break;
+		}
+	});
+	return true;
+}
+
+function loadFirstPage()
+{
+	console.log("loadFirstPage()");
+	var $orderTbody = $('.table-orders tbody');
+	var $orderContainer = $('.jumbotron');
+	var $orderContainerHtml = "";
+	$orderTbody.css('opacity', '.4');
+
+	var $load = $.when(
+	$.ajax({
+		url: '/admin/orders/getFirstPage',
+		type: 'POST',
+		data: {token:'getPage'},
+	})
+	.done(function(dom) {
+		$orderContainerHtml = dom;
+	})
+	.fail(function(answ) {
+		console.log("error - "+answ);
+	})
+	);
+
+	$load.done(function(){
+		$orderContainer.html($orderContainerHtml);
+		return true;
+	});
+}
+
+function loadOrdersPage($pageNum)
+{
+	console.log("loadOrdersPage("+$pageNum+")");
+	var startId = ($pageNum-1)*20;
+	var $orderTbody = $('.table-orders tbody');
+	var $orderContainer = $('.jumbotron');
+	var $orderContainerHtml = "";
+	$orderTbody.css('opacity', '.4');
+
+	var $load = $.when(
+	$.ajax({
+		url: '/admin/orders/getPage',
+		type: 'POST',
+		data: {token:'getPage', startId: startId},
+	})
+	.done(function(dom) {
+		$orderContainerHtml = dom;
+	})
+	.fail(function(answ) {
+		console.log("error - "+answ);
+	})
+	);
+
+	$load.done(function(){
+		$orderContainer.html($orderContainerHtml);
+		return true;
+	});
+}
 
 function lookForStatusEdit()
 {
-	$('.table-orders').on('click', 'ul.status-edit li>span', function(event) {
+	$('#content').on('click', '.table-orders ul.status-edit li>span', function(event) {
 		event.preventDefault();
 		var editOrder = {};
 		editOrder.id = $(this).closest('.status-edit').data('orderid');
@@ -171,7 +259,7 @@ function reloadOrder(orderId)
 
 function orderRowClick()
 {
-	$('table.table-orders').on('click', 'tr.order-header', function(event) {
+	$('#content').on('click', 'table.table-orders tr.order-header', function(event) {
 		event.preventDefault();
 		var $order = $(this).data('orderid');
 		$(this).parent().find('tr.order-body[data-orderid='+$order+']').toggleClass('on');

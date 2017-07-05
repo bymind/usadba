@@ -1,11 +1,7 @@
-<script src="/js/admin/main.js"></script>
-<script src="/js/admin/worktable.js"></script>
-
-<div class="jumbotron main-content" style="background-color: transparent;">
 <div class="container-fluid">
-
 	<div class="row mt-10">
 		<div class="col-xs-12 col-lg-8">
+
 			<div class="pull-right" <?php if ($ordersCounter['all'] <= 20) {
 				?> style="display:none;" <?php
 			} ?> >
@@ -50,8 +46,7 @@
 					</tbody>
 				</table>
 			</div>
+
 		</div>
 	</div>
-
-</div>
 </div>
