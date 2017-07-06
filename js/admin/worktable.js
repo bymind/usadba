@@ -38,7 +38,7 @@ function loadFirstPage()
 {
 	console.log("loadFirstPage()");
 	var $orderTbody = $('.table-orders tbody');
-	var $orderContainer = $('.jumbotron');
+	var $orderContainer = $('.col-orders ');
 	var $orderContainerHtml = "";
 	$orderTbody.css('opacity', '.4');
 
@@ -67,7 +67,7 @@ function loadOrdersPage($pageNum)
 	console.log("loadOrdersPage("+$pageNum+")");
 	var startId = ($pageNum-1)*20;
 	var $orderTbody = $('.table-orders tbody');
-	var $orderContainer = $('.jumbotron');
+	var $orderContainer = $('.col-orders');
 	var $orderContainerHtml = "";
 	$orderTbody.css('opacity', '.4');
 

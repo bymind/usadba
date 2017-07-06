@@ -442,3 +442,24 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 		background: #fff;
 	}
 }
+
+.table-stats th {
+	text-align: center;
+}
+
+.table-stats tr.stats-firstrow td {
+	font-size: 20px;
+	text-align: center;
+	font-weight: 900;
+}
+
+.table-stats tr.stats-firstrow td small {
+	font-weight: normal;
+}
+
+.table-stats tr.stats-firstrow td:first-child {
+}
+
+.col-stats {
+	background: #ccc;
+}
