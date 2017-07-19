@@ -237,6 +237,18 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+	function updateConfigs($configs)
+	{
+		foreach ($configs['ids'] as $key => $value) {
+			// $configs['vals'][$key] = addslashes($configs['vals'][$key]);
+			$configVal = addslashes($configs['vals'][$key]);
+			$upd = mysql_query("UPDATE config SET value = '$configVal' WHERE name='$value' ") or die(mysql_error());
+			echo "$configVal ";
+			echo "$value ";
+		}
+			return true;
+	}
+
 	/*
 	getSalesLists()
 	Получение списка акции

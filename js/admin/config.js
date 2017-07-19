@@ -35,28 +35,13 @@ function collectConfigData(section)
 					data.ids = ["inputSiteName", "cover-img", "inputSitePhone", "inputAddress", "inputCopyright"];
 					data.valid = ["longer-3", "notDefaultPoster", "phoneMask", "longer-5", "longer-3"];
 					data.vals = [];
-					$.each(data.ids, function(index, val) {
-						 data.vals[index] = $("#"+val).val();
-					});
-					//TODO: move out switch
-					if (dataValid(data)) {
-						$.when(dataSend(data)).done(function(res){
-							log(res);
-							$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-danger').addClass('btn-success').text('Сохранить');
-						}).fail(function(res){
-							log(res);
-							$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-success').addClass('btn-danger').text('Ошибка сохранения');
-						});
-
-						dataSend(data);
-						return false;
-					} else {
-						return false;
-					}
 					break;
 
 			case 'contacts':
-					log("contacts collectiong");
+					data.ids = ["inputEmailAdmin", "inputEmailOrders", "inputEmailComm", "inputEmailRev"];
+					data.valid = ["m-email", "m-email", "m-email", "m-email"];
+					data.vals=[];
+
 					break;
 /*
 			case '':
@@ -66,6 +51,25 @@ function collectConfigData(section)
 			default:
 					log("Config section missing");
 					break;
+	}
+
+	$.each(data.ids, function(index, val) {
+		 data.vals[index] = $("#"+val).val();
+	});
+	//TODO: move out switch
+	if (dataValid(data)) {
+		$.when(dataSend(data)).done(function(res){
+			log(res);
+			$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-danger').addClass('btn-success').text('Сохранить');
+		}).fail(function(res){
+			log(res);
+			$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-success').addClass('btn-danger').text('Ошибка сохранения');
+		});
+
+		dataSend(data);
+		return false;
+	} else {
+		return false;
 	}
 }
 
@@ -106,14 +110,37 @@ function dataValid(data)
 	$.each(validData.valid, function(index, val) {
 		var splt = val.split('-');
 		if (splt.length>1 ){
-			if (splt[0]=="longer") {
-				var validVal = validData.vals[index];
+			var validVal = validData.vals[index];
+			if (splt[0]=="longer") { // must be longer than x
 				if (validVal.length >= splt[1]) {
 					// return true;
 				} else {
 					errs.id.push(validData.ids[index]);
 					errs.val.push(validData.vals[index]);
 					errs.error.push("Must be longer than "+splt[1]);
+				}
+			}
+			if (splt[0]="m") { // multiple - null or one or many
+				switch (splt[1]){
+					case "email":
+						var emailReg = /.+@.+\..+/i;
+						var emailArr = validVal.split(',');
+						log(validData.ids[index]);
+						log(emailArr);
+						$.each(emailArr, function(key, v) {
+							v=v.trim();
+							if ( (!emailReg.test(v))&&(emailArr.length>1)&&(v.length>0) ) {
+								errs.id.push(validData.ids[index]);
+								errs.val.push(validData.vals[index]);
+								errs.error.push("invalid email(s)");
+							}
+							if ( (!emailReg.test(v))&&(v.length>0)&&(emailArr.length=1) ) {
+								errs.id.push(validData.ids[index]);
+								errs.val.push(validData.vals[index]);
+								errs.error.push("invalid email(s)");
+							}
+						});
+						break;
 				}
 			}
 		} else
@@ -129,7 +156,7 @@ function dataValid(data)
 					} else {
 						errs.id.push(validData.ids[index]);
 						errs.val.push(validData.vals[index]);
-						errs.error.push("Incorrect phone");
+						errs.error.push("Invalid phone");
 					}
 					break;
 
@@ -140,6 +167,14 @@ function dataValid(data)
 						errs.error.push("Set another picture");
 					}
 					break;
+
+				case 'email':
+					var emailReg = /.+@.+\..+/i;
+					if ( !emailReg.test($('#'+validData.ids[index]).val) ) {
+						errs.id.push(validData.ids[index]);
+						errs.val.push(validData.vals[index]);
+						errs.error.push("invalid email");
+					}
 
 					default:
 						log("default case");

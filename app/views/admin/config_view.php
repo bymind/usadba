@@ -13,7 +13,7 @@
 		<h4>1. Основные настройки сайта <small>заполните все</small></h4>
 	</div>
 	<div class="panel-body">
-	<form class="form-horizontal">
+	<form class="form-horizontal adminka-config">
 		<div class="form-group">
 			<label for="inputSiteName" class="col-sm-5 control-label">Название сайта</label>
 			<div class="col-sm-7">
@@ -38,7 +38,7 @@
 					</div>
 					<div class="controls">
 						<?php
-							if ($configs['cover-img']) {
+							if ($configs['cover-img']['value']) {
 							?>
 						<input type="text" id="cover-img" value="<?php echo $configs['cover-img']['value'] ?>">
 							<?php
@@ -84,28 +84,28 @@
 		<div class="form-group">
 	    <label for="inputEmailAdmin" class="col-sm-5 control-label">Email главного администратора</label>
 	    <div class="col-sm-7">
-	      <input type="email" class="form-control" id="inputEmailAdmin" placeholder="admin@gmail.com" aria-describedby="helpEmailAdmin">
+	      <input type="email" class="form-control" id="inputEmailAdmin" placeholder="admin@gmail.com" aria-describedby="helpEmailAdmin" value="<?php echo $configs['inputEmailAdmin']['value'] ?>">
 	      <span id="helpEmailAdmin" class="help-block">Сюда будут приходить заказы, комментарии и отзывы</span>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="inputEmailOrders" class="col-sm-5 control-label">Email для заказов</label>
 	    <div class="col-sm-7">
-	      <input type="email" class="form-control" id="inputEmailOrders" placeholder="orders@gmail.com" aria-describedby="helpEmailOrders">
+	      <input type="email" class="form-control" id="inputEmailOrders" placeholder="orders@gmail.com" aria-describedby="helpEmailOrders" value="<?php echo $configs['inputEmailOrders']['value'] ?>">
 	      <span id="helpEmailOrders" class="help-block">Сюда будут приходить только заказы</span>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="inputEmailComm" class="col-sm-5 control-label">Email для комментариев</label>
 	    <div class="col-sm-7">
-	      <input type="email" class="form-control" id="inputEmailComm" placeholder="comments@gmail.com" aria-describedby="helpEmailComm">
+	      <input type="email" class="form-control" id="inputEmailComm" placeholder="comments@gmail.com" aria-describedby="helpEmailComm" value="<?php echo $configs['inputEmailComm']['value'] ?>">
 	      <span id="helpEmailComm" class="help-block">Сюда будут приходить только комментарии</span>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="inputEmailRev" class="col-sm-5 control-label">Email для отзывов</label>
 	    <div class="col-sm-7">
-	      <input type="email" class="form-control" id="inputEmailRev" placeholder="reviews@gmail.com" aria-describedby="helpEmailRev">
+	      <input type="email" class="form-control" id="inputEmailRev" placeholder="reviews@gmail.com" aria-describedby="helpEmailRev" value="<?php echo $configs['inputEmailRev']['value'] ?>">
 	      <span id="helpEmailRev" class="help-block">Сюда будут приходить только отзывы</span>
 	    </div>
 	  </div>

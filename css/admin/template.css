@@ -528,3 +528,19 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 	overflow: hidden;
 	height: 0;
 }
+
+.adminka-config input::placeholder, .adminka-config textarea::placeholder {
+	opacity: .5;
+}
+
+.adminka-config input::-webkit-placeholder, .adminka-config textarea::-webkit-placeholder {
+	opacity: .5;
+}
+
+.adminka-config input::-moz-placeholder, .adminka-config textarea::-moz-placeholder {
+	opacity: .5;
+}
+
+.adminka-config input::-ms-placeholder, .adminka-config textarea::-ms-placeholder {
+	opacity: .5;
+}

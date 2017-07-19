@@ -1896,7 +1896,7 @@ public function adminShowAll()
 	{
 		$configData = $_POST['dataJSON'];
 		$configData = json_decode($configData, true);
-		var_dump($configData);
+		$this->model->updateConfigs($configData);
 		return true;
 	}
 

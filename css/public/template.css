@@ -326,7 +326,7 @@ nav {
 	opacity: .2;
 	line-height: 30px;
 }
-.main_menu input.search-text:-ms-input-placeholder {
+.main_menu input.search-text::-ms-input-placeholder {
 	font-size: 13px;
 	color: #222;
 	font-weight: 200;
