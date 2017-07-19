@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Логотип Усадьба-Центра"
+   data-name="Логотип Усадьба-Центра"
+   viewBox="0 0 712.83002 508.67001"
+   version="1.1"
+   width="712.83002"
+   height="508.67001"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1308"
+     inkscape:window-height="664"
+     id="namedview4382"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.60811183"
+     inkscape:cx="342.7416"
+     inkscape:cy="221.28742"
+     inkscape:window-x="39"
+     inkscape:window-y="3"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Логотип Усадьба-Центра" />
+  <metadata
+     id="metadata15">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Логотип Усадьба-Центра</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient5125">
+      <stop
+         style="stop-color:#b6b6b6;stop-opacity:1"
+         offset="0"
+         id="stop5127" />
+      <stop
+         id="stop5133"
+         offset="0.43275875"
+         style="stop-color:#ffffff;stop-opacity:1" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0.53944081"
+         id="stop5135" />
+      <stop
+         style="stop-color:#b6b6b6;stop-opacity:1"
+         offset="1"
+         id="stop5129" />
+    </linearGradient>
+    <style
+       id="style5">.cls-1{fill:#14767f;fill-rule:evenodd;}</style>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5125"
+       id="linearGradient5131"
+       x1="355.28302"
+       y1="457.75699"
+       x2="353.80487"
+       y2="76.361649"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <title
+     id="title7">Логотип Усадьба-Центра</title>
+  <g
+     id="g3343"
+     transform="translate(-0.74,-0.32)">
+    <g
+       data-name="Фигура 1"
+       id="Фигура_1">
+      <polygon
+         id="polygon10"
+         points="354.82,0.32 0.74,508.99 209.57,458.82 272.57,416.82 440.57,416.82 490.13,458.05 713.57,508.99 354.82,0.32 "
+         class="cls-1"
+         style="fill:#14767f;fill-rule:evenodd" />
+    </g>
+    <g
+       id="g3505"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <path
+         style="fill:url(#linearGradient5131);fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 490.11628,458.08862 c 0,0 -65.69768,-16.27907 -130.81395,-16.27907 -65.11628,0 -153.48838,16.86046 -153.48838,16.86046 l -80.23255,-76.74418 123.8372,30.23256 -55.81395,-128.48838 122.09302,96.51163 37.20931,-304.069766 2.32558,-0.581396 39.53488,304.651162 119.18605,-96.51163 -54.65116,128.48838 123.25581,-29.65117 z"
+         id="path5112"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

@@ -50,7 +50,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<span class="copyright">
-					2016 © Усадьба-Кулинария.ру - доставка полуфабрикатов и кулинарии.
+					<?php echo date('Y'); ?> © Усадьба-Кулинария.ру - доставка полуфабрикатов и кулинарии.
 				</span>
 				<span class="ref">
 					<a href="http://bymind.ru" title="Designed and developed ByMind.ru" target="_blank">Designed and developed</a>

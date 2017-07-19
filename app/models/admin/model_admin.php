@@ -221,6 +221,23 @@ class Model_Admin extends Model
 
 
 	/*
+	getConfigs()
+	Получение списка конфигов (не архивных)
+	*/
+	public function getConfigs()
+	{
+		// $nowDate = date('Y-m-d h:i:s');
+		$select = mysql_query("SELECT * FROM config WHERE archived =0 ORDER BY id")or die(mysql_error());
+				$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r[$r['name']] =$r['value'];
+					$ds[$r['name']]=$r;
+		}
+
+		return $ds;
+	}
+
+	/*
 	getSalesLists()
 	Получение списка акции
 	*/

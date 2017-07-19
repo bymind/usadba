@@ -499,6 +499,7 @@ li.active a,
 .main-title {
 	float: left;
 	padding: 0 20px;
+	max-width: 140px;
 }
 
 .main-title a {
@@ -507,6 +508,7 @@ li.active a,
 	display: block;
 	width: 100%;
 	height: 100%;
+	word-break: break-all;
 }
 
 .second-title {

@@ -15,6 +15,8 @@
 	<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<script type="text/javascript" src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/js/admin/md.min.js"></script>
+	<script src="/js/magic-mask/jq.magic-mask.min.js"></script>
+
 
 </head>
 <body>

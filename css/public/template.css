@@ -95,7 +95,9 @@ a:hover, a:active,a:focus {
 
 .headline .logo-sitename {
 	position: relative;
-	display: block;
+	display: flex;
+	align-items: center;
+	height: 40px;
 	font-family: Roboto Slab;
 	font-size: 17px;
 	line-height: 20px;
@@ -1982,7 +1984,7 @@ span.link a:hover {
 	.headline .logo-sitename {
 		font-size: 12px;
 		line-height: 14px;
-		margin-top: 4px;
+		padding-top: 4px;
 	}
 
 	button.cart, a.cart {

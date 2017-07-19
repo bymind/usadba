@@ -1855,26 +1855,50 @@ public function adminShowAll()
 
 /*																		 CONFIG
 *************************************************************************************/
-	function adminConfig()
+	function adminConfig($params)
 	{
-		$this->view->generate(
-					'admin/main_view.php',
-					'admin/template_admin_view.php',
-					array(
-							'title'=>' - Настройки',
-							'style'=>'admin/template.css',
-							'style_content'=>'admin/main.css',
-							//'posts'=>$ds,
-							'active_menu_item' => 'config',
-							'actual_title' => 'Настройки',
-							'Favicon' => 'app/views/admin-favicon.php',
-						),
-					'admin/navigation_view.php',
-					'admin/footer_view.php'
-					);
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+			extract($params);
+		else
+			$name = $params;
+
+		switch ($name) {
+			case 'update':
+				self::adminConfigUpdate();
+				break;
+
+			case 'default':
+				$configs = $this->model->getConfigs();
+				$this->view->generate(
+							'admin/config_view.php',
+							'admin/template_admin_view.php',
+							array(
+									'title'=>' - Настройки',
+									'style'=>'admin/template.css',
+									'style_content'=>'admin/main.css',
+									'active_menu_item' => 'config',
+									'actual_title' => 'Настройки',
+									'configs' => $configs,
+									'access_key' => $_SESSION['user']['access_key'],
+									'Favicon' => 'app/views/admin-favicon.php',
+								),
+							'admin/navigation_view.php',
+							'admin/footer_view.php'
+							);
+				break;
+		}
 	}
 
-
+	function adminConfigUpdate()
+	{
+		$configData = $_POST['dataJSON'];
+		$configData = json_decode($configData, true);
+		var_dump($configData);
+		return true;
+	}
 
 /*																		 BUGTRACKER
 *************************************************************************************/
@@ -2485,11 +2509,11 @@ public function adminShowAll()
 	}
 
 
-	function action_config()
+	function action_config($params="")
 	{
 		if (Controller::is_admin())
 		{
-			self::adminConfig();
+			self::adminConfig($params);
 		} else
 		{
 			self::adminLogin();
