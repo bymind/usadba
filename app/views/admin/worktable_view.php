@@ -56,65 +56,65 @@
 
 		<div class="col-xs-12 col-lg-4 col-stats">
 
-			<h3>Статистика</h3>
-			<div class="table mb-20" style="background:white">
-				<table class="table table-bordered table-stats">
-					<thead>
-						<tr>
-							<th>Заказы</th>
-							<th>Доход</th>
-							<th>Ср. чек</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="stats-firstrow">
-							<td>31</td>
-							<td>45 233 <small>руб.</small></td>
-							<td>310 <small>руб.</small></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<!-- 	<h3>Статистика</h3>
+		<div class="table mb-20" style="background:white">
+			<table class="table table-bordered table-stats">
+				<thead>
+					<tr>
+						<th>Заказы</th>
+						<th>Доход</th>
+						<th>Ср. чек</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="stats-firstrow">
+						<td>31</td>
+						<td>45 233 <small>руб.</small></td>
+						<td>310 <small>руб.</small></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-			<h3>Статистика</h3>
-			<div class="table mb-20" style="background:white">
-				<table class="table table-bordered table-stats">
-					<thead>
-						<tr>
-							<th>Заказы</th>
-							<th>Доход</th>
-							<th>Ср. чек</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="stats-firstrow">
-							<td>31</td>
-							<td>45 233 <small>руб.</small></td>
-							<td>310 <small>руб.</small></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<h3>Статистика</h3>
+		<div class="table mb-20" style="background:white">
+			<table class="table table-bordered table-stats">
+				<thead>
+					<tr>
+						<th>Заказы</th>
+						<th>Доход</th>
+						<th>Ср. чек</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="stats-firstrow">
+						<td>31</td>
+						<td>45 233 <small>руб.</small></td>
+						<td>310 <small>руб.</small></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-			<h3>Статистика</h3>
-			<div class="table mb-20" style="background:white">
-				<table class="table table-bordered table-stats">
-					<thead>
-						<tr>
-							<th>Заказы</th>
-							<th>Доход</th>
-							<th>Ср. чек</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="stats-firstrow">
-							<td>31</td>
-							<td>45 233 <small>руб.</small></td>
-							<td>310 <small>руб.</small></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<h3>Статистика</h3>
+		<div class="table mb-20" style="background:white">
+			<table class="table table-bordered table-stats">
+				<thead>
+					<tr>
+						<th>Заказы</th>
+						<th>Доход</th>
+						<th>Ср. чек</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="stats-firstrow">
+						<td>31</td>
+						<td>45 233 <small>руб.</small></td>
+						<td>310 <small>руб.</small></td>
+					</tr>
+				</tbody>
+			</table>
+		</div> -->
 
 		</div>
 
