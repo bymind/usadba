@@ -17,7 +17,7 @@
 		<div class="form-group">
 			<label for="inputSiteName" class="col-sm-5 control-label">Название сайта</label>
 			<div class="col-sm-7">
-				<input type="text" class="form-control" id="inputSiteName" placeholder="Хороший Сайт" value="<?php echo $configs['inputSiteName']['value'] ?>">
+				<textarea cols="30" rows="2" class="form-control" id="inputSiteName" placeholder="Хороший Сайт"><?php echo $configs['inputSiteName']['value'] ?></textarea>
 			</div>
 		</div>
 		<div class="form-group poster-group">
@@ -28,7 +28,7 @@
 					<?php
 						if ($configs['cover-img']['value']) {
 						?>
-						<img src="<?php echo $configs['cover-img']['value'] ?>" alt="" id="img">
+						<img id="img-cover-img" src="<?php echo $configs['cover-img']['value'] ?>" alt="" id="img">
 						<?php
 						} else {
 								?>
@@ -60,6 +60,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="inputWorkTime" class="col-sm-5 control-label">Рабочее время</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" id="inputWorkTime" placeholder="пн-пт 8:00-18:00" value="<?php echo $configs['inputWorkTime']['value'] ?>">
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="inputAddress" class="col-sm-5 control-label">Адрес</label>
 			<div class="col-sm-7">
 				<textarea cols="30" rows="3" style="resize:vertical;" class="form-control" id="inputAddress" placeholder='125009, г. Москва, Вознесенский переулок, д. 20, стр. 2, ОАО "УСАДЬБА-ЦЕНТР"'><?php echo $configs['inputAddress']['value'] ?></textarea>
@@ -85,7 +91,7 @@
 	    <label for="inputEmailAdmin" class="col-sm-5 control-label">Email главного администратора</label>
 	    <div class="col-sm-7">
 	      <input type="email" class="form-control" id="inputEmailAdmin" placeholder="admin@gmail.com" aria-describedby="helpEmailAdmin" value="<?php echo $configs['inputEmailAdmin']['value'] ?>">
-	      <span id="helpEmailAdmin" class="help-block">Сюда будут приходить заказы, комментарии и отзывы</span>
+	      <span id="helpEmailAdmin" class="help-block">Сюда будут приходить заказы, комментарии, отзывы и зявки на перезвон</span>
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -107,6 +113,13 @@
 	    <div class="col-sm-7">
 	      <input type="email" class="form-control" id="inputEmailRev" placeholder="reviews@gmail.com" aria-describedby="helpEmailRev" value="<?php echo $configs['inputEmailRev']['value'] ?>">
 	      <span id="helpEmailRev" class="help-block">Сюда будут приходить только отзывы</span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="inputEmailRecall" class="col-sm-5 control-label">Email для зявок на перезвон</label>
+	    <div class="col-sm-7">
+	      <input type="email" class="form-control" id="inputEmailRecall" placeholder="recalliews@gmail.com" aria-describedby="helpEmailRecall" value="<?php echo $configs['inputEmailRecall']['value'] ?>">
+	      <span id="helpEmailRecall" class="help-block">Сюда будут приходить только заявки на перезвон</span>
 	    </div>
 	  </div>
 		<div class="form-group">

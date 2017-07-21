@@ -171,7 +171,7 @@
 	?>
 
 </div>
-				<div class="hidden-xxs col-xs-12 col-sm-12 mb-20 mt-20">
+				<!-- <div class="hidden-xxs col-xs-12 col-sm-12 mb-20 mt-20">
 					<div class="seo-text mb-20">
 						<h3 class="title">
 							Интернет магазин полуфабрикатов – это быстро, просто и удобно
@@ -198,7 +198,7 @@
 						</span>
 					</div>
 
-				</div>
+				</div> -->
 	</div>
 </div>
 

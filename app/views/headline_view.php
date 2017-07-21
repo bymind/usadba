@@ -3,21 +3,21 @@
 		<div class="headline mt-20 mb-20 mt-xs-10 mb-xs-10 clearfix">
 
 			<div class="col-xxs-6 col-xas-4 col-xs-3 col-sm-3">
-				<div class="logo">
+				<div class="logo" style="background-image: url(<?php echo (CONFIG_SITE_LOGO); ?>)">
 				<a href="/"></a>
 				</div>
 				<div class="logo-sitename">
-					<a href="/">Кулинария<br>Усадьба-Центр</a>
+					<a href="/"><?php echo nl2br(CONFIG_SITE_NAME); ?></a>
 				</div>
 			</div>
 
 			<div class="col-xxs-6 col-xas-3 col-xs-3 col-sm-2 col-lg-2 pl-0">
 				<div class="head-phone">
 					<span class="phone-label">
-						Ежедневно с 9 до 23
+						<?php echo nl2br(CONFIG_SITE_WORKTIME); ?>
 					</span>
 					<span class="phone-number">
-						<a href="tel:8(800)555-35-35">8(800)555-35-35</a>
+						<a href="tel:<?php echo (CONFIG_SITE_PHONE); ?>"><?php echo (CONFIG_SITE_PHONE); ?></a>
 					</span>
 				</div>
 			</div>

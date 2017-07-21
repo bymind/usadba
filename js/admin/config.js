@@ -32,14 +32,14 @@ function collectConfigData(section)
 	var data ={};
 	switch (sect) {
 			case 'primary':
-					data.ids = ["inputSiteName", "cover-img", "inputSitePhone", "inputAddress", "inputCopyright"];
-					data.valid = ["longer-3", "notDefaultPoster", "phoneMask", "longer-5", "longer-3"];
+					data.ids = ["inputSiteName", "cover-img", "inputSitePhone", "inputWorkTime", "inputAddress", "inputCopyright"];
+					data.valid = ["longer-3", "notDefaultPoster", "phoneMask", "longer-5", "longer-3", "longer-3"];
 					data.vals = [];
 					break;
 
 			case 'contacts':
-					data.ids = ["inputEmailAdmin", "inputEmailOrders", "inputEmailComm", "inputEmailRev"];
-					data.valid = ["m-email", "m-email", "m-email", "m-email"];
+					data.ids = ["inputEmailAdmin", "inputEmailOrders", "inputEmailComm", "inputEmailRev", "inputEmailRecall"];
+					data.valid = ["m-email", "m-email", "m-email", "m-email", "m-email"];
 					data.vals=[];
 
 					break;

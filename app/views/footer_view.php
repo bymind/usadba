@@ -29,10 +29,10 @@
 									Контактная информация
 								</div>
 								<div class="addr mb-10">
-									125009, г. Москва,<br>Вознесенский переулок, д. 20, стр. 2<br>ОАО "УСАДЬБА-ЦЕНТР"
+									<?php echo nl2br(CONFIG_SITE_ADDRESS); ?>
 								</div>
 								<div class="phone mb-10">
-									<a href="tel:8(800)555-35-35" class="footer-phone">8(800)555-35-35</a>
+									<a href="tel:<?php echo nl2br(CONFIG_SITE_PHONE); ?>" class="footer-phone"><?php echo nl2br(CONFIG_SITE_PHONE); ?></a>
 								</div>
 								<div class="terms">
 									<a href="/terms">Пользовательское соглашение</a>
@@ -50,7 +50,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<span class="copyright">
-					<?php echo date('Y'); ?> © Усадьба-Кулинария.ру - доставка полуфабрикатов и кулинарии.
+					<?php echo date('Y'); ?> © <?php echo nl2br(CONFIG_SITE_COPYRIGHT); ?>
 				</span>
 				<span class="ref">
 					<a href="http://bymind.ru" title="Designed and developed ByMind.ru" target="_blank">Designed and developed</a>

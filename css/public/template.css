@@ -81,7 +81,9 @@ a:hover, a:active,a:focus {
 	position: relative;
 	width: 60px;
 	height: 40px;
-	background: url(/img/logo.svg) left center no-repeat;
+	background-image: url(/img/logo.svg);
+	background-position:  left center;
+	background-repeat:  no-repeat;
 	background-size: contain;
 	float: left;
 }
