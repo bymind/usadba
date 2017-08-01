@@ -127,26 +127,75 @@
 				<button class="btn btn-primary pull-right btn-save" data-configsect="contacts" type="button">Сохранить</button>
 			</div>
 		</div>
-		<!-- <div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+			<div class="panel-heading panel-heading-middle">
+			<h4>3. Ссылки в футере <small>максимум 10 штук, абсолютные или относительные ссылки, на первой строке название ссылки, на второй - адрес ссылки</small></h4>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<div class="checkbox">
-					<label>
-						<input type="checkbox"> Remember me
-					</label>
+
+			<div class="form-group">
+		    <label for="footerLink1" class="col-sm-5 control-label">1 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink1" placeholder=''><?php echo $configs['footerLink1']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink2" class="col-sm-5 control-label">2 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink2" placeholder=''><?php echo $configs['footerLink2']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink3" class="col-sm-5 control-label">3 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink3" placeholder=''><?php echo $configs['footerLink3']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink4" class="col-sm-5 control-label">4 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink4" placeholder=''><?php echo $configs['footerLink4']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink5" class="col-sm-5 control-label">5 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink5" placeholder=''><?php echo $configs['footerLink5']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink6" class="col-sm-5 control-label">6 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink6" placeholder=''><?php echo $configs['footerLink6']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink7" class="col-sm-5 control-label">7 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink7" placeholder=''><?php echo $configs['footerLink7']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink8" class="col-sm-5 control-label">8 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink8" placeholder=''><?php echo $configs['footerLink8']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink9" class="col-sm-5 control-label">9 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink9" placeholder=''><?php echo $configs['footerLink9']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="footerLink10" class="col-sm-5 control-label">10 ссылка</label>
+		    <div class="col-sm-7">
+		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink10" placeholder=''><?php echo $configs['footerLink10']['value'] ?></textarea>
+		    </div>
+		  </div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<button class="btn btn-primary pull-right btn-save" data-configsect="links" type="button">Сохранить</button>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">Sign in</button>
-			</div>
-		</div> -->
 	</form>
 	</div>
 	</div>

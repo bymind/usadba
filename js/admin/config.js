@@ -43,6 +43,13 @@ function collectConfigData(section)
 					data.vals=[];
 
 					break;
+
+			case 'links':
+					data.ids = ["footerLink1","footerLink2","footerLink3","footerLink4","footerLink5","footerLink6","footerLink7","footerLink8","footerLink9","footerLink10"];
+					data.valid = ["longer-3","longer-3","longer-3","longer-3","longer-3","longer-3","longer-3","longer-3","longer-3","longer-3"];
+					data.vals=[];
+
+					break;
 /*
 			case '':
 					break;

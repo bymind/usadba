@@ -230,10 +230,16 @@ class Model_Admin extends Model
 		$select = mysql_query("SELECT * FROM config WHERE archived =0 ORDER BY id")or die(mysql_error());
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
-					$r[$r['name']] =$r['value'];
-					$ds[$r['name']]=$r;
+					// if ($r['section']=="links") {
+					// 	$num = preg_replace("/[^0-9]/", '', $r['name']);
+					// 	$vals = explode("\n",$r['value']);
+					// 	$r['footerText'.$num] = trim($vals[0]);
+					// 	$r['footerLink'.$num] = trim($vals[1]);
+					// } else {
+						$r[$r['name']] =$r['value'];
+					// }
+						$ds[$r['name']]=$r;
 		}
-
 		return $ds;
 	}
 

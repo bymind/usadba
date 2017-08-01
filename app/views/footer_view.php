@@ -7,20 +7,23 @@
 					<div class="row">
 						<div class="col-xxs-6 col-xas-6 col-xs-6 col-sm-3">
 							<div class="footer-link">
-								<span class="link"><a href="/about-us">О нас</a></span>
-								<span class="link"><a href="/reviews">Отзывы</a></span>
-								<span class="link"><a href="/news">Наши новости</a></span>
-								<span class="link"><a href="/sitemap">Карта сайта</a></span>
-								<span class="link"><a href="/contacts">Контактная информация</a></span>
+							<?php
+							$footerLinks = unserialize(CONFIG_FOOTER_LINKS);
+							for ($i = 1; $i <= 5; $i++ ) {
+								?>
+								<span class="link"><a href="<?php echo $footerLinks[$i][1];?>"><?php echo $footerLinks[$i][0];?></a></span>
+								<?
+								} ?>
 							</div>
 						</div>
 						<div class="col-xxs-6 col-xas-6 col-xs-6 col-sm-3">
 							<div class="footer-link">
-								<span class="link"><a href="/delivery">Условия доставки</a></span>
-								<span class="link"><a href="/payment">Способы оплаты</a></span>
-								<span class="link"><a href="/garanties">Наши гарантии</a></span>
-								<span class="link"><a href="/sales">Действующие акции</a></span>
-								<span class="link"><a href="/opt">Оптовым клиентам</a></span>
+								<?php
+								for ($i = 6; $i <= 10; $i++ ) {
+									?>
+									<span class="link"><a href="<?php echo $footerLinks[$i][1];?>"><?php echo $footerLinks[$i][0];?></a></span>
+									<?
+									} ?>
 							</div>
 						</div>
 						<div class="col-xxs-12 col-xs-12 col-sm-4 col-sm-push-2 col-lg-3 col-lg-push-3 mt-xs-20">
