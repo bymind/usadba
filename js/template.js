@@ -33,7 +33,7 @@ $(function()
 
 function InitOwlPoD()
 {
-	var autoPlaySpeed1 = 3000;
+	var autoPlaySpeed1 = 5000;
 
 	$(".prod-pod").owlCarousel({
 		navigation : true, // Show next and prev buttons

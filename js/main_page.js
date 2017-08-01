@@ -19,7 +19,7 @@ $(function() {
 */
 function InitOwlCarousel() {
 
-	var autoPlaySpeed = 2000;
+	var autoPlaySpeed = 6000;
 
 // пересчитываем высоту слайдера
 	carouselW = $("#sales-carousel").width();
