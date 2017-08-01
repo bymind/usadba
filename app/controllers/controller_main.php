@@ -28,6 +28,7 @@ class Controller_Main extends Controller
 																	'public/main_page.css',
 																	'owl-carousel/owl.carousel.css',
 																	'owl-carousel/sales.theme.css',
+																	// 'owl-carousel/pod.theme.css',
 																	'owl-carousel/prod.theme.css'
 																	),
 					'scripts_content'=> array(

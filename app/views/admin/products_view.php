@@ -27,7 +27,7 @@
 					if (isset($product['id'])) {
 						?>
 
-						<div class="col-xs-12 col-sm-4 col-md-3">
+						<div class="col-xs-12 col-sm-4 col-md-4">
 							<div class="blog-item">
 								<div class="poster" style="background-image: url(<?php echo $product['images'] ?>);">
 									<div class="controls hidden-xs">

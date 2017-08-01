@@ -65,6 +65,10 @@ class Controller_Catalog extends Controller
 	{
 		if (is_array($param)) {
 			if (count($param)==2) {
+				// var_dump($param);
+				if ($param['name']=='tag') {
+					Self::action_prodTag($param);
+				} else
 				Self::action_prodPage($param, 'parentcat');
 				// Self::action_subCatPage($param);
 			} else if (count($param)==3) {
@@ -77,7 +81,69 @@ class Controller_Catalog extends Controller
 	}
 
 
-
+	public function action_prodTag($param)
+	{
+		$pageDataController = $this->model->getData('catalog');
+		$pageDataProd = $this->model->getData('prods');
+		$pageDataProdTag = $this->model->getProdsTag($param['value']);
+		$pageSales = $this->model->getData('sales');
+		$menuItems = $this->model->get_MainMenu('catalog');
+		if ($param['value']=='new') {
+			$tagName = 'Новинки';
+		} else
+		if ($param['value']=='popular') {
+			$tagName = 'Популярное';
+		}
+		$breadCrumbs = array($tagName => $_SERVER['REQUEST_URI']);
+		// echo "<pre>";
+		// var_dump($menuItems);
+		// echo "</pre>";
+		$this->view->generate(
+			'catalog_tag_view.php', // вид контента
+			'template_view.php', // вид шаблона
+			array( // $data
+					'title'=> $pageDataProdTag['title_tag'],
+					'style'=>'public/template.css',
+					'style_content' => array(
+																	'public/main_page.css',
+																	'owl-carousel/owl.carousel.css',
+																	'owl-carousel/sales.theme.css',
+																	'owl-carousel/prod.theme.css'
+																	),
+					'scripts_content'=> array(
+																		// 'js/prefixfree/prefixfree.min.js',
+																		'/js/magic-mask/jq.magic-mask.min.js',
+																		'/js/main_page.js',
+																		'/js/owl-carousel/owl.carousel.min.js',
+																		'/js/template.js'
+																		),
+					'pageId' => 'catalog', // активный пункт меню
+					'pageDataView' => $pageDataController,
+					'catId' => $param['value'],
+					'sidebar' => array(
+														'app/views/side_menu_view.php',
+														'app/views/side_prod_of_day_view.php',
+														'app/views/side_news_view.php',
+														),
+					'prodTag' => $pageDataProdTag['prodItems']['tag'],
+					'tagTitle' => $pageDataProdTag['title_tag'],
+					'prodItems' => $pageDataProd['prodItems'],
+					'prodCats' => $pageDataProd['prodCats'],
+					'pageSales' => $pageSales['sales'],
+					'menuItems' => $menuItems,
+					'breads' => true,
+					'breadsData' => $breadCrumbs,
+				),
+			'navigation_view.php', // навигация
+			'footer_view.php', // футер
+			array( // модальные окна
+					 'modal_callback_view.php',
+					 'modal_profile_view.php',
+					 'modal_cart_view.php'
+					 )
+			);
+		return 0;
+	}
 
 	public function action_prodPage($param, $isparent = NULL)
 	{

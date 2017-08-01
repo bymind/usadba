@@ -826,6 +826,7 @@ a.subcat.sales.active{
 	width: 100%;
 	height: auto;
 	background: #fff;
+	overflow: hidden;
 }
 
 .prod-day .prod-day-title, .side-news .side-news-title{
@@ -1842,6 +1843,13 @@ span.link a:hover {
 	border-bottom: 1px solid #eee;
 }
 
+#carousel-pod {
+	position: relative;
+	width: 100%;
+	display: block;
+	/* overflow: hidden; */
+}
+
 /* MEDIA QUERIES */
 
 
@@ -1957,6 +1965,16 @@ span.link a:hover {
 
 	.bt-cat .title{
 		font-size: 18px;
+	}
+
+	.pod-theme .owl-controls {
+		width: 50px !important;
+		right: 10px !important;
+	}
+
+	.pod-theme .owl-controls .owl-buttons div {
+	  margin: 5px 0 !important;
+	  padding: 3px 8px !important;
 	}
 
 }

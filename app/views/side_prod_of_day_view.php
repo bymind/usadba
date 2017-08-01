@@ -1,18 +1,17 @@
+<link href="/css/owl-carousel/pod.theme.css" rel="stylesheet">
+
 <div class="prod-day shadow mb-20 br-2 hidden-xs">
 	<div class="prod-day-title">
 		Товар дня
 	</div>
-	<div class="arr">
-		<div class="prev disable"></div>
-		<div class="next"></div>
-	</div>
 
+<div id="carousel-pod" class="owl-carousel pod-theme prod-pod">
 <?php
 
 	foreach ($prodItems['all'] as $prod) {
 		if ($prod['pod'] == 1) {
 			?>
-
+<div class="item">
 	<div data-art="<?= $prod['art'] ?>" class="prod-card">
 		<div class="prod-day-img box-img display labeled" data-label="<?= $prod['labels'] ?>" style='background-image: url("<?= $prod['images'] ?>");'><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 			<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
@@ -27,11 +26,11 @@
 			<button class="to-cart">Купить</button>
 		</div>
 	</div>
-
+</div>
 <?php
 		}
 	}
 
 ?>
-
+</div>
 </div>

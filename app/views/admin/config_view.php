@@ -17,7 +17,7 @@
 		<div class="form-group">
 			<label for="inputSiteName" class="col-sm-5 control-label">Название сайта</label>
 			<div class="col-sm-7">
-				<textarea cols="30" rows="2" class="form-control" id="inputSiteName" placeholder="Хороший Сайт"><?php echo $configs['inputSiteName']['value'] ?></textarea>
+				<textarea cols="30" rows="2" class="form-control" id="inputSiteName" placeholder="Хороший Сайт" style="resize:vertical;"><?php echo $configs['inputSiteName']['value'] ?></textarea>
 			</div>
 		</div>
 		<div class="form-group poster-group">
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<div class="panel-heading panel-heading-middle">
-		<h4>2. Контакты админки <small>поля можно оставлять пустыми, или записывать несколько адресов через запятую</small></h4>
+		<h4>2. Контакты админки <small>адреса для модераторов, поля можно оставлять пустыми, или записывать несколько адресов через запятую</small></h4>
 		</div>
 
 		<div class="form-group">

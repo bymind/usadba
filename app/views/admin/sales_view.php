@@ -24,7 +24,7 @@
 				foreach ($posts as $post) {
 			?>
 
-			<div class="col-xs-12 col-sm-4 col-md-3">
+			<div class="col-xs-12 col-sm-4 col-md-4">
 			<div class="blog-item">
 				<div class="poster" style="background-image: url(<?php echo $post['poster'] ?>);">
 					<div class="controls hidden-xs">

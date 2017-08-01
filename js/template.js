@@ -9,6 +9,10 @@ $(function()
 	ImgLabels();
 	// ProdDay();
 	ProdImg();
+	InitOwlPoD();
+	$(window).resize(function(event) {
+		InitOwlPoD();
+	});
 	BtnClickInit();
 	InitInputMask($("#callback-phone"));
 	InitInputMask($("#profile-phone"));
@@ -24,7 +28,51 @@ $(function()
 	InitTooltips();
 
 	InitInputDatepicker($('#profile-bd'));
+
 });
+
+function InitOwlPoD()
+{
+	var autoPlaySpeed1 = 3000;
+
+	$(".prod-pod").owlCarousel({
+		navigation : true, // Show next and prev buttons
+		navigationText: false,
+		mouseDrag: false,
+		slideSpeed: 300,
+		paginationSpeed : 400,
+		pagination: false,
+		items : 1,
+		itemsCustom : false,
+		itemsDesktop : [1200,1],
+		itemsDesktopSmall : [960,1],
+		itemsTablet: [768,1],
+		itemsTabletSmall: [480,1],
+		itemsMobile : [320,1],
+		loop:true,
+		// autoHeight : true,
+		// autoWidth:true,
+		autoplay: autoPlaySpeed1,
+		afterMove : function(elem){
+					$('.prod-pod .owl-prev').addClass('show');
+				}
+	});
+
+	$('.prod-pod').trigger('owl.play', autoPlaySpeed1);
+
+	// остановка карусели при ховере
+		$('.prod-pod').on('mouseover', function(event) {
+			event.preventDefault();
+			$('.prod-pod').trigger('owl.stop');
+		});
+
+	// запуск карусели после ховера
+		$('.prod-pod').on('mouseout', function(event) {
+			event.preventDefault();
+			$('.prod-pod').trigger('owl.play', autoPlaySpeed1);
+		});
+
+}
 
 function InitTooltips()
 {

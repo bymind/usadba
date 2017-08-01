@@ -37,6 +37,7 @@ class Controller_Sales extends Controller
 																		'/js/sales_page.js'
 																		),
 					'pageId' => 'sales', // активный пункт меню
+					'catId' => 'sales', // активный пункт меню
 					'pageData' => $pageDataController,
 					'pageDataView' => $userData['profile'],
 					'sidebar' => array(
@@ -91,6 +92,7 @@ class Controller_Sales extends Controller
 																		'/js/sales_page.js'
 																		),
 					'pageId' => 'sales', // активный пункт меню
+					'catId' => 'sales', // активный пункт меню
 					'pageData' => $pageDataController['sales'],
 					'pageDataView' => $userData['profile'],
 					'sidebar' => array(

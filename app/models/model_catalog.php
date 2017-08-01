@@ -73,10 +73,64 @@ class Model_Catalog extends Model
 				$pageDataModel['prodCats'] = $prod_cats;
 				break;
 
+
 			default:
 				$pageDataModel['text'] = "Any page text";
 				break;
 		}
+		return $pageDataModel;
+	}
+
+	function getProdsTag($tag)
+	{
+		$prod_tag = array();
+		// $prod_popular = array();
+		// $prod_all = array();
+		$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%".$tag."%' ORDER BY added_time DESC ") or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$prod_tag[] = $buf;
+		}
+		// $q = mysql_query("SELECT * FROM prod_items WHERE labels like '%popular%' ORDER BY added_time DESC") or die(mysql_error());
+		// while ( $buf = mysql_fetch_assoc($q)) {
+		// 	$prod_popular[] = $buf;
+		// }
+		// $q = mysql_query("SELECT * FROM prod_items ORDER BY added_time DESC ") or die(mysql_error());
+		// while ( $buf = mysql_fetch_assoc($q)) {
+		// 	$prod_all[] = $buf;
+		// }
+		$prod_tag = Model::createProdUrl($prod_tag);
+		$prod_tag = Model::createInStock($prod_tag);
+		// $prod_all = Model::createProdUrl($prod_all);
+		// $prod_all = Model::createInStock($prod_all);
+		// $prod_popular = Model::createProdUrl($prod_popular);
+		// $prod_popular = Model::createInStock($prod_popular);
+		// $pageDataModel['prodItems']['all'] = $prod_all;
+		$pageDataModel['prodItems']['tag'] = $prod_tag;
+		// $pageDataModel['prodItems']['popular'] = $prod_popular;
+		$pageDataModel['text'] = "Catalog Model";
+		if ($tag=="new") {
+			$pageDataModel['title'] = "Новинки.";
+			$pageDataModel['title_tag'] = "Новинки";
+		} else
+		if ($tag=="popular") {
+			$pageDataModel['title'] = "Популярные товары.";
+			$pageDataModel['title_tag'] = "Популярные товары";
+		} else {
+			$pageDataModel['title'] = "Каталог продукции.";
+			$pageDataModel['title_tag'] = "Каталог продукции";
+		}
+
+		$prod_cats = array();
+		$q = mysql_query("SELECT * FROM prod_cat ORDER BY position") or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$prod_cats[$buf['id']] = $buf;
+		}
+		unset($q);
+		$prod_cats = Model::createCatUrl($prod_cats);
+		$prod_cats = Model::createCatTree($prod_cats);
+		$pageDataModel['prodCats'] = $prod_cats;
+
+
 		return $pageDataModel;
 	}
 

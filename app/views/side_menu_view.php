@@ -1,7 +1,7 @@
 <ul class="side-menu shadow mb-20 br-2">
-	<li><a href="/#"><span class="label popular">хит!</span>Популярное</a></li>
-	<li><a href="/#"><span class="label new">new!</span>Новинки</a></li>
-	<li><a href="/sales"><span class="label sales">акция!</span>Акции</a></li>
+	<li><a href="/catalog/tag/popular" class="<?php if ($catId=='popular') {echo 'active_menu';}?>"><span class="label popular">хит!</span>Популярное</a></li>
+	<li><a href="/catalog/tag/new" class="<?php if ($catId=='new') {echo 'active_menu';}?>"><span class="label new">new!</span>Новинки</a></li>
+	<li><a href="/sales" class="<?php if ($catId=='sales') {echo 'active_menu';}?>"><span class="label sales">акция!</span>Акции</a></li>
 
 <?php
 
