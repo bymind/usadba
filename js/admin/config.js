@@ -67,16 +67,48 @@ function collectConfigData(section)
 	if (dataValid(data)) {
 		$.when(dataSend(data)).done(function(res){
 			log(res);
-			$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-danger').addClass('btn-success').text('Сохранить');
+			$('.btn[data-configsect='+sect+']').addClass('btn-primary').removeClass('btn-danger').text('Сохранить');
+			showCallback(sect, 'success');
 		}).fail(function(res){
 			log(res);
 			$('.btn[data-configsect='+sect+']').removeClass('btn-primary').removeClass('btn-success').addClass('btn-danger').text('Ошибка сохранения');
+			showCallback(sect,'fail');
 		});
 
 		dataSend(data);
 		return false;
 	} else {
 		return false;
+	}
+}
+
+function showCallback($sect, $type)
+{
+	switch ($type){
+		case 'success':
+			spanId = $('.btn[data-configsect='+$sect+']').attr('aria-describedby');
+			$('#'+spanId).addClass('success').text('Сохранено');
+			setTimeout(function(){
+				$('#'+spanId).removeClass('success').text('[result]');
+			},2000);
+			break;
+
+		case 'fail':
+			spanId = $('.btn[data-configsect='+$sect+']').attr('aria-describedby');
+			$('#'+spanId).addClass('fail').text('Ошибка');
+			setTimeout(function(){
+				$('#'+spanId).removeClass('fail').text('[result]');
+			},2000);
+			break;
+
+		case 'missed-data':
+			spanId = $('.btn[data-configsect='+$sect+']').attr('aria-describedby');
+			$('#'+spanId).addClass('fail').text('Неверно заполнено');
+			setTimeout(function(){
+				$('#'+spanId).removeClass('fail').text('[result]');
+			},2000);
+			break;
+
 	}
 }
 
@@ -218,5 +250,6 @@ function showErrors(validData, errs)
 	$.each(errs.id, function(index, val) {
 		$('#'+val).closest('.form-group').addClass('has-error');
 		$('#'+val).closest('.btn-save').removeClass('btn-primary').addClass('btn-danger').text('Сохранить');
+		// showCallback($('#'+val).closest('.btn-save').data('configsect'), 'missed-data');
 	});
 }

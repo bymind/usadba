@@ -76,3 +76,34 @@
     transform: scale(1.0);
   }
 }
+
+.save-btn-help{
+	background: #ECEFF1;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	border-radius: 4px;
+	transition: all .2s ease-in;
+	opacity: 0;
+	color: #fff;
+}
+
+.save-btn-help.success{
+	background: #81C784;
+	animation: slow-hide 2s 1 ease-out both;
+}
+
+.save-btn-help.fail{
+	background: #E57373;
+	animation: slow-hide 2s 1 ease-out both;
+}
+
+@keyframes slow-hide {
+	0%, 25%, 50%, 75%{
+		opacity: 1;
+	}
+	100%{
+		opacity: 0;
+	}
+}

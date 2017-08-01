@@ -80,7 +80,10 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-12">
-				<button class="btn btn-primary pull-right btn-save" data-configsect="primary" type="button">Сохранить</button>
+				<button class="btn btn-primary pull-right btn-save" data-configsect="primary" type="button" aria-describedby="primaryBtnHelp">Сохранить</button>
+			</div>
+			<div class="col-sm-12">
+				<span id="primaryBtnHelp" class="help-block save-btn-help pull-right">[result]</span>
 			</div>
 		</div>
 		<div class="panel-heading panel-heading-middle">
@@ -124,7 +127,10 @@
 	  </div>
 		<div class="form-group">
 			<div class="col-sm-12">
-				<button class="btn btn-primary pull-right btn-save" data-configsect="contacts" type="button">Сохранить</button>
+				<button class="btn btn-primary pull-right btn-save" data-configsect="contacts" type="button" aria-describedby="contactsBtnHelp">Сохранить</button>
+			</div>
+			<div class="col-sm-12">
+				<span id="contactsBtnHelp" class="help-block save-btn-help pull-right">[result]</span>
 			</div>
 		</div>
 			<div class="panel-heading panel-heading-middle">
@@ -193,7 +199,10 @@
 		  </div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<button class="btn btn-primary pull-right btn-save" data-configsect="links" type="button">Сохранить</button>
+					<button class="btn btn-primary pull-right btn-save" data-configsect="links" type="button" aria-describedby="linksBtnHelp">Сохранить</button>
+				</div>
+				<div class="col-sm-12">
+					<span id="linksBtnHelp" class="help-block save-btn-help pull-right">[result]</span>
 				</div>
 			</div>
 	</form>
