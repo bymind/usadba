@@ -20,6 +20,7 @@ class Controller_News extends Controller
 		// $pageDataController = $this->model->getData('newsPage');
 		// $pageDataController = $this->model->getData('newsPost');
 		$pageDataController = $this->model->getNewsPost($url);
+		$sideNews = $this->model->getNews('5');
 		$pageDataProd = $this->model->getData('prods');
 		// $pageData = $this->model->getData('news');
 		// $pageSales = $this->model->getData('sales');
@@ -54,6 +55,7 @@ class Controller_News extends Controller
 														'app/views/side_news_view.php',
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
@@ -76,7 +78,7 @@ class Controller_News extends Controller
 	{
 		$pageDataController = $this->model->getData('newsPage');
 		$pageDataProd = $this->model->getData('prods');
-		// $pageData = $this->model->getData('news');
+		$sideNews = $this->model->getNews('5');
 		// $pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Новости' => $_SERVER['REQUEST_URI']);
@@ -109,6 +111,7 @@ class Controller_News extends Controller
 														'app/views/side_news_view.php',
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,

@@ -48,7 +48,14 @@
 										<a href="/news/<?php echo $newsItem['url']?>"><?php echo $newsItem['title']?></a>
 										</h3>
 										<p class="news-anons">
-										<?php echo $newsItem['anons']?>
+										<?php
+										if ((isset($newsItem['anons'])) && ($newsItem['anons']!="") ) {
+											echo $newsItem['anons'];
+										} else {
+											$fakeAnons = mb_substr(strip_tags($newsItem['body']), 0, 120, "UTF-8")."...";
+											echo $fakeAnons;
+										}
+										?>
 										</p>
 										<a class="more" href="/news/<?php echo $newsItem['url']?>">подробнее</a>
 										<div class="sub-details mt-10">

@@ -13,6 +13,7 @@ class Controller
 	public $view; // свойство для общения с представлением
 
 	public $isLogged;
+	public $newsForSidebar;
 
 	/**
 	* __construct

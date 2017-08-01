@@ -18,6 +18,22 @@ class Model
 		return $crumbs;
 	}
 
+	public function getNews($count = NULL)
+	{
+		if ($count == NULL) {
+			$count = 5;
+		} else {
+			$count = (int) $count;
+		}
+
+		$q = mysql_query("SELECT * FROM articles WHERE archived=0 ORDER BY datetime DESC LIMIT ".$count) or die(mysql_error());
+		while ( $buf = mysql_fetch_assoc($q)) {
+			$newsForSide[] = $buf;
+		}
+
+		return $newsForSide;
+	}
+
 	public function getData($pageName)
 	{
 		switch ($pageName) {
@@ -76,6 +92,8 @@ class Model
 				$prod_cats = Model::createCatUrl($prod_cats);
 				$prod_cats = Model::createCatTree($prod_cats);
 				$pageDataModel['prodCats'] = $prod_cats;
+				$newsForSidebar = Self::getNews('5');
+				$pageDataModel['news'] = $newsForSidebar;
 				break;
 
 			default:

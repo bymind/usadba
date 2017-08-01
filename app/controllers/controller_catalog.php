@@ -13,6 +13,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		// echo "<pre>";
@@ -46,6 +47,7 @@ class Controller_Catalog extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
+					'sideNews' => $sideNews,
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 				),
@@ -85,6 +87,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 		$pageDataProdTag = $this->model->getProdsTag($param['value']);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
@@ -128,6 +131,7 @@ class Controller_Catalog extends Controller
 					'prodTag' => $pageDataProdTag['prodItems']['tag'],
 					'tagTitle' => $pageDataProdTag['title_tag'],
 					'prodItems' => $pageDataProd['prodItems'],
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
@@ -195,6 +199,7 @@ class Controller_Catalog extends Controller
 		}
 
 		$prodCatPopulars = $pageDataCat['populars'];
+		$sideNews = $this->model->getNews('5');
 		if ($pageDataCat['cat']['parent']!=0) {
 			$parentCatId = $pageDataCat['cat']['parent'];
 			$parentCatBuf = $pageDataProd['prodCats'][$parentCatId];
@@ -244,6 +249,7 @@ class Controller_Catalog extends Controller
 					'popularCat' => $popularCat, //
 					'prodCat' => $pageDataCat['cat'], //
 					'prodCats' => $pageDataProd['prodCats'],
+					'sideNews' => $sideNews,
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,
@@ -267,6 +273,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 		if ($sect) {
 			$pageDataCat = $this->model->getCategoryData($param, $sect);
 		} else
@@ -313,6 +320,7 @@ class Controller_Catalog extends Controller
 					'prodCat' => $pageDataCat['cat'], //
 					'popularCat' => $pageDataCat['cat'], //
 					'prodCats' => $pageDataProd['prodCats'],
+					'sideNews' => $sideNews,
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,
@@ -335,6 +343,7 @@ class Controller_Catalog extends Controller
 	{
 		$parentCat = $param['name'];
 		$curCat = $param['value'];
+		$sideNews = $this->model->getNews('5');
 		$buf = array(
 		             'parentCat' => $parentCat,
 		             'curCat' => $parentCat,
@@ -402,6 +411,7 @@ class Controller_Catalog extends Controller
 						'prodCat' => $pageDataCat['cat'], //
 						'prodCats' => $pageDataProd['prodCats'],
 						'pageSales' => $pageSales['sales'],
+					'sideNews' => $sideNews,
 						'menuItems' => $menuItems,
 						'breads' => true,
 						'breadsData' => $breadCrumbs,

@@ -13,6 +13,7 @@ class Controller_Sales extends Controller
 	public function action_param($url)
 	{
 		$pageDataController = $this->model->getSalesPost($url);
+		$sideNews = $this->model->getNews('5');
 		$pageDataProd = $this->model->getData('prods');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Акции' => '/sales', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
@@ -48,6 +49,7 @@ class Controller_Sales extends Controller
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
+					'sideNews' => $sideNews,
 					'menuItems' => $menuItems,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
@@ -68,6 +70,7 @@ class Controller_Sales extends Controller
 	{
 		$pageDataController = $this->model->getData('salesPage');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Акции' => $_SERVER['REQUEST_URI']);
@@ -102,6 +105,7 @@ class Controller_Sales extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
+					'sideNews' => $sideNews,
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,

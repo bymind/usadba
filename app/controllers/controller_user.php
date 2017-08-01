@@ -128,6 +128,7 @@ class Controller_User extends Controller
 		}
 		$pageDataController = $this->model->getUserData('profile', $userData);
 		$menuItems = $this->model->get_MainMenu('catalog');
+		$sideNews = $this->model->getNews('5');
 		$pageDataProd = $this->model->getData('prods');
 		$crumbCurEl = array('name' => $pageDataController['title'],
 												'value' => $_SERVER['REQUEST_URI'] );
@@ -162,6 +163,7 @@ class Controller_User extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
+					'sideNews' => $sideNews,
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,
@@ -247,8 +249,8 @@ class Controller_User extends Controller
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 
-		// $breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);
 		$this->view->generate(
 			'order_cart_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -279,6 +281,7 @@ class Controller_User extends Controller
 														'app/views/side_news_view.php',
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
@@ -318,6 +321,7 @@ class Controller_User extends Controller
 			$breadCrumbs = array($pageDataController['title'] => $_SERVER['REQUEST_URI']);
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
+		$sideNews = $this->model->getNews('5');
 		$pageDataProd = $this->model->getData('prods');
 
 		// $breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);
@@ -352,7 +356,7 @@ class Controller_User extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
-					'pageSales' => $pageSales['sales'],
+ 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,

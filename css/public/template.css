@@ -891,7 +891,7 @@ a.subcat.sales.active{
 
 .side-news .news-title a{
 	display: inline-block;
-	margin: 8px 20px 4px;
+	padding: 8px 20px 4px;
 	color: #222;
 	font-size: 18px;
 	text-decoration: none;

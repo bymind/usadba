@@ -13,6 +13,7 @@ class Controller_Main extends Controller
 	{
 		$pageDataController = $this->model->getData('main_page');
 		$pageDataProd = $this->model->getData('prods');
+		$sideNews = $this->model->getNews('5');
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 			// echo "<pre>";
@@ -48,6 +49,7 @@ class Controller_Main extends Controller
 														'app/views/side_news_view.php',
 														),
 					'prodItems' => $pageDataProd['prodItems'],
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,

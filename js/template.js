@@ -33,9 +33,10 @@ $(function()
 
 function InitOwlPoD()
 {
-	var autoPlaySpeed1 = 5000;
+	var autoPlaySpeed1 = 4500;
+	var autoPlaySpeed2 = 5000;
 
-	$(".prod-pod").owlCarousel({
+	$("#carousel-pod").owlCarousel({
 		navigation : true, // Show next and prev buttons
 		navigationText: false,
 		mouseDrag: false,
@@ -58,7 +59,33 @@ function InitOwlPoD()
 				}
 	});
 
-	$('.prod-pod').trigger('owl.play', autoPlaySpeed1);
+
+	$("#carousel-news").owlCarousel({
+		navigation : true, // Show next and prev buttons
+		navigationText: false,
+		mouseDrag: false,
+		slideSpeed: 300,
+		paginationSpeed : 400,
+		delay: 1000,
+		pagination: false,
+		items : 1,
+		itemsCustom : false,
+		itemsDesktop : [1200,1],
+		itemsDesktopSmall : [960,1],
+		itemsTablet: [768,1],
+		itemsTabletSmall: [480,1],
+		itemsMobile : [320,1],
+		loop:true,
+		// autoHeight : true,
+		// autoWidth:true,
+		autoplay: autoPlaySpeed2,
+		afterMove : function(elem){
+					$('.prod-pod .owl-prev').addClass('show');
+				}
+	});
+
+	$('#carousel-pod').trigger('owl.play', autoPlaySpeed1);
+	$('#carousel-news').trigger('owl.play', autoPlaySpeed2);
 
 	// остановка карусели при ховере
 		$('.prod-pod').on('mouseover', function(event) {
@@ -67,9 +94,14 @@ function InitOwlPoD()
 		});
 
 	// запуск карусели после ховера
-		$('.prod-pod').on('mouseout', function(event) {
+		$('#carousel-pod').on('mouseout', function(event) {
 			event.preventDefault();
-			$('.prod-pod').trigger('owl.play', autoPlaySpeed1);
+			$('#carousel-pod').trigger('owl.play', autoPlaySpeed1);
+		});
+	// запуск карусели после ховера
+		$('#carousel-news').on('mouseout', function(event) {
+			event.preventDefault();
+			$('#carousel-news').trigger('owl.play', autoPlaySpeed2);
 		});
 
 }

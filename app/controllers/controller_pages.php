@@ -16,8 +16,7 @@ class Controller_Pages extends Controller
 			Route::Catch_Error('404');
 		}
 		$pageDataProd = $this->model->getData('prods');
-		// $pageData = $this->model->getData('news');
-		// $pageSales = $this->model->getData('sales');
+		$sideNews = $this->model->getNews('5');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array($pageDataController['page']['title'] => $_SERVER['REQUEST_URI']);
 		$this->view->generate(
@@ -49,6 +48,7 @@ class Controller_Pages extends Controller
 														'app/views/side_news_view.php',
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
+					'sideNews' => $sideNews,
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
