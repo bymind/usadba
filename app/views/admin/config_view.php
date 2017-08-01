@@ -78,7 +78,7 @@
 				<span id="helpCopyright" class="help-block">Будет отображаться в самом низу, после знака ©</span>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group mb-0">
 			<div class="col-sm-12">
 				<button class="btn btn-primary pull-right btn-save" data-configsect="primary" type="button" aria-describedby="primaryBtnHelp">Сохранить</button>
 			</div>
@@ -125,7 +125,7 @@
 	      <span id="helpEmailRecall" class="help-block">Сюда будут приходить только заявки на перезвон</span>
 	    </div>
 	  </div>
-		<div class="form-group">
+		<div class="form-group mb-0">
 			<div class="col-sm-12">
 				<button class="btn btn-primary pull-right btn-save" data-configsect="contacts" type="button" aria-describedby="contactsBtnHelp">Сохранить</button>
 			</div>
@@ -197,7 +197,7 @@
 		      <textarea cols="30" rows="2" style="resize:vertical;" class="form-control" id="footerLink10" placeholder=''><?php echo $configs['footerLink10']['value'] ?></textarea>
 		    </div>
 		  </div>
-			<div class="form-group">
+			<div class="form-group mb-0">
 				<div class="col-sm-12">
 					<button class="btn btn-primary pull-right btn-save" data-configsect="links" type="button" aria-describedby="linksBtnHelp">Сохранить</button>
 				</div>
