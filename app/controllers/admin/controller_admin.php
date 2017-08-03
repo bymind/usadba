@@ -865,6 +865,7 @@ function adminDeleteProdsFromCat()
 														 'subtitle' => htmlspecialchars($product['mini_desc']) ,
 														 'poster' => $product['images'],
 														 'price' => $product['price'],
+														 'pod' => $product['pod'],
 														 'cat' => $product['cat'],
 														 'date' => $product['added_time'],
 														 'text' => htmlspecialchars($product['description']),

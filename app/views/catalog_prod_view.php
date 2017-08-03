@@ -23,6 +23,13 @@
 						<?php
 							echo $currentProduct['name'];
 						?>
+						<?php
+						if ($_SESSION['user']['is_admin']==1) {
+							?>
+							<a href="/admin/goods/edit/<?=$currentProduct['art']?>" target="_blank">[ред.]</a>
+							<?php
+						}
+						?>
 					</h1>
 					<div class="mini-desc mb-10">
 						<?php

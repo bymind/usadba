@@ -174,6 +174,26 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-9">
+				<div class="settings tags" style="margin-bottom:30px;">
+					<div class="title ">Товар дня<div class='reset'></div></div>
+					<div class="items tags-items">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name='labels' id='pod'
+									<?php
+										if ($post['pod']=='1') {
+											echo 'checked';
+										}
+									 ?>
+									><span class="label" style="">Товар дня</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 

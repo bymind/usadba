@@ -1223,6 +1223,7 @@ function saveBtnClick($attr)
 	var $energy_val = $('#post-energy_val').val();
 	var $consist = $('#post-consist').val();
 	var $price = $('input#price').val();
+	var $pod = $('input#pod').prop('checked')+0;
 	var $labels = $('.tags-items input[type=checkbox]');
 	var $tags = '';
 	for (var i = 0; i < $labels.length; i++) {
@@ -1259,6 +1260,7 @@ function saveBtnClick($attr)
 		description: $text,
 		weight: $weight,
 		country: $country,
+		pod: $pod,
 		stor_cond: $stor_cond,
 		nut_val: $nut_val,
 		energy_val: $energy_val,
@@ -1313,13 +1315,6 @@ $.ajax({
 });
 
 }
-/*
-function responsive_filemanager_callback(field_id){
-	$('#'+field_id).val('/upload/'+$('#'+field_id).val());
-	var url=jQuery('#'+field_id).val();
-	$("#img-"+field_id).attr('src', url).css('opacity', '1');
-	console.log('filemanager callback');
-}*/
 
 function coverDelete()
 {
