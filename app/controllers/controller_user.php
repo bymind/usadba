@@ -356,7 +356,7 @@ class Controller_User extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
- 					'pageSales' => $pageSales['sales'],
+					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
