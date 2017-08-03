@@ -19,7 +19,15 @@
 					<div class="newspost-layer shadow br-2 bg-f clearfix">
 
 						<!-- TITLE -->
-						<h1 class="title-wide"><?php echo $pageData['title'] ?></h1>
+						<h1 class="title-wide"><?php echo $pageData['title'] ?>
+						<?php
+						if ($_SESSION['user']['is_admin']==1) {
+							?>
+							<a href="/admin/pages/edit/<?=$pageData['tech_name']?>" target="_blank">[ред.]</a>
+							<?php
+						}
+						?>
+						</h1>
 						<div class="mini-desc mb-10"><?php echo $pageData['subtitle'] ?></div>
 
 						<div class="col-xs-12 mb-20">

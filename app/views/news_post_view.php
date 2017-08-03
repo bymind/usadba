@@ -19,7 +19,15 @@
 					<div class="newspost-layer shadow br-2 bg-f clearfix">
 
 						<!-- TITLE -->
-						<div class="title-wide"><?php echo $pageData['title'] ?></div>
+						<div class="title-wide"><?php echo $pageData['title'] ?>
+						<?php
+						if ($_SESSION['user']['is_admin']==1) {
+							?>
+							<a href="/admin/articles/edit/<?=$pageData['url']?>" target="_blank">[ред.]</a>
+							<?php
+						}
+						?>
+						</div>
 						<div class="mini-desc mb-10"><?php echo $pageData['datetime'] ?></div>
 
 						<div class="hidden-xxs sidecat prevcat mb-20">
