@@ -38,9 +38,25 @@
 
 					<div class="col-xxs-6 col-xs-3">
 					<div class="row">
-					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
+					<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-							<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+							<?php
+										if ($_SESSION['user']['favs']) {
+											if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
+												?>
+											<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											} else {
+												?>
+												<div class="heart liked" title="Удалить из избранного" data-toggle="tooltip" data-placement="right"></div>
+												<?php
+												}
+										} else {
+												?>
+											<div class="heart fake-like" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											}
+										?>
 						</div>
 						<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true"><?= $prod['name']?></a></div>
 						<div class="prod-details"><?= $prod['mini_desc']?></div>
@@ -62,57 +78,6 @@
 				</div>
 			</div>
 
-<?php
-	if ($popularCat['show_popular']==1) {
-			if (!$prodCatPopulars){
-				echo "<div class='col-xxs-12 col-xs-12 col-sm-9'><h3>Нет популярных товаров в этой категории</h3></div>";
-			} else {
-	?>
-			<div class=" col-xxs-12 col-xs-12 col-sm-9">
-				<div class="title-wide mb-10">
-					<?php
-						// echo $popularCat['popular_name'];
-						echo "Популярное из категории";
-					?>
-				</div>
-			</div>
-
-			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
-				<div class="prod-line-outer prod-popular prod-theme">
-
-				<?php
-					foreach ($prodCatPopulars as $prod) {
-				?>
-
-									<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2">
-										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
-										</div>
-										<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true"><?= $prod['name']?></a></div>
-										<div class="prod-details"><?= $prod['mini_desc']?></div>
-										<div class="prod-price"><span class="number"><?= $prod['price']?></span> руб</div>
-										<div class="prod-counts">(<span class="number"><?= $prod['count_measure']?></span> <span class="measure"><?= $prod['measure']?></span>)</div>
-										<div class="prod-btn-block">
-											<div class="prod-avail"><?= $prod['in_stock_val']?></div>
-											<div class="prod-rev zero">отзывов - <span class="rev">5</span></div>
-											<button class="to-cart">Купить</button>
-										</div>
-									</div>
-
-				<?php
-					}
-				?>
-
-				</div>
-			</div>
-
-
-
-	<?php
-	}
-}
-
-?>
 
 <div class="col-xs-12 visible-xs">
 

@@ -2,6 +2,18 @@
 	<li><a href="/catalog/tag/popular" class="<?php if ($catId=='popular') {echo 'active_menu';}?>"><span class="label popular">хит!</span>Популярное</a></li>
 	<li><a href="/catalog/tag/new" class="<?php if ($catId=='new') {echo 'active_menu';}?>"><span class="label new">new!</span>Новинки</a></li>
 	<li><a href="/sales" class="<?php if ($catId=='sales') {echo 'active_menu';}?>"><span class="label sales">акция!</span>Акции</a></li>
+	<li><a href="<?php
+		if ($isLogged) {
+			echo "/catalog/tag/favs";
+		} else {
+			echo "#";
+		}
+	?>" class="<?php if ($catId=='favs') {echo 'active_menu';}?> <?php
+		if ($isLogged) {
+		} else {
+			echo "fake-like";
+		}
+	?>"><span class="label favs"></span>Мои избранные<span class="hidden-sm"> товары</span></a></li>
 
 <?php
 

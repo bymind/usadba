@@ -608,6 +608,48 @@ span.label.new{
 	background: #ff9912;
 }
 
+span.label.favs{
+	display: inline-block;
+	background: #fff url(/img/heart.svg) center -46px no-repeat;
+	background-size: 15px;
+	width: 20px;
+	height: 16px;
+	position: relative;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0 10px 0 0;
+}
+
+h3.extended, h4.extended {
+	margin-bottom: 40px;
+	text-align: center;
+	color: #c63838;
+	line-height: 1.5;
+	font-weight: 500;
+}
+
+a.admin_edit_link {
+	position: absolute;
+	z-index: 10;
+	top: 0px;
+	right: 10px;
+	font-size: 16px;
+	font-family: monospace;
+	padding: 0px 10px 2px 30px;
+	border-radius: 0 0 4px 4px;
+	border-top: 4px solid #c63838;
+	color: #fff;
+	background-color: #0c1b23;
+	background-image: url(/img/admin/pencil.svg);
+	background-repeat: no-repeat;
+	background-position: 8px center;
+	background-size: 16px;
+	opacity: .7;
+}
+
+a.admin_edit_link:hover {
+	opacity: 1;
+}
 /* BREADCRUMBS */
 
 .crumbs {
@@ -1740,6 +1782,38 @@ span.link a:hover {
 
 .mr-50{
 	margin-right: 50px !important;
+}
+
+.mt-40{
+	margin-top: 40px !important;
+}
+
+.mb-40{
+	margin-bottom: 40px !important;
+}
+
+.ml-40{
+	margin-left: 40px !important;
+}
+
+.mr-40{
+	margin-right: 40px !important;
+}
+
+.mt-30{
+	margin-top: 30px !important;
+}
+
+.mb-30{
+	margin-bottom: 30px !important;
+}
+
+.ml-30{
+	margin-left: 30px !important;
+}
+
+.mr-30{
+	margin-right: 30px !important;
 }
 
 .mt-20{

@@ -64,6 +64,15 @@ class Controller_User extends Controller
 		}
 	}
 
+	function action_updatefavs()
+	{
+		$prodId = (int) $_POST['prodId'];
+		$type = $_POST['type'];
+		$resp = $this->model->updFavs($prodId, $type);
+		echo $resp;
+		return true;
+	}
+
 	function action_newpass()
 	{
 		$target = Route::PrepareUrl($_POST['target']);

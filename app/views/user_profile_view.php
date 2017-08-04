@@ -22,7 +22,7 @@
 				<li><a class="active" href="/user/profile/<?php echo $pageDataView['id'] ?>">Личный кабинет</a></li>
 				<li><a class="" href="/user/cart">Корзина</a></li>
 				<li><a class="" href="/user/history">Заказы</a></li>
-				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
+				<li class=""><a class="" href="/user/logout">Выйти</a></li>
 			</ul>
 		</div>
 		<?php

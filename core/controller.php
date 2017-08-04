@@ -181,6 +181,7 @@ class Controller
 					$_SESSION['user']['id'] = $ds['id'];
 					$_SESSION['user']['sound'] = $ds['sound'];
 					$_SESSION['user']['name'] = $ds['name'];
+					$_SESSION['user']['favs'] = $ds['favs'];
 					$_SESSION['user']['is_admin'] = $ds['isadmin'];
 					$_SESSION['user']['is_super'] = $ds['is_super'];
 					$_SESSION['user']['telegram_token'] = $ds['telegram_token'];

@@ -49,6 +49,7 @@ class Controller_Sales extends Controller
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
+					'prodSales' => $pageDataController['prods'],
 					'sideNews' => $sideNews,
 					'menuItems' => $menuItems,
 					'breads' => true,

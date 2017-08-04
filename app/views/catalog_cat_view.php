@@ -82,9 +82,25 @@
 
 					<div class="col-xxs-6 col-xs-3">
 					<div class="row">
-					<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
+					<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-							<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+							<?php
+										if ($_SESSION['user']['favs']) {
+											if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
+												?>
+											<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											} else {
+												?>
+												<div class="heart liked" title="Удалить из избранного" data-toggle="tooltip" data-placement="right"></div>
+												<?php
+												}
+										} else {
+												?>
+											<div class="heart fake-like" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											}
+										?>
 						</div>
 						<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true"><?= $prod['name']?></a></div>
 						<div class="prod-details"><?= $prod['mini_desc']?></div>
@@ -128,9 +144,25 @@
 					foreach ($prodCatPopulars as $prod) {
 				?>
 
-									<div data-art="<?= $prod['art'] ?>" class="prod-card shadow br-2">
+									<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2">
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
-											<div class="heart" data-imgname="rozan" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+										if ($_SESSION['user']['favs']) {
+											if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
+												?>
+											<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											} else {
+												?>
+												<div class="heart liked" title="Удалить из избранного" data-toggle="tooltip" data-placement="right"></div>
+												<?php
+												}
+										} else {
+												?>
+											<div class="heart fake-like" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
+											<?php
+											}
+										?>
 										</div>
 										<div class="prod-name"><a href="<?= $prod['url']?>" data-prodname="true"><?= $prod['name']?></a></div>
 										<div class="prod-details"><?= $prod['mini_desc']?></div>

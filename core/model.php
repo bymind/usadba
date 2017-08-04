@@ -103,6 +103,13 @@ class Model
 		return $pageDataModel;
 	}
 
+	public function getUserCallback($id)
+	{
+		$q = mysql_query("SELECT name, phone FROM users WHERE id=$id LIMIT 1") or die(mysql_error());
+		$ds = mysql_fetch_assoc($q);
+		return $ds;
+	}
+
 	public function getUsers($users = NULL)
 	{
 		if ($users != NULL ) {
@@ -334,5 +341,14 @@ class Model
 		return $number.' '.$after[ ($number%100>4 && $number%100<20)? 2: $cases[min($number%10, 5)] ];
 	}
 
+	function rm_from_array($needle, &$array, $all = true){
+			if(!$all){
+					if(FALSE !== $key = array_search($needle,$array)) unset($array[$key]);
+					return;
+			}
+			foreach(array_keys($array,$needle) as $key){
+					unset($array[$key]);
+			}
+	}
 
 }

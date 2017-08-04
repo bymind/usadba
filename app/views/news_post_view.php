@@ -23,7 +23,7 @@
 						<?php
 						if ($_SESSION['user']['is_admin']==1) {
 							?>
-							<a href="/admin/articles/edit/<?=$pageData['url']?>" target="_blank">[ред.]</a>
+							<a class="admin_edit_link" href="/admin/articles/edit/<?=$pageData['url']?>" target="_blank">изменить</a>
 							<?php
 						}
 						?>

@@ -69,6 +69,13 @@ class Model_User extends Model
 	public function addOrder($orderData)
 	{
 		extract($orderData);
+		$prodArts = array();
+		foreach ($prods['items'] as $key => $value) {
+			$countBuy = $value['count'];
+			$q = mysql_query("UPDATE prod_items SET count_buy = count_buy + $countBuy WHERE art = '$key'") or die(mysql_error());
+		}
+		// $prodArts = implode(",",$prodArts);
+		// $q = mysql_query("UPDATE prod_items SET count_buy = count_buy + 1 WHERE art in ($prodArts)") or die(mysql_error());
 		$orderProds = json_encode($prods, JSON_UNESCAPED_UNICODE);
 		if ($logged) {
 		} else
@@ -106,6 +113,46 @@ class Model_User extends Model
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public function updFavs($prodId, $type)
+	{
+		$type = addslashes($type);
+		$userId = $_SESSION['user']['id'];
+		$prodIds = $_SESSION['user']['favs'];
+		switch ($type) {
+			case 'add':
+				if ( !(strripos($prodIds, $prodId."")===false) ) {
+					return "Just in favorites!";
+				} else {
+					$prodIds = explode(',',$prodIds);
+					array_push($prodIds, $prodId);
+					$prodIds = implode(',',$prodIds);
+					$q = mysql_query("UPDATE users SET favs = '$prodIds' WHERE id=$userId") or die(mysql_error());
+					$_SESSION['user']['favs'] = $prodIds;
+					return "Value $prodId added";
+				}
+				break;
+
+			case 'delete':
+				if (strripos($prodIds, $prodId."")===false) {
+					var_dump($prodIds);
+					var_dump($prodId);
+					return "No such favorite!";
+				} else {
+					$prodIds = explode(',',$prodIds);
+					Self::rm_from_array($prodId, $prodIds);
+					$prodIds = implode(',',$prodIds);
+					$q = mysql_query("UPDATE users SET favs = '$prodIds' WHERE id=$userId") or die(mysql_error());
+					$_SESSION['user']['favs'] = $prodIds;
+					return "Value $prodId deleted";
+				}
+				break;
+
+			default:
+				Route::Catch_Error('404');
+				break;
 		}
 	}
 

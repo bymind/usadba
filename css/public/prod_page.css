@@ -143,7 +143,7 @@
 	line-height: 36px;
 }
 
-.like-this {
+.like-this,.fake-this {
 	display: block;
 	text-align: center;
 	font-size: 14px;
@@ -152,7 +152,7 @@
 	margin-left: 10px;
 }
 
-.like-this::before {
+.like-this::before,.fake-this::before {
 	content: "";
 	position: absolute;
 	display: block;
@@ -166,8 +166,13 @@
 	opacity: 1;
 }
 
-.card-like:hover .like-this::before {
+.card-like:hover .like-this::before, .card-like:hover .fake-this::before {
 	background: #fff url(/img/heart.svg) 2px -23px no-repeat;
+	background-size: 17px;
+}
+
+.like-this.liked::before, .card-like:hover .like-this.liked::before,.fake-this.liked::before, .card-like:hover .fake-this.liked::before{
+	background: #fff url(/img/heart.svg) 2px -49px no-repeat;
 	background-size: 17px;
 }
 

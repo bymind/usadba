@@ -27,9 +27,20 @@ class Model_Sales extends Model
 		$dataSales = $buf;
 		$pageDataModel = $dataSales;
 		$pageDataModel['title'] = $dataSales['name'];
+		$pageDataModel['prods'] = Self::getProdsByIds($buf['prods']);
 	return $pageDataModel;
 	}
 
+
+	public function getProdsByIds($arrIds)
+	{
+		$ds = array();
+		$q = mysql_query("SELECT * FROM prod_items WHERE id in ($arrIds) ORDER BY added_time DESC") or die(mysql_error());
+		while ($buf = mysql_fetch_assoc($q)) {
+			$ds[] = $buf;
+		}
+		return $ds;
+	}
 
 	public function getData($pageName)
 	{

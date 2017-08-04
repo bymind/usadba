@@ -96,6 +96,9 @@ class Controller_Catalog extends Controller
 		} else
 		if ($param['value']=='popular') {
 			$tagName = 'Популярное';
+		} else
+		if ($param['value']=='favs') {
+			$tagName = 'Мои избранные';
 		}
 		$breadCrumbs = array($tagName => $_SERVER['REQUEST_URI']);
 		// echo "<pre>";

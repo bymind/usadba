@@ -520,14 +520,101 @@ function ImgLabels()
 */
 function LikesInit()
 {
-	// var like = $('.heart');
+	var likeText = ['Добавить в избранное', 'Удалить из избранного'];
 
 	$(document).on('click', '.heart', function(event) {
 		event.preventDefault();
-		$(this).toggleClass('liked');
+		if (!$(this).hasClass('fake-like')) {
+			var prodId = $(this).closest('.prod-card').data('prodid');
+			if ($(this).hasClass('liked')) {
+				// $(this).removeClass('liked');
+				$(this).attr('title', likeText[0]);
+				$(this).attr('data-original-title', likeText[0]);
+				updateHeart(prodId, 'delete');
+			} else {
+				// $(this).addClass('liked');
+				$(this).attr('title', likeText[1]);
+				$(this).attr('data-original-title', likeText[1]);
+				updateHeart(prodId, 'add');
+			}
+		} else {
+		}
+	});
+
+	$(document).on('click', '.like-this', function(event) {
+		event.preventDefault();
+		if (!$(this).hasClass('fake-like')) {
+			var prodId = $(this).parent().parent().children('.prod-card').data('prodid');
+			if ($(this).hasClass('liked')) {
+				$(this).text(likeText[0]);
+				$(this).attr('title', likeText[0]);
+				$(this).attr('data-original-title', likeText[0]);
+				updateHeart(prodId, 'delete');
+			} else {
+				$(this).text(likeText[1]);
+				$(this).attr('title', likeText[1]);
+				$(this).attr('data-original-title', likeText[1]);
+				updateHeart(prodId, 'add');
+			}
+			$(this).toggleClass('liked');
+		} else {
+		}
+	});
+
+	$(document).on('click', '.fake-like', function(event) {
+		event.preventDefault();
+		showRegistrationExtended('Для использования этой функции нужно<br>войти или зарегистрироваться');
 	});
 
 	return 0;
+}
+
+function showRegistrationExtended($text)
+{
+	$modal = $('.modal.modal-profile');
+	$modal.find('.modal-title[data-target=reg]').click();
+	$modal.find('.reg-body').prepend('<h4 class="extended" style="margin-top:-10px; text-align:center">'+$text+'</h4>');
+	$modal.find('.login-body').prepend('<h4 class="extended" style="margin-top:-10px; text-align:center">'+$text+'</h4>');
+	$modal.modal();
+	$modal.on('hidden.bs.modal', function(event) {
+		event.preventDefault();
+		$modal.find('h4.extended').remove();
+		$modal.off('hidden.bs.modal');
+	});
+}
+
+function updateHeart($prodid, $type)
+{
+	$.each($('.prod-card[data-prodid="'+$prodid+'"] .heart'), function(index, val) {
+		if ($type=="delete") {
+			$('.prod-card[data-prodid="'+$prodid+'"] .heart').eq(index).removeClass('liked').attr({
+				title: 'Добавить в избранное',
+				'data-original-title': 'Добавить в избранное'
+			});
+		} else
+		if ($type=="add") {
+			$('.prod-card[data-prodid="'+$prodid+'"] .heart').eq(index).addClass('liked').attr({
+				title: 'Удалить из избраннного',
+				'data-original-title': 'Удалить из избранного'
+			});
+		}
+	});
+
+	$.ajax({
+		url: '/user/updateFavs',
+		type: 'POST',
+		data: {prodId: $prodid, type: $type},
+	})
+	.done(function(res) {
+		console.log("success");
+		console.log(res);
+	})
+	.fail(function(res) {
+		console.error(res);
+	})
+	.always(function() {
+		console.log("complete");
+	});
 }
 
 

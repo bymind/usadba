@@ -15,7 +15,7 @@
 
 	</div>
 
-	<div class="col-xxs-12 col-xs-12 col-sm-9 clearfix">
+	<div class="col-xxs-12 col-xs-12 col-sm-9 clearfix mb-20">
 					<div class="newspost-layer shadow br-2 bg-f clearfix">
 
 						<!-- TITLE -->
@@ -23,7 +23,7 @@
 						<?php
 						if ($_SESSION['user']['is_admin']==1) {
 							?>
-							<a href="/admin/pages/edit/<?=$pageData['tech_name']?>" target="_blank">[ред.]</a>
+							<a class="admin_edit_link" href="/admin/pages/edit/<?=$pageData['tech_name']?>" target="_blank">изменить</a>
 							<?php
 						}
 						?>
