@@ -41,6 +41,7 @@ class Controller_User extends Controller
 		}
 	}
 
+
 	function action_upduser()
 	{
 		$target = Route::PrepareUrl($_POST['target']);
@@ -48,6 +49,7 @@ class Controller_User extends Controller
 			switch ($target) {
 				case 'upduser':
 					$upduser = json_decode($_POST['data'], true);
+					$_SESSION['user']['name'] = $upduser['name'];
 					$updRes = false;
 					$updRes = $this->model->updUser($upduser);
 					if ($updRes) {
@@ -125,6 +127,85 @@ class Controller_User extends Controller
 	return 0;
 	}
 
+	function action_uploadphoto()
+	{
+		if(isset($_FILES) && isset($_FILES['image_file'])) {
+
+			//Переданный массив сохраняем в переменной
+			$image = $_FILES['image_file'];
+
+			// Проверяем размер файла и если он превышает заданный размер
+			// завершаем выполнение скрипта и выводим ошибку
+			if ($image['size'] > 20*1024*1024) {
+				die('error: too large file
+try less size file');
+			}
+
+			// Достаем формат изображения
+			$imageFormat = explode('.', $image['name']);
+			$imageFormat = $imageFormat[count($imageFormat)-1];
+			// Генерируем новое имя для изображения. Можно сохранить и со старым
+			// но это не рекомендуется делать
+			// var_dump($_SERVER);
+			$path =  $_SERVER["DOCUMENT_ROOT"]."/u_uploads/";
+			$uid = $_SESSION['user']['id'];
+			$u_path = $path.$uid."/";
+			if (!opendir($u_path)) {
+				mkdir($u_path);
+			}
+			$imageSelfName = md5(hash('crc32',time())) . '.' . $imageFormat;
+			$imageFullName = $u_path.$imageSelfName;
+
+			// Сохраняем тип изображения в переменную
+			$imageType = $image['type'];
+
+			// Сверяем доступные форматы изображений, если изображение соответствует,
+			// копируем изображение в папку images
+			$public_path = "/u_uploads/".$uid."/".$imageSelfName;
+			if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
+				if (move_uploaded_file($image['tmp_name'],$imageFullName)) {
+					$user = $this->model->getUser($uid);
+					$user = $user['profile'];
+					$user['avatar'] = $public_path;
+					Self::cropSqr($_SERVER["DOCUMENT_ROOT"].$public_path);
+					Self::backUserUpdate($user);
+					echo $public_path;
+					return $public_path;
+				} else {
+					echo 'error2';
+					return false;
+				}
+			} else {
+					echo 'error1';
+					return false;
+			}
+		}
+	}
+
+	function cropSqr($image)
+	{
+			$img = AcImage::createImage($image);
+			if ($img->getWidth() > $img->getHeight()) {
+				$sqrSize = $img->getHeight();
+				$pointLeftTop = ceil(($img->getWidth()-$img->getHeight())/2);
+			} else {
+				$sqrSize = $img->getWidth();
+				$pointLeftTop = ceil(($img->getHeight()-$img->getWidth())/2);
+			}
+				$rect = new Rectangle((int)$pointLeftTop, 0, (int)$sqrSize, (int)$sqrSize);
+				$img->crop($rect)->resize(200, 200);
+				AcImage::setTransparency(true);
+				AcImage::setBackgroundColor(255, 255, 255);
+				AcImage::setRewrite(true);
+				$img->save($image);
+				return true;
+	}
+
+	function backUserUpdate($data)
+	{
+		return $this->model->updUserAva($data);
+	}
+
 	function action_profile($uid)
 	{
 		if (!isset($_SESSION['user']) || $_SESSION['user']['id'] != $uid ) {
@@ -160,8 +241,9 @@ class Controller_User extends Controller
 																		'/js/magic-mask/jq.magic-mask.min.js',
 																		'/js/main_page.js',
 																		'/js/owl-carousel/owl.carousel.min.js',
-																		'/js/datepicker/datepicker.min.js',
-																		'/js/template.js'
+																		'/js/datepicker/datepicker.min.js'
+																		'/js/template.js',
+																		'/js/profile.js'
 																		),
 					'pageId' => '', // активный пункт меню
 					'pageDataView' => $userData['profile'],
@@ -184,6 +266,7 @@ class Controller_User extends Controller
 					 'modal_callback_view.php',
 					 'modal_profile_view.php',
 					 'modal_profile_edit_view.php',
+					 'modal_photo_edit_view.php',
 					 'modal_address_edit_view.php',
 					 'modal_cart_view.php',
 					 'modal_pass_check_view.php',

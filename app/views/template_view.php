@@ -37,7 +37,6 @@
 
 </head>
 <body>
-
 	<div id="overlay">
 
 	<?php include $HeadLine; ?>

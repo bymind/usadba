@@ -38,7 +38,6 @@ class Controller
 	*
 	* @return bool
 	*/
-
 	public function is_logged()
 	{
 		if (isset($_SESSION['user']))

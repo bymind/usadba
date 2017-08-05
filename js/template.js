@@ -29,6 +29,8 @@ $(function()
 
 	InitInputDatepicker($('#profile-bd'));
 
+
+
 });
 
 function InitOwlPoD()
@@ -685,6 +687,10 @@ function BtnClickHandler(obj)
 		location.href=targetIndex;
 		break;
 
+		case 'save_edit_photo':
+			TryEditPhoto(obj, targetcallback);
+		break;
+
 		case 'save_edit_profile':
 			TryEditProfile(obj, targetcallback);
 		break;
@@ -1068,6 +1074,17 @@ function ReopenEditProfile(obj)
 		reopenModal.modal('show');
 		modal.off('hidden.bs.modal');
 	});
+}
+
+function TryEditPhoto(obj,callback)
+{
+	if (typeof(callback)==="undefined") {
+		callback = null;
+	}
+	var btn = obj;
+	var modal = obj.parents('.modal');
+	var form = obj.parents('.modal-content').find('#upload_form');
+	form.submit();
 }
 
 function TryEditProfile(obj,callback)

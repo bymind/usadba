@@ -44,11 +44,11 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-3">
-						<div class="profile-avatar br-2">
+						<div class="profile-avatar br-4">
 							<img src="<?php echo $pageDataView['avatar'] ?>" alt="<?php echo $pageDataView['name'] ?>">
 						</div>
 						<div class="avatar-edit">
-							<a href="#">изменить фото</a>
+							<a href="#" class="edit-photo">изменить фото</a>
 						</div>
 					</div>
 					<div class="col-xs-9">
@@ -155,6 +155,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 			</div>
 		</div>
 	</div>

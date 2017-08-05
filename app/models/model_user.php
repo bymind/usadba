@@ -71,6 +71,7 @@ class Model_User extends Model
 		extract($orderData);
 		$prodArts = array();
 		foreach ($prods['items'] as $key => $value) {
+			// $prodArts[] = "'".$key."'";
 			$countBuy = $value['count'];
 			$q = mysql_query("UPDATE prod_items SET count_buy = count_buy + $countBuy WHERE art = '$key'") or die(mysql_error());
 		}
@@ -91,6 +92,13 @@ class Model_User extends Model
 		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 1)") or die(mysql_error());
 	}
 
+	public function updUserAva($uData)
+	{
+		$uid = $_SESSION['user']['id'];
+		$q = mysql_query("UPDATE users SET avatar='".$uData['avatar']."' WHERE id='".$uid."'") or die(mysql_error()) ;
+		return $q;
+	}
+
 	public function updUser($uData)
 	{
 		$uData['name'] = addslashes($uData['name']);
@@ -99,6 +107,9 @@ class Model_User extends Model
 		$uData['bd'] = addslashes($uData['bd']);
 		$newCrypt = md5($uData['email'].$uData['p'].Self::SALT);
 		$uid = $_SESSION['user']['id'];
+		if (isset($uData['avatar'])) {
+			$q = mysql_query("UPDATE users SET name = '".$uData['name']."', email='".$uData['email']."', phone='".$uData['phone']."', bday='".$uData['bd']."', pass='".$newCrypt."', avatar='".$uData['avatar']."' WHERE id='".$uid."'") or die(mysql_error()) ;
+		} else
 		$q = mysql_query("UPDATE users SET name = '".$uData['name']."', email='".$uData['email']."', phone='".$uData['phone']."', bday='".$uData['bd']."', pass='".$newCrypt."' WHERE id='".$uid."'") or die(mysql_error()) ;
 		return $q;
 	}

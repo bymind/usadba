@@ -93,7 +93,28 @@ class Model_Catalog extends Model
 				$favs_ids = array();
 				$q = mysql_query("SELECT favs FROM users WHERE id = '".$_SESSION['user']['id']."'") or die(mysql_error());
 				$r = mysql_fetch_array($q);
-				$favs_ids = $r[0];
+				$r = $r[0];
+				if ($r[0]==",") {
+					$r = substr($r, 1);
+					$q = mysql_query("UPDATE users SET favs='$r' WHERE id = '".$_SESSION['user']['id']."'") or die(mysql_error());
+					$_SESSION['user']['favs'] = $r;
+					if ($r[strlen($r)-1]==",") {
+						$r = substr($r, 0, strlen($r)-2);
+						$q = mysql_query("UPDATE users SET favs='$r' WHERE id = '".$_SESSION['user']['id']."'") or die(mysql_error());
+						$_SESSION['user']['favs'] = $r;
+					}
+				} else
+				if ($r[strlen($r)-1]==",") {
+					$r = substr($r, 0, strlen($r)-2);
+					$q = mysql_query("UPDATE users SET favs='$r' WHERE id = '".$_SESSION['user']['id']."'") or die(mysql_error());
+					$_SESSION['user']['favs'] = $r;
+					if ($r[0]==",") {
+					$r = substr($r, 1);
+					$q = mysql_query("UPDATE users SET favs='$r' WHERE id = '".$_SESSION['user']['id']."'") or die(mysql_error());
+					$_SESSION['user']['favs'] = $r;
+					}
+				}
+				$favs_ids = $r;
 				$q = mysql_query("SELECT * FROM prod_items WHERE id in ($favs_ids)") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_tag[$buf['id']] = $buf;
