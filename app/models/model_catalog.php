@@ -38,15 +38,15 @@ class Model_Catalog extends Model
 				$prod_new = array();
 				$prod_popular = array();
 				$prod_all = array();
-				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%new%' ORDER BY added_time DESC ") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%new%' AND archived = 0 ORDER BY added_time DESC ") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_new[] = $buf;
 				}
-				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%popular%' ORDER BY added_time DESC") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%popular%'  AND archived = 0 ORDER BY added_time DESC") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_popular[] = $buf;
 				}
-				$q = mysql_query("SELECT * FROM prod_items ORDER BY added_time DESC ") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE archived = 0  ORDER BY added_time DESC ") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_all[] = $buf;
 				}
@@ -115,7 +115,7 @@ class Model_Catalog extends Model
 					}
 				}
 				$favs_ids = $r;
-				$q = mysql_query("SELECT * FROM prod_items WHERE id in ($favs_ids)") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE id in ($favs_ids) AND archived = 0 ") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_tag[$buf['id']] = $buf;
 				}
@@ -130,7 +130,7 @@ class Model_Catalog extends Model
 				Route::Catch_Error('404');
 			}
 		} else {
-			$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%".$tag."%' ORDER BY added_time DESC ") or die(mysql_error());
+			$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%".$tag."%'  AND archived = 0 ORDER BY added_time DESC ") or die(mysql_error());
 			while ( $buf = mysql_fetch_assoc($q)) {
 				$prod_tag[] = $buf;
 			}
@@ -195,7 +195,7 @@ class Model_Catalog extends Model
 			$q = mysql_query("SELECT * FROM prod_cat WHERE id='".$products['cat']['parent']."'");
 			$products['parent'] = mysql_fetch_assoc($q);
 			$pos = $products['parent']['position'];
-			$q = mysql_query("SELECT * FROM prod_items WHERE cat='".$products['parent']['id']."' ORDER BY added_time DESC");
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='".$products['parent']['id']."'  AND archived = 0 ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
 				if (strstr($buf['labels'], 'new') ) {
 					$has_new = true;
@@ -234,7 +234,7 @@ class Model_Catalog extends Model
 
 		$categoryId = $categoryData['id'];
 		if (($sect)&&(( $sect=='new' )||( $sect=='sales' ))) {
-			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' ORDER BY added_time DESC");
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' AND archived = 0 ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
 				$products['items'][$buf['id']] = $buf;
 				if (strstr($buf['labels'], 'new') ) {
@@ -244,7 +244,7 @@ class Model_Catalog extends Model
 					$has_sales = true;
 				}
 			}
-			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0  ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
 				if (strstr($buf['labels'], 'popular') ) {
 					$products['populars'][$buf['id']] = $buf;
@@ -253,7 +253,7 @@ class Model_Catalog extends Model
 		} else if ($sect) {
 			Route::Catch_Error('404');
 		} else
-		$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+		$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0  ORDER BY added_time DESC");
 		while ( $buf = mysql_fetch_assoc($q)) {
 			$products['items'][$buf['id']] = $buf;
 			if (strstr($buf['labels'], 'new') ) {
@@ -272,7 +272,7 @@ class Model_Catalog extends Model
 		foreach ($curCatInfo['child'] as $child) {
 			$categoryId = $child['id'];
 				if ($sect) {
-					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' ORDER BY added_time DESC");
+					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' AND archived = 0  ORDER BY added_time DESC");
 					while ( $buf = mysql_fetch_assoc($q)) {
 						$products['items'][$buf['id']] = $buf;
 						if (strstr($buf['labels'], 'new') ) {
@@ -282,14 +282,14 @@ class Model_Catalog extends Model
 							$has_sales = true;
 						}
 					}
-					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+					$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0  ORDER BY added_time DESC");
 					while ( $buf = mysql_fetch_assoc($q)) {
 						if (strstr($buf['labels'], 'popular') ) {
 							$products['populars'][$buf['id']] = $buf;
 						}
 					}
 				} else
-				$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' ORDER BY added_time DESC");
+				$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0  ORDER BY added_time DESC");
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$products['items'][$buf['id']] = $buf;
 					if (strstr($buf['labels'], 'new') ) {
@@ -332,7 +332,7 @@ class Model_Catalog extends Model
 		// $articul = $articul[0];
 		$articul = substr($artName, 0, strpos($artName, "_"));
 		$prodName = substr($artName, strpos($artName, "_")+1);
-		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName'");
+		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName' AND archived = 0 ");
 		$product = mysql_fetch_assoc($q);
 
 		if (!$product) {

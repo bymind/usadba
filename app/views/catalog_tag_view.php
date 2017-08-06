@@ -16,7 +16,7 @@
 		</div>
 
 			<div class="col-xxs-12 col-xs-12 col-sm-9">
-				<div class="title-wide mb-20 mt-20">
+				<div class="title-wide mb-20">
 					<h1><?php
 						echo $tagTitle;
 					?></h1>

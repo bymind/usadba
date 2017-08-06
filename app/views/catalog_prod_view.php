@@ -31,7 +31,7 @@
 					?>
 					<div class="mini-desc mb-10">
 						<?php
-							echo $currentProduct['mini_desc'];
+							echo $currentProduct['mini_desc'].", артикул ".$currentProduct['art'];
 						?>
 					</div>
 
@@ -112,7 +112,9 @@
 						<div class="col-xs-12">
 						<div class="row">
 							<div class="tab-content-box spec active">
-
+<?php
+		if ($currentProduct['weight']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -125,7 +127,10 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		if ($currentProduct['country']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -138,7 +143,10 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		if ($currentProduct['stor_cond']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -151,7 +159,10 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		if ($currentProduct['nut_val']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -164,7 +175,10 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		if ($currentProduct['energy_val']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -177,7 +191,10 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		if ($currentProduct['consist']!="") {
+		?>
 								<div class="params clearfix">
 									<div class="param col-xxs-12 col-xs-4">
 									<div class="row">
@@ -190,7 +207,9 @@
 										</span>
 									</div>
 								</div>
-
+		<?php
+		}
+		?>
 								<div class="description mt-20">
 									<?php
 										echo $currentProduct['description'];
@@ -200,8 +219,33 @@
 							</div>
 
 							<div class="tab-content-box reviews">
-								<a href="/#" class="give-review">Оставить отзыв</a>
-								<div class="comments-box">
+								<a href="#" class="give-review<?php if (!$isLogged) {?> fake-like<?php }?>">Оставить отзыв</a>
+				<?php
+					if ($isLogged) {
+						?>
+									<div class="comment-over comm-form clearfix">
+										<div class="avatar mini">
+											<img src="<?php echo $_SESSION['user']['avatar']; ?>" alt="<?php echo $_SESSION['user']['name'];?>">
+										</div>
+										<div class="com-details">
+											<span class="author"><?php echo $_SESSION['user']['name'];?></span>
+											<div class="com-text">
+												<textarea name="comment" id="comment-text" maxlength="2000" rows="3"></textarea>
+												<div class="row mt-10 mb-10">
+													<div class="col-xs-12 col-sm-3">
+														<button type="button" class="btn btn-primary comm-send" data-prodid="<?=$currentProduct['id']?>">Отправить</button>
+													</div>
+													<div class="col-sm-9 hidden-xs note-wrapper pl-10">
+														<span class="note">Не более 2 000 символов. <span id="count_letters">Осталось <span id="count_num"></span>.</span><br>Отзыв, превышающий это ограничение, будет обрезан.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+						<?php
+					}
+				?>
+								<div class="comments-box" data-prodid="<?=$currentProduct['id']?>">
 <?php
 	if (!$prodReviews) {
 		echo "<span>Отзывов пока нет</span>";
@@ -348,4 +392,3 @@
 				</div> -->
 	</div>
 </div>
-

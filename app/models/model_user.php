@@ -92,9 +92,18 @@ class Model_User extends Model
 		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 1)") or die(mysql_error());
 	}
 
+	function addComment($comment)
+	{
+		$uid = $_SESSION['user']['id'];
+		extract($comment);
+		$q = mysql_query("INSERT INTO comments (uid, target_type, target_id, com_text) VALUES ('$uid','$target_type','$target_id','$text')") or die(mysql_error());
+		return $q;
+	}
+
 	public function updUserAva($uData)
 	{
 		$uid = $_SESSION['user']['id'];
+		$_SESSION['user']['avatar'] = $uData['avatar'];
 		$q = mysql_query("UPDATE users SET avatar='".$uData['avatar']."' WHERE id='".$uid."'") or die(mysql_error()) ;
 		return $q;
 	}

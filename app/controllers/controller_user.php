@@ -206,6 +206,14 @@ try less size file');
 		return $this->model->updUserAva($data);
 	}
 
+	function action_addcomment()
+	{
+		$comment = $_POST['comment'];
+		$comment = json_decode($comment, true);
+		$comment['text'] = addslashes($comment['text']);
+		return $this->model->addComment($comment);
+	}
+
 	function action_profile($uid)
 	{
 		if (!isset($_SESSION['user']) || $_SESSION['user']['id'] != $uid ) {

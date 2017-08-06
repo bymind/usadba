@@ -109,6 +109,9 @@ class Controller
 							return 'сегодня';
 						}
 		} else
+		if ($delta == 0) {
+			return 'сегодня';
+		} else
 			return $postDay;
 	}
 

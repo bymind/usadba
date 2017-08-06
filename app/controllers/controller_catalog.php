@@ -152,6 +152,35 @@ class Controller_Catalog extends Controller
 		return 0;
 	}
 
+	function action_reloadcomments()
+	{
+		$prodid = addslashes($_POST['prodid']);
+		$comments = $this->model->getComments('product',$prodid);
+		$revUsersIds = [];
+		if ($comments) {
+			foreach ($comments as $review) {
+				if (!isset($revUsersIds[$review['uid']])) {
+					$revUsersIds[$review['uid']] = $review['uid'];
+				}
+			}
+			$revUsers = $this->model->getUsers($revUsersIds);
+			foreach ($comments as &$review) {
+				$review['author_name'] = $revUsers[$review['uid']]['name'];
+				$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
+				$review['pub_time'] = Self::getGoodDate($review['pub_time']);
+				$review['com_text'] = nl2br($review['com_text']);
+			}
+		}
+		$this->view->simpleGet(
+						'/catalog_comments_view.php',
+						array(
+									'prodReviews'=>$comments,
+									'recounted'=>count($comments)
+									)
+		);
+		return 0;
+	}
+
 	public function action_prodPage($param, $isparent = NULL)
 	{
 		if ($isparent=='parentcat') {
@@ -192,7 +221,6 @@ class Controller_Catalog extends Controller
 			foreach ($prodReviews as &$review) {
 				$review['author_name'] = $revUsers[$review['uid']]['name'];
 				$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
-				// $review['pub_time'] = strftime("%d %m %Y %H:%M", strtotime($review['pub_time']));
 				$review['pub_time'] = Self::getGoodDate($review['pub_time']);
 				$review['com_text'] = nl2br($review['com_text']);
 			}
@@ -232,7 +260,8 @@ class Controller_Catalog extends Controller
 																		'/js/magic-mask/jq.magic-mask.min.js',
 																		'/js/main_page.js',
 																		'/js/owl-carousel/owl.carousel.min.js',
-																		'/js/template.js'
+																		'/js/template.js',
+																		'/js/catalog_prod_page.js'
 																		),
 					'pageId' => 'catalog', // активный пункт меню
 					'catId' => $parentCat, // активный пункт меню родитель

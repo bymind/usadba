@@ -29,9 +29,17 @@ $(function()
 
 	InitInputDatepicker($('#profile-bd'));
 
-
+	InitToggle(".give-review",".comm-form","on");
 
 });
+
+function InitToggle(selector_switcher, selector_to_switch, class_to_switch)
+{
+	$(document).on('click', selector_switcher, function(event) {
+		event.preventDefault();
+		$(selector_to_switch).toggleClass(class_to_switch);
+	});
+}
 
 function InitOwlPoD()
 {
@@ -507,7 +515,6 @@ function ImgLabels()
 		for (var j = 0; j < labels.length; j++) {
 			curLabeled.append(label[labels[j]]);
 			curLabeled.find('.label').eq(j).css('top', plusTop+'px');
-			console.log(plusTop);
 			plusTop+=20; // изменить отступ сверху для следующих лэйблов
 		}
 	}

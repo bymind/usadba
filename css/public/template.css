@@ -1442,6 +1442,12 @@ span.link a:hover {
 	height: 50px;
 }
 
+.avatar.mini>img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
 .comment-over {
 	padding: 10px 0;
 }
@@ -1457,6 +1463,10 @@ span.link a:hover {
 
 .com-details .pub-time {
 	color: #a6a6a6;
+}
+
+.com-details .com-text {
+	margin-top: 1px;
 }
 
 .cart-prodname {
