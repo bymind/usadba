@@ -6,7 +6,7 @@ commits [3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396
 -------------------
 - [x] [[3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396037eaedeeb9eced73a)] В левом меню работают ссылки на "Популярное" и "Новинки".
 
-- [x] [[0553c12](https://github.com/bymind/usadba/commit/0553c12e34415d93a2b1bc4711671403be770dbb)] Добавлена возможность управлять ссылками в футере сайта из админки (раздел _Настройки_).
+- [x] [[0553c12](https://github.com/bymind/usadba/commit/0553c12e34415d93a2b1bc4711671403be770dbb)] Добавлена возможность управлять ссылками в футере сайта из админки. `/admin/config`
 
 - [x] [[c13de2b](https://github.com/bymind/usadba/commit/c13de2b34f591c9f8116af1a5f604198932f01c4)] В блоке новостей в сайдбаре работет слайдер 5-ти последних новостей.
 
