@@ -1450,6 +1450,16 @@ span.link a:hover {
 
 .comment-over {
 	padding: 10px 0;
+	border-bottom: 1px solid rgba(0,0,0,.05);
+}
+
+.comment-over.comm-form {
+	border: 0;
+}
+
+.global-reviews .comment-over {
+	background: #fff;
+	padding: 20px;
 }
 
 .comment-over .avatar {
@@ -1459,10 +1469,19 @@ span.link a:hover {
 .com-details .author {
 	font-weight: 900;
 	margin-right: 10px;
+	margin-top: -4px;
+	display: block;
+	float: left;
+	width: calc(50% - 10px);
 }
 
 .com-details .pub-time {
 	color: #a6a6a6;
+	margin-top: -4px;
+	display: inline-block;
+	float: left;
+	width: 50%;
+	text-align: right;
 }
 
 .com-details .com-text {
@@ -1977,6 +1996,112 @@ input.jcrop-keymgr{
 	font-size: 12px;
 }
 
+a.global-reviews-link {
+	position: absolute;
+	font-size: 13px;
+	left: 0;
+	margin-left: 10px;
+	text-decoration: underline;
+}
+
+a.global-reviews-link:hover {
+	text-decoration: none;
+}
+
+.comment-over .avatar, .comment-over .com-details {
+	float: left;
+}
+
+.com-details {
+	width: calc(100% - 70px);
+	max-width: calc(100% - 70px);
+}
+
+.comm-form{
+	display: none;
+}
+
+.comm-form.on{
+	display: block;
+}
+
+#count_letters {
+	display: none;
+}
+
+#count_letters.red1 {
+	color: rgb(150, 100, 100);
+}
+#count_letters.red2 {
+	color: rgb(175, 80, 80);
+}
+#count_letters.red3 {
+	color: rgb(200, 60, 60);
+}
+#count_letters.red4 {
+	color: rgb(225, 40, 40);
+}
+#count_letters.red5, .red5 {
+	color: rgb(255, 20, 20);
+}
+#count_letters.red-alert {
+	color: rgb(255, 0, 0);
+	font-weight: 900;
+}
+.woops{
+	display: inline-block;
+}
+
+#count_letters.on {
+	display: inline-block;
+}
+
+#comment-text {
+	width: 100%;
+	border-radius: 2px;
+	border: 1px solid rgba(0,0,0,.15);
+	outline: none;
+	margin: -1px -5px;
+	padding: 0px 4px;
+	resize: vertical;
+}
+
+.comm-form .btn-primary {
+	background: #c63838;
+	border: 0;
+	line-height: 20px !important;
+	will-change: background;
+	margin: 0;
+	height: 30px;
+	font-size: 13px;
+	font-weight: 900;
+	width: 100%;
+	outline: none;
+}
+
+.comm-form .btn-primary:hover, .comm-form .btn-primary.hover {
+	background: #d63c3c;
+}
+
+.comm-form .btn-primary:active, .comm-form .btn-primary.active {
+	background: #a22727;
+	border: 0;
+	margin: 0 !important;
+	outline: none;
+}
+
+.comm-form .note-wrapper {
+	height: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.comm-form .note {
+	display: inline-block;
+	color: #999;
+	line-height: 15px;
+}
+
 
 /* MEDIA QUERIES */
 
@@ -2329,6 +2454,15 @@ input.jcrop-keymgr{
 
 @media screen and (min-width: 320px) and (max-width: 479px) {
 
+	a.global-reviews-link {
+		position: relative;
+		font-size: 13px;
+		left: 0;
+		margin-right: 10px;
+		text-decoration: underline;
+		float: right;
+	}
+
 	h1 {
 		font-size: 20px !important;
 		line-height: 22px !important;
@@ -2412,7 +2546,7 @@ input.jcrop-keymgr{
 		width: 33.33333333% !important;
 	}
 
-button.col-xxs-4 {
+	button.col-xxs-4 {
 		width: calc(33.33333333% - 10px) !important;
 		margin: 5px !important;
 	}

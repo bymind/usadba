@@ -16,9 +16,6 @@ class Controller_Catalog extends Controller
 		$sideNews = $this->model->getNews('5');
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
-		// echo "<pre>";
-		// var_dump($menuItems);
-		// echo "</pre>";
 		$this->view->generate(
 			'catalog_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -101,9 +98,6 @@ class Controller_Catalog extends Controller
 			$tagName = 'Мои избранные';
 		}
 		$breadCrumbs = array($tagName => $_SERVER['REQUEST_URI']);
-		// echo "<pre>";
-		// var_dump($menuItems);
-		// echo "</pre>";
 		$this->view->generate(
 			'catalog_tag_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -154,31 +148,68 @@ class Controller_Catalog extends Controller
 
 	function action_reloadcomments()
 	{
-		$prodid = addslashes($_POST['prodid']);
-		$comments = $this->model->getComments('product',$prodid);
-		$revUsersIds = [];
-		if ($comments) {
-			foreach ($comments as $review) {
-				if (!isset($revUsersIds[$review['uid']])) {
-					$revUsersIds[$review['uid']] = $review['uid'];
+		$type_rev = addslashes($_POST['type']);
+		switch ($type_rev) {
+			case 'product':
+				$prodid = addslashes($_POST['prodid']);
+				$comments = $this->model->getComments('product',$prodid);
+				$revUsersIds = [];
+				if ($comments) {
+					foreach ($comments as $review) {
+						if (!isset($revUsersIds[$review['uid']])) {
+							$revUsersIds[$review['uid']] = $review['uid'];
+						}
+					}
+					$revUsers = $this->model->getUsers($revUsersIds);
+					foreach ($comments as &$review) {
+						$review['author_name'] = $revUsers[$review['uid']]['name'];
+						$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
+						$review['pub_time'] = Self::getGoodDate($review['pub_time']);
+						$review['com_text'] = nl2br($review['com_text']);
+					}
 				}
-			}
-			$revUsers = $this->model->getUsers($revUsersIds);
-			foreach ($comments as &$review) {
-				$review['author_name'] = $revUsers[$review['uid']]['name'];
-				$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
-				$review['pub_time'] = Self::getGoodDate($review['pub_time']);
-				$review['com_text'] = nl2br($review['com_text']);
-			}
+				$this->view->simpleGet(
+								'/catalog_comments_view.php',
+								array(
+											'prodReviews'=>$comments,
+											'recounted'=>count($comments)
+											)
+				);
+				return 0;
+				break;
+
+			case "reviews":
+				$comments = $this->model->getComments('reviews');
+				$revUsersIds = [];
+				if ($comments) {
+					foreach ($comments as $review) {
+						if (!isset($revUsersIds[$review['uid']])) {
+							$revUsersIds[$review['uid']] = $review['uid'];
+						}
+					}
+					$revUsers = $this->model->getUsers($revUsersIds);
+					foreach ($comments as &$review) {
+						$review['author_name'] = $revUsers[$review['uid']]['name'];
+						$review['author_avatar'] = $revUsers[$review['uid']]['avatar'];
+						$review['pub_time'] = Self::getGoodDate($review['pub_time']);
+						$review['com_text'] = nl2br($review['com_text']);
+					}
+				}
+				$this->view->simpleGet(
+								'/catalog_global_comments_view.php',
+								array(
+											'prodReviews'=>$comments,
+											'recounted'=>count($comments)
+											)
+				);
+				return 0;
+				break;
+
+			default:
+				# code...
+				return 0;
+				break;
 		}
-		$this->view->simpleGet(
-						'/catalog_comments_view.php',
-						array(
-									'prodReviews'=>$comments,
-									'recounted'=>count($comments)
-									)
-		);
-		return 0;
 	}
 
 	public function action_prodPage($param, $isparent = NULL)

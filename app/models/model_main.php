@@ -30,9 +30,6 @@ class Model_Main extends Model
 					}
 				}
 				$pageDataModel['sales'] = $dataSales;
-				// echo "<pre>";
-				// var_dump($dataSales);
-				// echo "</pre>";
 				break;
 
 			case 'prods':

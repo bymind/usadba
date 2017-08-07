@@ -232,8 +232,8 @@
 											<div class="com-text">
 												<textarea name="comment" id="comment-text" maxlength="2000" rows="3"></textarea>
 												<div class="row mt-10 mb-10">
-													<div class="col-xs-12 col-sm-3">
-														<button type="button" class="btn btn-primary comm-send" data-prodid="<?=$currentProduct['id']?>">Отправить</button>
+													<div class="col-xxs-12 col-xs-6 col-sm-3 pr-10">
+														<button type="button" class="btn btn-primary comm-send" data-type="product" data-prodid="<?=$currentProduct['id']?>">Отправить</button>
 													</div>
 													<div class="col-sm-9 hidden-xs note-wrapper pl-10">
 														<span class="note">Не более 2 000 символов. <span id="count_letters">Осталось <span id="count_num"></span>.</span><br>Отзыв, превышающий это ограничение, будет обрезан.</span>

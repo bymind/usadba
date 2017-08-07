@@ -42,6 +42,19 @@ class Model
 				$pageDataModel['title'] = "Каталог продукции";
 				break;
 
+			case 'reviews':
+				$nowTime = time();
+				$comms = array();
+				$q = mysql_query("SELECT * FROM comments WHERE target_type='reviews' ORDER BY pub_time DESC");
+				while ( $buf = mysql_fetch_assoc($q)) {
+					$buf['good_pub_time'] = Controller::getGoodDate($buf['pub_time']);
+					$comms[] = $buf;
+				}
+				$pageDataModel['comms'] = $comms;
+				$pageDataModel['title'] = "Ваши отзывы";
+				$pageDataModel['crumb'] = "Отзывы";
+				break;
+
 			case 'sales':
 				$nowTime = time();
 				$dataSales = array();
@@ -132,9 +145,14 @@ class Model
 		return $ds;
 	}
 
-	public function getComments($target_type, $target_id)
+	public function getComments($target_type, $target_id=NULL)
 	{
-		$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' ORDER BY pub_time DESC")or die(mysql_error());
+		if ($target_type=="reviews") {
+			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' ORDER BY pub_time DESC")or die(mysql_error());
+		} else
+		if ($target_type=="product") {
+			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' ORDER BY pub_time DESC")or die(mysql_error());
+		}
 		while ($buf = mysql_fetch_assoc($select)) {
 					$ds[] = $buf;
 		}

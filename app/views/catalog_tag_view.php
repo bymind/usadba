@@ -29,7 +29,7 @@
 
 <?php
 	if (!$prodTag){
-		echo "<div><h3>Категория пуста</h3></div>";
+		echo "<div><h3 style='text-align:center'>К сожалению, здесь ничего нет.</h3></div>";
 	} else {
 
 		foreach ($prodTag as $prod) {
