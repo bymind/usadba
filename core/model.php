@@ -254,12 +254,17 @@ class Model
 			$prod_cat[$buf['id']] = $buf;
 		}
 		foreach ($prodArr as &$prod) {
+			$q = mysql_query("SELECT id FROM comments WHERE target_type='product' AND target_id = '".$prod['id']."'") or die(mysql_error());
+			$count_reviews = mysql_num_rows($q);
+			unset($q);
 			$cat_name = $prod_cat[ $prod['cat'] ]['tech_name'];
 			$cat_parent_id = $prod_cat[ $prod['cat'] ]['parent'];
 			if ($cat_parent_id > 0) {
 				$cat_name = $prod_cat[$cat_parent_id]['tech_name']."/".$cat_name;
 			}
 			$prod['url'] = "/catalog/".$cat_name."/".$prod['art']."_".$prod['tech_name'];
+			$prod['count_reviews'] = $count_reviews;
+			$prod['count_reviews_text'] = Self::plural_form($count_reviews, array('отзыв','отзыва','отзывов'));
 		}
 		unset($prod);
 		return $prodArr;

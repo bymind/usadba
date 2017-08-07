@@ -64,7 +64,7 @@
 						<div class="prod-counts">(<span class="number"><?= $prod['count_measure']?></span> <span class="measure"><?= $prod['measure']?></span>)</div>
 						<div class="prod-btn-block">
 							<div class="prod-avail"><?= $prod['in_stock_val']?></div>
-							<div class="prod-rev zero">отзывов - <span class="rev">5</span></div>
+							<div class="prod-rev zero"><span class="rev" style="display:none"><?= $prod['count_reviews']?></span><?= $prod['count_reviews_text']?></div>
 							<button class="to-cart">Купить</button>
 						</div>
 					</div>
