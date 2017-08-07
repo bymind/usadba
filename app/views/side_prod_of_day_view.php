@@ -15,7 +15,7 @@
 	<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card">
 		<div class="prod-day-img box-img display labeled" data-label="<?= $prod['labels'] ?>" style='background-image: url("<?= $prod['images'] ?>");'><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 			<?php
-			if ($_SESSION['user']['favs']) {
+			if ($_SESSION['user']['id']) {
 				if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
 					?>
 				<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>

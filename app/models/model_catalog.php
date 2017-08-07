@@ -115,10 +115,11 @@ class Model_Catalog extends Model
 					}
 				}
 				$favs_ids = $r;
-				$q = mysql_query("SELECT * FROM prod_items WHERE id in ($favs_ids) AND archived = 0 ") or die(mysql_error());
-				while ( $buf = mysql_fetch_assoc($q)) {
-					$prod_tag[$buf['id']] = $buf;
-				}
+				if ($favs_ids!="") {
+					$q = mysql_query("SELECT * FROM prod_items WHERE id in ($favs_ids) AND archived = 0 ") or die(mysql_error());
+					while ( $buf = mysql_fetch_assoc($q)) {
+						$prod_tag[$buf['id']] = $buf;
+					}
 				$massVals = explode(',',$favs_ids);
 				for ($i=0; $i < count($massVals); $i++) {
 					$massVals[$i] = $prod_tag[$massVals[$i]];
@@ -126,6 +127,9 @@ class Model_Catalog extends Model
 				unset($prod_tag);
 				$prod_tag = array();
 				$prod_tag = array_reverse($massVals);
+				} else {
+					$prod_tag = array();
+				}
 			} else {
 				Route::Catch_Error('404');
 			}

@@ -85,7 +85,7 @@
 					<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 							<?php
-										if ($_SESSION['user']['favs']) {
+										if ($_SESSION['user']['id']) {
 											if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
 												?>
 											<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
@@ -147,7 +147,7 @@
 									<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2">
 										<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 											<?php
-										if ($_SESSION['user']['favs']) {
+										if ($_SESSION['user']['id']) {
 											if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
 												?>
 											<div class="heart" title="Добавить в избранное" data-toggle="tooltip" data-placement="right"></div>
