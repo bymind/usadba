@@ -1017,7 +1017,7 @@ class Model_Admin extends Model
 			if ($startNum==NULL) {
 				$startNum = 20;
 			}
-				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM orders WHERE archived=0 ORDER BY datetime DESC LIMIT $startNum") or die(mysql_error());
 				$curPage = 1;
 				break;
 
@@ -1030,11 +1030,11 @@ class Model_Admin extends Model
 				if ($endNum==NULL) {
 					$endNum = $startNum + 20;
 				}
-				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT $startNum, 20") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM orders WHERE archived=0 ORDER BY datetime DESC LIMIT $startNum, 20") or die(mysql_error());
 				break;
 
 			default:
-				$q = mysql_query("SELECT * FROM orders ORDER BY datetime DESC LIMIT 10") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM orders WHERE archived=0 ORDER BY datetime DESC LIMIT 10") or die(mysql_error());
 				break;
 		}
 		while ($r = mysql_fetch_assoc($q)) {
