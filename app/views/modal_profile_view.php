@@ -59,7 +59,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer reg-footer inactive">
+			<div class="modal-footer reg-footer inactive pb-20">
 				<div class="col-xxs-12 col-xxs-offset-0 col-xs-8 col-xs-offset-2">
 					<div class="col-xs-4">
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
@@ -68,6 +68,15 @@
 						<button type="button" class="br-2 btn btn-primary" data-target="registration">Зарегистрироваться</button>
 					</div>
 				</div>
+				<span class="substring mt-20" style="
+									  font-size: 11px;
+									  text-align: center;
+									  display: inline-block;
+									  line-height: 10px;
+									  padding: 2px 5px;
+									  width: 100%;
+									">Регистрируясь на сайте, Вы принимаете условия <a href="/terms" target="_blank">Пользовательского соглашения</a>
+									</span>
 			</div>
 
 		</div><!-- /.modal-content -->

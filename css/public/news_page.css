@@ -84,6 +84,26 @@
 	float: left;
 }
 
+.text ul {
+	list-style: none;
+}
+
+.text li {
+	position: relative;
+	padding-left: 20px;
+}
+
+.text li::before {
+	content: '';
+	list-style-type: circle;
+	display: list-item;
+	float: left;
+	width: 1px;
+	margin: 0 -10px 0 0;
+}
+
+
+
 @media screen and (min-width: 320px) and (max-width: 479px) {
 
 	.news-card {
