@@ -30,8 +30,8 @@ commits [3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396
 >[usadba.bymind.ru](http://usadba.bymind.ru)
 #
 ##### Ближайшие обновления
-- [ ] отызвы `/reviews`
-- [ ] список прошлых заказов в личном кабинете `/user/history`
+- [x] отызвы `/reviews`
+- [x] список прошлых заказов в личном кабинете `/user/history`
 - [ ] восстановление пароля
 - [ ] регистрация через почту
 - [ ] согласие на обработку персональных данных
