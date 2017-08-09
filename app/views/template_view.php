@@ -15,6 +15,9 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $Description; ?>">
+	<?php
+		if (isset($php_header) && ($php_header != "HTTP/1.0 404 Not Found")) {
+			?>
 	<meta property="og:description" content="<?php echo $Description; ?>">
 	<meta property="og:image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
 	<meta property="og:site_name" content="Кулинария Усадьба-Центр">
@@ -23,6 +26,9 @@
 	<meta property="og:url" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; ?>">
 	<meta itemprop="image" content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$OgImage; ?>">
 	<meta name="twitter:card" content="summary">
+			<?php
+		}
+	 ?>
 	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet"> -->
 	<link href="/css/<?php echo $style; ?>" rel="stylesheet">
 	<?php

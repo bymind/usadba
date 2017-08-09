@@ -81,9 +81,9 @@ class Model_User extends Model
 		if ($logged) {
 		} else
 			$uid = 0;
-		$comm = addslashes($comm);
-		$name = addslashes($name);
-		$addr = addslashes($addr);
+		$comm = addslashes(htmlspecialchars($comm));
+		$name = addslashes(htmlspecialchars($name));
+		$addr = addslashes(htmlspecialchars($addr));
 		if ($cash) {
 			$paytype = "cash";
 		} else if ($payonline) {
@@ -174,6 +174,63 @@ class Model_User extends Model
 				Route::Catch_Error('404');
 				break;
 		}
+	}
+
+	public function getUserOrder($orderid)
+	{
+		$statLabels = ['new','progress','done','fail'];
+		$q = mysql_query("SELECT * FROM stat_text ORDER BY id") or die(mysql_error());
+		$statText = array();
+		while ($r = mysql_fetch_assoc($q)) {
+			$statText[$r['id']] = $r['text'];
+		}
+		$uid = Route::PrepareUrl($_SESSION['user']['id']);
+		$orderid = Route::PrepareUrl($orderid);
+		$q = mysql_query("SELECT * FROM orders WHERE id='$orderid' LIMIT 1") or die (mysql_error());
+		$orders = array();
+		$orders['count'] = 0;
+		while ($buf = mysql_fetch_assoc($q)) {
+			if ($buf['pay_type']=="cash") {
+				$buf['pay_type'] = "наличными";
+			} if ($buf['pay_type']=="online") {
+				$buf['pay_type'] = "картой онлайн";
+			}
+			$buf['prod_list'] = json_decode($buf['prod_list'], true);
+			$buf['comm'] = nl2br($buf['comm']);
+			$buf['stat_text'] = $statText[$buf['stat']];
+			$buf['stat_label'] = $statLabels[$buf['stat']-1];
+			$buf['timestamp'] = Controller::getGoodDate($buf['datetime'],'compact');
+			$buf['datetime'] = Controller::getGoodDate($buf['datetime']);
+			$orders['order'] = $buf;
+			$orders['count']++;
+		}
+		$orders['title']="Заказ №".$orders['order']['id'];
+		return $orders;
+	}
+
+	public function getUserOrders($uid)
+	{
+		$statLabels = ['new','progress','done','fail'];
+		$q = mysql_query("SELECT * FROM stat_text ORDER BY id") or die(mysql_error());
+		$statText = array();
+		while ($r = mysql_fetch_assoc($q)) {
+			$statText[$r['id']] = $r['text'];
+		}
+		$uid = Route::PrepareUrl($uid);
+		$q = mysql_query("SELECT * FROM orders WHERE uid='$uid' ORDER BY datetime DESC") or die (mysql_error());
+		$orders = array();
+		$orders['count'] = 0;
+		while ($buf = mysql_fetch_assoc($q)) {
+			$buf['prod_list'] = json_decode($buf['prod_list'], true);
+			$buf['stat_text'] = $statText[$buf['stat']];
+			$buf['stat_label'] = $statLabels[$buf['stat']-1];
+			$buf['timestamp'] = Controller::getGoodDate($buf['datetime'],'compact');
+			$buf['datetime'] = Controller::getGoodDate($buf['datetime']);
+			$orders['orders'][] = $buf;
+			$orders['count']++;
+		}
+		$orders['title']="Заказы";
+		return $orders;
 	}
 
 	public function getUserData($pagename, $user=NULL)

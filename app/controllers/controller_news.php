@@ -20,7 +20,7 @@ class Controller_News extends Controller
 		// $pageDataController = $this->model->getData('newsPage');
 		// $pageDataController = $this->model->getData('newsPost');
 		$pageDataController = $this->model->getNewsPost($url);
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProd = $this->model->getData('prods');
 		// $pageData = $this->model->getData('news');
 		// $pageSales = $this->model->getData('sales');
@@ -78,7 +78,7 @@ class Controller_News extends Controller
 	{
 		$pageDataController = $this->model->getData('newsPage');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		// $pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Новости' => $_SERVER['REQUEST_URI']);

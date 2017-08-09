@@ -1826,6 +1826,22 @@ span.link a:hover {
 	margin-right: 50px !important;
 }
 
+.ml-10{
+	margin-left: 10px !important;
+}
+
+.mr-10{
+	margin-right: 10px !important;
+}
+
+.ml-20{
+	margin-left: 20px !important;
+}
+
+.mr-20{
+	margin-right: 20px !important;
+}
+
 .mt-40{
 	margin-top: 40px !important;
 }
@@ -1949,6 +1965,18 @@ span.link a:hover {
 
 .h160 {
 	height: 160px !important;
+}
+
+.bb-1-gray {
+	border-bottom: 1px solid gray !important;
+}
+
+.bb-1-lightgray {
+	border-bottom: 1px solid lightgray !important;
+}
+
+.ta-r {
+	text-align: right !important;
 }
 
 .form-group {

@@ -24,7 +24,7 @@
 			<ul>
 				<li><a class="" href="/user/profile/<?php echo $userData['id'] ?>">Личный кабинет</a></li>
 				<li><a class="active" href="/user/cart">Корзина</a></li>
-				<li><a class="" href="/user/history">Заказы</a></li>
+				<li><a class="" href="/user/history/<?=$userData['id']?>">Заказы</a></li>
 				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
 			</ul>
 		</div>
@@ -86,7 +86,7 @@
 									</div>
 								</div>
 
-								<div class="col-xxs-7 col-xs-4 col-md-8 col-lg-9">
+								<div class="col-xxs-7 col-xs-8 col-md-8 col-lg-9">
 									<div class="details-wrapper">
 										<div class="name" data-prodname='true'>
 											<a href="<?php echo $cartItem['url'] ?>"><?php echo $cartItem['name'] ?></a>

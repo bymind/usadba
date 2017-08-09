@@ -16,7 +16,7 @@ class Controller_Pages extends Controller
 			Route::Catch_Error('404');
 		}
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array($pageDataController['page']['title'] => $_SERVER['REQUEST_URI']);
 		$this->view->generate(

@@ -998,6 +998,7 @@ class Model_Admin extends Model
 		$r['stat_text'] = $statText[$r['stat']-1];
 		$r['user'] = Self::getUser($r['uid']);
 		$r['stats'] = $statText;
+		$r['comm'] = nl2br($r['comm']);
 
 		return $r;
 	}
@@ -1045,6 +1046,7 @@ class Model_Admin extends Model
 			$r['stat_text'] = $statText[$r['stat']-1];
 			$r['user'] = Self::getUser($r['uid']);
 			$r['stats'] = $statText;
+			$r['comm'] = nl2br($r['comm']);
 			$ds[] = $r;
 		}
 		return $ds;

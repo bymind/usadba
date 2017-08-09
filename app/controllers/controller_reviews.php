@@ -34,7 +34,7 @@ class Controller_Reviews extends Controller
 			$prodReviews['count'] = 0;
 		}
 
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array($pageDataController['crumb'] => $_SERVER['REQUEST_URI']);

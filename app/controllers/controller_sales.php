@@ -13,7 +13,7 @@ class Controller_Sales extends Controller
 	public function action_param($url)
 	{
 		$pageDataController = $this->model->getSalesPost($url);
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProd = $this->model->getData('prods');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Акции' => '/sales', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
@@ -71,7 +71,7 @@ class Controller_Sales extends Controller
 	{
 		$pageDataController = $this->model->getData('salesPage');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Акции' => $_SERVER['REQUEST_URI']);

@@ -13,9 +13,198 @@ class Controller_User extends Controller
 
 	function action_index()
 	{
-		Controller::jsonConsole($_SESSION);
-		Controller::jsonConsole($isLogged);
+		if (isset($_SESSION['user']['id'])) {
+			Route::Catch_301_Redirect("/user/profile/".$_SESSION['user']['id']);
+		} else {
+			Route::Catch_Error("404");
+		}
 		return 0;
+	}
+
+	function action_order($orderid=NULL)
+	{
+		if (!$orderid && isset($_SESSION['user']['id'])) {
+			Route::Catch_301_Redirect("/user/history/".$_SESSION['user']['id']);
+		} else
+		if (!$orderid) {
+			Route::Catch_Error("404");
+		}
+		$clean_orderid = preg_replace("/[^0-9]/", '', $orderid);
+		if ($clean_orderid != $orderid) {
+			Route::Catch_301_Redirect("/user/order/".$clean_orderid);
+		} else {
+			$orderid = $clean_orderid;
+		}
+		$q = mysql_query("SELECT uid FROM orders WHERE id = $orderid") or die(mysql_error());
+		$trueUId = mysql_fetch_assoc($q);
+		$trueUId = $trueUId['uid'];
+		$uid = $_SESSION['user']['id'];
+		if (!$uid || $uid == "" || $uid != $trueUId) {
+			Route::Catch_Error("404");
+		} else {
+			if (!isset($_SESSION['user']) || $_SESSION['user']['id'] != $uid ) {
+				Route::Catch_Error('404');
+			}
+			if (!$orderid || $orderid == "") {
+				Route::Catch_301_Redirect("/user/history/".$_SESSION['user']['id']);
+			}
+			$userData = $this->model->getUser($uid);
+			if (!$userData) {
+				Route::Catch_Error('404');
+			}
+			$pageDataController['user'] = $this->model->getUserData('profile', $userData);
+			$pageDataController['order'] = $this->model->getUserOrder($orderid);
+			// var_dump($pageDataController['order']['order']);
+			$pageDataController['order']['order']['prod_list']['items'] = $this->model->createProdPict($pageDataController['order']['order']['prod_list']['items']);
+			$menuItems = $this->model->get_MainMenu('catalog');
+			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
+			$pageDataProd = $this->model->getData('prods');
+			$accName = 'Личный кабинет, '.$_SESSION['user']['name'];
+			$accUrl = "/user/profile/".$uid;
+			$ordersName = 'Заказы';
+			$ordersUrl = "/user/history/".$uid;
+			$breadCrumbs = array($accName => $accUrl,
+			                     $ordersName => $ordersUrl,
+													 $pageDataController['order']['title'] => $_SERVER['REQUEST_URI']);
+			$this->view->generate(
+				'user_order_view.php', // вид контента
+				'template_view.php', // вид шаблона
+				array( // $data
+						'title'=> $pageDataController['order']['title'],
+						'style'=>'public/template.css',
+						'style_content' => array(
+																		'public/main_page.css',
+																		'owl-carousel/owl.carousel.css',
+																		'owl-carousel/sales.theme.css',
+																		'owl-carousel/prod.theme.css',
+																		'public/user_profile_page.css',
+																		'datepicker/datepicker.min.css'
+																		),
+						'scripts_content'=> array(
+																			'/js/magic-mask/jq.magic-mask.min.js',
+																			'/js/main_page.js',
+																			'/js/owl-carousel/owl.carousel.min.js',
+																			'/js/datepicker/datepicker.min.js',
+																			'/js/template.js',
+																			'/js/profile.js'
+																			),
+						'pageId' => '', // активный пункт меню
+						'pageDataView' => $userData['profile'],
+						'sidebar' => array(
+															'app/views/side_menu_view.php',
+															'app/views/side_prod_of_day_view.php',
+															'app/views/side_news_view.php',
+															),
+						'prodItems' => $pageDataProd['prodItems'], //
+						'prodCats' => $pageDataProd['prodCats'],
+						'orders' => $pageDataController['order'],
+						'sideNews' => $sideNews,
+						'pageSales' => $pageSales['sales'],
+						'menuItems' => $menuItems,
+						'breads' => true,
+						'breadsData' => $breadCrumbs,
+					),
+				'navigation_view.php', // навигация
+				'footer_view.php', // футер
+				array( // модальные окна
+						 'modal_callback_view.php',
+						 'modal_profile_view.php',
+						 'modal_profile_edit_view.php',
+						 'modal_photo_edit_view.php',
+						 'modal_address_edit_view.php',
+						 'modal_cart_view.php',
+						 'modal_pass_check_view.php',
+						 'modal_pass_new_view.php'
+						 )
+				);
+		}
+	return 0;
+	}
+
+	function action_history($uid=NULL)
+	{
+		$clean_uid = preg_replace("/[^0-9]/", '', $uid);
+		if ($clean_uid != $uid) {
+			Route::Catch_301_Redirect("/user/history/".$clean_uid);
+		} else {
+			$uid = $clean_uid;
+		}
+		if (!$uid && isset($_SESSION['user']['id'])) {
+			Route::Catch_301_Redirect("/user/history/".$_SESSION['user']['id']);
+		} else
+		if (!$uid) {
+				Route::Catch_Error('404');
+		} else  {
+			if (!isset($_SESSION['user']) || $_SESSION['user']['id'] != $uid ) {
+				Route::Catch_Error('404');
+			}
+			$uid = Route::PrepareUrl($uid);
+			$userData = $this->model->getUser($uid);
+			if (!$userData) {
+				Route::Catch_Error('404');
+			}
+			$pageDataController['user'] = $this->model->getUserData('profile', $userData);
+			$pageDataController['orders'] = $this->model->getUserOrders($uid);
+			$menuItems = $this->model->get_MainMenu('catalog');
+			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
+			$pageDataProd = $this->model->getData('prods');
+			$accName = 'Личный кабинет, '.$_SESSION['user']['name'];
+			$accUrl = "/user/profile/".$uid;
+			$breadCrumbs = array($accName => $accUrl,
+													 $pageDataController['orders']['title'] => $_SERVER['REQUEST_URI']);
+			$this->view->generate(
+				'user_orders_view.php', // вид контента
+				'template_view.php', // вид шаблона
+				array( // $data
+						'title'=> $pageDataController['orders']['title'],
+						'style'=>'public/template.css',
+						'style_content' => array(
+																		'public/main_page.css',
+																		'owl-carousel/owl.carousel.css',
+																		'owl-carousel/sales.theme.css',
+																		'owl-carousel/prod.theme.css',
+																		'public/user_profile_page.css',
+																		'datepicker/datepicker.min.css'
+																		),
+						'scripts_content'=> array(
+																			'/js/magic-mask/jq.magic-mask.min.js',
+																			'/js/main_page.js',
+																			'/js/owl-carousel/owl.carousel.min.js',
+																			'/js/datepicker/datepicker.min.js',
+																			'/js/template.js',
+																			'/js/profile.js'
+																			),
+						'pageId' => '', // активный пункт меню
+						'pageDataView' => $userData['profile'],
+						'sidebar' => array(
+															'app/views/side_menu_view.php',
+															'app/views/side_prod_of_day_view.php',
+															'app/views/side_news_view.php',
+															),
+						'prodItems' => $pageDataProd['prodItems'], //
+						'prodCats' => $pageDataProd['prodCats'],
+						'orders' => $pageDataController['orders'],
+						'sideNews' => $sideNews,
+						'pageSales' => $pageSales['sales'],
+						'menuItems' => $menuItems,
+						'breads' => true,
+						'breadsData' => $breadCrumbs,
+					),
+				'navigation_view.php', // навигация
+				'footer_view.php', // футер
+				array( // модальные окна
+						 'modal_callback_view.php',
+						 'modal_profile_view.php',
+						 'modal_profile_edit_view.php',
+						 'modal_photo_edit_view.php',
+						 'modal_address_edit_view.php',
+						 'modal_cart_view.php',
+						 'modal_pass_check_view.php',
+						 'modal_pass_new_view.php'
+						 )
+				);
+		}
+	return 0;
 	}
 
 	function action_checkpass()
@@ -208,6 +397,9 @@ try less size file');
 
 	function action_addcomment()
 	{
+		if (!isset($_POST['comment'])) {
+			Route::Catch_Error('404');
+		}
 		$comment = $_POST['comment'];
 		$comment = json_decode($comment, true);
 		$comment['text'] = addslashes($comment['text']);
@@ -226,7 +418,7 @@ try less size file');
 		}
 		$pageDataController = $this->model->getUserData('profile', $userData);
 		$menuItems = $this->model->get_MainMenu('catalog');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProd = $this->model->getData('prods');
 		$crumbCurEl = array('name' => $pageDataController['title'],
 												'value' => $_SERVER['REQUEST_URI'] );
@@ -281,6 +473,7 @@ try less size file');
 					 'modal_pass_new_view.php'
 					 )
 			);
+	return 0;
 	}
 
 
@@ -349,7 +542,7 @@ try less size file');
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 
 		$this->view->generate(
 			'order_cart_view.php', // вид контента
@@ -421,7 +614,7 @@ try less size file');
 			$breadCrumbs = array($pageDataController['title'] => $_SERVER['REQUEST_URI']);
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProd = $this->model->getData('prods');
 
 		// $breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);

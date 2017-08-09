@@ -13,7 +13,7 @@ class Controller_Error_404 extends Controller
 	{
 		$pageDataController = $this->model->getData('error_404');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$this->view->generate(

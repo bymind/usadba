@@ -1649,13 +1649,16 @@ return 0;
 */
 function ChangeInput()
 {
-	$(document).on('focusout', '.prod-btn-block input', function(event) {
+	$(document).on('keyup change', '.prod-btn-block input', function(event) {
 		event.preventDefault();
+		if ($(this).val() != $(this).data('oldVal')) {
 		if ((parseInt($(this).val()) <= 0) || ($(this).val() == "" ) || ($(this).val() == "-" )) {
 				ResetToCart($(this)); // если пусто - reset
 			} else {
 				SendCountItem($(this)); // если не пусто - обновляем счетчик товара в корзине
 			}
+		$(this).data('oldVal', $(this).val());
+		}
 		});
 }
 

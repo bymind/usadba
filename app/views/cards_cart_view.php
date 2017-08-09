@@ -9,7 +9,6 @@
 
 <?php
 
-					 // Controller::dump($pageData);
 $cartItems = $pageData['items'];
 $cartCount = 1;
 if (count($cartItems) == 0 || !$cartItems) {

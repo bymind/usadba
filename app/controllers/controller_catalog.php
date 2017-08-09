@@ -13,7 +13,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$this->view->generate(
@@ -84,7 +84,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProdTag = $this->model->getProdsTag($param['value']);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
@@ -261,7 +261,7 @@ class Controller_Catalog extends Controller
 		}
 
 		$prodCatPopulars = $pageDataCat['populars'];
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		if ($pageDataCat['cat']['parent']!=0) {
 			$parentCatId = $pageDataCat['cat']['parent'];
 			$parentCatBuf = $pageDataProd['prodCats'][$parentCatId];
@@ -336,7 +336,7 @@ class Controller_Catalog extends Controller
 	{
 		$pageDataController = $this->model->getData('catalog');
 		$pageDataProd = $this->model->getData('prods');
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		if ($sect) {
 			$pageDataCat = $this->model->getCategoryData($param, $sect);
 		} else
@@ -406,7 +406,7 @@ class Controller_Catalog extends Controller
 	{
 		$parentCat = $param['name'];
 		$curCat = $param['value'];
-		$sideNews = $this->model->getNews('5');
+		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$buf = array(
 		             'parentCat' => $parentCat,
 		             'curCat' => $parentCat,

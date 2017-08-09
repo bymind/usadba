@@ -90,6 +90,10 @@ class Route
 		}
 		else // else - go mining page
 		{
+			foreach ($routes as &$route) {
+				$route = Self::PrepareUrl($route);
+			}
+			// var_dump($routes);
 			self::pageMiner($routes);
 		}
 	}
@@ -103,7 +107,7 @@ class Route
 	public function pageMiner($routes)
 	{
 		if (strtolower($routes[1])=='main') {
-			self::Catch_Error('404');
+			Self::Catch_Error('404');
 		}
 
 		$controller_name = $routes[1];
@@ -276,7 +280,7 @@ class Route
 	*/
 	function PrepareUrl($u)
 	{
-		$u = addslashes(urldecode($u));
+		$u = addslashes(urlencode($u));
 		return $u;
 	}
 

@@ -25,7 +25,7 @@
 			<ul>
 				<li><a class="" href="/user/profile/<?php echo $userData['id'] ?>">Личный кабинет</a></li>
 				<li><a class="active" href="/user/cart">Корзина</a></li>
-				<li><a class="" href="/user/history">Заказы</a></li>
+				<li><a class="" href="/user/history/<?=$userData['id']?>">Заказы</a></li>
 				<li class="hidden-xxs"><a class="" href="/user/logout">Выйти</a></li>
 			</ul>
 		</div>

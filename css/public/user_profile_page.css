@@ -172,7 +172,7 @@ span.addr>.addr-count {
 	line-height: 20px;
 }
 
-.cart-item {
+.orders-item, .cart-item {
 	padding: 10px;
 	background: #fff;
 	/* will-change: background; */
@@ -182,6 +182,10 @@ span.addr>.addr-count {
 
 .cart-item:hover {
 	/* background: #fafafa; */
+}
+
+.orders-item-prod:hover {
+	background: #eee;
 }
 
 .product-poster {
@@ -269,12 +273,165 @@ span.addr>.addr-count {
 	height: 30px;
 	font-size: 13px;
 	font-weight: 900;
-  width: auto;
-  display: block;
+	width: auto;
+	display: block;
 }
 
 #address-form-edit table.table td {
 	vertical-align: middle;
+}
+
+.user-orders-box span.order-status {
+	font-size: 13px;
+	font-weight: 900;
+	white-space: nowrap;
+}
+
+span.order-status.status-new {
+	color: #fff;
+	background: #EF5350;
+	padding: 0 10px 2px;
+	border-radius: 2px;
+	vertical-align: text-bottom;
+}
+
+span.order-status.status-progress {
+	color: #fff;
+	background: #FFA726;
+	padding: 0 10px 2px;
+	border-radius: 2px;
+}
+
+span.order-status.status-done {
+	color: #fff;
+	background: #0dc95c;
+	padding: 0 10px 2px;
+	border-radius: 2px;
+}
+
+span.order-status.status-fail {
+	color: #fff;
+	background: #333;
+	padding: 0 10px 2px;
+	border-radius: 2px;
+}
+
+.user-orders-box span.timestamp {
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+	font-size: 11px;
+	color: #aaa;
+}
+
+.user-orders-box span.small-gray {
+	font-size: 13px;
+	color: #aaa;
+}
+
+.user-orders-box .prodline:hover {
+	background:#eee;
+}
+.user-orders-box .prodname {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: 900;
+}
+.user-orders-box .prodcount {
+	text-align: right;
+}
+.user-orders-box .prodprice {
+	text-align: right;
+}
+
+.user-orders-box .sum-price-line {
+	text-align: right;
+	font-weight: 900;
+}
+
+.user-orders-box .addr-note, .user-orders-box .addr-data {
+	display: inline-block;
+	width: 100%;
+	color: #bbb;
+	font-size: 13px;
+}
+
+.user-orders-box .addr-data {
+	color: inherit;
+}
+
+.user-orders-box .order-num-link {
+	font-size: 13px;
+}
+
+.user-orders-box .order-look-link {
+	text-decoration: underline;
+	display: inline-block;
+	padding: 10px;
+}
+
+.order-details {
+	font-size: 13px;
+}
+
+.order-details table {
+	position: relative;
+	width: 100%;
+}
+
+.order-details table tr {
+	position: relative;
+	width: 100%;
+	line-height: 24px;
+	border-radius: 2px;
+	display: inline-block;
+}
+
+.order-details table tr:hover {
+	background: #eee;
+}
+
+.order-details table tr.br {
+	height: 24px;
+}
+
+.order-details table tr.br:hover{
+	background: transparent;
+}
+
+.order-details table tr th {
+	display: inline-block;
+	padding: 0 10px;
+	position: relative;
+	width: 20%;
+	vertical-align: top;
+}
+
+.order-details table tr td {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.order-details table tr td.comm {
+	padding: 0 10px;
+}
+
+.orders-item .counts-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.orders-item .sum-price-line {
+	padding: 0 10px;
+}
+
+.orders-item .one-item-price .prod-price {
+	visibility: visible;
+	font-weight: normal;
+	font-size: 12px;
+	opacity: .5;
+	text-transform: none;
 }
 
 @media (min-width: 960px) {
