@@ -2130,6 +2130,20 @@ a.global-reviews-link:hover {
 	line-height: 15px;
 }
 
+span.search-query {
+	position: relative;
+	color: #fff;
+	display: inline-block;
+	background: #c63838;
+	font-size: 90%;
+	padding: 0 5px 2px;
+	border-radius: 2px;
+}
+
+.user-orders-box h3{
+	text-align: center;
+	margin-bottom: 10px;
+}
 
 /* MEDIA QUERIES */
 

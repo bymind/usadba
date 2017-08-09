@@ -338,11 +338,11 @@ class Model_Catalog extends Model
 		$prodName = substr($artName, strpos($artName, "_")+1);
 		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName' AND archived = 0 ");
 		$product = mysql_fetch_assoc($q);
-
 		if (!$product) {
 			return false;
 			// Route::Catch_Error('404');
-		} else
+		} else {
+		$product['description'] = nl2br($product['description']);
 		switch ($product['in_stock']) {
 			case '0':
 				$product['in_stock_val'] = "ожидается";
@@ -359,7 +359,7 @@ class Model_Catalog extends Model
 			default:
 				$product['in_stock_val'] = 'ожидается';
 				break;
-
+		}
 		}
 		return $product;
 	}

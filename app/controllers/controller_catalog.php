@@ -225,7 +225,6 @@ class Controller_Catalog extends Controller
 		}
 
 		$currentProduct = $this->model->getProduct($curProd);
-		// var_dump($curProd);
 		if (!$currentProduct) {
 			Self::action_subCatPage($param);
 			exit();

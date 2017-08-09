@@ -111,29 +111,29 @@ class Route
 		}
 
 		$controller_name = $routes[1];
-		$controller_name = Self::PrepareUrl($controller_name);
+		// $controller_name = Self::PrepareUrl($controller_name);
 
 		// второй кусок - это экшен
 		if ( !empty($routes[2]) && !($routes[2]==NULL))
 		{
 			$action_name = $routes[2];
-			$action_name = Self::PrepareUrl($action_name);
+			// $action_name = Self::PrepareUrl($action_name);
 		}
 
 		// третий кусок - это параметр
 		if ( !empty($routes[3]) && !($routes[3]==NULL))
 		{
 			$param= $routes[3];
-			$param = Self::PrepareUrl($param);
+			// $param = Self::PrepareUrl($param);
 		}
 
 		// четвертый кусок - это значение параметра
 		if ( !empty($routes[4]) && !($routes[4]==NULL))
 		{
 			$params['name'] = $routes[3];
-			$params['name'] = Self::PrepareUrl($params['name']);
+			// $params['name'] = Self::PrepareUrl($params['name']);
 			$params['value'] = $routes[4];
-			$params['value'] = Self::PrepareUrl($params['value']);
+			// $params['value'] = Self::PrepareUrl($params['value']);
 		}
 
 		// префиксы для имен
@@ -237,6 +237,7 @@ class Route
 		}
 		else {
 			$param = Self::PrepareUrl($routes[1]);
+			$param = $routes[1];
 			$controller_name= "Controller_Pages";
 			$controller_path = self::CONTROLLERS_PATH.strtolower($controller_name).'.php';
 			// var_dump($controller_path);
@@ -280,7 +281,7 @@ class Route
 	*/
 	function PrepareUrl($u)
 	{
-		$u = addslashes(urlencode($u));
+		$u = urlencode($u);
 		return $u;
 	}
 

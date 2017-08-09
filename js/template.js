@@ -35,7 +35,52 @@ $(function()
 		InitCommTextarea($('.comm-form'));
 	}
 
+	InitSearch();
+
 });
+
+function InitSearch()
+{
+	var btn = $('button.btn-search');
+	var inp = $('input.search-text');
+	$(document).on('keypress', 'input.search-text', function(event) {
+		// event.preventDefault();
+		event.stopPropagation();
+		var chr = event.which;
+		if (chr == 13) {
+			var val = inp.val();
+			tryToSearch(val);
+		}
+		return true;
+	});
+	$(document).on('click', 'button.btn-search', function(event) {
+		event.preventDefault();
+		var val = inp.val();
+		if (val == "") {
+			return false;
+		}
+		tryToSearch(val);
+		return true;
+	});
+}
+
+function tryToSearch(val)
+{
+	$.ajax({
+		url: '/search',
+		type: 'POST',
+		data: {search: val},
+	})
+	.done(function(res) {
+		console.log("success");
+		location.href = '/search/'+val;
+	})
+	.fail(function(err) {
+		console.log("error");
+		console.log(err);
+	});
+
+}
 
 function InitToggle(selector_switcher, selector_to_switch, class_to_switch)
 {

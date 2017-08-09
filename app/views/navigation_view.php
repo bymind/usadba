@@ -69,7 +69,7 @@
 				</div>
 				<div class="col-xxs-12 col-xs-5 col-sm-4 p-0"><!--
 					 --><ul class="menu_text_units" style="display: block;"><!--
-						 --><li class="search-item"><input class="search-text" type="text" placeholder="Поиск по товарам"><button class="btn-search hidden-xxs"></button><button class="btn-search mini-search visible-xxs"></button></li><!--
+						 --><li class="search-item item-li"><input class="search-text" type="text" placeholder="Поиск по товарам"><button class="btn-search hidden-xxs"></button><button class="btn-search mini-search visible-xxs"></button></li><!--
 											 --></ul><!--
 											 				 --></div>
 			</nav>
