@@ -1112,3 +1112,10 @@ select#sales-cat option, select#sales-prod option {
 	text-align: center;
 	margin-top: 3px;
 }
+
+input#red_per_page {
+	position: relative;
+	width: 50px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}

@@ -4,7 +4,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:none;"><span aria-hidden="true"></span></button>
 				<h4 class="modal-title left-part col-xs-6" data-target="login">Вход<span class="hidden-xs"> в личный кабинет</span></h4>
-				<h4 class="modal-title disabled right-part col-xs-6" data-target="reg">Регистрация</h4>
+				<h4 class="modal-title disable right-part col-xs-6" data-target="reg">Регистрация</h4>
 			</div>
 
 			<div class="modal-body login-body">

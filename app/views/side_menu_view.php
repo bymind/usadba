@@ -29,7 +29,7 @@
 		<?php
 	}
 ?>
-	><?= $cat['name']?></a>
+	><span class="just-this-cat"><?= $cat['name']?></span></a>
 
 <?php
 	if ( isset($cat['child']) ) {

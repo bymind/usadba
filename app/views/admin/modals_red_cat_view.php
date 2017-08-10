@@ -115,6 +115,13 @@
 														</label>
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="">
+														<label>
+															Товаров на странице <input type="text" name="sec_params" id='red_per_page' checked value="">
+														</label>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

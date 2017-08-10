@@ -168,6 +168,25 @@ class Model_Catalog extends Model
 		return $pageDataModel;
 	}
 
+	function setPaginationLimit($table,$key_column,$key_value, $per_page)
+	{
+		$limit = "";
+		if (isset($_GET['page'])) {
+			$page = preg_replace("/[^0-9]/", '', $_GET['page']);
+		}
+		if (($page)&&($page>1)) {
+			$q = mysql_query("SELECT id FROM $table WHERE $key_column='$key_value' AND archived = 0 ") or die(mysql_error());
+			$countItems = mysql_num_rows($q);
+			if (($page-1)*$per_page >= $countItems) {
+				Route::Catch_Error('404');
+			} else {
+				$startId = ($page-1)*$per_page;
+				$limit = " LIMIT ".$startId.", ".$per_page;
+			}
+		}
+		return $limit;
+	}
+
 	/**
 	* getCategoryData($catName)
 	* Инфа про категорию
@@ -176,7 +195,6 @@ class Model_Catalog extends Model
 	*/
 	function getCategoryData($catName, $sect = NULL)
 	{
-
 		$has_new = false;
 		$has_sales = false;
 		$category = $catName;
@@ -190,10 +208,10 @@ class Model_Catalog extends Model
 		$products['cat'] = $categoryData;
 		$pos = $products['cat']['position'];
 
+
 		$allCatsTree = Self::getData('prods');
 		$curCatsTree = $allCatsTree['prodCats']['tree'];
 		$curCatInfo = $curCatsTree[$category];
-		// Controller::jsonConsole($curCatInfo);
 
 		if ($products['cat']['parent'] != 0) {
 			$q = mysql_query("SELECT * FROM prod_cat WHERE id='".$products['cat']['parent']."'");
@@ -232,12 +250,12 @@ class Model_Catalog extends Model
 			if ($pos-1 == $products['parents_cats'][$i]['position']) {
 				$products['cat']['prev'] = $products['parents_cats'][$i];
 			}
-
-
 		}
 
 		$categoryId = $categoryData['id'];
 		if (($sect)&&(( $sect=='new' )||( $sect=='sales' ))) {
+			// $limit_pagination = Self::setPaginationLimit('prod_items','cat',$categoryId, $categoryData['per_page']);
+
 			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND labels like '%".$sect."%' AND archived = 0 ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
 				$products['items'][$buf['id']] = $buf;
@@ -248,11 +266,10 @@ class Model_Catalog extends Model
 					$has_sales = true;
 				}
 			}
-			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0  ORDER BY added_time DESC");
+
+			$q = mysql_query("SELECT * FROM prod_items WHERE cat='$categoryId' AND archived = 0 AND labels LIKE '%popular%' ORDER BY added_time DESC");
 			while ( $buf = mysql_fetch_assoc($q)) {
-				if (strstr($buf['labels'], 'popular') ) {
 					$products['populars'][$buf['id']] = $buf;
-				}
 			}
 		} else if ($sect) {
 			Route::Catch_Error('404');
@@ -310,6 +327,55 @@ class Model_Catalog extends Model
 			}
 		}
 
+		$per_page = $categoryData['per_page'];
+		$countItems = count($products['items']);
+		$countPages = ceil($countItems/$per_page);
+		if (isset($_GET['page'])) {
+			if ($countItems > $per_page) {
+				$page = preg_replace("/[^0-9]/", '', $_GET['page']);
+				if ($page!=$_GET['page']) {
+					Route::Catch_301_Redirect($_SERVER["REDIRECT_URL"]."?page=".$page);
+				}
+				if ($page < 1) {
+					Route::Catch_301_Redirect($_SERVER["REDIRECT_URL"]);
+				}
+			} else {
+				Route::Catch_301_Redirect($_SERVER["REDIRECT_URL"]);
+			}
+		} else {
+			$page = 1;
+		}
+		if (($page)&&($countItems > $per_page)) {
+			if (($page-1)*$per_page >= $countItems) {
+				Route::Catch_301_Redirect($_SERVER["REDIRECT_URL"]."?page=".$countPages);
+			} else {
+				$startId = ($page-1)*$per_page;
+				// var_dump($startId);
+				$endId = $startId + $per_page;
+				$pagProd = array();
+				// var_dump($products['items']);
+				$i = 0;
+				foreach ($products['items'] as $key => $prod) {
+					$pagProd[$i] = $prod;
+					$i++;
+				}
+				$pagProdTrue = array();
+				for ($i=0; $i < $per_page; $i++) {
+					if ($pagProd[$startId+$i]) {
+						$pagProdTrue[] = $pagProd[$startId+$i];
+					}
+				}
+				$products['items'] = array();
+				foreach ($pagProdTrue as $key => $paginationProd) {
+					$products['items'][$paginationProd['id']] = $paginationProd;
+				}
+				$products['pagination'] = array('cur_page' => $page,
+				                                'count_pages' => $countPages);
+			}
+		} else {
+
+		}
+
 		$products['items'] = Model::createProdUrl($products['items']);
 		$products['items'] = Model::createInStock($products['items']);
 		$products['populars'] = Model::createProdUrl($products['populars']);
@@ -319,10 +385,9 @@ class Model_Catalog extends Model
 
 		if ($products['parent']) {
 				$parent = Self::getCategoryData($products['parent']['tech_name']);
-				// Controller::jsonConsole($parent);
+
 				$products['parent_populars'] = Model::createProdUrl($parent['populars']);
 				$products['parent_populars'] = Model::createInStock($parent['populars']);
-				// Controller::jsonConsole($products);
 		}
 
 

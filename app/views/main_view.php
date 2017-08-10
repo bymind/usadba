@@ -16,13 +16,14 @@
 			?>
 
 		</div>
-
+		<div class="col-xs-12 col-sm-9">
+			<div class="row">
 <?php
 	foreach ($prodCats as $prodCat) {
 		if ( ($prodCat['show_big']==1) && ($prodCat['parent'] == '0')) {
 ?>
 
-			<div class="col-xs-6 col-sm-3 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
+			<div class="col-xs-6 col-sm-4 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
 				<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
 					<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
 					<div class="title-cat">
@@ -38,7 +39,7 @@
 				if (($prodCat['show_big']==1) && ($prodCat['parent'] != '0') ) {
 		?>
 
-					<div class="col-xs-6 col-sm-3 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
+					<div class="col-xs-6 col-sm-4 mb-20 mb-xs-10 <?php echo "parent-".$prodCat['parent'] ?>">
 						<div class="main-cat shadow" data-catid="cat<?= $prodCat['id']; ?>" style='background-image: url("<?= $prodCat['poster']?>");'>
 							<a href="<?= $prodCat['url']; ?>" class="cat-link"></a>
 							<div class="title-cat">
@@ -52,12 +53,12 @@
 	}
 ?>
 
-			<div class="col-xxs-12 col-xs-12 col-sm-9">
+			<div class="col-xxs-12 col-xs-12">
 				<div class="title-wide mb-10">
 					Новинки
 				</div>
 			</div>
-			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 mb-20">
 				<div class="prod-line-outer prod-new prod-theme">
 
 				<?php
@@ -104,12 +105,12 @@
 				</div>
 			</div>
 
-			<div class=" col-xxs-12 col-xs-12 col-sm-9">
+			<div class=" col-xxs-12 col-xs-12">
 				<div class="title-wide mb-10">
 					Самые популярные
 				</div>
 			</div>
-			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
 
 				<?php
@@ -155,6 +156,9 @@
 
 				</div>
 			</div>
+
+		</div>
+	</div>
 
 			<div class="col-xs-12 visible-xs">
 

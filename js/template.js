@@ -39,6 +39,14 @@ $(function()
 
 });
 
+function scrollAfterPagination()
+{
+	$(function()
+	{
+		$(document).scrollTop($('.title-wide').offset().top - 10);
+	});
+}
+
 function InitSearch()
 {
 	var btn = $('button.btn-search');
@@ -460,6 +468,12 @@ function MenuClickInit()
 		$(this).parent('li').toggleClass('active');
 		$(this).children('ul.else-ul').toggleClass('hide-else-ul');
 		$(this).parent('li').children('ul.side-sub-menu').toggleClass('opened');
+	});
+
+	$(document).on('click', '.arrow span.just-this-cat', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		location.href = $(this).parent('a').attr('href');
 	});
 
 	$(document).click(function(event) {
@@ -1609,12 +1623,12 @@ function ModalTabs()
 	var modalHeader = $('.modal .modal-header');
 	var modalTabs = $('.modal .modal-header h4');
 	var modalTabsCount = modalTabs.length;
-	modalHeader.on('click', 'h4.disabled', function(event) {
+	modalHeader.on('click', 'h4.disable', function(event) {
 		event.preventDefault();
 		for (var i = 0; i < modalTabsCount; i++) {
 			curTab = modalTabs.eq(i);
 			curData = curTab.data('target');
-			curTab.toggleClass('disabled');
+			curTab.toggleClass('disable');
 			$('.modal-body.'+curData+'-body').toggleClass('inactive');
 			$('.modal-footer.'+curData+'-footer').toggleClass('inactive');
 		}

@@ -757,7 +757,7 @@ class Model_Admin extends Model
 		if (mysql_num_rows(mysql_query($checkName)) > 0) {
 			echo "Категория с таким именем уже существует!";
 		} else {
-				$sql = "UPDATE prod_cat SET name='$name', tech_name='$tech_name', parent='$parent', poster='$poster', show_big='$show_big', position='$position', show_popular='$show_popular' WHERE id='$id' ";
+				$sql = "UPDATE prod_cat SET name='$name', tech_name='$tech_name', parent='$parent', poster='$poster', show_big='$show_big', position='$position', show_popular='$show_popular', per_page='$per_page' WHERE id='$id' ";
 			mysql_query($sql) or die(mysql_error());
 			echo "Категория сохранена";
 		}
@@ -788,7 +788,7 @@ class Model_Admin extends Model
 					}
 				}
 				$lastPosition++;
-				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition')";
+				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position, per_page) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition', '$per_page')";
 			/*} else {
 				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular')";
 			}*/

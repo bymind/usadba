@@ -409,6 +409,7 @@ function lookRedCatSelectCat(modal, redBox)
 			redBox.find('input#red_positionInput').val(catData.cat.position);
 			redBox.find('select#red_parentInput').html(inputParents);
 			redBox.find('input#red_cat_posterInput').val($poster);
+			redBox.find('input#red_per_page').val(catData.cat.per_page);
 			redBox.find('img#img-red_cat_posterInput').attr('src',$poster);
 			redBox.find('.red_cat_body').addClass('active');
 			if (catData.cat.show_big == '1') {
@@ -595,6 +596,7 @@ function lookRedCatSend(modal, page)
 			newCat.poster = form.find('input[name=poster]').val();
 			newCat.show_big = form.find('input#red_show_big').prop('checked') + 0;
 			newCat.show_popular = form.find('input#red_show_popular').prop('checked') + 0;
+			newCat.per_page = form.find('input#red_per_page').val();
 			console.log(newCat);
 			btnSubmit.attr('disabled', 'disabled');
 			$.when(sendRedCat(newCat)).done(function(res){

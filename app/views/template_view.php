@@ -13,6 +13,8 @@
 	<title><?php echo $Title; ?> - Кулинария Усадьба-Центр</title>
 	<?php include $Favicon; ?>
 
+	<?php if (isset($link_canonical)) { ?><link rel="canonical" href="<?=$link_canonical;?>"><?php } ?>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $Description; ?>">
 	<?php
@@ -89,6 +91,13 @@ include $Modals;
 		}
 	} else {
 		?><script src="<?php echo $scripts_content; ?>"></script><?php
+	}
+	if (is_array($jscallback)) {
+		foreach ($jscallback as $jscall) {
+			?><script><?=$jscall;?></script><?php
+		}
+	} else {
+		?><script><?=$jscallback;?></script><?php
 	}
 ?>
 

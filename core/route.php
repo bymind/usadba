@@ -81,8 +81,10 @@ class Route
 		/**
 		*	дербаним url на куски
 		*/
-		$routes = explode('/', $_SERVER['REQUEST_URI']);
-
+		// var_dump($_GET);
+		// $_SERVER["QUERY_STRING"];
+		$routes = explode('/', $_SERVER["REDIRECT_URL"]);
+		// $gets = ex
 		// if first part empty - go main page
 		if ($routes[1]==null)
 		{

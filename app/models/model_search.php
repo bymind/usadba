@@ -7,11 +7,14 @@ class Model_Search extends Model
 	function searchType($search, $col)
 	{
 		$result = array();
+		if (is_array($search)) {
+			Route::Catch_301_Redirect("/search/".$search['name']);
+		}
 		$search = urldecode(urldecode($search));
 		$search = explode(' ', $search);
 		$temp_by_name = array();
 		if ($col=="description") {
-			$q = mysql_query("SELECT * FROM prod_items WHERE $col LIKE '%".$search[0]."%' OR mini_desc LIKE '%".$search[0]."%' AND archived = 0") or die(mysql_query());
+			$q = mysql_query("SELECT * FROM prod_items WHERE ($col LIKE '%".$search[0]."%' OR mini_desc LIKE '%".$search[0]."%' ) AND archived = 0") or die(mysql_query());
 		} else
 		$q = mysql_query("SELECT * FROM prod_items WHERE $col LIKE '%".$search[0]."%' AND archived = 0") or die(mysql_query());
 		$i = 1;
@@ -19,11 +22,11 @@ class Model_Search extends Model
 			$temp_by_name[$i] = $buf['id'];
 			$i++;
 		}
-		for ($i=1; $i <= count($search)-1 ; $i++) {
+		for ($i=1; $i <= count($search); $i++) {
 			for ($j=1; $j <= count($temp_by_name) ; $j++) {
 				if ($col=="description") {
-					$q = mysql_query("SELECT * FROM prod_items WHERE id = ".$temp_by_name[$j]." AND $col LIKE '%".$search[$i]."%' OR mini_desc LIKE '%".$search[$i]."%' AND archived = 0") or die(mysql_query());
-				}
+					$q = mysql_query("SELECT * FROM prod_items WHERE id = ".$temp_by_name[$j]." AND ( $col LIKE '%".$search[$i]."%' OR mini_desc LIKE '%".$search[$i]."%' ) AND archived = 0") or die(mysql_query());
+				} else
 				$q = mysql_query("SELECT * FROM prod_items WHERE id = ".$temp_by_name[$j]." AND $col LIKE '%".$search[$i]."%' AND archived = 0") or die(mysql_query());
 				$row = mysql_fetch_assoc($q);
 				if ($row['id']!=$temp_by_name[$j]) {

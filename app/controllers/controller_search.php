@@ -47,6 +47,7 @@ class Controller_Search extends Controller
 																			'/js/main_page.js',
 																			'/js/owl-carousel/owl.carousel.min.js',
 																			'/js/template.js',
+																			'/js/search.js',
 																			'/js/sales_page.js'
 																			),
 						'pageId' => 'search', // активный пункт меню

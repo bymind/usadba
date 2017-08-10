@@ -346,7 +346,15 @@ class Controller_Catalog extends Controller
 		$breadCrumbs = $this->model->getCrumbs($pageDataProd['prodCats']['tree'],$pageDataCat['cat']);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
-
+		if (isset($_GET['page'])) {
+			$jscallback = "scrollAfterPagination();";
+			$httpsOrly = $_SERVER["HTTPS"]=='on' ? "https://" : "http://";
+			$link_canonical = $httpsOrly.$_SERVER["HTTP_HOST"].$_SERVER["REDIRECT_URL"];
+		} else {
+			$jscallback = null;
+			$jscallback = null;
+		}
+		// var_dump($_SERVER);
 		$this->view->generate(
 			'catalog_cat_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -376,6 +384,7 @@ class Controller_Catalog extends Controller
 														),
 					'prodItems' => $pageDataProd['prodItems'], //
 					'prodCatItems' => $pageDataCat['items'], //
+					'pagination' => $pageDataCat['pagination'], //
 					'prodCatItemsHasNew' => $pageDataCat['has_new'], //
 					'prodCatItemsHasSales' => $pageDataCat['has_sales'], //
 					'prodCatPopulars' => $pageDataCat['populars'], //
@@ -388,6 +397,8 @@ class Controller_Catalog extends Controller
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
 					'section' => $sect,
+					'link_canonical' => $link_canonical,
+					'jscallback' => $jscallback
 				),
 			'navigation_view.php', // навигация
 			'footer_view.php', // футер
@@ -433,7 +444,14 @@ class Controller_Catalog extends Controller
 			} else {
 				$popularCat = $pageDataCat['cat'];
 			}
-
+			if (isset($_GET['page'])) {
+				$jscallback = "scrollAfterPagination();";
+				$httpsOrly = $_SERVER["HTTPS"]=='on' ? "https://" : "http://";
+				$link_canonical = $httpsOrly.$_SERVER["HTTP_HOST"].$_SERVER["REDIRECT_URL"];
+			} else {
+				$jscallback = null;
+				$jscallback = null;
+			}
 			$this->view->generate(
 				'catalog_cat_view.php', // вид контента
 				'template_view.php', // вид шаблона
@@ -464,6 +482,7 @@ class Controller_Catalog extends Controller
 															),
 						'prodItems' => $pageDataProd['prodItems'], //
 						'prodCatItems' => $pageDataCat['items'], //
+						'pagination' => $pageDataCat['pagination'],
 						'prodCatItemsHasNew' => $pageDataCat['has_new'], //
 						'prodCatItemsHasSales' => $pageDataCat['has_sales'], //
 						// 'prodCatPopulars' => $pageDataCat['populars'], //
@@ -477,6 +496,8 @@ class Controller_Catalog extends Controller
 						'menuItems' => $menuItems,
 						'breads' => true,
 						'breadsData' => $breadCrumbs,
+						'link_canonical' => $link_canonical,
+						'jscallback' => $jscallback,
 					),
 				'navigation_view.php', // навигация
 				'footer_view.php', // футер

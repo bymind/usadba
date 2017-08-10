@@ -62,7 +62,7 @@
 						}
 						if ($prodCatItemsHasSales) {
 						?>
-						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat <?php if ($section=='sales') echo 'active'; ?> ?> sales">Акции</a>
+						<a href="/catalog/<?php if (!$curCatId) { echo $prodCat['tech_name']; } else {echo $catId; }?>/sales" class="subcat <?php if ($section=='sales') echo 'active'; ?> sales">Акции</a>
 						<?php
 						}
 					?>
@@ -73,9 +73,8 @@
 
 <?php
 	if (!$prodCatItems){
-		echo "<div><h3>Категория пуста</h3></div>";
+		echo "<div><h3 class='ta-c'>Категория пуста</h3></div>";
 	} else {
-
 		foreach ($prodCatItems as $prod) {
 ?>
 
@@ -115,20 +114,55 @@
 					</div>
 					</div>
 
+
 <?php
+			}
+
+			if ($pagination) {
+				?>
+				<div class="row">
+				<div class="col-xs-12 ta-c">
+					<ul class="pagination catalog-pages mt-10 mb-10" data-curpage="<?=$curPage;?>">
+					<?php if ($pagination['cur_page']==1) {} else { ?>
+						<li <?php if ($pagination['cur_page']==1) {echo "class='disabled'";} ?> >
+							<a rel="nofollow" href="<?=$_SERVER['REDIRECT_URL']."?page=".($pagination['cur_page']-1)?>" aria-label="previous" title="предыдущая">
+								<span aria-hidden="true">&lsaquo;</span>
+							</a>
+						</li>
+						<?php }
+						for ($i=1; $i <= $pagination['count_pages']; $i++) {
+							if ($pagination['cur_page']==$i) $addClass = "class='active'";
+							?>
+							<li <?=$addClass;?> ><a rel="nofollow" href="<?=$_SERVER['REDIRECT_URL']."?page=".$i?>"><?=$i;?></a></li>
+							<?php
+							$addClass = "";
+						}
+						if ($pagination['cur_page']==$pagination['count_pages']) {} else { ?>
+						<li <?php if ($pagination['cur_page']==$pagination['count_pages']) {echo "class='disabled'";} ?> >
+							<a rel="nofollow" href="<?=$_SERVER['REDIRECT_URL']."?page=".($pagination['cur_page']+1)?>" aria-label="next" title="следующая">
+								<span aria-hidden="true">&rsaquo;</span>
+							</a>
+						</li>
+						<?php
+						}
+						?>
+					</ul>
+				</div>
+				</div>
+				<?php
+			}
 		}
-	}
 ?>
 				</div>
-			</div>
 
 <?php
 	if ($popularCat['show_popular']==1) {
 			if (!$prodCatPopulars){
-				echo "<div class='col-xxs-12 col-xs-12 col-sm-9'><h3>Нет популярных товаров в этой категории</h3></div>";
+				echo "<div class='col-xxs-12 col-xs-12 col-sm-9'><h3 class='ta-c'>Нет популярных товаров в этой категории</h3></div>";
 			} else {
 	?>
-			<div class=" col-xxs-12 col-xs-12 col-sm-9">
+	<div class="row">
+			<div class=" col-xxs-12 col-xs-12">
 				<div class="title-wide mb-10">
 					<?php
 						// echo $popularCat['popular_name'];
@@ -137,7 +171,7 @@
 				</div>
 			</div>
 
-			<div class="col-xxs-12 col-xs-12 col-sm-9 mb-20">
+			<div class="col-xxs-12 col-xs-12 mb-20">
 				<div class="prod-line-outer prod-popular prod-theme">
 
 				<?php
@@ -181,7 +215,7 @@
 
 				</div>
 			</div>
-
+	</div>
 
 
 	<?php
@@ -189,6 +223,7 @@
 }
 
 ?>
+</div>
 
 <div class="col-xs-12 visible-xs">
 
