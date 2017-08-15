@@ -96,6 +96,7 @@ class Model_User extends Model
 	{
 		$uid = $_SESSION['user']['id'];
 		extract($comment);
+		$text = strip_tags($text);
 		$q = mysql_query("INSERT INTO comments (uid, target_type, target_id, com_text) VALUES ('$uid','$target_type','$target_id','$text')") or die(mysql_error());
 		return $q;
 	}

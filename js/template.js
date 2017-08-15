@@ -2057,6 +2057,7 @@ function InitCommTextarea(wrapper)
 				target_type: $(this).data('type'),
 				target_id: $(this).data('prodid')
 			};
+			console.log(comment);
 			comment = JSON.stringify(comment);
 			$.ajax({
 					url: '/user/addcomment',

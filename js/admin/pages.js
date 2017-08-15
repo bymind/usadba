@@ -443,7 +443,7 @@ function saveBtnClick($attr)
 			if ($attr=="edit") {
 					mainContent.animate({opacity:1}, 200);
 			} else if ($attr="new") {
-				location.href="/admin/articles/edit/"+$url;
+				location.href="/admin/pages/edit/"+$url;
 			};
 		});
 	});
