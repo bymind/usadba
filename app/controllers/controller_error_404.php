@@ -12,7 +12,7 @@ class Controller_Error_404 extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('error_404');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');

@@ -31,8 +31,10 @@
 	if (!$prodTag){
 		echo "<div><h3 style='text-align:center'>К сожалению, здесь ничего нет.</h3></div>";
 	} else {
-
+// var_dump($prodTag);
 		foreach ($prodTag as $prod) {
+			if ($prod['in_stock_val'] != "в наличии") {
+			} else {
 ?>
 
 
@@ -72,6 +74,7 @@
 					</div>
 
 <?php
+		}
 		}
 	}
 ?>

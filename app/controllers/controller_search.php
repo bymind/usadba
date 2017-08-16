@@ -25,7 +25,7 @@ class Controller_Search extends Controller
 			Route::Catch_Error('404');
 		} else {
 			$pageDataController = $this->model->getSearchData($param);
-			$pageDataProd = $this->model->getData('prods');
+			$pageDataProd = Model::getData('prods');
 			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 			$menuItems = $this->model->get_MainMenu('search');
 			$breadCrumbs = array('Результаты поиска' => $_SERVER['REQUEST_URI']);

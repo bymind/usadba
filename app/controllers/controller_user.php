@@ -58,7 +58,7 @@ class Controller_User extends Controller
 			$pageDataController['order']['order']['prod_list']['items'] = $this->model->createProdPict($pageDataController['order']['order']['prod_list']['items']);
 			$menuItems = $this->model->get_MainMenu('catalog');
 			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-			$pageDataProd = $this->model->getData('prods');
+			$pageDataProd = Model::getData('prods');
 			$accName = 'Личный кабинет, '.$_SESSION['user']['name'];
 			$accUrl = "/user/profile/".$uid;
 			$ordersName = 'Заказы';
@@ -147,7 +147,7 @@ class Controller_User extends Controller
 			$pageDataController['orders'] = $this->model->getUserOrders($uid);
 			$menuItems = $this->model->get_MainMenu('catalog');
 			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-			$pageDataProd = $this->model->getData('prods');
+			$pageDataProd = Model::getData('prods');
 			$accName = 'Личный кабинет, '.$_SESSION['user']['name'];
 			$accUrl = "/user/profile/".$uid;
 			$breadCrumbs = array($accName => $accUrl,
@@ -419,7 +419,7 @@ try less size file');
 		$pageDataController = $this->model->getUserData('profile', $userData);
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$crumbCurEl = array('name' => $pageDataController['title'],
 												'value' => $_SERVER['REQUEST_URI'] );
 		$breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);
@@ -541,7 +541,7 @@ try less size file');
 			$breadCrumbs = array('Корзина' => '/user/cart', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 
 		$this->view->generate(
@@ -615,9 +615,8 @@ try less size file');
 		}
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 
-		// $breadCrumbs = $this->model->getSimpleCrumbs($crumbCurEl);
 		$this->view->generate(
 			'user_cart_view.php', // вид контента
 			'template_view.php', // вид шаблона
@@ -651,6 +650,7 @@ try less size file');
 					'prodCats' => $pageDataProd['prodCats'],
 					'pageSales' => $pageSales['sales'],
 					'menuItems' => $menuItems,
+					'sideNews' => $sideNews,
 					'breads' => true,
 					'breadsData' => $breadCrumbs,
 				),

@@ -1623,6 +1623,16 @@ function adminDeleteProdsFromCat()
 
 
 
+/*	 PAGES DELETE
+**********************************/
+	function adminPagesDelete($value)
+	{
+		$postArrive = json_decode($_POST['jsonPost'], true);
+		return $this->model->deletePage($postArrive);
+	}
+
+
+
 /*																		 PAGES
 *************************************************************************************/
 

@@ -12,7 +12,8 @@ class Controller_Main extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('main_page');
-		$pageDataProd = $this->model->getData('prods');
+		// $pageDataProd = Model::getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');

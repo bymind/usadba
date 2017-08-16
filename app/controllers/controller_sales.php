@@ -14,7 +14,7 @@ class Controller_Sales extends Controller
 	{
 		$pageDataController = $this->model->getSalesPost($url);
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Акции' => '/sales', $pageDataController['title'] => $_SERVER['REQUEST_URI']);
 		$this->view->generate(
@@ -70,7 +70,7 @@ class Controller_Sales extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('salesPage');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');

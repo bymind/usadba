@@ -19,7 +19,7 @@ class Controller_News extends Controller
 	{
 		$pageDataController = $this->model->getNewsPost($url);
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Новости' => '/news', $pageDataController['title'] => $_SERVER['REQUEST_URI'],);
 		$this->view->generate(
@@ -72,7 +72,7 @@ class Controller_News extends Controller
 	public function action_index($param=NULL)
 	{
 		$pageDataController = $this->model->getData('newsPage');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array('Новости' => $_SERVER['REQUEST_URI']);

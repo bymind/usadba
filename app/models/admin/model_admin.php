@@ -635,6 +635,21 @@ class Model_Admin extends Model
 	Удалить статью
 	$post [assoc array] - массив с информацией о статье
 	*/
+	public function deletePage($post)
+	{
+		extract($post);
+		$author = $_SESSION['user']['name'];
+		$sql = "DELETE FROM pages WHERE id='$id'";
+		mysql_query($sql) or die(mysql_error());
+		echo "Страница полностью удалена!";
+	}
+
+
+	/*
+	deletePost($post)
+	Удалить статью
+	$post [assoc array] - массив с информацией о статье
+	*/
 	public function deletePost($post)
 	{
 		extract($post);
@@ -647,8 +662,8 @@ class Model_Admin extends Model
 
 	/*
 	deleteProd($prod)
-	Удалить статью
-	$post [assoc array] - массив с информацией о статье
+	Удалить позицию
+	$prod [assoc array] - массив с информацией о товаре
 	*/
 	public function deleteProd($prod)
 	{

@@ -1667,8 +1667,8 @@ function SetActiveToCart($btn, $issession)
 			if (!$issession) SendCountItem(inpt);
 
 			var card = (inpt.parents('.prod-card').length > 0) ? inpt.parents('.prod-card') : inpt.parents('.prod-day');
-			card.find('.prod-avail').addClass('disabled');
-			card.find('.prod-rev').addClass('disabled');
+			card.find('.prod-avail').addClass('disable');
+			card.find('.prod-rev').addClass('disable');
 
 			InitTooltips();
 		}
@@ -1794,8 +1794,8 @@ function ResetToCart(inpt)
 		toCart = card.find('.to-cart');
 		toCart.tooltip('destroy');
 		toCart.removeClass('active').html('Купить');
-		card.find('.prod-avail').removeClass('disabled');
-		card.find('.prod-rev').removeClass('disabled');
+		card.find('.prod-avail').removeClass('disable');
+		card.find('.prod-rev').removeClass('disable');
 
 		var prodItem = {};
 		prodItem.count = parseInt(inpt.val());

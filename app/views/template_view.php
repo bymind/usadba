@@ -10,7 +10,7 @@
 <html lang="ru">
 <head manifest="default.appcache">
 	<meta charset="UTF-8">
-	<title><?php echo $Title; ?> - Кулинария Усадьба-Центр</title>
+	<title><?php echo $Title; ?> - <?=CONFIG_SITE_NAME?></title>
 	<?php include $Favicon; ?>
 
 	<?php if (isset($link_canonical)) { ?><link rel="canonical" href="<?=$link_canonical;?>"><?php } ?>

@@ -12,7 +12,7 @@ class Controller_Reviews extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('reviews');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 
 		$prodReviews = $this->model->getComments('reviews','');
 		$revUsersIds = [];

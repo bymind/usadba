@@ -12,7 +12,7 @@ class Controller_Catalog extends Controller
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('catalog');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
 		$menuItems = $this->model->get_MainMenu('catalog');
@@ -83,7 +83,7 @@ class Controller_Catalog extends Controller
 	public function action_prodTag($param)
 	{
 		$pageDataController = $this->model->getData('catalog');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageDataProdTag = $this->model->getProdsTag($param['value']);
 		$pageSales = $this->model->getData('sales');
@@ -230,7 +230,7 @@ class Controller_Catalog extends Controller
 			exit();
 		}
 		$pageDataController = $this->model->getData('catalog');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$pageDataCat = $this->model->getCategoryData($curCat);
 		$breadCrumbs = $this->model->getCrumbs($pageDataProd['prodCats']['tree'],$pageDataCat['cat']);
 		$breadCrumbs[$currentProduct['name']] = "";
@@ -334,7 +334,7 @@ class Controller_Catalog extends Controller
 	public function action_catPage($param, $sect = NULL)
 	{
 		$pageDataController = $this->model->getData('catalog');
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		if ($sect) {
 			$pageDataCat = $this->model->getCategoryData($param, $sect);
@@ -428,7 +428,7 @@ class Controller_Catalog extends Controller
 			Self::action_catPage($parentCat, 'sales');
 		} else {
 			$pageDataController = $this->model->getData('catalog');
-			$pageDataProd = $this->model->getData('prods');
+			$pageDataProd = Model::getData('prods');
 			$pageDataCat = $this->model->getCategoryData($curCat);
 			$breadCrumbs = $this->model->getCrumbs($pageDataProd['prodCats']['tree'],$pageDataCat['cat']);
 			$pageSales = $this->model->getData('sales');

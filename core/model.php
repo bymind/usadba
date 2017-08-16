@@ -72,15 +72,15 @@ class Model
 				$prod_new = array();
 				$prod_popular = array();
 				$prod_all = array();
-				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%new%' ORDER BY added_time DESC ") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%new%' AND archived = 0 ORDER BY added_time DESC ") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_new[] = $buf;
 				}
-				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%popular%' ORDER BY added_time DESC") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE labels like '%popular%' AND archived = 0 ORDER BY added_time DESC") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_popular[] = $buf;
 				}
-				$q = mysql_query("SELECT * FROM prod_items ORDER BY added_time DESC ") or die(mysql_error());
+				$q = mysql_query("SELECT * FROM prod_items WHERE archived = 0 ORDER BY added_time DESC ") or die(mysql_error());
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$prod_all[] = $buf;
 				}

@@ -15,7 +15,7 @@ class Controller_Pages extends Controller
 		if ($pageDataController['page']['archived']==1) {
 			Route::Catch_Error('404');
 		}
-		$pageDataProd = $this->model->getData('prods');
+		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$menuItems = $this->model->get_MainMenu('catalog');
 		$breadCrumbs = array($pageDataController['page']['title'] => $_SERVER['REQUEST_URI']);
