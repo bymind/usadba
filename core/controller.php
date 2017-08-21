@@ -42,7 +42,15 @@ class Controller
 	{
 		if (isset($_SESSION['user']))
 		{
-			return $_SESSION['user'];
+			if (isset($_SESSION['user']['id'])) {
+				// var_dump($_SESSION['user']);
+				$is_banned = Model::getUser($_SESSION['user']['id']);
+				if ($is_banned['profile']['banned']=='1') {
+					// echo "Ваш аккаунт забанен!";
+					session_destroy();
+					return false;
+				} else return $_SESSION['user'];
+			}
 		} else
 		{
 			return false;
@@ -222,6 +230,7 @@ class Controller
 	{
 		setcookie("id","");
 		unset($_SESSION['user']['id']);
+		session_destroy();
 		header('Location:/');
 		return 0;
 	}

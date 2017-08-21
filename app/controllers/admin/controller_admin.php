@@ -1755,6 +1755,14 @@ function adminPages($params = '')
 				self::adminUserIssuper();
 				break;
 
+			case 'setBanStatus':
+				self::adminUserSetBanStatus();
+				break;
+
+			case 'editUser':
+				self::adminUserEdit();
+				break;
+
 			case 'all':
 				self::adminShowAll();
 				break;
@@ -1796,7 +1804,7 @@ function adminPages($params = '')
 										'style_content'=>'admin/users.css',
 										'user'=>$user,
 										'active_menu_item' => 'users',
-										'actual_title' => '<a href="/admin/users">Аккаунты</a>',
+										'actual_title' => '<a href="/admin/users/all">Аккаунты</a>',
 										'second_title' => $user['login'],
 								'Favicon' => 'app/views/admin-favicon.php',
 									),
@@ -1808,6 +1816,12 @@ function adminPages($params = '')
 		}
 
 	}
+
+function adminUserEdit()
+{
+	$userdata = json_decode($_POST['userData'], true);
+	$this->model->editUser($userdata);
+}
 
 public function adminShowAll()
 {

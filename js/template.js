@@ -1330,11 +1330,19 @@ function TryLogin(form)
 		})
 		.done(function(res) {
 			if ( res && res!='false') {
-				console.warn("TryLogin() done");
-				console.info(res);
-				$res = JSON.parse(res);
-				$res ? console.info($res) : console.info(res);
-				ShowGood(form.parents('.modal-content').find('button[data-target=login]'),"Входим");
+				if (res == 'banned false') {
+					console.error("TryLogin() response BANNED");
+					console.error("jsonLogin: "+jsonLogin);
+					console.error(res);
+					var err = [{'name':"email", 'msg':"Ваш аккаунт заблокирован!<br>Для разблокировки свяжитесь с администрацией сайта."}];
+					ShowErrors(form,err);
+				} else {
+					console.warn("TryLogin() done");
+					console.info(res);
+					$res = JSON.parse(res);
+					$res ? console.info($res) : console.info(res);
+					ShowGood(form.parents('.modal-content').find('button[data-target=login]'),"Входим");
+				}
 			} else {
 				console.error("TryLogin() response FALSE");
 				console.error("jsonLogin: "+jsonLogin);

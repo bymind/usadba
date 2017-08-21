@@ -10,3 +10,45 @@ table.users-table {
 table.users-table tbody tr {
 	cursor: pointer;
 }
+
+td.banned-col {
+	color: #fff;
+}
+
+td.banned-col span {
+	user-select: none;
+	padding: 3px 5px;
+	color: #2988B9;
+	text-decoration: underline;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	background: #fff;
+	border-radius: 2px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.3);
+	will-change: box-shadow;
+	transition: box-shadow .2s ease-in-out;
+}
+
+td.banned-col span:hover{
+	text-decoration: none;
+	box-shadow: 0 1px 5px rgba(0,0,0,.6);
+}
+
+td.banned-col.is-banned-0{
+	background-color: #81C784;
+}
+
+td.banned-col.is-banned-1{
+	background-color: #EF9A9A;
+}
+
+td.banned-col.is-banned-0 span{
+	background-color: #E57373;
+	color: #fff;
+}
+
+td.banned-col.is-banned-1 span{
+	background-color: #428bca;
+	color: #fff;
+}

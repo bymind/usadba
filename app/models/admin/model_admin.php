@@ -841,6 +841,23 @@ class Model_Admin extends Model
 
 
 /*
+	editUser($user)
+	Создание пользователя-админа
+	$user [assoc array] - массив с данными пользователя
+	*/
+	public function editUser($user)
+	{
+		foreach ($user as $name => $value) {
+			if ($name != 'id') {
+			$sql = "UPDATE users SET $name = '$value' WHERE id = ".$user['id'];
+			mysql_query($sql) or die(mysql_error());
+			}
+		}
+		echo "true";
+	}
+
+
+/*
 	addNewUser($user)
 	Создание пользователя-админа
 	$user [assoc array] - массив с данными пользователя

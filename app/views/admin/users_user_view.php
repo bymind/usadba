@@ -1,5 +1,5 @@
 <script src="/js/admin/main.js"></script>
-<!-- <script src="/js/admin/users.js"></script> -->
+<script src="/js/admin/users.js"></script>
 <script src="/js/admin/bootstrap-bt.min.js"></script>
 
 <div class="main-content">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 
-	<div class="col-xs-12 col-sm-10 col-md-8 pt-0">
+	<div class="col-sm-12 col-md-8 pt-0">
 	<div class="row pt-0 mt-0">
 	<div class="table-responsive">
 			<table class="table table-hover table-bordered users-table">
@@ -22,9 +22,15 @@
 						<tr>
 							<th style="width:40px">id</th>
 							<th>Логин</th>
-							<?php if ($_SESSION['user']['is_super']==1){ echo "<th>SU</th>"; }?>
+							<th>Имя</th>
+							<?php if (($_SESSION['user']['is_super']==1) && $user['isadmin']){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
 							<th>Права</th>
+							<?php if (!$user['isadmin']){
+							?>
+							<th>Забанен</th>
+							<?php
+							 } ?>
 							<!-- <th>Telegram token <button type="button" class="btn btn-xs btn-primary copy-token ml-10 " data-clipboard-text="<?php echo $user['telegram_token']; ?>" data-loading-text="Скопировано!">Скопировать</button></th> -->
 						</tr>
 					</thead>
@@ -32,12 +38,17 @@
 						<tr>
 							<th style="vertical-align: middle;" scope="row"><?php echo $user['id'] ?></th>
 							<td style="vertical-align: middle;"><?php echo $user['login'] ?></td>
-							<?php if (Controller_Admin::isSuper()){ echo "<td style='vertical-align: middle;''>".$user['is_super']."</td>"; } ?>
+							<td style="vertical-align: middle;"><?php echo $user['name'] ?></td>
+							<?php if (Controller_Admin::isSuper() && $user['isadmin']){ echo "<td style='vertical-align: middle;''>".$user['is_super']."</td>"; } ?>
 							<td style="vertical-align: middle;"><?php echo $user['email'] ?></td>
 							<td style="vertical-align: middle;">
 							<?php if ($user['isadmin']){ echo "Администратор"; } else { echo "Пользователь"; } ?>
 							</td> <!-- TODO: отображение прав администраторов -->
-							<!-- <td style="vertical-align: middle;"><?php echo $user['telegram_token']; ?></td> -->
+							<?php if (!$user['isadmin']){
+							?>
+							<td class="banned-col is-banned-<?=$user['banned']?>" style="vertical-align: middle;" data-status="<?=$user['banned']?>"><?php echo ( $user['banned']==0 ? "нет" : "да") ?><?php echo ( $user['banned']==0 ? "<span>забанить</span>" : "<span>разбанить</span>") ?></td>
+							<?php
+							 } ?>
 						</tr>
 
 					</tbody>

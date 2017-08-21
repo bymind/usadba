@@ -7,16 +7,16 @@
 
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
-			<h4 class="blocked">
-				<a href="/admin/users">Администраторы</a>
-			</h4>
 			<h1 class="blocked">
 				Пользователи
 			</h1>
+			<h4 class="blocked">
+				<a href="/admin/users">Администраторы</a>
+			</h4>
 		</div>
 	</div>
 
-	<div class="col-xs-12 col-md-6 pt-0">
+	<div class="col-xs-12 col-md-8 pt-0">
 	<div class="row pt-0 mt-0">
 	<div class="table">
 	<?php
@@ -41,6 +41,7 @@
 							<th>Логин</th>
 							<th>Имя</th>
 							<th>E-mail</th>
+							<th>Забанен</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,9 +50,10 @@
 						?>
 						<tr class="all-users">
 							<th scope="row"><?php echo $user['id'] ?></th>
-							<td><?php echo $user['login'] ?></td>
-							<td><?php echo $user['name'] ?></td>
-							<td><?php echo $user['email'] ?></td>
+							<td class="data"><?php echo $user['login'] ?></td>
+							<td class="data"><?php echo $user['name'] ?></td>
+							<td class="data"><?php echo $user['email'] ?></td>
+							<td class="banned-col is-banned-<?=$user['banned']?>" data-status="<?=$user['banned']?>"><?php echo ( $user['banned']==0 ? "нет" : "да") ?><?php echo ( $user['banned']==0 ? "<span>забанить</span>" : "<span>разбанить</span>") ?></td>
 						</tr>
 						<?php
 						}

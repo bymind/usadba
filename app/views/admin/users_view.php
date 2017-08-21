@@ -7,16 +7,16 @@
 
 	<div class="row pt-0 pb-0">
 		<div class="col-md-12">
-			<h1 class="blocked">
-				Администраторы
-			</h1>
 			<h4 class="blocked">
 				<a href="/admin/users/all">Пользователи</a>
 			</h4>
+			<h1 class="blocked">
+				Администраторы
+			</h1>
 		</div>
 	</div>
 
-	<div class="col-xs-12 col-md-6 pt-0">
+	<div class="col-xs-12 col-md-8 pt-0">
 	<div class="row pt-0 mt-0">
 	<div class="table">
 			<table class="table table-hover table-bordered users-table">
@@ -35,10 +35,10 @@
 						?>
 						<tr class="admin-users">
 							<th scope="row"><?php echo $user['id'] ?></th>
-							<td><?php echo $user['login'] ?></td>
-							<td><?php echo $user['name'] ?></td>
-							<?php if (Controller_Admin::isSuper()){ echo "<td>".$user['is_super']."</td>"; } ?>
-							<td><?php echo $user['email'] ?></td>
+							<td class="data"><?php echo $user['login'] ?></td>
+							<td class="data"><?php echo $user['name'] ?></td>
+							<?php if (Controller_Admin::isSuper()){ echo "<td class='data'>".$user['is_super']."</td>"; } ?>
+							<td class="data"><?php echo $user['email'] ?></td>
 						</tr>
 						<?php
 						}

@@ -123,6 +123,25 @@ class Model
 		return $ds;
 	}
 
+	public function getUser($uid)
+	{
+		$q = mysql_query("SELECT * FROM users WHERE id='$uid'") or die(mysql_error()) ;
+		$countq = mysql_num_rows($q);
+		if ($countq>0) {
+			$userData['profile'] = mysql_fetch_assoc($q);
+			if (isset($userData['profile']['bday'])) {
+				$ts = $userData['profile']['bday'];
+				$userData['profile']['bday_raw'] = $ts;
+				$userData['profile']['bday'] = Controller::getGoodDate($ts, 'compact');
+			}
+			if (isset($userData['profile']['addresses'])) {
+				$ts = explode("_",$userData['profile']['addresses']);
+				$userData['profile']['addresses'] = $ts;
+			}
+			return $userData;
+		} else return false;
+	}
+
 	public function getUsers($users = NULL)
 	{
 		if ($users != NULL ) {

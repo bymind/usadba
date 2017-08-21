@@ -8,6 +8,15 @@ class Controller_User extends Controller
 	{
 		$this->model = new Model_User();
 		$this->view = new View();
+		if (isset($_SESSION['user']['id'])) {
+			$is_banned = $this->model->getUser($_SESSION['user']['id']);
+			// var_dump($is_banned);
+			if ($is_banned['profile']['banned']=='1') {
+				// echo $_SERVER['REQUEST_URI'];
+				session_destroy();
+				header('location:'.$_SERVER['REQUEST_URI']);
+			}
+		}
 	}
 
 
@@ -667,6 +676,14 @@ try less size file');
 	function login($user)
 	{
 		$_SESSION['user'] = $user;
+		if (isset($_SESSION['user']['id'])) {
+			$is_banned = $this->model->getUser($_SESSION['user']['id']);
+			if ($is_banned['profile']['banned']=='1') {
+				echo "banned ";
+				session_destroy();
+				return false;
+			}
+		}
 		$isLogged = Self::is_logged();
 		return $isLogged;
 	}
@@ -675,6 +692,7 @@ try less size file');
 	{
 		if (isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
+			session_destroy();
 			header('location:/');
 		} else {
 			Route::Catch_Error('404');

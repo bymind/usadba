@@ -67,7 +67,7 @@
 		<li class="articles"><a href="/admin/articles" title="Новости"><span>Новости</span></a></li>
 		<li class="pages"><a href="/admin/pages"  title="Страницы сайта"><span>Страницы</span></a></li>
 		<li class="files"><a href="/admin/files" title="Файлы"><span>Файлы</span></a></li>
-		<li class="users"><a href="/admin/users" title="Аккаунты"><span>Аккаунты</span></a></li>
+		<li class="users"><a href="/admin/users/all" title="Аккаунты"><span>Аккаунты</span></a></li>
 		<li class="config"><a href="/admin/config" title="Настройки"><span>Настройки</span></a></li>
 		<li class="sound"><span data-soundstate="on" class="glyphicon glyphicon-volume-up <?php if ($_SESSION['user']['sound']=='0') {echo 'off';} ?>" aria-hidden="true"></span><span class="glyphicon glyphicon-volume-off  <?php if ($_SESSION['user']['sound']=='1') {echo 'off';} ?>" aria-hidden="true" data-soundstate="off"></span><a href="#" ><span>Звук <span class="sound-state">включён</span></span></a></li>
 		<li class="bot bugtracker" style="display:none"><span class="alert danger tickets-counter"></span><a href="/admin/bugtracker" title="Баг-трекер"><span>Баг-трекер</span></a></li>

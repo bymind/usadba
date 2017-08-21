@@ -12,17 +12,72 @@ function usersScriptsInit()
 function btnsInit()
 {
 	newUserBtn();
+	banUserBtn();
 	rowClick();
+}
+
+function banUserBtn()
+{
+	$(document).on('click',"td.banned-col span", function(event) {
+		event.stopPropagation();
+		var status = $(this).parents('td').data('status');
+		var user = {
+			id: $(this).parents('tr').find('th').text(),
+			banned: !status+.0
+		}
+		var thisTd = $(this).parent();
+		var notBannedHtml = "нет<span>забанить</span>";
+		var bannedHtml = "да<span>разбанить</span>";
+		var toggledHtml = "";
+		var newData = 0;
+		var newClass = "";
+		if (thisTd.data('status')=='1') {
+			toggledHtml = notBannedHtml;
+			newData = 0;
+			newClass = "is-banned-0";
+		} else if (thisTd.data('status')=='0'){
+			toggledHtml = bannedHtml;
+			newData = 1;
+			newClass = "is-banned-1";
+		}
+		var jsonUser =  JSON.stringify(user);
+		$.when(setBan(jsonUser)).done(function(res){
+			if (res=="true") {
+				thisTd.html(toggledHtml);
+				thisTd.data('status', newData);
+				thisTd.removeClass('is-banned-0').removeClass('is-banned-1').addClass(newClass);
+			}
+		});
+
+	});
+}
+
+function setBan(userdata)
+{
+	return $.Deferred(function(def){
+		$.ajax({
+				url: '/admin/users/editUser',
+				type: 'POST',
+				data: {userData:userdata},
+				success: function(res){
+					def.resolve(res);
+				},
+				fail: function(err){
+					def.reject(err);
+				}
+			});
+	}).promise();
 }
 
 function rowClick()
 {
-	rowUser = $('.users-table tbody tr.admin-users');
+	rowUser = $('.users-table tbody tr.admin-users td.data');
 	var modalBox = $('.user-modal-md');
 	rowUser.click(function(event) {
-		$id = $(this).find('th').text();
-		$login = $(this).find('td:eq(0)').text();
-		$email = $(this).find('td:eq(1)').text();
+		event.stopPropagation();
+		$id = $(this).parent().find('th').text();
+		$login = $(this).parent().find('td:eq(0)').text();
+		$email = $(this).parent().find('td:eq(1)').text();
 		modalBox.on('show.bs.modal', function(event) {
 			var modal = $(this);
 			  modal.find('.modal-title').html('Аккаунт <strong>'+$login+'</strong>');
@@ -34,8 +89,8 @@ function rowClick()
 		});
 	});
 
-	$('.users-table tbody tr.all-users').click(function(event) {
-		var $userId = $(this).find('th').text();
+	$('.users-table tbody tr.all-users td.data').click(function(event) {
+		var $userId = $(this).parent().find('th').text();
 		location.href = "/admin/users/"+$userId;
 	});
 }
