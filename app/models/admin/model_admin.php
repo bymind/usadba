@@ -896,7 +896,20 @@ class Model_Admin extends Model
 		$select = mysql_query("SELECT * FROM users WHERE isadmin=1 ORDER BY id ASC")or die(mysql_error());
 		$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
+					$r['admin_rights'] = explode(',',$r['admin_rights']);
+					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
 					$ds[]=$r;
+		}
+		return $ds;
+	}
+
+	public function getRightsText($names)
+	{
+		$rights = implode("','",$names);
+		$sql = mysql_query("SELECT text FROM admin_rights WHERE name in ('$rights')") or die(mysql_error());
+		$ds = array();
+		while ($r = mysql_fetch_array($sql)) {
+			$ds[] = $r[0];
 		}
 		return $ds;
 	}

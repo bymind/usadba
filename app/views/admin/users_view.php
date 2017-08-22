@@ -27,6 +27,7 @@
 							<th>Имя</th>
 							<?php if ($_SESSION['user']['is_super']==1){ echo "<th>SU</th>"; }?>
 							<th>E-mail</th>
+							<th>Права</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -39,6 +40,11 @@
 							<td class="data"><?php echo $user['name'] ?></td>
 							<?php if (Controller_Admin::isSuper()){ echo "<td class='data'>".$user['is_super']."</td>"; } ?>
 							<td class="data"><?php echo $user['email'] ?></td>
+							<td class="data"><?php
+									foreach ($user['admin_rights_texts'] as $right) {
+										echo "$right<br>";
+									}?>
+							</td>
 						</tr>
 						<?php
 						}

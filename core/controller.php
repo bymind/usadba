@@ -194,6 +194,7 @@ class Controller
 					$_SESSION['user']['favs'] = $ds['favs'];
 					$_SESSION['user']['is_admin'] = $ds['isadmin'];
 					$_SESSION['user']['is_super'] = $ds['is_super'];
+					$_SESSION['user']['admin_rights'] = explode(',',$ds['admin_rights']);
 					$_SESSION['user']['telegram_token'] = $ds['telegram_token'];
 					$_SESSION['user']['telegram_id'] = $ds['telegram_id'];
 					$_SESSION['user']['access_key'] = md5($ds['pass'].Model::SALT);

@@ -1795,6 +1795,8 @@ function adminPages($params = '')
 					if (!$user) {
 						$user = $this->model->getUser($name);
 					}
+					$user['admin_rights'] = explode(',',$user['admin_rights']);
+					$user['admin_rights_texts'] = $this->model->getRightsText($user['admin_rights']);
 					$this->view->generate(
 								'admin/users_user_view.php',
 								'admin/template_admin_view.php',

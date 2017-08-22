@@ -36,17 +36,23 @@
 					</thead>
 					<tbody>
 						<tr>
-							<th style="vertical-align: middle;" scope="row"><?php echo $user['id'] ?></th>
-							<td style="vertical-align: middle;"><?php echo $user['login'] ?></td>
-							<td style="vertical-align: middle;"><?php echo $user['name'] ?></td>
-							<?php if (Controller_Admin::isSuper() && $user['isadmin']){ echo "<td style='vertical-align: middle;''>".$user['is_super']."</td>"; } ?>
-							<td style="vertical-align: middle;"><?php echo $user['email'] ?></td>
-							<td style="vertical-align: middle;">
-							<?php if ($user['isadmin']){ echo "Администратор"; } else { echo "Пользователь"; } ?>
+							<th scope="row"><?php echo $user['id'] ?></th>
+							<td><?php echo $user['login'] ?></td>
+							<td><?php echo $user['name'] ?></td>
+							<?php if (Controller_Admin::isSuper() && $user['isadmin']){ echo "<td>".$user['is_super']."</td>"; } ?>
+							<td><?php echo $user['email'] ?></td>
+							<td>
+							<?php if ($user['isadmin']){ ?>
+								<b>Администратор</b>
+								<?php
+									foreach ($user['admin_rights_texts'] as $right) {
+										echo "<br>$right";
+									}
+								} else { echo "Пользователь"; } ?>
 							</td> <!-- TODO: отображение прав администраторов -->
 							<?php if (!$user['isadmin']){
 							?>
-							<td class="banned-col is-banned-<?=$user['banned']?>" style="vertical-align: middle;" data-status="<?=$user['banned']?>"><?php echo ( $user['banned']==0 ? "нет" : "да") ?><?php echo ( $user['banned']==0 ? "<span>забанить</span>" : "<span>разбанить</span>") ?></td>
+							<td class="banned-col is-banned-<?=$user['banned']?>" data-status="<?=$user['banned']?>"><?php echo ( $user['banned']==0 ? "нет" : "да") ?><?php echo ( $user['banned']==0 ? "<span>забанить</span>" : "<span>разбанить</span>") ?></td>
 							<?php
 							 } ?>
 						</tr>

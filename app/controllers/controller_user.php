@@ -307,6 +307,7 @@ class Controller_User extends Controller
 					if ( isset($userData['id']) ) {
 						$jsonUser = json_encode($userData);
 						$userData['access_key'] = md5($userData['pass'].Model::SALT);
+						$userData['admin_rights'] = explode(',',$userData['admin_rights']);
 						if (Self::login($userData)) {
 							echo "true";
 						} else

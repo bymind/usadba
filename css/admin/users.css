@@ -11,6 +11,10 @@ table.users-table tbody tr {
 	cursor: pointer;
 }
 
+table.users-table tbody tr td, table.users-table tbody tr th {
+
+}
+
 td.banned-col {
 	color: #fff;
 }
