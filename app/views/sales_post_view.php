@@ -33,7 +33,8 @@
 					?>
 				</div>
 			<?php
-			if ($_SESSION['user']['is_admin']==1) {
+			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
 				?>
 				<a class="admin_edit_link" href="/admin/sales/edit/<?=$pageData['tech_name']?>" target="_blank">изменить</a>
 				<?php

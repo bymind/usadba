@@ -23,7 +23,8 @@
 							echo $currentProduct['name'];
 						?></h1>
 					<?php
-					if ($_SESSION['user']['is_admin']==1) {
+					$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+					if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
 						?>
 						<a class="admin_edit_link" href="/admin/goods/edit/<?=$currentProduct['art']?>" target="_blank">изменить</a>
 						<?php

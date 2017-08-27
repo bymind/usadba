@@ -21,7 +21,8 @@
 						<!-- TITLE -->
 						<h1 class="title-wide"><?php echo $pageData['title'] ?>
 						<?php
-						if ($_SESSION['user']['is_admin']==1) {
+						$arr = array('right'=>'pages', 'uid'=>$_SESSION['user']['id']);
+						if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
 							?>
 							<a class="admin_edit_link" href="/admin/pages/edit/<?=$pageData['tech_name']?>" target="_blank">изменить</a>
 							<?php

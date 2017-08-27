@@ -61,14 +61,48 @@
 <div class="nav-overlay"></div>
 <div class="navigation">
 	<ul class='side-nav' attr-active="<?php echo $active_menu_item; ?>">
+	<?php
+	$arr = array('right'=>'orders', 'uid'=>$_SESSION['user']['id']);
+	if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+	 ?>
 		<li class="home"><span class="alert danger orders-counter" title="Новые заказы"></span><a href="/admin" title="Рабочий стол"><span>Рабочий стол</span></a></li>
+		<?php
+		}
+		$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+		?>
 		<li class="goods"><a href="/admin/goods" title="Товары"><span>Товары</span></a></li>
 		<li class="sales"><a href="/admin/sales" title="Акции"><span>Акции</span></a></li>
+		<?php
+		}
+		$arr = array('right'=>'news', 'uid'=>$_SESSION['user']['id']);
+		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+		?>
 		<li class="articles"><a href="/admin/articles" title="Новости"><span>Новости</span></a></li>
+		<?php
+		}
+		$arr = array('right'=>'pages', 'uid'=>$_SESSION['user']['id']);
+		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+		?>
 		<li class="pages"><a href="/admin/pages"  title="Страницы сайта"><span>Страницы</span></a></li>
+		<?php
+		}
+		?>
 		<li class="files"><a href="/admin/files" title="Файлы"><span>Файлы</span></a></li>
+		<?php
+		$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
+		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+		?>
 		<li class="users"><a href="/admin/users/all" title="Аккаунты"><span>Аккаунты</span></a></li>
+		<?php
+		}
+		$arr = array('right'=>'all', 'uid'=>$_SESSION['user']['id']);
+		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+		?>
 		<li class="config"><a href="/admin/config" title="Настройки"><span>Настройки</span></a></li>
+		<?php
+		}
+		?>
 		<li class="sound"><span data-soundstate="on" class="glyphicon glyphicon-volume-up <?php if ($_SESSION['user']['sound']=='0') {echo 'off';} ?>" aria-hidden="true"></span><span class="glyphicon glyphicon-volume-off  <?php if ($_SESSION['user']['sound']=='1') {echo 'off';} ?>" aria-hidden="true" data-soundstate="off"></span><a href="#" ><span>Звук <span class="sound-state">включён</span></span></a></li>
 		<li class="bot bugtracker" style="display:none"><span class="alert danger tickets-counter"></span><a href="/admin/bugtracker" title="Баг-трекер"><span>Баг-трекер</span></a></li>
 	</ul>

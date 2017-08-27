@@ -42,8 +42,8 @@
 				<h4 class="modal-title" id="myModalLabel">Аккаунт</h4>
 			</div>
 			<div class="modal-body">
-				<button type="button" class="btn btn-warning btn-block btn-lg" disabled="disabled">Редактировать</button>
-				<button type="button" class="btn btn-danger go-delete  btn-lg btn-block" data-id="">Удалить</button>
+				<button type="button" class="btn btn-warning go-edit btn-block btn-lg" data-id="">Редактировать</button>
+				<button type="button" class="btn btn-danger go-delete btn-lg btn-block" data-id="">Удалить</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
@@ -63,6 +63,22 @@
 			<div class="modal-body">
 				<button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Отмена</button>
 				<button type="button" class="btn btn-danger btn-lg btn-block" data-id="">Удалить</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade shure-edit-modal-md" role="dialog" aria-labelledby="mySmallModalLabel2">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Редактировать аккаунт</h4>
+			</div>
+			<div class="modal-body">
+				<button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Отмена</button>
+				<button type="button" class="btn btn-danger btn-lg btn-block" data-id="">Сохранить</button>
 			</div>
 		</div>
 	</div>

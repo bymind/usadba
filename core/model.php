@@ -164,6 +164,50 @@ class Model
 		return $ds;
 	}
 
+	function isHasRight($arr)
+	{
+		if ($_SESSION['user']['isadmin']==1) {
+			extract($arr);
+			$userInfo = Self::getUser($uid);
+			$userInfo = $userInfo['profile'];
+			if ($userInfo['isadmin']==1) {
+				$rights = $userInfo['admin_rights'];
+				$rights = explode(',',$rights);
+				if ( in_array($right,$rights) || in_array('all',$rights) ) {
+					return true;
+				} else {
+				return false;
+			}
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+
+	function sessionHasRight($type)
+	{
+		if ($_SESSION['user']['isadmin']==1) {
+			if (is_array($_SESSION['user']['admin_rights'])) {
+				$rights = $_SESSION['user']['admin_rights'];
+			} else
+				$rights = explode(',',$_SESSION['user']['admin_rights']);
+			if (in_array($type, $rights)) {
+				// echo "1";
+				return true;
+			} else {
+				// echo "0";
+				return false;
+			}
+		} else
+		{
+			// echo "0";
+			return false;
+		}
+	}
+
 	public function getComments($target_type, $target_id=NULL)
 	{
 		if ($target_type=="reviews") {

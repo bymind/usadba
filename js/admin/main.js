@@ -223,6 +223,52 @@ function sup()
 		}).promise();
 };
 
+/*
+hasRight(right,uid)
+Функция, возвращающая promise() о
+наличии прав у админа
+1 - true
+0 - false
+*/
+function hasRight(right, uid)
+{
+		var data = {
+			right: right,
+			uid: uid
+		}
+		dataJson = JSON.stringify(data);
+		return $.Deferred(function(def){
+			$.ajax({
+					url: '/admin/users/hasRight',
+					type: 'POST',
+					data: {data:dataJson},
+					success: function(res){
+						def.resolve(res);
+					},
+					fail: function(err){
+						def.reject(err);
+					}
+				});
+		}).promise();
+};
+
+function returnHasRight(right, uid)
+{
+	hasRight(right,uid).done(function(res){
+		switch (res){
+			case "1":
+				console.info('this user has right "'+right+'"');
+				break;
+			case "0":
+				console.warn('this user has NOT right "'+right+'"');
+				break;
+
+			default:
+				console.log(res);
+				break;
+		}
+	})
+}
 
 /*
 isSnotS(yes,no)

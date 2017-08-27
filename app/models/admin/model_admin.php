@@ -903,6 +903,21 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+	/*
+	getUser()
+	*/
+	public function getAdminUser($id)
+	{
+		$select = mysql_query("SELECT * FROM users WHERE id='$id' AND isadmin=1 ORDER BY id ASC")or die(mysql_error());
+		$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['admin_rights'] = explode(',',$r['admin_rights']);
+					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
+					$ds[]=$r;
+		}
+		return $ds[0];
+	}
+
 	public function getRightsText($names)
 	{
 		$rights = implode("','",$names);
@@ -913,6 +928,28 @@ class Model_Admin extends Model
 		}
 		return $ds;
 	}
+
+
+	function isHasRight($arr)
+	{
+		if ($_SESSION['user']['isadmin']==1) {
+			extract($arr);
+			$userInfo = Self::getUser($uid);
+			if ($userInfo['isadmin']==1) {
+				$rights = $userInfo['admin_rights'];
+				$rights = explode(',',$rights);
+				if ( in_array($right,$rights) || in_array('all',$rights) ) {
+					echo "1";
+				} else echo "0";
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 
 
 	/*

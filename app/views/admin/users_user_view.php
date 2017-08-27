@@ -43,10 +43,10 @@
 							<td><?php echo $user['email'] ?></td>
 							<td>
 							<?php if ($user['isadmin']){ ?>
-								<b>Администратор</b>
+								<!-- <b>Администратор</b> -->
 								<?php
 									foreach ($user['admin_rights_texts'] as $right) {
-										echo "<br>$right";
+										echo "$right<br>";
 									}
 								} else { echo "Пользователь"; } ?>
 							</td> <!-- TODO: отображение прав администраторов -->

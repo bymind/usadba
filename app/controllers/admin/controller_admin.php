@@ -60,7 +60,6 @@ class Controller_Admin extends Controller
 							'title'=>' - Рабочий стол',
 							'style'=>'admin/template.css',
 							'style_content'=>'admin/main.css',
-							//'posts'=>$ds,
 							'active_menu_item' => 'home',
 							'actual_title' => 'Рабочий стол',
 							'Favicon' => 'app/views/admin-favicon.php',
@@ -71,6 +70,30 @@ class Controller_Admin extends Controller
 					);
 	}
 
+
+
+/*																	 NOT ENOUTH RIGHTS
+*************************************************************************************/
+	function notEnouthRights()
+	{
+		$user = $this->model->getAdminUser($_SESSION['user']['id']);
+		$this->view->generate(
+					'admin/not_enouth_rights_view.php',
+					'admin/template_admin_view.php',
+					array(
+							'title'=>' - нет доступа',
+							'style'=>'admin/template.css',
+							'style_content'=>'admin/main.css',
+							'active_menu_item' => 'home',
+							'user' => $user,
+							'actual_title' => 'Нет доступа',
+							'Favicon' => 'app/views/admin-favicon.php',
+						),
+					'admin/navigation_view.php',
+					'admin/footer_view.php',
+					'admin/modals_main_view.php'
+					);
+	}
 
 
 /*																	 WORKTABLE
@@ -1763,6 +1786,10 @@ function adminPages($params = '')
 				self::adminUserEdit();
 				break;
 
+			case "hasRight":
+				self::adminHasRight();
+				break;
+
 			case 'all':
 				self::adminShowAll();
 				break;
@@ -1818,6 +1845,11 @@ function adminPages($params = '')
 		}
 
 	}
+
+function adminHasRight(){
+	$data = json_decode($_POST['data'], true);
+	$this->model->isHasRight($data);
+}
 
 function adminUserEdit()
 {
@@ -2319,13 +2351,14 @@ public function adminShowAll()
 				self::adminWorktable();
 				break;
 			case '':
-			if (Controller::is_admin())
-				{
-					self::adminWorktable();
-				} else
-						{
-							self::adminLogin();
-						}
+				Self::action_main();
+			// if (Controller::is_admin())
+			// 	{
+			// 		self::adminWorktable();
+			// 	} else
+			// 			{
+			// 				self::adminLogin();
+			// 			}
 				break;
 			default:
 				Route::Catch_Error('404');
@@ -2393,7 +2426,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminWorktable();
+			$arr = array('right'=>'orders', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminWorktable();
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2441,7 +2479,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminGoods($params);
+			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminGoods($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2454,7 +2497,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminCats($params);
+			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminCats($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2466,7 +2514,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminArticles($params);
+			$arr = array('right'=>'news', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminArticles($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2478,7 +2531,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminSales($params);
+			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminSales($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2491,7 +2549,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminPages($params);
+			$arr = array('right'=>'pages', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminPages($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2517,7 +2580,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminUsers($params);
+			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
+			if ( ($_SESSION['user']['is_admin']==1) && ((Model::isHasRight($arr))||($params==$_SESSION['user']['id'])) ) {
+				self::adminUsers($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();
@@ -2540,7 +2608,12 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminConfig($params);
+			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
+			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
+				self::adminConfig($params);
+			} else {
+				self::notEnouthRights();
+			}
 		} else
 		{
 			self::adminLogin();

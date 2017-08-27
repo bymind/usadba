@@ -82,10 +82,14 @@ function rowClick()
 			var modal = $(this);
 			  modal.find('.modal-title').html('Аккаунт <strong>'+$login+'</strong>');
 			  modal.find('.modal-body .go-delete').attr('data-id', $id);
+			  modal.find('.modal-body .go-edit').attr('data-id', $id);
 		});
 		modalBox.modal();
-		$('.go-delete').click(function(event) {
-			isSuper();
+		$('.go-delete').unbind('click').on('click',function(event) {
+			isSuper('delete');
+		});
+		$('.go-edit').unbind('click').on('click',function(event) {
+			isSuper('edit');
 		});
 	});
 
@@ -95,70 +99,131 @@ function rowClick()
 	});
 }
 
-function isSuper()
+function isSuper(type)
 {
 	var $answ;
-	$.ajax({
-		url: '/admin/users/issuper',
-		type: 'POST'
-	})
-	.done(function(answ) {
-		console.log(answ);
-		$answ = answ;
-		if ($answ=='1') {
-			confirm = $('.shure-modal-md');
-			confirm.on('show.bs.modal', function(event) {
-				var modal = $(this);
-				  modal.find('.modal-title').html('Удалить аккаунт <strong>'+$login+'</strong>?');
-				  modal.find('.modal-body .btn-danger').attr('data-id', $id);
-			});
-			confirm.modal();
-			confirm.find('.btn-danger').click(function(event) {
-				$id = $(this).data('id');
-				$.ajax({
-					url: '/admin/users/delete',
-					type: 'POST',
-					data: {id: $id},
-				})
-				.done(function(response) {
-					console.log("success");
-					confirm.modal('hide');
-					modalBox.find('.modal-body').html(response);
-					modalBox.find('.modal-footer .btn-primary').text('Ок');
-					console.log(response);
-					location.reload();
-				})
-				.fail(function(response) {
-					console.log("error");
-					confirm.modal('hide');
-					modalBox.find('.modal-body').html(response);
-					modalBox.find('.modal-footer .btn-primary').text('Ок');
-					console.log(response);
-				})
-				.always(function() {
-					console.log("complete");
-					modalBox.on('hidden.bs.modal', function(event) {
+	if (!type) {
+		type = 'edit';
+	}
+	switch (type) {
+		case "delete":
+			console.log('delete');
+			isSnotS(function(){
+				confirm = $('.shure-modal-md');
+				confirm.on('show.bs.modal', function(event) {
+					var modal = $(this);
+					  modal.find('.modal-title').html('Удалить аккаунт <strong>'+$login+'</strong>?');
+					  modal.find('.modal-body .btn-danger').attr('data-id', $id);
+				});
+				confirm.modal();
+				confirm.find('.btn-danger').click(function(event) {
+					$id = $(this).data('id');
+					$.ajax({
+						url: '/admin/users/delete',
+						type: 'POST',
+						data: {id: $id},
+					})
+					.done(function(response) {
+						console.log("success");
+						confirm.modal('hide');
+						modalBox.find('.modal-body').html(response);
+						modalBox.find('.modal-footer .btn-primary').text('Ок');
+						console.log(response);
 						location.reload();
+					})
+					.fail(function(response) {
+						console.log("error");
+						confirm.modal('hide');
+						modalBox.find('.modal-body').html(response);
+						modalBox.find('.modal-footer .btn-primary').text('Ок');
+						console.log(response);
+					})
+					.always(function() {
+						console.log("complete");
+						modalBox.on('hidden.bs.modal', function(event) {
+							location.reload();
+						});
 					});
 				});
+			}, function(){
+				console.log('denied');
+				confirm = $('.shure-modal-md');
+				confirm.on('show.bs.modal', function(event) {
+					var modal = $(this);
+					  modal.find('.modal-title').html('<h4>Отказ</h4>');
+					  modal.find('.modal-body').html('<h4>У Вас недостаточно полномочий.</h4>');
+					  modal.find('.modal-footer').remove();
+					  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
+				});
+				confirm.modal();
 			});
-		}
-		if ($answ == '0') {
-			console.log('denied');
-			confirm = $('.shure-modal-md');
-			confirm.on('show.bs.modal', function(event) {
-				var modal = $(this);
-				  modal.find('.modal-title').html('<h1>Отказ</h1>');
-				  modal.find('.modal-body').html('<h2>У Вас недостаточно полномочий.</h2>');
-				  modal.find('.modal-footer').remove();
-				  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
-			});
-			confirm.modal();
-		}
-	})
-	.fail(function() {
-		console.log("error");
-	});
+			/*$.ajax({
+				url: '/admin/users/issuper',
+				type: 'POST'
+			})
+			.done(function(answ) {
+				console.log(answ);
+				$answ = answ;
+				if ($answ=='1') {
+					confirm = $('.shure-modal-md');
+					confirm.on('show.bs.modal', function(event) {
+						var modal = $(this);
+						  modal.find('.modal-title').html('Удалить аккаунт <strong>'+$login+'</strong>?');
+						  modal.find('.modal-body .btn-danger').attr('data-id', $id);
+					});
+					confirm.modal();
+					confirm.find('.btn-danger').click(function(event) {
+						$id = $(this).data('id');
+						$.ajax({
+							url: '/admin/users/delete',
+							type: 'POST',
+							data: {id: $id},
+						})
+						.done(function(response) {
+							console.log("success");
+							confirm.modal('hide');
+							modalBox.find('.modal-body').html(response);
+							modalBox.find('.modal-footer .btn-primary').text('Ок');
+							console.log(response);
+							location.reload();
+						})
+						.fail(function(response) {
+							console.log("error");
+							confirm.modal('hide');
+							modalBox.find('.modal-body').html(response);
+							modalBox.find('.modal-footer .btn-primary').text('Ок');
+							console.log(response);
+						})
+						.always(function() {
+							console.log("complete");
+							modalBox.on('hidden.bs.modal', function(event) {
+								location.reload();
+							});
+						});
+					});
+				}
+				if ($answ == '0') {
+					console.log('denied');
+					confirm = $('.shure-modal-md');
+					confirm.on('show.bs.modal', function(event) {
+						var modal = $(this);
+						  modal.find('.modal-title').html('<h1>Отказ</h1>');
+						  modal.find('.modal-body').html('<h2>У Вас недостаточно полномочий.</h2>');
+						  modal.find('.modal-footer').remove();
+						  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
+					});
+					confirm.modal();
+				}
+			})
+			.fail(function() {
+				console.log("error");
+			});*/
+			break;
+
+		case "edit":
+			console.log('edit');
+			break;
+	}
 }
 
 function newUserBtn()
