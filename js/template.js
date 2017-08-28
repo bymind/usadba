@@ -37,7 +37,26 @@ $(function()
 
 	InitSearch();
 
+	InitInputsEnters();
+
 });
+
+function InitInputsEnters()
+{
+	$(document).on('keyup', 'input#login-email', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			$(this).parents(".modal-body").find('input#login-passw').focus();
+		}
+	});
+	$(document).on('keyup', 'input#login-passw', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			var loginForm = $('#profile-form-login');
+			TryLogin(loginForm);
+		}
+	});
+}
 
 function scrollAfterPagination()
 {
@@ -1519,6 +1538,8 @@ function ShowErrors(f, err)
 		form_group.addClass('has-error');
 		input.after('<span class="substring red">'+errors[i].msg+'</span>')
 	}
+	form.find('.form-group.has-error').eq(0).find('input').focus();
+	console.log(form.find('.form-group.has-error').eq(0).find('input'));
 	return false;
 }
 
@@ -1547,7 +1568,7 @@ function ModalInit(index)
 	var modalFooter = modalContent.children('.modal-footer');
 	var btns = modalFooter.find('button');
 
-	if ((index == "passw_new")) {
+	if (index == "passw_new") {
 		PreventPasswEnter(modalBlock, "#passw-input-new", "send-passw-new");
 	}
 
@@ -1575,6 +1596,12 @@ function ModalInit(index)
 	modalBlock.modal();
 
 	console.log(modalIndex);
+
+	if (modalIndex == ".modal-profile") {
+		modalBlock.on('shown.bs.modal', function () {
+			$(modalIndex).find('.login-body input#login-email').focus();
+		})
+	}
 
 	return 0;
 }
@@ -1638,6 +1665,9 @@ function ModalTabs()
 			curData = curTab.data('target');
 			curTab.toggleClass('disable');
 			$('.modal-body.'+curData+'-body').toggleClass('inactive');
+			if (!$('.modal-body.'+curData+'-body').hasClass('inactive')) {
+				$('.modal-body.'+curData+'-body input').eq(0).focus();
+			}
 			$('.modal-footer.'+curData+'-footer').toggleClass('inactive');
 		}
 	});
