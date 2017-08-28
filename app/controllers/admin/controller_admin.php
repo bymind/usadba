@@ -1790,6 +1790,14 @@ function adminPages($params = '')
 				self::adminHasRight();
 				break;
 
+			case "getRights":
+				self::adminGetRights();
+				break;
+
+			case "editRights":
+				self::adminEditRights();
+				break;
+
 			case 'all':
 				self::adminShowAll();
 				break;
@@ -1845,6 +1853,18 @@ function adminPages($params = '')
 		}
 
 	}
+
+function adminGetRights()
+{
+	$data = json_decode($_POST['uid'], true);
+	$echo = $this->model->getRights($data);
+	echo $echo;
+}
+
+function adminEditRights(){
+	$data = json_decode($_POST['data'], true);
+	$this->model->editRights($data);
+}
 
 function adminHasRight(){
 	$data = json_decode($_POST['data'], true);

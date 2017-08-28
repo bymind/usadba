@@ -105,11 +105,12 @@ function isSuper(type)
 	if (!type) {
 		type = 'edit';
 	}
+	var $adminId = $('.user-btn').data('userid');
 	switch (type) {
 		case "delete":
 			console.log('delete');
-			isSnotS(function(){
-				confirm = $('.shure-modal-md');
+			ifHasRight("all", $adminId, function(){
+				confirm = $('.sure-modal-md');
 				confirm.on('show.bs.modal', function(event) {
 					var modal = $(this);
 					  modal.find('.modal-title').html('Удалить аккаунт <strong>'+$login+'</strong>?');
@@ -147,7 +148,7 @@ function isSuper(type)
 				});
 			}, function(){
 				console.log('denied');
-				confirm = $('.shure-modal-md');
+				confirm = $('.sure-modal-md');
 				confirm.on('show.bs.modal', function(event) {
 					var modal = $(this);
 					  modal.find('.modal-title').html('<h4>Отказ</h4>');
@@ -157,73 +158,148 @@ function isSuper(type)
 				});
 				confirm.modal();
 			});
-			/*$.ajax({
-				url: '/admin/users/issuper',
-				type: 'POST'
-			})
-			.done(function(answ) {
-				console.log(answ);
-				$answ = answ;
-				if ($answ=='1') {
-					confirm = $('.shure-modal-md');
-					confirm.on('show.bs.modal', function(event) {
-						var modal = $(this);
-						  modal.find('.modal-title').html('Удалить аккаунт <strong>'+$login+'</strong>?');
-						  modal.find('.modal-body .btn-danger').attr('data-id', $id);
-					});
-					confirm.modal();
-					confirm.find('.btn-danger').click(function(event) {
-						$id = $(this).data('id');
-						$.ajax({
-							url: '/admin/users/delete',
-							type: 'POST',
-							data: {id: $id},
-						})
-						.done(function(response) {
-							console.log("success");
-							confirm.modal('hide');
-							modalBox.find('.modal-body').html(response);
-							modalBox.find('.modal-footer .btn-primary').text('Ок');
-							console.log(response);
-							location.reload();
-						})
-						.fail(function(response) {
-							console.log("error");
-							confirm.modal('hide');
-							modalBox.find('.modal-body').html(response);
-							modalBox.find('.modal-footer .btn-primary').text('Ок');
-							console.log(response);
-						})
-						.always(function() {
-							console.log("complete");
-							modalBox.on('hidden.bs.modal', function(event) {
-								location.reload();
-							});
-						});
-					});
-				}
-				if ($answ == '0') {
-					console.log('denied');
-					confirm = $('.shure-modal-md');
-					confirm.on('show.bs.modal', function(event) {
-						var modal = $(this);
-						  modal.find('.modal-title').html('<h1>Отказ</h1>');
-						  modal.find('.modal-body').html('<h2>У Вас недостаточно полномочий.</h2>');
-						  modal.find('.modal-footer').remove();
-						  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
-					});
-					confirm.modal();
-				}
-			})
-			.fail(function() {
-				console.log("error");
-			});*/
 			break;
 
 		case "edit":
 			console.log('edit');
+			var rights="";
+			var modal = $('.sure-edit-modal-md');
+			ifHasRight("all", $adminId, function(){
+				confirm = $('.sure-edit-modal-md');
+				confirm.unbind('show.bs.modal').on('show.bs.modal', function(event) {
+					modal = $(this);
+					  modal.find('.modal-title').html('Изменение прав <strong>'+$login+'</strong>');
+					  modal.find('.modal-footer .btn-primary').attr('data-id', $id);
+					$.when(getUserRights($id)).done(function(res){
+						if (res) {
+							rights = $.parseJSON(res);
+							$.each(rights, function(index, val) {
+								if (val=="all") {
+									// console.log('all detected');
+									modal.find('input[type=checkbox]').prop('checked', true);
+									return false;
+								} else
+								modal.find('input#'+val+'Right').prop('checked', 'true');
+							});
+						}
+					});
+				});
+				confirm.on('hide.bs.modal', function(event) {
+					var modal = $(this);
+					modal.find('input[type=checkbox]').prop('checked', false);
+				});
+				confirm.modal();
+				confirm.find('.btn-primary').click(function(event) {
+					$id = $(this).data('id');
+					var rightsArr =[];
+					$.each(modal.find('input[type=checkbox]'), function(index, val) {
+						if (modal.find('input[type=checkbox]').eq(index).prop('checked')) {
+							if (modal.find('input[type=checkbox]').eq(index).attr('name')=="all") {
+								rightsArr.push(modal.find('input[type=checkbox]').eq(index).attr('name'));
+								return false;
+							} else
+							rightsArr.push(modal.find('input[type=checkbox]').eq(index).attr('name'));
+						}
+					});
+					// console.log(rightsArr);
+					var data = {
+						uid: $id,
+						rights: rightsArr
+					};
+					var dataJson = JSON.stringify(data);
+					$.ajax({
+						url: '/admin/users/editRights',
+						type: 'POST',
+						data: {data: dataJson},
+					})
+					.done(function(response) {
+						console.log("success");
+						confirm.modal('hide');
+						modalBox.find('.modal-body').html(response);
+						modalBox.find('.modal-footer .btn-primary').text('Ок');
+						console.log(response);
+						setTimeout(function(){
+							location.reload();
+						},500);
+					})
+					.fail(function(response) {
+						console.log("error");
+						confirm.modal('hide');
+						modalBox.find('.modal-body').html(response);
+						modalBox.find('.modal-footer .btn-primary').text('Ок');
+						console.log(response);
+					})
+					.always(function() {
+						console.log("complete");
+						modalBox.on('hidden.bs.modal', function(event) {
+							// location.reload();
+						});
+					});
+				});
+			}, function(){
+				console.log('denied');
+				confirm = $('.sure-modal-md');
+				confirm.on('show.bs.modal', function(event) {
+					var modal = $(this);
+					  modal.find('.modal-title').html('<h4>Отказ</h4>');
+					  modal.find('.modal-body').html('<h4>У Вас недостаточно полномочий.</h4>');
+					  modal.find('.modal-footer').remove();
+					  modal.find('.modal-content').append('<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button></div>');
+				});
+				confirm.modal();
+			});
+			modal.find('input#superRight').on('change', function(event) {
+				// event.preventDefault();
+				if ($(this).prop('checked')) {
+				modal.find('input').prop('checked', $(this).prop('checked'));
+			}
+			});
+			modal.find('input#allRight').on('change', function(event) {
+				// event.preventDefault();
+				if ($(this).prop('checked')) {
+					modal.find('input.second').prop('checked', $(this).prop('checked'));
+				}
+				if (!$(this).prop('checked')) {
+					modal.find('input#superRight').prop('checked',false);
+				}
+			});
+			modal.find('input.second').on('change', function(event) {
+				// event.preventDefault();
+				// if (!$(this).hasClass('allRight')) {
+					var isAll = modal.find('input#allRight').prop('checked');
+					$.each(modal.find('input.second'), function(index, val) {
+						if (!modal.find('input.second').eq(index).prop('checked')) {
+							isAll = false;
+						} else {
+							// isAll = true;
+						}
+					});
+					modal.find('input#allRight').prop('checked', isAll);
+					if (!isAll) {
+					modal.find('input#superRight').prop('checked', isAll);
+				}
+				// }
+			});
 			break;
 	}
+}
+
+function getUserRights(uid)
+{
+	return $.Deferred(function(def){
+		var $uid = JSON.stringify(uid);
+		$.ajax({
+				url: '/admin/users/getRights',
+				type: 'POST',
+				data: {uid:$uid},
+				success: function(res){
+					def.resolve(res);
+				},
+				fail: function(err){
+					def.reject(err);
+				}
+			});
+	}).promise();
 }
 
 function newUserBtn()

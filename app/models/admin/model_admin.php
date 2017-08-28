@@ -903,6 +903,29 @@ class Model_Admin extends Model
 		return $ds;
 	}
 
+	function editRights($data)
+	{
+		extract($data);
+		$rights = implode(",",$rights);
+		$select = mysql_query("UPDATE users SET admin_rights='$rights' WHERE isadmin=1 AND id='$uid'")or die(mysql_error());
+		return true;
+	}
+
+	function getRights($id)
+	{
+		$select = mysql_query("SELECT * FROM users WHERE id='$id' AND isadmin=1 LIMIT 1")or die(mysql_error());
+		$ds = array();
+				while ($r = mysql_fetch_assoc($select)) {
+					$r['admin_rights'] = explode(',',$r['admin_rights']);
+					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
+					$ds[]=$r;
+		}
+		$ds = $ds[0];
+		$res = $ds['admin_rights'];
+		$res = json_encode($res, JSON_UNESCAPED_UNICODE);
+		return $res;
+	}
+
 	/*
 	getUser()
 	*/

@@ -288,6 +288,25 @@ function isSnotS(yes,no)
 }
 
 
+function ifHasRight(right,uid,yes,no)
+{
+	hasRight(right,uid).done(function(res){
+		switch (res){
+			case "1":
+				yes();
+				break;
+
+			case "0":
+				no();
+				break;
+
+			default:
+				no();
+				break;
+		}
+	})
+}
+
 /*
 log(a)
 Обертка для concole.log()
