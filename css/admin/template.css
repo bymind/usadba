@@ -149,6 +149,14 @@ p {
 	padding-right: 10px !important;
 }
 
+.pl-15 {
+	padding-left: 15px !important;
+}
+
+.pr-15 {
+	padding-right: 15px !important;
+}
+
 .pl-20 {
 	padding-left: 20px !important;
 }
