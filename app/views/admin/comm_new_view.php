@@ -29,7 +29,7 @@
 				<thead>
 					<tr>
 						<th style="text-align:center;">
-							Нет комментариев
+							Нет новых комментариев, всё проверено ;)
 						</th>
 					</tr>
 				</thead>
