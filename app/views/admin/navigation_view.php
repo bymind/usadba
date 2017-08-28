@@ -43,7 +43,7 @@
 			</div>
 			<div class="col-xs-1 col-sm-4 col-md-5">
 				<div class="usr-over<?php if (Controller_Admin::isSuper()){ echo ' bg-super'; } ?>" title="<?php echo $_SESSION['user']['name'];?>">
-					<div class="user-btn btn-title">
+					<div class="user-btn btn-title" data-userid="<?=$_SESSION['user']['id']?>">
 						<span class="hidden-xs" style="white-space: nowrap;">
 							<?php echo $_SESSION['user']['name'];?>
 						</span>
