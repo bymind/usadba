@@ -52,7 +52,7 @@ class Model_Sales extends Model
 
 			case 'salesPage':
 				$pageDataModel['text'] = "Main page - Welcome! Hello from Model_Main =)";
-				$pageDataModel['title'] = "Акции и скидки.";
+				$pageDataModel['title'] = "Акции и скидки";
 				$nowTime = time();
 				$dataSales = array();
 				$today = date('Y-m-d H:i:s');
