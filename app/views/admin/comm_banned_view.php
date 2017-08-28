@@ -53,7 +53,7 @@
 							// var_dump($comm['prod']);
 						?>
 						<tr class="new-comm <?=$comm['type']?>">
-							<th scope="row"><?php echo $comm['id'] ?></th>
+							<th scope="row"><div class="ghost" id="commId-<?=$comm['id']?>"></div><?=$comm['id']?></th>
 							<td class="data"><?php echo "<a href='/admin/users/".$comm['uid']."'>".$comm['user']['name']."</a>" ?></td>
 							<td class="data <?php if ($comm['type']=="review") {echo "site-review";} ?> " >
 							<?php

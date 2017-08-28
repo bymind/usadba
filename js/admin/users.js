@@ -15,6 +15,26 @@ function btnsInit()
 	banUserBtn();
 	rowClick();
 	commBtnsInit();
+	commHashInit();
+}
+
+function commHashInit()
+{
+	$('tr.new-comm th').on('click', function(event) {
+		event.preventDefault();
+		var $hashId = $(this).find('.ghost').attr('id');
+		location.hash = "#"+$hashId;
+		$('tr').removeClass('focused');
+		$(this).parents('tr').addClass('focused');
+	});
+	if (location.hash) {
+		if (!($('div'+location.hash).get(0)===undefined)) {
+			var line = $(location.hash).parents('tr');
+			$('tr').removeClass('focused');
+			line.addClass('focused');
+			$(document).scrollTop(line.offset().top-60);
+		}
+	}
 }
 
 function commBtnsInit()

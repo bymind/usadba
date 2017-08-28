@@ -74,6 +74,27 @@ tr.new-comm{
 	transition: background .2s ease-in-out;
 }
 
+/* tr.new-comm::before{
+	content: '';
+	position: absolute;
+	top: -60px;
+	left: 0;
+	display: block;
+} */
+
 tr.new-comm.review a{
 	color: #d9534f;
+}
+tr.new-comm.focused>th{
+	background: #428bca;
+	color: #fff;
+}
+.new-comm .ghost {
+	position: absolute;
+	margin-top: -70px;
+	display: block;
+	height: 0px;
+	left: 0;
+	width: 0px;
+	visibility: hidden;
 }
