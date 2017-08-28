@@ -45,7 +45,7 @@
 												<button type="button" class="btn btn-primary comm-send" data-type="reviews" data-prodid="<?=$currentProduct['id']?>">Отправить</button>
 											</div>
 											<div class="col-sm-9 hidden-xs note-wrapper pl-10">
-												<span class="note">Не более 2 000 символов. <span id="count_letters">Осталось <span id="count_num"></span>.</span><br>Отзыв, превышающий это ограничение, будет обрезан.</span>
+												<span class="note">Не более 2 000 символов. <span id="count_letters">Осталось <span id="count_num"></span>.</span><br>Отзыв, превышающий это ограничение, будет укорочен.</span>
 											</div>
 										</div>
 									</div>
