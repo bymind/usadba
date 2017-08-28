@@ -6,10 +6,11 @@
 	overflow: hidden;
 	border-radius: 2px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+	margin-bottom: 20px;
 }
 
 .sales-theme .owl-controls{
-	margin: 20px 0;
+	margin-bottom: 20px;
 	text-align: center;
 }
 
