@@ -45,7 +45,7 @@ class Model
 			case 'reviews':
 				$nowTime = time();
 				$comms = array();
-				$q = mysql_query("SELECT * FROM comments WHERE target_type='reviews' ORDER BY pub_time DESC");
+				$q = mysql_query("SELECT * FROM comments WHERE target_type='reviews' AND banned=0 ORDER BY pub_time DESC");
 				while ( $buf = mysql_fetch_assoc($q)) {
 					$buf['good_pub_time'] = Controller::getGoodDate($buf['pub_time']);
 					$comms[] = $buf;
@@ -208,13 +208,17 @@ class Model
 		}
 	}
 
-	public function getComments($target_type, $target_id=NULL)
+	public function getComments($target_type=NULL, $target_id=NULL, $status=NULL)
 	{
+		if (isset($target_id)&&isset($target_type)) {
 		if ($target_type=="reviews") {
-			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' ORDER BY pub_time DESC")or die(mysql_error());
+			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND banned = 0 ORDER BY pub_time DESC")or die(mysql_error());
 		} else
 		if ($target_type=="product") {
-			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' ORDER BY pub_time DESC")or die(mysql_error());
+			$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND target_id = '$target_id' AND banned = 0 ORDER BY pub_time DESC")or die(mysql_error());
+		} else
+		if ($target_type=="all") {
+			$select = mysql_query("SELECT * FROM comments ORDER BY pub_time DESC")or die(mysql_error());
 		}
 		while ($buf = mysql_fetch_assoc($select)) {
 					$ds[] = $buf;
@@ -223,6 +227,27 @@ class Model
 
 		if (count($ds)==0) {
 			return false;
+		}
+		} else
+		if (isset($status)) {
+			if ($target_type=="reviews") {
+				$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND $status = 1 ORDER BY pub_time DESC")or die(mysql_error());
+			} else
+			if ($target_type=="product") {
+				$select = mysql_query("SELECT * FROM comments WHERE target_type = '$target_type' AND $status = 1 ORDER BY pub_time DESC")or die(mysql_error());
+			} else
+			if ($target_type=="all") {
+				$select = mysql_query("SELECT * FROM comments WHERE $status = 1 ORDER BY pub_time DESC")or die(mysql_error());
+			}
+			while ($buf = mysql_fetch_assoc($select)) {
+						$buf['status'] = $status;
+						$ds[] = $buf;
+			}
+			unset($select);
+
+			if (count($ds)==0) {
+				return false;
+			}
 		}
 		return $ds;
 	}
@@ -335,7 +360,7 @@ class Model
 			$prod_cat[$buf['id']] = $buf;
 		}
 		foreach ($prodArr as &$prod) {
-			$q = mysql_query("SELECT id FROM comments WHERE target_type='product' AND target_id = '".$prod['id']."'") or die(mysql_error());
+			$q = mysql_query("SELECT id FROM comments WHERE target_type='product' AND target_id = '".$prod['id']."' AND banned = 0 ") or die(mysql_error());
 			$count_reviews = mysql_num_rows($q);
 			unset($q);
 			$cat_name = $prod_cat[ $prod['cat'] ]['tech_name'];

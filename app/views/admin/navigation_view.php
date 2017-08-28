@@ -94,6 +94,7 @@
 		if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
 		?>
 		<li class="users"><a href="/admin/users/all" title="Аккаунты"><span>Аккаунты</span></a></li>
+		<li class="comm"><span class="alert danger comments-counter" title="Новые комментарии"></span><a href="/admin/comm/new" title="Комментарии"><span>Комментарии</span></a></li>
 		<?php
 		}
 		$arr = array('right'=>'all', 'uid'=>$_SESSION['user']['id']);
@@ -127,6 +128,7 @@
 	<img src="/img/admin/pages-white.svg" alt="">
 	<img src="/img/admin/files-white.svg" alt="">
 	<img src="/img/admin/users-white.svg" alt="">
+	<img src="/img/admin/comments-white.svg" alt="">
 	<img src="/img/admin/config-white.svg" alt="">
 	<img src="/img/admin/bugtracker-white.svg" alt="">
 	<img src="/img/admin/new-post.svg" alt="">

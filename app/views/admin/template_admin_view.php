@@ -1,3 +1,8 @@
+<?php
+	if (isset($php_header)) {
+		header($php_header);
+	}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head  manifest="default.appcache">

@@ -404,27 +404,31 @@ class Model_Catalog extends Model
 		$q = mysql_query("SELECT * FROM prod_items WHERE art='$articul' AND tech_name='$prodName' AND archived = 0 ");
 		$product = mysql_fetch_assoc($q);
 		if (!$product) {
-			return false;
+			$q = mysql_query("SELECT * FROM prod_items WHERE id='$artName' LIMIT 1");
+			$product = mysql_fetch_assoc($q);
+			if (!$product) {
+				return false;
+			} else {
+				$product['description'] = nl2br($product['description']);
+				switch ($product['in_stock']) {
+					case '0':
+						$product['in_stock_val'] = "ожидается";
+						break;
+
+					case '1':
+						$product['in_stock_val'] = "в наличии";
+						break;
+
+					case '2':
+						$product['in_stock_val'] = "под заказ";
+						break;
+
+					default:
+						$product['in_stock_val'] = 'ожидается';
+						break;
+				}
+				}
 			// Route::Catch_Error('404');
-		} else {
-		$product['description'] = nl2br($product['description']);
-		switch ($product['in_stock']) {
-			case '0':
-				$product['in_stock_val'] = "ожидается";
-				break;
-
-			case '1':
-				$product['in_stock_val'] = "в наличии";
-				break;
-
-			case '2':
-				$product['in_stock_val'] = "под заказ";
-				break;
-
-			default:
-				$product['in_stock_val'] = 'ожидается';
-				break;
-		}
 		}
 		return $product;
 	}

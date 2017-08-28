@@ -388,6 +388,12 @@ ul.side-nav li.bot
 	background-image: url(../../img/admin/users-white.svg);
 }
 
+.side-nav li.comm.active::before,
+.side-nav li.comm:hover::before
+{
+	background-image: url(../../img/admin/comments-white.svg);
+}
+
 .side-nav li.config.active::before,
 .side-nav li.config:hover::before
 {
@@ -417,7 +423,6 @@ ul.side-nav li.bot
 .side-nav li.goods::before
 {
 	height: 24px;
-
 	background-image: url(../../img/admin/goods.svg);
 }
 
@@ -442,28 +447,31 @@ ul.side-nav li.bot
 .side-nav li.files::before
 {
 	height: 26px;
-
 	background-image: url(../../img/admin/files.svg);
 }
 
 .side-nav li.users::before
 {
 	height: 28px;
-
 	background-image: url(../../img/admin/users.svg);
+}
+
+.side-nav li.comm::before
+{
+	height: 21px;
+	width: 22px;
+	background-image: url(../../img/admin/comments.svg);
 }
 
 .side-nav li.config::before
 {
 	height: 30px;
-
 	background-image: url(../../img/admin/config.svg);
 }
 
 .side-nav li.bugtracker::before
 {
 	height: 26px;
-
 	background-image: url(../../img/admin/bugtracker.svg);
 }
 
@@ -755,7 +763,7 @@ li.active a,
 	min-width: 1.7em;
 	height: 1.4em;
 	top: 20px;
-	left: 30px;
+	left: 35px;
 	font-size: .8em;
 	font-family: monospace;
 	line-height: 1.2em;
@@ -764,6 +772,10 @@ li.active a,
 	margin: 0;
 	border-radius: 0.7em;
 	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.side-nav li.active .alert{
+	left: 30px;
 }
 
 .side-nav .alert.on{

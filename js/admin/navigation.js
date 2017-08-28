@@ -13,9 +13,10 @@ navSCriptsInit()
 function navScriptsInit()
 {
 	newOrdersCounter();
+	newCommentsCounter();
 	waitForNewOrder();
+	// waitForNewComments();
 	switchSound();
-	// bugTicketsCounter();
 }
 
 /*
@@ -37,6 +38,27 @@ function newOrdersCounter()
 		console.log("it's "+$countOrders+" new order(s)");
 		if ($countOrders > 0) {
 			$('li.home .alert').addClass('on').text($countOrders);
+		}
+	})
+	.fail(function(answ) {
+		console.log("error - "+answ);
+	});
+}
+
+function newCommentsCounter()
+{
+	var $countComms = 0;
+
+	$.ajax({
+		url: '/admin/comm/countNew',
+		type: 'POST',
+		data: {token:'ajaxCount'},
+	})
+	.done(function(answ) {
+		$countComms = answ;
+		console.log("it's "+$countComms+" new comment(s)");
+		if ($countComms > 0) {
+			$('li.comm .alert').addClass('on').text($countComms);
 		}
 	})
 	.fail(function(answ) {

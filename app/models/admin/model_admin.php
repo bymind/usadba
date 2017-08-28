@@ -296,6 +296,18 @@ class Model_Admin extends Model
 
 		return $ds;
 	}
+	/*
+	getProductItem($art)
+	Получение товара по его артикулу
+	$art [string] - артикул товара
+	*/
+	public function getProductById($id)
+	{
+		$select = mysql_query("SELECT * FROM prod_items WHERE id = '$id'")or die(mysql_error());
+		$ds = mysql_fetch_assoc($select);
+
+		return $ds;
+	}
 
 
 
@@ -1497,6 +1509,29 @@ class Model_Admin extends Model
 		mysql_query("UPDATE $table SET $key='0';");
 		mysql_query("ALTER TABLE $table AUTO_INCREMENT=0");
 		mysql_query("ALTER TABLE $table MODIFY $key INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY");
+	}
+
+	function commentStatusChange($data)
+	{
+		extract($data);
+		switch ($action) {
+			case 'approve':
+				$q = mysql_query("UPDATE comments SET new=0, approved =1, banned =0 WHERE id='$commId'") or die(mysql_error());
+				echo "true";
+				return true;
+				break;
+
+			case 'ban':
+				$q = mysql_query("UPDATE comments SET new=0, approved =0, banned =1 WHERE id='$commId'") or die(mysql_error());
+				echo "true";
+				return true;
+				break;
+
+			default:
+				echo "false";
+				return false;
+				break;
+		}
 	}
 
 }

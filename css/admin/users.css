@@ -56,3 +56,24 @@ td.banned-col.is-banned-1 span{
 	background-color: #428bca;
 	color: #fff;
 }
+
+span.pub-time {
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #ddd;
+	font-size: 12px;
+}
+
+div.comm-text {
+	line-height: 16px;
+	font-size: 14px;
+}
+
+tr.new-comm{
+	transition: background .2s ease-in-out;
+}
+
+tr.new-comm.review a{
+	color: #d9534f;
+}

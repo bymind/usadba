@@ -14,6 +14,61 @@ function btnsInit()
 	newUserBtn();
 	banUserBtn();
 	rowClick();
+	commBtnsInit();
+}
+
+function commBtnsInit()
+{
+	$('td.banned-col button').on('click', function(event) {
+		event.preventDefault();
+		var $tr = $(this).parents('tr');
+		$tr.css('opacity', '.3');
+		var data = {
+			commId: $(this).data('commid'),
+			action: $(this).data('action')
+		};
+		var dataJson = JSON.stringify(data);
+		$.ajax({
+			url: '/admin/comm/statusChange',
+			type: 'POST',
+			data: {data: dataJson},
+		})
+		.done(function(res) {
+			if (res=='true') {
+				console.log("success");
+				$tr.remove();
+				newCommentsCounter();
+				// location.reload();
+			} else {
+				setTimeout(function(){
+					$tr.css('background','#FFCDD2');
+					setTimeout(function(){
+						$tr.css('background','#fff');
+						setTimeout(function(){
+							$tr.css('background','#FFCDD2');
+						},500);
+					},500);
+				},500);
+				console.log("error");
+				console.error(res);
+				alert(res);
+			}
+		})
+		.fail(function(err) {
+			setTimeout(function(){
+				$tr.css('background','#FFCDD2');
+				setTimeout(function(){
+					$tr.css('background','#fff');
+					setTimeout(function(){
+						$tr.css('background','#FFCDD2');
+					},500);
+				},500);
+			},500);
+			console.log("error");
+			console.log(err);
+			alert(err);
+		})
+	});
 }
 
 function banUserBtn()

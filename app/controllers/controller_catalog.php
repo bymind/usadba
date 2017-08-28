@@ -179,7 +179,7 @@ class Controller_Catalog extends Controller
 				break;
 
 			case "reviews":
-				$comments = $this->model->getComments('reviews');
+				$comments = $this->model->getComments('reviews','');
 				$revUsersIds = [];
 				if ($comments) {
 					foreach ($comments as $review) {

@@ -31,20 +31,22 @@ class Controller_Admin extends Controller
 
 	function adminLogin($redirect = "")
 	{
-		$this->view->generate(
-					'admin/login_view.php',
-					'template_admin_view.php',
-					array(
-							'title'=>'Login',
-							'style'=>'admin/template.css',
-							'style_content'=>'admin/login.css',
-							//'posts'=>$ds,
-							'Favicon' => 'app/views/admin-favicon.php',
-							'redirect' => $redirect,
-						),
-					'admin/navigation_login_view.php',
-					'admin/footer_view.php'
-					);
+		header('location:/');
+		// $this->view->generate(
+		// 			'admin/login_view.php',
+		// 			'template_admin_view.php',
+		// 			array(
+		// 					'php_header' => "Location:/",
+		// 					'title'=>'Login',
+		// 					'style'=>'admin/template.css',
+		// 					'style_content'=>'admin/login.css',
+		// 					//'posts'=>$ds,
+		// 					'Favicon' => 'app/views/admin-favicon.php',
+		// 					'redirect' => $redirect,
+		// 				),
+		// 			'admin/navigation_login_view.php',
+		// 			'admin/footer_view.php'
+		// 			);
 	}
 
 
@@ -1751,6 +1753,183 @@ function adminPages($params = '')
 
 
 
+/*																		 COMMENTS
+*************************************************************************************/
+	function adminComments($params = "")
+	{
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+			extract($params);
+		else
+			$name = $params;
+
+		switch ($name) {
+			case 'new':
+				self::adminCommentsNew();
+				break;
+
+			case 'approved':
+				self::adminCommentsApproved();
+				break;
+
+			case 'banned':
+				self::adminCommentsBanned();
+				break;
+
+			case 'countNew':
+				self::adminCommentsCountNew();
+				break;
+
+			case 'statusChange':
+				self::adminCommentStatusChange();
+				break;
+
+			case 'all':
+				self::adminShowAll();
+				break;
+
+			case 'default':
+				self::adminShowAll();
+				break;
+
+				default:
+					self::adminShowAll();
+					break;
+		}
+
+	}
+
+
+	function adminCommentStatusChange(){
+		$data = json_decode($_POST['data'], true);
+		$this->model->commentStatusChange($data);
+	}
+
+	function adminCommentsCountNew()
+	{
+		if (isset($_POST['token'])&&($_POST['token']=='ajaxCount')) {
+			$comments = $this->model->getComments('all', NULL, 'new');
+			if ($comments) {
+				echo count($comments);
+			} else echo "0";
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function adminCommentsBanned()
+	{
+		$commentsProduct = $this->model->getComments('all', NULL, 'banned');
+		if ($commentsProduct) {
+		foreach ($commentsProduct as $key => $value) {
+			$userData = $this->model->getUser($value['uid']);
+			if ($value['target_id']==0) {
+				$commentsProduct[$key]['type'] = "review";
+			} else {
+				$commentsProduct[$key]['type'] = "prod";
+				$productData = $this->model->getProductById($value['target_id']);
+				$productData = $this->model->createProdUrl(array($productData));
+				$commentsProduct[$key]['prod'] = $productData[0];
+			}
+			$commentsProduct[$key]['user'] = $userData;
+			$commentsProduct[$key]['pub_time_text'] = Self::getGoodDate($commentsProduct[$key]['pub_time']);
+		}
+		}
+		$this->view->generate(
+								'admin/comm_banned_view.php',
+								'admin/template_admin_view.php',
+								array(
+										'title'=>' - Комментарии',
+										'style'=>'admin/template.css',
+										'style_content'=>'admin/users.css',
+										'comments'=>$commentsProduct,
+										'active_menu_item' => 'comm',
+										'actual_title' => 'Комментарии',
+										'Favicon' => 'app/views/admin-favicon.php',
+									),
+								'admin/navigation_view.php',
+								'admin/footer_view.php',
+								'admin/modals_users_view.php'
+								);
+	}
+
+
+	function adminCommentsApproved()
+	{
+		$commentsProduct = $this->model->getComments('all', NULL, 'approved');
+		if ($commentsProduct) {
+		foreach ($commentsProduct as $key => $value) {
+			$userData = $this->model->getUser($value['uid']);
+			if ($value['target_id']==0) {
+				$commentsProduct[$key]['type'] = "review";
+			} else {
+				$commentsProduct[$key]['type'] = "prod";
+				$productData = $this->model->getProductById($value['target_id']);
+				$productData = $this->model->createProdUrl(array($productData));
+				$commentsProduct[$key]['prod'] = $productData[0];
+			}
+			$commentsProduct[$key]['user'] = $userData;
+			$commentsProduct[$key]['pub_time_text'] = Self::getGoodDate($commentsProduct[$key]['pub_time']);
+		}
+		}
+		$this->view->generate(
+								'admin/comm_approved_view.php',
+								'admin/template_admin_view.php',
+								array(
+										'title'=>' - Комментарии',
+										'style'=>'admin/template.css',
+										'style_content'=>'admin/users.css',
+										'comments'=>$commentsProduct,
+										'active_menu_item' => 'comm',
+										'actual_title' => 'Комментарии',
+										'Favicon' => 'app/views/admin-favicon.php',
+									),
+								'admin/navigation_view.php',
+								'admin/footer_view.php',
+								'admin/modals_users_view.php'
+								);
+	}
+
+	function adminCommentsNew()
+	{
+		$commentsProduct = $this->model->getComments('all', NULL, 'new');
+		if ($commentsProduct) {
+		foreach ($commentsProduct as $key => $value) {
+			$userData = $this->model->getUser($value['uid']);
+			if ($value['target_id']==0) {
+				$commentsProduct[$key]['type'] = "review";
+			} else {
+				$commentsProduct[$key]['type'] = "prod";
+				$productData = $this->model->getProductById($value['target_id']);
+				$productData = $this->model->createProdUrl(array($productData));
+				$commentsProduct[$key]['prod'] = $productData[0];
+			}
+			$commentsProduct[$key]['user'] = $userData;
+			$commentsProduct[$key]['pub_time_text'] = Self::getGoodDate($commentsProduct[$key]['pub_time']);
+		}
+		}
+		$this->view->generate(
+								'admin/comm_new_view.php',
+								'admin/template_admin_view.php',
+								array(
+										'title'=>' - Комментарии',
+										'style'=>'admin/template.css',
+										'style_content'=>'admin/users.css',
+										'comments'=>$commentsProduct,
+										'active_menu_item' => 'comm',
+										'actual_title' => 'Комментарии',
+										'Favicon' => 'app/views/admin-favicon.php',
+									),
+								'admin/navigation_view.php',
+								'admin/footer_view.php',
+								'admin/modals_users_view.php'
+								);
+	}
+
+
 /*																		 USERS
 *************************************************************************************/
 /*	 USERS INIT
@@ -2603,6 +2782,22 @@ public function adminShowAll()
 			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
 			if ( ($_SESSION['user']['is_admin']==1) && ((Model::isHasRight($arr))||($params==$_SESSION['user']['id'])) ) {
 				self::adminUsers($params);
+			} else {
+				self::notEnouthRights();
+			}
+		} else
+		{
+			self::adminLogin();
+		}
+	}
+
+	function action_comm($params = '')
+	{
+		if (Controller::is_admin())
+		{
+			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
+			if ( ($_SESSION['user']['is_admin']==1) && ((Model::isHasRight($arr))||($params==$_SESSION['user']['id'])) ) {
+				self::adminComments($params);
 			} else {
 				self::notEnouthRights();
 			}
