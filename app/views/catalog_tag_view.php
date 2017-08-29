@@ -40,7 +40,7 @@
 
 					<div class="col-xxs-6 col-xs-3">
 					<div class="row">
-					<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2 mb-20 mb-xxs-10">
+					<div data-art="<?= $prod['art'] ?>" data-prodid="<?= $prod['id'] ?>" class="prod-card shadow br-2 mb-10 mb-xxs-10">
 						<div class="prod-img box-img display labeled" data-imgname="<?= $prod['images'] ?>" data-label="<?= $prod['labels'] ?>"><a href="<?= $prod['url'] ?>" class="prod-link" title="<?= $prod['name'] ?>"></a>
 							<?php
 										if ($_SESSION['user']['id']) {
