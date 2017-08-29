@@ -22,6 +22,10 @@ commits [351db32](https://github.com/bymind/usadba/commit/351db329d2a33da3ef6d58
 
 - [x] [[aedc145](https://github.com/bymind/usadba/commit/aedc145240bd1e676730848a6f8235af7b93b715)] Разметка под вывод статистики заказов и доходов.
 
+
+>Все перечисленные обновления уже на поддомене и доступны для ознакомления.<br>
+>[usadba.bymind.ru](http://usadba.bymind.ru)
+
 #
 ##### Ближайшие обновления
 - [ ] **статистика заказов**
@@ -64,6 +68,3 @@ commits [3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396
 
 - [x] [[7fc00ae](https://github.com/bymind/usadba/commit/7fc00aec4b992dad499bd0c4f4976c2b925ca9c1)] Заработало добавление отзывов к товарам.
 
-
->Все перечисленные обновления уже на поддомене и доступны для ознакомления.<br>
->[usadba.bymind.ru](http://usadba.bymind.ru)
