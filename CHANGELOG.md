@@ -35,12 +35,13 @@ _для проверки на домене_
 
 
 ---------------
+###Ранее
+---------------
 
 `21.07.17-06.08.17`
 
 commits [3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396037eaedeeb9eced73a)-[7fc00ae](https://github.com/bymind/usadba/commit/7fc00aec4b992dad499bd0c4f4976c2b925ca9c1)
 
-#
 
 - [x] [[3b03fe1](https://github.com/bymind/usadba/commit/3b03fe170c0dac5d6a1396037eaedeeb9eced73a)] В левом меню работают ссылки на "Популярное" и "Новинки".
 
