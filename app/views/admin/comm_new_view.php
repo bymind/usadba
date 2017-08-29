@@ -25,11 +25,11 @@
 	<?php
 		if (!$comments) {
 			?>
-			<table class="table table-hover table-bordered users-table">
+			<table class="table table-hover users-table">
 				<thead>
 					<tr>
-						<th style="text-align:center;">
-							Нет новых комментариев, всё проверено ッ
+						<th style="text-align:center;background: #76b979;color: #fff;font-weight: 400;border-radius: 2px;border: 0;">
+							Нет новых комментариев, всё прочитано ッ
 						</th>
 					</tr>
 				</thead>

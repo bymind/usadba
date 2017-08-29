@@ -25,10 +25,10 @@
 	<?php
 		if (!$comments) {
 			?>
-			<table class="table table-hover table-bordered users-table">
+			<table class="table table-hover users-table">
 				<thead>
 					<tr>
-						<th style="text-align:center;">
+						<th style="text-align:center;background: #607D8B;color: #fff;font-weight: 400;border-radius: 2px;border: 0;">
 							Вы пока ничего не одобрили ッ
 						</th>
 					</tr>

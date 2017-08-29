@@ -56,7 +56,7 @@
 
 		<div class="col-xs-12 col-lg-4 col-stats">
 
-		<!-- 	<h3>Статистика</h3>
+			<h3>Статистика</h3>
 		<div class="table mb-20" style="background:white">
 			<table class="table table-bordered table-stats">
 				<thead>
@@ -114,7 +114,7 @@
 					</tr>
 				</tbody>
 			</table>
-		</div> -->
+		</div>
 
 		</div>
 
