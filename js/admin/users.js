@@ -265,6 +265,7 @@ function isSuper(type)
 				});
 				confirm.modal();
 				confirm.find('.btn-primary').click(function(event) {
+					$('body').css('opacity', '.3');
 					$id = $(this).data('id');
 					var rightsArr =[];
 					$.each(modal.find('input[type=checkbox]'), function(index, val) {
@@ -302,6 +303,7 @@ function isSuper(type)
 						confirm.modal('hide');
 						modalBox.find('.modal-body').html(response);
 						modalBox.find('.modal-footer .btn-primary').text('Ок');
+						$('body').css('opacity', '1');
 						console.log(response);
 					})
 					.always(function() {

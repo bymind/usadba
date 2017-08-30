@@ -77,7 +77,7 @@
 							<div class="card-like mt-10">
 							<?php
 							if ($_SESSION['user']['id']) {
-								if (strripos($_SESSION['user']['favs'], $prod['id'])===false) {
+								if (strripos($_SESSION['user']['favs'], $currentProduct['id'])===false) {
 									?>
 									<span class="like-this" title="Добавить в избранное" >Добавить в избранное</span>
 								<?php
