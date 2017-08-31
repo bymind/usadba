@@ -183,7 +183,15 @@ button.btn-mini, a.btn-mini {
 	margin: 0 0 0 12px;
 }
 
-button.call-me, button.login, button.cart, a.cart {
+button.call-me {
+	float: left;
+	}
+
+	button.login {
+		float: none;
+	}
+
+button.cart, a.cart {
 	float: right;
 }
 
@@ -236,6 +244,8 @@ button.cart, a.cart {
 	display: block;
 	color: #fff;
 	text-decoration: none;
+	transition: top .25s ease-in-out;
+	top: 0;
 }
 
 button.cart .counter, a.cart .counter {
@@ -260,6 +270,7 @@ button.cart.float, a.cart.float {
 	right: 10px;
 	z-index: 11;
 	box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
+	will-change: transform, -webkit-transform;
 }
 
 /* NAVIGATION */
@@ -2207,11 +2218,11 @@ span.search-query {
 
 @media (min-width: 960px) {
 	button.call-me {
-		float: left;
+		/* float: left; */
 	}
 
 	button.login {
-		float: none;
+		/* float: none; */
 	}
 
 	.head-phone {
@@ -2645,6 +2656,10 @@ span.search-query {
 	button.col-xxs-4 {
 		width: calc(33.33333333% - 10px) !important;
 		margin: 5px !important;
+	}
+
+	button.cart.float{
+		width: calc(33.33333333% - 15px) !important;
 	}
 
 	.col-xxs-5 {
