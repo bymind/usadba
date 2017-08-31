@@ -302,6 +302,10 @@ li.back-to-site:hover a
 	width: 200px;
 	transition: all .2s ease-in-out;
 }
+.navigation.low.swiped::before,.navigation.low.swiped::after {
+	transition: all .2s ease-in-out;
+	opacity: .7;
+}
 
 .nav-title.swiped {
 	margin-left: 0px;
