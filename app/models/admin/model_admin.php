@@ -9,6 +9,108 @@ class Model_Admin extends Model
 
 
 
+	function getStatData($type, $period)
+	{
+		switch ($type) {
+			case 'sales':
+				switch ($period) {
+					case 'today':
+						$from = date("Y-m-d H:i:s", mktime(0,0,0, (int)date("m"), (int)date("d"), (int)date("Y")));
+						$to = date("Y-m-d H:i:s");
+						$periodTxt = Controller::getGoodDate($to, 'short');
+						break;
+
+					case 'yesterday':
+						$from = date("Y-m-d", time() - 60*60*24)." 00:00:00";
+						$to = date("Y-m-d", time() - 60*60*24)." 23:59:59";
+						$periodTxt = Controller::getGoodDate($from, 'short');
+						break;
+
+					case 'week':
+						$from = date("Y-m-d", time() - 60*60*24*6)." 00:00:00";
+						$to = date("Y-m-d H:i:s");
+
+						break;
+
+					case 'month':
+						$from = date("Y-m-d", strtotime('-1 month'))." 00:00:00";
+						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
+						$to = date("Y-m-d H:i:s");
+						break;
+
+					case 'quarter':
+						$from = date("Y-m-d", strtotime("-3 months"))." 00:00:00";
+						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
+						$to = date("Y-m-d H:i:s");
+						break;
+
+					case 'year':
+						$from = date("Y-m-d", strtotime("-1 year"))." 00:00:00";
+						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
+						$to = date("Y-m-d H:i:s");
+						break;
+
+					default:
+						# code...
+						break;
+				}
+				$q = mysql_query("SELECT * FROM orders WHERE stat=3 AND datetime>'$from' AND datetime<'$to'") or die(mysql_error());
+				$countStatLines = mysql_num_rows($q);
+				$countProfit = 0;
+				while ($r = mysql_fetch_assoc($q)) {
+					$r['datetime_good'] = Controller::getGoodDate($r['datetime']);
+					$ds[]=$r;
+					$prods = json_decode($r['prod_list'],true);
+					$countProfit+= (int)$prods['sumPrice'];
+				}
+				if ($countStatLines>0) {
+					$countMiddleCheck = number_format($countProfit/$countStatLines, 2, '.', ' ');
+				} else {
+					$countMiddleCheck = 0;
+				}
+				if (!$periodTxt) {
+					$from_date = explode(' ',$from);
+					$from_date = explode('-',$from_date[0]);
+					$from_year = $from_date[0];
+					$from_month = $from_date[1];
+					$from_day = (int)$from_date[2];
+					$to_date = explode(' ',$to);
+					$to_date = explode('-',$to_date[0]);
+					$to_year = $to_date[0];
+					$to_month = $to_date[1];
+					$to_day = (int)$to_date[2];
+					if (($from_year == $to_year)&&($from_month == $to_month)) {
+						$periodTxt = $from_day."-".Controller::getGoodDate($to, 'short');
+					} else
+					if ($from_year == $to_year) {
+						$periodTxt = Controller::getGoodDate($from, 'short')." - ".Controller::getGoodDate($to, 'short');
+					} else {
+						$periodTxt = Controller::getGoodDate($from, 'short')." ".$from_year." - ".Controller::getGoodDate($to, 'short')." ".$to_year;
+					}
+				}
+				$answ = array(
+						'success' => true,
+						'statData' => array(
+								'from' => $from,
+								// 'from_good' => Controller::getGoodDate($from),
+								'to' => $to,
+								// 'to_good' => Controller::getGoodDate($to),
+								'countOrders' => number_format($countStatLines, 0, '.', ' '),
+								'profit' => number_format($countProfit, 0, '.', ' '),
+								'middleCheck' => number_format($countMiddleCheck, 2, '.', ' '),
+								'periodTxt' => $periodTxt,
+						),
+				);
+				return json_encode($answ, JSON_UNESCAPED_UNICODE);
+				break;
+
+			default:
+				# code...
+				break;
+		}
+	}
+
+
 	/*
 	getBlogPosts()
 	Получение постов в блога
@@ -16,10 +118,10 @@ class Model_Admin extends Model
 	public function getBlogPosts()
 	{
 		$select = mysql_query("SELECT * FROM blog WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$ds[]=$r;
 		}
 		return $ds;
 	}

@@ -55,66 +55,43 @@
 		</div>
 
 		<div class="col-xs-12 col-lg-4 col-stats">
-
 			<h3>Статистика</h3>
-		<div class="table mb-20" style="background:white">
-			<table class="table table-bordered table-stats">
-				<thead>
-					<tr>
-						<th>Заказы</th>
-						<th>Доход</th>
-						<th>Ср. чек</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="stats-firstrow">
-						<td>31</td>
-						<td>45 233 <small>руб.</small></td>
-						<td>310 <small>руб.</small></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 
-		<h3>Статистика</h3>
-		<div class="table mb-20" style="background:white">
-			<table class="table table-bordered table-stats">
-				<thead>
-					<tr>
-						<th>Заказы</th>
-						<th>Доход</th>
-						<th>Ср. чек</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="stats-firstrow">
-						<td>31</td>
-						<td>45 233 <small>руб.</small></td>
-						<td>310 <small>руб.</small></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<div class="col-xs-12 pl-0 pr-0 stats-box">
+				<h4 class="clearfix"><span>Продажи за </span><div class="time-period dropdown"><button class="btn btn-default dropdown-toggle ml-5" type="button" id="dropdownSales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="txt mr-5">сегодня</span><span class="caret"></span></button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownSales">
+														<li><a href="#" data-type="sales" class="d-n" data-period="today">сегодня</a></li>
+														<li><a href="#" data-type="sales" data-period="yesterday">вчера</a></li>
+														<li><a href="#" data-type="sales" data-period="week">неделю</a></li>
+														<li><a href="#" data-type="sales" data-period="month">месяц</a></li>
+														<li><a href="#" data-type="sales" data-period="quarter">квартал</a></li>
+														<li><a href="#" data-type="sales" data-period="year">год</a></li>
+													</ul>
+												</div>
+				<span class='period-text'></span>
+</h4>
+				<div class="stat-data">
+					<div class="table mb-20" style="background:white">
+						<table class="table table-bordered table-stats">
+							<thead>
+								<tr>
+									<th>Заказы</th>
+									<th>Доход</th>
+									<th>Ср. чек</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="stats-firstrow">
+									<td class="stat-countOrders">31</td>
+									<td><span class="stat-profit">45 233</span> <small>руб.</small></td>
+									<td><span class="stat-middleCheck">310</span> <small>руб.</small></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 
-		<h3>Статистика</h3>
-		<div class="table mb-20" style="background:white">
-			<table class="table table-bordered table-stats">
-				<thead>
-					<tr>
-						<th>Заказы</th>
-						<th>Доход</th>
-						<th>Ср. чек</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="stats-firstrow">
-						<td>31</td>
-						<td>45 233 <small>руб.</small></td>
-						<td>310 <small>руб.</small></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 
 		</div>
 

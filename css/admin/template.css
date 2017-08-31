@@ -253,6 +253,22 @@ p {
 	text-align: right !important;
 }
 
+.d-n {
+	display: none !important;
+}
+
+.d-b {
+	display: block !important;
+}
+
+.d-ib {
+	display: inline-block !important;
+}
+
+.d-i {
+	display: inline !important;
+}
+
 .dropdown-menu>li>span {
 	display: block;
 	padding: 3px 20px;
@@ -477,7 +493,47 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 }
 
 .col-stats {
-	background: #ccc;
+	/* background: #ccc; */
+}
+
+.col-stats h4>span,.col-stats h4 .time-period {
+	height: 28px;
+	line-height: 28px;
+	display: block;
+	float: left;
+}
+
+.col-stats h4 .time-period {
+
+}
+
+.col-stats h4 .time-period .dropdown-toggle{
+	background: transparent;
+	border: 0;
+	height: 24px;
+	line-height: 20px;
+	padding: 0px 5px 4px;
+	font-size: inherit;
+	display: block;
+	color: #428bca;
+	text-decoration: underline;
+	margin-top: 4px;
+	outline: none;
+}
+.col-stats h4 .time-period .dropdown-toggle:active{
+	box-shadow: none;
+}
+
+.stats-box span.period-text {
+	font-size: 14px;
+	color: #888;
+	background: #e0e0e0;
+	padding: 0 8px;
+	height: 24px;
+	line-height: 24px;
+	margin: 4px 8px;
+	border-radius: 4px;
+	display: none;
 }
 
 .panel-heading-middle {

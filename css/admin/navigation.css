@@ -302,7 +302,8 @@ li.back-to-site:hover a
 	width: 200px;
 	transition: all .2s ease-in-out;
 }
-.navigation.low.swiped::before,.navigation.low.swiped::after {
+
+.navigation.low.swiped.top::before,.navigation.low.swiped.bottom::after {
 	transition: all .2s ease-in-out;
 	opacity: .7;
 }

@@ -147,6 +147,10 @@ class Controller_Admin extends Controller
 				Self::adminOrdersCount('new');
 				break;
 
+			case 'getStatData':
+				Self::adminGetStatData();
+				break;
+
 			case 'newStat':
 				Self::adminOrderNewStat();
 				break;
@@ -179,6 +183,13 @@ class Controller_Admin extends Controller
 				# code...
 				break;
 		}
+}
+
+function adminGetStatData()
+{
+	$data = json_decode($_POST['data'], true);
+	extract($data);
+	echo $this->model->getStatData($type, $period);
 }
 
 function adminGetLastOrderId()

@@ -143,7 +143,9 @@ class Controller
 		$xm = (int) $xday[1];
 		$xday = (int) $xday[2];
 		$xmonth = array ('января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
+		$xmonth_short = array ('янв','фев','марта','апр','мая','июня','июля','авг','сент','окт','нояб','дек');
 		$xmonth = $xmonth[$xm-1];
+		$xmonth_short = $xmonth_short[$xm-1];
 		if (isset($xtime)) {
 			$xtime = explode(':', $xtime);
 			$xh = $xtime[0];
@@ -159,6 +161,9 @@ class Controller
 			}
 			if ($format == 'compact') {
 				$xday = (self::backDay($xtimeunix, $xday)=='сегодня')||(self::backDay($xtimeunix, $xday)=='вчера') ? $newTimeStamp = self::backDay($xtimeunix, $xday) : $newTimeStamp = $xday.' '.$xmonth.' '.$xyear;
+			}
+			if ($format == 'short') {
+				$newTimeStamp = $xday.' '.$xmonth_short;
 			}
 
 		return $newTimeStamp;
