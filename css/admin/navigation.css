@@ -253,7 +253,7 @@ li.back-to-site:hover a
 {
 		position: fixed;
 		width: 60px;
-		height: 100%;
+		height: calc(100% - 50px);
 		/* min-height: 460px; */
 		left: 0;
 		top: 50px;
@@ -261,19 +261,46 @@ li.back-to-site:hover a
 
 		background-color: #0c1b23;
 
-		/* padding-bottom: 20px; */
-
 		overflow-x: hidden;
 		overflow-y: auto;
 
 		transition: all .2s ease-in-out;
 		box-shadow: 1px 0 0 rgba(0,0,0,.3);
-		padding-top: 50px;
-		margin-top: -50px;
 }
 
-.navigation.swiped {
+.navigation.low {
+	width: 75px;
+}
+
+.navigation.low::before,.navigation.low::after{
+	content: "";
+	display: block;
+	width: 65px;
+	height: 0px;
+	position: fixed;
+	background: #f00;
+	box-shadow: 0 0px 4px 4px rgba(0,255,255,1);
+	z-index: 10;
+	border-radius: 50%;
+	border: 1px solid rgba(0,255,255,1);
+	opacity: 0;
+	transition: all .2s ease-in-out;
+}
+
+.navigation.low::before{
+	top: 47px;
+}
+.navigation.low::after{
+	bottom: -4px;
+}
+.navigation.low.top::before,.navigation.low.bottom::after{
+	opacity: 1;
+	transition: all .2s ease-in-out;
+}
+
+.navigation.swiped, .navigation.low.swiped,.navigation.low.swiped::before,.navigation.low.swiped::after {
 	width: 200px;
+	transition: all .2s ease-in-out;
 }
 
 .nav-title.swiped {
@@ -299,6 +326,7 @@ ul.side-nav
 	display: block;
 	height: auto;
 	width: 100%;
+	margin-bottom: 0;
 }
 
 ul.side-nav li
@@ -827,7 +855,6 @@ li.active a,
 	.navigation
 	{
 		left: -91px;
-		min-height: 400px;
 	}
 	.navigation.swiped{
 		left: 0px;
