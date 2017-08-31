@@ -10,31 +10,41 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<input type="hidden" id="post-id" value="<?php echo $post['id'] ?>">
 				<label for="post-title" class="post-label">Заголовок</label>
 				<input type="text" id="post-title" placeholder="Офигенный заголовок" value="<?php echo $post['title'] ?>">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-subtitle" class="post-label">Подзаголовок</label>
 				<input type="text" id="post-subtitle" placeholder="Офигенный подзаголовок" value="<?php echo $post['subtitle'] ?>">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-url" class="post-label">URL <span class="really-edit">изменить</span></label>
 				<input type="text" id="post-url" placeholder="url" disabled  value="<?php echo $post['url'] ?>">
 			</div>
+			</div>
 
 			<div class="row ">
+			<div class="col-xs-12">
 			<form action="">
 				<label for="post-body" class="post-label">Тело поста</label>
 				<textarea name="" id="post-body" cols="30" rows="10"><?php echo $post['text'] ?></textarea>
 			</form>
 			</div>
+			</div>
 
 			<div class="row">
+			<div class="col-xs-12">
 				<div class="btn-after-post post-save edit">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
+			</div>
 			</div>
 
 		</div>

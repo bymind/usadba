@@ -10,6 +10,7 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<input type="hidden" id="post-id" value="">
 				<div class="col-xs-12 col-sm-8 pl-0 mb-10">
 					<label for="post-title" class="post-label">Название товара</label>
@@ -49,63 +50,79 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row mt-0">
-				<label for="post-subtitle" class="post-label">Мини-описание</label>
-				<input type="text" id="post-subtitle" placeholder="Например, производитель" value="">
 			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
+				<label for="post-subtitle" class="post-label">Мини-описание</label>
+				<input type="text" id="post-subtitle" placeholder="Например, производитель" value="">
+			</div>
+			</div>
+
+			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-url" class="post-label">Артикул <span class="really-edit">изменить</span></label>
 				<input type="text" id="post-url" placeholder="art001" disabled  value="">
 				<input type="hidden" id="post-tech_name" value="">
 			</div>
-
-	<!-- 		<div class="row ">
-		<label for="post-anons" class="post-label">Анонс</label>
-		<textarea name="" id="post-anons" cols="30" rows="2" placeholder="Интересный анонс"></textarea>
-	</div> -->
+			</div>
 
 			<div class="row ">
+			<div class="col-xs-12">
 			<form action="">
 				<label for="post-body" class="post-label">Описание</label>
 				<textarea name="" id="post-body" cols="30" rows="10"></textarea>
 			</form>
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-weight" class="post-label">Вес</label>
 				<input type="text"  class="prod-input" id="post-weight" placeholder="Например, 1 кг" value="">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-country" class="post-label">Страна</label>
 				<input type="text"  class="prod-input" id="post-country" placeholder="Например, Россия, Москва" value="">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-stor_cond" class="post-label">Условия хранения</label>
 				<input type="text"  class="prod-input" id="post-stor_cond" placeholder="Например, 2 мес при -18С" value="">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-nut_val" class="post-label">Пищевая ценность</label>
 				<input type="text"  class="prod-input" id="post-nut_val" placeholder="Белки, жиры и углеводы" value="">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-energy_val" class="post-label">Энергетическая ценность</label>
 				<input type="text"  class="prod-input" id="post-energy_val" placeholder="Например, 100 Ккал" value="">
 			</div>
+			</div>
 
 			<div class="row mt-0">
+			<div class="col-xs-12">
 				<label for="post-consist" class="post-label">Состав</label>
 				<textarea name=""  class="prod-input" id="post-consist" cols="30" rows="4"></textarea>
 			</div>
+			</div>
 
 			<div class="row">
+			<div class="col-xs-12">
 				<div class="btn-after-post post-save new">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
+			</div>
 			</div>
 
 		</div>

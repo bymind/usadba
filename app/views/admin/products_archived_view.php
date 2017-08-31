@@ -35,7 +35,12 @@
 
 			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
 			<div class="blog-item">
-				<div class="poster" style="background-image: url(<?php echo $product['images'] ?>);">
+				<div class="poster" style='background-image: url(<?php
+					if ($product['images']) {
+						echo $product['images'].");'";
+					} else
+						echo "/upload/prod-default-cover.jpg);background-color:#fff; background-size:contain; background-repeat:no-repeat;'";
+					?> >
 					<div class="controls hidden-xs">
 						<a href="/admin/goods/edit/<?php echo $product['art'] ?>" class="btn-edit">Редактировать</a>
 						<a href="<?php echo $product['url'] ?>" class="look" target="_blank">Посмотреть на сайте</a>

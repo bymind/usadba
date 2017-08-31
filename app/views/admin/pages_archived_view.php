@@ -33,12 +33,12 @@
 
 			<div class="col-xs-12 col-sm-4 col-md-3">
 			<div class="blog-item">
-				<div class="poster" style="background-image: url(<?php
-				                                                 if ($post['poster']) {
-					                                                 echo $post['poster'];
-				                                                 } else
-				                                                 	echo "/upload/prod-default-cover.jpg";
-				                                                 	 ?>);">
+				<div class="poster" style='background-image: url(<?php
+					if ($post['poster']) {
+						echo $post['poster'].");'";
+					} else
+						echo "/upload/prod-default-cover.jpg);background-color:#fff; background-size:contain; background-repeat:no-repeat;'";
+					?> >
 					<div class="controls hidden-xs">
 						<a href="/admin/pages/edit/<?php echo $post['tech_name'] ?>" class="btn-edit">Редактировать</a>
 						<a href="/admin/pages/delete/<?php echo $post['tech_name'] ?>" data-target="<?php echo htmlspecialchars($post['title']) ?>" data-id="<?php echo $post['id'] ?>" class="btn-delete">Удалить</a>
