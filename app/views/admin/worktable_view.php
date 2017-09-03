@@ -59,7 +59,7 @@
 			<div class="panel-heading">
 			<h4>Статистика</h4>
 			</div>
-			<div class="panel-body pt-0">
+			<div class="panel-body pt-10">
 			<div class="col-xs-12 pl-0 pr-0 stats-box stats-sales" data-uniq="stats-sales">
 				<h4 class="clearfix"><span>Продажи за </span><div class="time-period dropdown"><button class="btn btn-default dropdown-toggle ml-5" type="button" id="dropdownSales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="txt mr-5">сегодня</span><span class="caret"></span></button>
 													<ul class="dropdown-menu" aria-labelledby="dropdownSales">
@@ -76,12 +76,12 @@
 </h4>
 				<div class="stat-data">
 					<div class="table mb-20" style="background:white">
-						<table class="table table-bordered table-stats">
+						<table class="table table-stats">
 							<thead>
-								<tr class="bg-primary">
-									<th>Заказы</th>
-									<th>Доход</th>
-									<th>Ср. чек</th>
+								<tr>
+									<th class="bg-primary">Заказы</th>
+									<th class="bg-primary">Доход</th>
+									<th class="bg-primary">Ср. чек</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -92,17 +92,17 @@
 								</tr>
 								<tr class="stats-chart-row d-n">
 									<td colspan="3">
-										<div class="stat-countOrders-chart mt-10 pl-10 pr-5">
+										<div class="stat-countOrders-chart mt-10 ">
 											<div class="stat-chart-div" data-chartid="stat-countOrders-chart">
 												<canvas id="stat-countOrders-chart"></canvas>
 											</div>
 										</div>
-									<div class="stat-profit-chart mt-10 pl-10 pr-5">
+									<div class="stat-profit-chart mt-10 ">
 											<div class="stat-chart-div" data-chartid="stat-profit-chart">
 												<canvas id="stat-profit-chart"></canvas>
 											</div>
 										</div>
-										<div class="stat-middleCheck-chart mt-10 pl-10 pr-5">
+										<div class="stat-middleCheck-chart mt-10 ">
 											<div class="stat-chart-div" data-chartid="stat-middleCheck-chart">
 												<canvas id="stat-middleCheck-chart"></canvas>
 											</div>

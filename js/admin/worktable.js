@@ -3,7 +3,6 @@ $(function() {
 	lookForStatusEdit();
 	paginationOrders();
 	statsInit();
-	x = "";
 });
 
 
@@ -29,7 +28,6 @@ function statsInit()
 			}
 			$.when(loadStatData(statData)).done(function(answ){
 				console.table([answ.statData]);
-				x = answ;
 				pasteStatsData(statsBox,answ.statData.dataToPaste, statData.period);
 				if (answ.statData.hasChart) {
 					console.log(answ.statData.shartData);
@@ -55,7 +53,6 @@ function loadCurrentStats()
 		}
 		$.when(loadStatData(statData)).done(function(answ){
 			console.table([answ.statData]);
-			x = answ;
 			pasteStatsData(statsBox,answ.statData.dataToPaste, statData.period);
 			if (answ.statData.hasChart) {
 				console.log(answ.statData.chartData);
