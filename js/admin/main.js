@@ -41,61 +41,10 @@ function mainPageInit()
 	isTime();
 	showTime();
 	sandvich($('.open-menu-btn'), "#000", "#fff", 22, 15, 1, false);
-	statsInit();
+
 }
 
 /*--------------------------------*/
-
-function statsInit()
-{
-	if ($('.col-stats')===undefined) {} else
-	{
-		$('.stats-box').on('click', 'ul.dropdown-menu li a', function(event) {
-			event.preventDefault();
-			$(this).parents('ul').eq(0).find('.d-n').removeClass('d-n');
-			$(this).addClass('d-n');
-			var txt = $(this).text();
-			$(this).parents('.stats-box').eq(0).find('button.dropdown-toggle span.txt').text(txt);
-			var statData = {
-				type: $(this).data('type'),
-				period: $(this).data('period')
-			}
-			$.when(loadStatData(statData)).done(function(answ){
-				console.info(answ);
-				$.each(answ, function(index, val) {
-					// if (!$('.stat-')) {}
-				});
-			}).fail(function(err){
-				console.error(err);
-			});
-
-		});
-	}
-}
-
-function loadStatData(statData)
-{
-	return $.Deferred(function(def){
-		var dataJson = JSON.stringify(statData);
-		$.ajax({
-				url: '/admin/orders/getStatData',
-				type: 'POST',
-				data: {data: dataJson},
-				success: function(res){
-					console.log(res);
-					var answ = $.parseJSON(res);
-					if (answ.success) {
-						def.resolve(answ.statData);
-					} else {
-						def.reject(false);
-					}
-				},
-				fail: function(err){
-					def.reject(false);
-				}
-			});
-	}).promise();
-}
 
 function lowWindowHeightListener()
 {

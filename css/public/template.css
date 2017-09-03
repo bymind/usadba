@@ -2588,6 +2588,7 @@ span.search-query {
 	button.call-me:active, button.login:active, button.cart:active, a.cart:active{
 		margin-top: 6px !important;
 		margin-bottom: 4px !important;
+		border-bottom: 1px solid transparent;
 	}
 
 	.head-phone {

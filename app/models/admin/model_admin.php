@@ -18,37 +18,100 @@ class Model_Admin extends Model
 						$from = date("Y-m-d H:i:s", mktime(0,0,0, (int)date("m"), (int)date("d"), (int)date("Y")));
 						$to = date("Y-m-d H:i:s");
 						$periodTxt = Controller::getGoodDate($to, 'short');
+						$chart = true;
+						$labels = array();
+						$periodRus = "неделя";
+						for ($i=6; $i > 0; $i--) {
+							$buf = date("Y-m-d", strtotime('-'.$i.' days'));
+							$buf = Controller::getGoodDate($buf, 'short');
+							$labels[] = $buf;
+						}
+						$labels[] = Controller::getGoodDate(date("Y-m-d"), 'short');
 						break;
 
 					case 'yesterday':
 						$from = date("Y-m-d", time() - 60*60*24)." 00:00:00";
 						$to = date("Y-m-d", time() - 60*60*24)." 23:59:59";
 						$periodTxt = Controller::getGoodDate($from, 'short');
+						$chart = true;
+						$labels = array();
+						$periodRus = "неделя";
+						for ($i=6; $i > 0; $i--) {
+							$buf = date("Y-m-d", strtotime('-'.$i.' days'));
+							$buf = Controller::getGoodDate($buf, 'short');
+							$labels[] = $buf;
+						}
+						$labels[] = Controller::getGoodDate(date("Y-m-d"), 'short');
 						break;
 
 					case 'week':
 						$from = date("Y-m-d", time() - 60*60*24*6)." 00:00:00";
 						$to = date("Y-m-d H:i:s");
-
+						$chart = true;
+						$periodRus = "неделя";
+						$labels = array();
+						for ($i=6; $i > 0; $i--) {
+							$buf = date("Y-m-d", strtotime('-'.$i.' days'));
+							$buf = Controller::getGoodDate($buf, 'short');
+							$labels[] = $buf;
+						}
+						$labels[] = Controller::getGoodDate(date("Y-m-d"), 'short');
 						break;
 
 					case 'month':
 						$from = date("Y-m-d", strtotime('-1 month'))." 00:00:00";
 						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
 						$to = date("Y-m-d H:i:s");
+						$chart = true;
+						$periodRus = "месяц";
+						$iterator = "";
+						$j = 0;
+						$labels = array();
+						while ($iterator != Controller::getGoodDate(date("Y-m-d"), 'short')) {
+							$iterator = date("Y-m-d", strtotime($from)+60*60*24*$j);
+							$iterator = Controller::getGoodDate($iterator, 'short');
+							$labels[] = $iterator;
+							$j++;
+						}
 						break;
 
 					case 'quarter':
 						$from = date("Y-m-d", strtotime("-3 months"))." 00:00:00";
 						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
 						$to = date("Y-m-d H:i:s");
+						$chart = true;
+						$periodRus = "квартал";
+						$iterator = "";
+						$j = 0;
+						$labels = array();
+						while ($iterator != Controller::getGoodDate(date("Y-m-d"), 'short')) {
+							$iterator = date("Y-m-d", strtotime($from)+60*60*24*$j);
+							$iterator = Controller::getGoodDate($iterator, 'short');
+							$labels[] = $iterator;
+							$j++;
+						}
 						break;
 
-					case 'year':
-						$from = date("Y-m-d", strtotime("-1 year"))." 00:00:00";
-						$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
-						$to = date("Y-m-d H:i:s");
-						break;
+					// case 'year':
+					// 	$from = date("Y-m-d", strtotime("-1 year"))." 00:00:00";
+					// 	$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
+					// 	$to = date("Y-m-d H:i:s");
+					// 	$chart = true;
+					// 	$periodRus = "год";
+					// 	$iterator = "";
+					// 	$j = 0;
+					// 	$labels = array();
+					// 	while ($iterator < strtotime(date("Y-m-d"))) {
+					// 		$iterator = strtotime($from."+".$j." months");
+					// 		$iterator = date("Y-m-d", $iterator);
+					// 		$iterator = Controller::getGoodDate($iterator, 'short');
+					// 		$iterator = split(' ',$iterator);
+					// 		$iterator = $iterator[1];
+					// 		$labels[] = $iterator;
+					// 		$j++;
+					// 		$iterator = strtotime($from."+".$j." months");
+					// 	}
+					// 	break;
 
 					default:
 						# code...
@@ -63,8 +126,51 @@ class Model_Admin extends Model
 					$prods = json_decode($r['prod_list'],true);
 					$countProfit+= (int)$prods['sumPrice'];
 				}
+
+				if (($period=="today")||($period=="yesterday")) {
+					$from1 = date("Y-m-d", time() - 60*60*24*6)." 00:00:00";
+					$to1 = date("Y-m-d H:i:s");
+					$q = mysql_query("SELECT * FROM orders WHERE stat=3 AND datetime>'$from1' AND datetime<'$to1'") or die(mysql_error());
+					// $countStatLines = mysql_num_rows($q);
+					while ($r = mysql_fetch_assoc($q)) {
+						$ds[]=$r;
+					}
+				}
+
+				// if (($period!="today")&&($period!="yesterday")) {
+				$countStatLinesDays = array();
+				for ($i=0; $i < count($labels); $i++) {
+					$countStatLinesDays[$i] = 0;
+				}
+				foreach ($ds as $order) {
+					$date = Controller::getGoodDate(date("Y-m-d", strtotime($order['datetime'])),'short');
+					$key = array_search($date, $labels);
+					$countStatLinesDays[$key]++;
+				}
+
+				$profitDays = array();
+				for ($i=0; $i < count($labels); $i++) {
+					$profitDays[$i] = 0;
+				}
+				foreach ($ds as $order) {
+					$date = Controller::getGoodDate(date("Y-m-d", strtotime($order['datetime'])),'short');
+					$key = array_search($date, $labels);
+					$prods = json_decode($order['prod_list'],true);
+					$profitDays[$key] += $prods['sumPrice']+0.0;
+				}
+				// }
+
+				$middleCheckDays = array();
+				for ($i=0; $i < count($profitDays); $i++) {
+					if ($countStatLinesDays[$i] > 0) {
+						$middleCheckDays[$i] = round($profitDays[$i]/$countStatLinesDays[$i],2);
+					} else {
+						$middleCheckDays[$i] = 0;
+					}
+				}
+
 				if ($countStatLines>0) {
-					$countMiddleCheck = number_format($countProfit/$countStatLines, 2, '.', ' ');
+					$countMiddleCheck = round($countProfit/$countStatLines, 2);
 				} else {
 					$countMiddleCheck = 0;
 				}
@@ -95,10 +201,66 @@ class Model_Admin extends Model
 								// 'from_good' => Controller::getGoodDate($from),
 								'to' => $to,
 								// 'to_good' => Controller::getGoodDate($to),
-								'countOrders' => number_format($countStatLines, 0, '.', ' '),
-								'profit' => number_format($countProfit, 0, '.', ' '),
-								'middleCheck' => number_format($countMiddleCheck, 2, '.', ' '),
-								'periodTxt' => $periodTxt,
+								'dataToPaste' => array(
+										'countOrders' => number_format($countStatLines, 0, '.', ' '),
+										'profit' => number_format($countProfit, 0, '.', ' '),
+										'middleCheck' => number_format($countMiddleCheck, 2, '.', ' '),
+										'periodTxt' => $periodTxt,
+								),
+								'hasChart' => $chart,
+								'chartData' => array(
+										'countOrders' => array(
+												'chartData' => array(
+													'title' => "Заказы: ".$periodRus,
+													'labels' => $labels,
+													'datasets' => array(
+															array(
+																'fill' => 'origin',
+																'label' => 'Заказов за день',
+																'data' => $countStatLinesDays,
+																'backgroundColor' => 'rgba(239, 83, 80, 0.2)',
+																'borderColor' => 'rgba(239, 83, 80,1)',
+																'pointBackgroundColor' => 'rgba(239, 83, 80,1)',
+																'pointHoverBackgroundColor' => 'rgba(255,255,255,.8)',
+															)
+													)
+												),
+										),
+										'profit' => array(
+												'chartData' => array(
+													'title' => "Доход: ".$periodRus,
+													'labels' => $labels,
+													'datasets' => array(
+															array(
+																'fill' => 'origin',
+																'label' => 'Доход за день',
+																'data' => $profitDays,
+																'backgroundColor' => 'rgba(66, 139, 202, 0.2)',
+																'borderColor' => 'rgba(66, 139, 202,1)',
+																'pointBackgroundColor' => 'rgba(66, 139, 202,1)',
+																'pointHoverBackgroundColor' => 'rgba(255,255,255,.8)',
+																)
+															)
+												),
+										),
+										'middleCheck' => array(
+												'chartData' => array(
+													'title' => "Средний чек: ".$periodRus,
+													'labels' => $labels,
+													'datasets' => array(
+															array(
+																'fill' => 'origin',
+																'label' => 'Ср. чек за день',
+																'data' => $middleCheckDays,
+																'backgroundColor' => 'rgba(84, 110, 122, 0.2)',
+																'borderColor' => 'rgba(84, 110, 122,1)',
+																'pointBackgroundColor' => 'rgba(84, 110, 122,1)',
+																'pointHoverBackgroundColor' => 'rgba(255,255,255,.8)',
+															)
+													)
+												),
+										),
+								)
 						),
 				);
 				return json_encode($answ, JSON_UNESCAPED_UNICODE);

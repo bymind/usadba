@@ -2,7 +2,183 @@ $(function() {
 	orderRowClick();
 	lookForStatusEdit();
 	paginationOrders();
+	statsInit();
+	x = "";
 });
+
+
+function statsInit()
+{
+	if ($('.col-stats')===undefined) {} else
+	{
+		loadCurrentStats();
+
+		$('.stats-box').on('click', 'ul.dropdown-menu li a', function(event) {
+			event.preventDefault();
+
+			// $(this).parents('ul').eq(0).find('.d-n').removeClass('d-n');
+			$(this).parents('ul').eq(0).find('.disabled').removeClass('disabled');
+			// $(this).addClass('d-n');
+			$(this).parent().addClass('disabled');
+			var statsBox = $('.'+$(this).parents('.stats-box').data('uniq'));
+			var txt = $(this).text();
+			$(this).parents('.stats-box').eq(0).find('button.dropdown-toggle span.txt').text(txt);
+			var statData = {
+				type: $(this).data('type'),
+				period: $(this).data('period')
+			}
+			$.when(loadStatData(statData)).done(function(answ){
+				console.table([answ.statData]);
+				x = answ;
+				pasteStatsData(statsBox,answ.statData.dataToPaste, statData.period);
+				if (answ.statData.hasChart) {
+					console.log(answ.statData.shartData);
+					pasteStatsChartData(statsBox,answ.statData.chartData, statData.period);
+				}
+			}).fail(function(err){
+				console.error(err);
+			});
+
+		});
+	}
+}
+
+function loadCurrentStats()
+{
+	$.each($('.stats-box'), function(index, val) {
+		var statsBox = $('.stats-box').eq(index);
+		// var curItem = statsBox.find('.dropdown-menu a.d-n');
+		var curItem = statsBox.find('.dropdown-menu li.disabled a');
+		var statData = {
+			type: curItem.data('type'),
+			period: curItem.data('period')
+		}
+		$.when(loadStatData(statData)).done(function(answ){
+			console.table([answ.statData]);
+			x = answ;
+			pasteStatsData(statsBox,answ.statData.dataToPaste, statData.period);
+			if (answ.statData.hasChart) {
+				console.log(answ.statData.chartData);
+				pasteStatsChartData(statsBox,answ.statData.chartData, statData.period);
+			}
+		}).fail(function(err){
+			console.error(err);
+		});
+	});
+}
+
+function pasteStatsData(box,data,period)
+{
+	box.find('tr.stats-chart-row').addClass('d-n').find('.stat-chart-div').html("");
+	box.find('tr.stats-nochart-row').removeClass('d-n');
+	$.each(data, function(index, val) {
+		box.find('.stat-'+index).text(val);
+	});
+
+}
+
+function pasteStatsChartData(box, chartData)
+{
+	var chartsDivs = box.find('.stat-chart-div');
+	for (var i = chartsDivs.length - 1; i >= 0; i--) {
+		var chartId = chartsDivs.eq(i).data('chartid');
+		chartsDivs.eq(i).html("<canvas id="+chartId+"></canvas>")
+	}
+	box.find('tr.stats-chart-row').removeClass('d-n');
+	box.find('tr.stats-nochart-row').addClass('d-n');
+	if (chartData == undefined) {
+		console.error("chartData undefined");
+		return false;
+	}
+
+	// console.trace(chartData);
+	$.each(chartData, function(index, val) {
+		val.canvasId = "stat-"+index+"-chart";
+		drawChart(val.canvasId, val.chartData);
+	});
+
+}
+
+function drawChart(canvasId, data)
+{
+	var ctx = document.getElementById(canvasId);
+	var chart = new Chart(ctx, {
+			type: 'line',
+			data: data,
+			options: {
+					animation: {
+						duration: 0, // general animation time
+					},
+					hover: {
+							animationDuration: 0, // duration of animations when hovering an item
+					},
+					responsiveAnimationDuration: 0, // animation duration after a resize
+					elements:{
+						point:{
+							radius: 2,
+							hitRadius: 5,
+							hoverRadius: 3,
+						},
+						line: {
+								tension: 0.3, // disables bezier curves
+								borderWidth: 2
+						}
+					},
+					maintainAspectRatio: false,
+					animation: {
+						duration: 400,
+						easing: 'easeInOutQuart'
+					},
+					tooltips: {
+						displayColors: false,
+						cornerRadius: 4,
+						caretPadding: 5,
+						backgroundColor: 'rgba(0, 0, 0, .8)'
+					},
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: data.title,
+						fontSize: 16
+					},
+					scales: {
+							yAxes: [{
+									stacked: true,
+									ticks: {
+											beginAtZero:true
+									}
+							}]
+					},
+			}
+	});
+}
+
+function loadStatData(statData)
+{
+	return $.Deferred(function(def){
+		var dataJson = JSON.stringify(statData);
+		$.ajax({
+				url: '/admin/orders/getStatData',
+				type: 'POST',
+				data: {data: dataJson},
+				success: function(res){
+					console.log(res);
+					var answ = $.parseJSON(res);
+					if (answ.success) {
+						def.resolve(answ);
+					} else {
+						def.reject(false);
+					}
+				},
+				fail: function(err){
+					def.reject(false);
+				}
+			});
+	}).promise();
+}
+
 
 function paginationOrders()
 {
@@ -119,6 +295,7 @@ function sendNewOrderStatus(orderStatus)
 			reloadOrder(orderStatus.id);
 		};
 		console.log(answ);
+		loadCurrentStats();
 		// $('.table-orders [data-orderid='+orderStatus.id+']').css('opacity', '1');
 	})
 	.fail(function(answ) {

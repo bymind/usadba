@@ -38,6 +38,8 @@ function newOrdersCounter()
 		console.log("it's "+$countOrders+" new order(s)");
 		if ($countOrders > 0) {
 			$('li.home .alert').addClass('on').text($countOrders);
+		} else {
+			$('li.home .alert').removeClass('on');
 		}
 	})
 	.fail(function(answ) {

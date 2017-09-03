@@ -133,6 +133,14 @@ p {
 	padding-right: 0 !important;
 }
 
+.pt-0 {
+	padding-top: 0 !important;
+}
+
+.pb-0 {
+	padding-bottom: 0 !important;
+}
+
 .pl-5 {
 	padding-left: 5px !important;
 }
@@ -477,12 +485,13 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 
 .table-stats th {
 	text-align: center;
+	font-weight: normal;
 }
 
 .table-stats tr.stats-firstrow td {
 	font-size: 20px;
 	text-align: center;
-	font-weight: 900;
+	/* font-weight: 900; */
 }
 
 .table-stats tr.stats-firstrow td small {
@@ -493,7 +502,8 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 }
 
 .col-stats {
-	/* background: #ccc; */
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: 4px;
 }
 
 .col-stats h4>span,.col-stats h4 .time-period {
@@ -524,8 +534,8 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 	box-shadow: none;
 }
 
-.stats-box span.period-text {
-	font-size: 14px;
+.stats-box span.stat-periodTxt {
+	font-size: 11px;
 	color: #888;
 	background: #e0e0e0;
 	padding: 0 8px;
@@ -533,7 +543,24 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 	line-height: 24px;
 	margin: 4px 8px;
 	border-radius: 4px;
-	display: none;
+}
+
+.stats-chart-row p {
+	font-size: 16px;
+}
+
+tr.stats-chart-row div.stat-chart-div {
+	width: 100%;
+	height: 200px;
+}
+
+tr.stats-chart-row canvas {
+	user-select: none;
+}
+
+.dropdown-menu>.disabled>a, .dropdown-menu>.disabled>a:hover, .dropdown-menu>.disabled>a:focus {
+	background: #4da1ea;
+	color: #fff;
 }
 
 .panel-heading-middle {
@@ -607,4 +634,16 @@ td.order-fail-row,td.order-done-row,td.order-progress-row,td.order-new-row {
 
 .adminka-config input::-ms-placeholder, .adminka-config textarea::-ms-placeholder {
 	opacity: .5;
+}
+
+.panel-stat {
+	border-color: #546E7A;
+}
+.panel-stat>.panel-heading {
+	color: #fff;
+	background-color: #546E7A;
+	border-color: #546E7A;
+}
+.panel-stat>.panel-heading h4,.panel-stat>.panel-heading h3,.panel-stat>.panel-heading h5 {
+	color: inherit;
 }
