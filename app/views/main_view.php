@@ -54,7 +54,7 @@
 ?>
 
 			<div class="col-xxs-12 col-xs-12">
-				<div class="title-wide mb-10">
+				<div class="title-wide mb-10 mt-10">
 					Новинки
 				</div>
 			</div>
