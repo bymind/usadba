@@ -1100,7 +1100,7 @@ function adminDeleteProdsFromCat()
 																'post-save edit' => 'Сохранить',
 																'post-abort' => 'Отмена',
 																'post-delete btn-delete' => 'Удалить',
-																'post-archive '.$archive_class => $archive_text,
+																// 'post-archive '.$archive_class => $archive_text,
 																),
 								'Favicon' => 'app/views/admin-favicon.php',
 							),

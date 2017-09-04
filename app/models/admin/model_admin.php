@@ -545,6 +545,10 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM sales WHERE tech_name = '$post_url'")or die(mysql_error());
 		$ds = mysql_fetch_assoc($select);
+		if ($ds['end_time']<date("Y-m-d H:i:s")) {
+			$ds['archived'] = 1;
+		} else
+			$ds['archived'] = 0;
 		return $ds;
 	}
 
