@@ -56,6 +56,19 @@ function InitInputsEnters()
 			TryLogin(loginForm);
 		}
 	});
+	$(document).on('keyup', 'input#reg-name', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			$(this).parents(".modal-body").find('input#reg-email').focus();
+		}
+	});
+	$(document).on('keyup', 'input#reg-email', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			var regForm = $('#profile-form-reg');
+			TryRegistration(regForm);
+		}
+	});
 }
 
 function scrollAfterPagination()
@@ -376,7 +389,6 @@ function CountCartBtn(btn,pxls,leftOffset)
 		leftOffset = $('.headline').offset().left;
 		var rightFloat = leftOffset+5;
 		// console.log($(window).width()+" - "+btn.outerWidth()+" - "+ leftOffset +" = "+rightFloat);
-		console.log(rightFloat);
 	}
 	var scrolled = window.pageYOffset || document.documentElement.scrollTop;
 	if (scrolled >= pxls ) {
@@ -1461,17 +1473,19 @@ function TryRegistration(form)
 			data: {target: 'registration', jsonLogin: jsonLogin},
 		})
 		.done(function(res) {
-			if ( res && res!='false') {
+			if ( res === 'true') {
 				console.warn("TryRegistration() done");
+				console.warn(res);
 				$res = JSON.parse(res);
-				$res ? console.info($res) : console.info(res);
-				ShowGood(form.parents('.modal-content').find('button[data-target=registration]'),"Входим");
+				SendRegEmail(login);
+				ShowGood(form.parents('.modal-content').find('button[data-target=registration]'),"Регистрируем", ShowRegSended);
 			} else {
 				console.error("TryRegistration() response FALSE");
 				console.error("jsonLogin: "+jsonLogin);
 				console.error(res);
+				var jsonRes = $.parseJSON(res);
 				var err = [{'name':"email",'msg':"Неверные данные"},{'name':"name",'msg':"Неверные данные"}];
-				ShowErrors(form,err);
+				ShowErrors(form,jsonRes);
 			}
 		})
 		.fail(function(res) {
@@ -1485,6 +1499,41 @@ function TryRegistration(form)
 		});
 
 	}
+}
+
+function ShowRegSended()
+{
+	$('.modal-profile').find('form#profile-form-reg')[0].reset();
+	$('.modal-profile').find('button[data-target=registration]').removeAttr('style').text("Зарегистрироваться");
+	$('.modal-profile').modal('hide');
+	$('.modal-profile').modal('handleUpdate');
+	$('.modal-profile').on('hidden.bs.modal', function (e) {
+		$('.modal-reg-ok').modal('show');
+		$('.modal-profile').unbind();
+	})
+}
+
+function SendRegEmail(login)
+{
+	var data = JSON.stringify(login);
+	$.ajax({
+		url: '/user/sendRegEmail',
+		type: 'POST',
+		data: {target: 'sendRegEmail', data: data},
+	})
+	.done(function(res) {
+		if ( res === 'true') {
+			console.info("SendRegEmail() done");
+			console.info(res);
+		} else {
+			console.error("SendRegEmail() response FALSE");
+			console.error(res);
+		}
+	})
+	.fail(function(res) {
+		console.error("SendRegEmail() fail");
+		console.error(res);
+	});
 }
 
 function registrationValidate(form)
@@ -1535,7 +1584,6 @@ function registrationValidate(form)
 		ShowErrors(form, errors);
 		return false;
 	}
-
 	return true;
 }
 
@@ -1555,12 +1603,16 @@ function ShowErrors(f, err)
 	return false;
 }
 
-function ShowGood(btn,str)
+function ShowGood(btn,str,noreload)
 {
 	var b = btn;
 	b.css('background-color', '#0dc95c');
 	b.text(str);
-	location.reload();
+	if (noreload === undefined) {
+		location.reload();
+	} else {
+		noreload();
+	}
 }
 
 /*

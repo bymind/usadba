@@ -296,6 +296,30 @@ class Controller_User extends Controller
 		}
 	}
 
+	function action_reg()
+	{
+		Self::action_login();
+	}
+
+	function action_sendRegEmail()
+	{
+		$target = Route::PrepareUrl($_POST['target']);
+		if (isset($target)) {
+			switch ($target) {
+				case 'sendRegEmail':
+					$jsonData = json_decode($_POST['data'], true);
+					$name = $jsonData['name'];
+					$email = $jsonData['email'];
+					Self::sendEmail($name,$email,'userReg');
+					break;
+
+				default:
+					# code...
+					break;
+			}
+		}
+	}
+
 	function action_login()
 	{
 		$jsonLogin = json_decode($_POST['jsonLogin'], true);
@@ -316,6 +340,19 @@ class Controller_User extends Controller
 						echo "false";
 					}
 					return true;
+					break;
+
+				case 'registration':
+					$jsonReg = $jsonLogin;
+					$tryReg = $this->model->tryReg($jsonReg);
+					if ($tryReg === true) {
+						$this->model->userReg($jsonReg);
+						echo "true";
+						return true;
+					} else {
+						echo $tryReg;
+						return false;
+					}
 					break;
 
 				default:

@@ -26,6 +26,42 @@ class Model_User extends Model
 		return 0;
 	}
 
+
+	function tryReg($data)
+	{
+		$reg = $data;
+		$regName = $reg['name'];
+		$regEmail = $reg['email'];
+
+		$q = mysql_query("SELECT id FROM users WHERE email='$regEmail'");
+		if (mysql_num_rows($q) > 0) {
+			$err = array(array('name'=>'email', 'msg'=>'Этот адрес уже занят. Если вы уже регистрировались, попробуйте <a href="/user/forgot">восстановление пароля</a>.'));
+			$err = json_encode($err, JSON_UNESCAPED_UNICODE);
+			return $err;
+		}
+		// $q = mysql_query("SELECT id FROM users WHERE name='$regName'");
+		// if (mysql_num_rows($q) > 0) {
+		// 	var $err = array('name'=>'name', 'msg'=>'Это имя уже занято. Попробуйте <a href="/user/forgot">восстановление пароля</a>.');
+		// 	$err = json_encode($err, JSON_UNESCAPED_UNICODE);
+		// 	return $err;
+		// }
+		return true;
+	}
+
+	function userReg($data)
+	{
+		$reg = $data;
+		$regName = $reg['name'];
+		$regEmail = $reg['email'];
+
+		$regLogin = explode("@", $regEmail);
+		$regLogin = $regLogin[0];
+		$regTime = date("Y-m-d H:i:s");
+		$reg_public_hash = md5($regEmail.$regLogin.Self::SALT);
+		$q = mysql_query("INSERT INTO users (name, login, email, reg_hash, reg_datetime) VALUES ( '$regName', '$regLogin', '$regEmail', '$reg_public_hash', '$regTime')") or die(mysql_error());
+		return true;
+	}
+
 	public function getUser($uid)
 	{
 		$q = mysql_query("SELECT * FROM users WHERE id='$uid'") or die(mysql_error()) ;
