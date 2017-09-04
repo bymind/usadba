@@ -1,3 +1,5 @@
+"use strict";
+
 $(function() {
 	orderRowClick();
 	lookForStatusEdit();
@@ -161,7 +163,7 @@ function loadStatData(statData)
 				type: 'POST',
 				data: {data: dataJson},
 				success: function(res){
-					console.log(res);
+					console.trace(res);
 					var answ = $.parseJSON(res);
 					if (answ.success) {
 						def.resolve(answ);
@@ -181,8 +183,8 @@ function paginationOrders()
 {
 	$('#content').on('click','ul.pagination li>a', function(event) {
 		event.preventDefault();
-		$curPage = $('ul.pagination').data('curpage');
-		$target = $(this).data('target');
+		var $curPage = $('ul.pagination').data('curpage');
+		var $target = $(this).data('target');
 		if (($target==$curPage)||($(this).parent().hasClass('disabled'))) {} else
 		switch ($target){
 			case 'minus':
@@ -280,7 +282,7 @@ function lookForStatusEdit()
 
 function sendNewOrderStatus(orderStatus)
 {
-	newStatJson = JSON.stringify(orderStatus);
+	var newStatJson = JSON.stringify(orderStatus);
 
 	$.ajax({
 		url: '/admin/orders/newStat',
