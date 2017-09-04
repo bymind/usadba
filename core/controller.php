@@ -317,16 +317,18 @@ class Controller
 	{
 		switch ($type) {
 			case 'userReg':
-				$letterText = '<strong style="font-size:1.5em">Подтверждение регистрации на сайте '.CONFIG_SITE_NAME.'</strong><br>';
-				$letterText .= "<p>Этот адрес был указан при регистрации на сайте ".CONFIG_SITE_NAME.".<p>Для перехода на страницу подтверждения и задания пароля перейдите по сылке:<br>";
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				$letterText = '<strong style="font-size:1.2em">Подтверждение регистрации.</strong><br>';
+				$letterText .= "<br><br><p>Этот адрес был указан при регистрации на сайте '".$siteName."'.<p>Для перехода на страницу подтверждения и задания пароля перейдите по сылке:<br>";
 				$link = md5($toEmail.$toName.Model::SALT);
-				$link = $_SERVER['HTTP_HOST'].'/'.$link;
+				$link = "<a href='http://".$_SERVER['HTTP_HOST'].'/'.$link."'>Подтвердить регистрацию</a>";
 				$letterText .= $link;
 				$letterText .= "<br><br><br><br><br>".date('Y')." © ".nl2br(CONFIG_SITE_COPYRIGHT);
-				$title = substr(htmlspecialchars(trim(CONFIG_SITE_NAME." - Регистрация")), 0, 1000);
+				$title = substr(htmlspecialchars(trim($siteName." - Регистрация")), 0, 1000);
 				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
-				$from = "Content-type: text/html; charset=utf-8\r\nFrom:".CONFIG_SITE_NAME.' '.CONFIG_SITE_ADMIN;
-				mail($toEmail, $title, $letterText, $from);
+				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
 				break;
 
 			default:

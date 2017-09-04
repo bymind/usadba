@@ -311,10 +311,12 @@ class Controller_User extends Controller
 					$name = $jsonData['name'];
 					$email = $jsonData['email'];
 					Self::sendEmail($name,$email,'userReg');
+					echo "true";
+					return true;
 					break;
 
 				default:
-					# code...
+					Route::Catch_Error('404');
 					break;
 			}
 		}
