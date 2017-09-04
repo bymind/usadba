@@ -103,7 +103,7 @@
 			</div>
 
 			<div class="row">
-				<div class="btn-after-post post-save edit">Сохранить</div>
+				<div class="btn-after-post post-save new">Сохранить</div>
 				<div class="btn-after-post post-abort">Отмена</div>
 			</div>
 
