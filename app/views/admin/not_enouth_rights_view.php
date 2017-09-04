@@ -7,9 +7,8 @@
 	<div class="row mt-10">
 		<div class="col-xs-12 col-lg-8 col-orders">
 
-			<h3>Недостаточно прав для работы в этой категории</h3>
+			<h3>Ваша область доступа ограничена разделами:</h3>
 			<p>
-				Ваша область доступа ограничена разделами:<br>
 				<?php
 				// var_dump($user);
 				foreach ($user['admin_rights'] as $right) {

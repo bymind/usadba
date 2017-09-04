@@ -1173,7 +1173,7 @@ class Model_Admin extends Model
 	*/
 	public function getAdminUsers()
 	{
-		$select = mysql_query("SELECT * FROM users WHERE isadmin=1 ORDER BY id ASC")or die(mysql_error());
+		$select = mysql_query("SELECT * FROM users WHERE isadmin=1 ORDER BY id DESC")or die(mysql_error());
 		$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$r['admin_rights'] = explode(',',$r['admin_rights']);
@@ -1261,7 +1261,7 @@ class Model_Admin extends Model
 	*/
 	public function getSimpleUsers()
 	{
-		$select = mysql_query("SELECT * FROM users WHERE isadmin=0 ORDER BY id ASC")or die(mysql_error());
+		$select = mysql_query("SELECT * FROM users WHERE isadmin=0 ORDER BY id DESC")or die(mysql_error());
 		$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
 					$ds[]=$r;
