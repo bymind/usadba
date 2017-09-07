@@ -1470,6 +1470,13 @@ span.link a:hover {
 	border-bottom: 1px solid rgba(0,0,0,.05);
 }
 
+.tab-content-box.reviews .comment-over.hashed {
+	border: 2px solid #c63838;
+	padding: 10px;
+	border-radius: 2px;
+	box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+
 .comment-over.comm-form {
 	border: 0;
 }
@@ -1477,6 +1484,10 @@ span.link a:hover {
 .global-reviews .comment-over {
 	background: #fff;
 	padding: 20px;
+}
+
+.global-reviews .comment-over.hashed {
+	border: 2px solid #c63838;
 }
 
 .comment-over .avatar {
@@ -2208,6 +2219,67 @@ span.search-query {
 .catalog-pages>li.active>a:hover {
 	cursor: default;
 	background-color: #c63838;
+}
+
+#confirmForm input[type=password]{
+	display: block;
+	width: 100%;
+	height: 30px;
+	border-radius: 2px;
+	border: 1px solid rgba(0,0,0,.2);
+	padding: 0 6px;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 30px;
+}
+
+#confirmForm {
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+#confirmForm input[type=button], #confirmForm button.btn-primary {
+	height: 30px;
+	font-size: 13px;
+	font-weight: 900;
+	width: 100%;
+	background: #c63838;
+	border: 0;
+	line-height: 20px !important;
+	will-change: background;
+	text-transform: uppercase;
+}
+
+#confirmForm input[type=button]:hover, #confirmForm button.btn-primary:hover {
+	background: #d63c3c;
+}
+
+#confirmForm input[type=button]:active, ,#confirmForm button.btn-primary:active {
+	background: #a22727;
+	border: 0;
+	margin: 0 !important;
+}
+
+#confirmForm .has-error .form-control {
+	border-color: #a94442;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+#confirmForm span.substring {
+	display: block;
+	position: relative;
+	width: 100%;
+	font-size: 11px;
+	color: #222;
+	opacity: .8;
+	font-weight: normal;
+	line-height: 12px;
+	margin-top: 6px;
+}
+
+#confirmForm span.substring.red {
+	color: #c63838;
 }
 
 /* MEDIA QUERIES */

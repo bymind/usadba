@@ -130,6 +130,12 @@ class Controller_User extends Controller
 	return 0;
 	}
 
+	function action_confirmPassw()
+	{
+		$data = json_decode($_POST['data'], true);
+		return $this->model->confirmPassw($data);
+	}
+
 	function action_history($uid=NULL)
 	{
 		$clean_uid = preg_replace("/[^0-9]/", '', $uid);
@@ -247,6 +253,7 @@ class Controller_User extends Controller
 			switch ($target) {
 				case 'upduser':
 					$upduser = json_decode($_POST['data'], true);
+					$upduser['name'] = strip_tags($upduser['name']);
 					$_SESSION['user']['name'] = $upduser['name'];
 					$updRes = false;
 					$updRes = $this->model->updUser($upduser);
@@ -344,6 +351,33 @@ class Controller_User extends Controller
 					return true;
 					break;
 
+				case 'loginHash':
+					$userData = $this->model->getLoginHash($jsonLogin);
+					if ( isset($userData['id']) ) {
+						$jsonUser = json_encode($userData);
+						$userData['access_key'] = md5($userData['pass'].Model::SALT);
+						$userData['admin_rights'] = explode(',',$userData['admin_rights']);
+						$ds = $userData;
+						$_SESSION['user']['id'] = $ds['id'];
+						$_SESSION['user']['sound'] = $ds['sound'];
+						$_SESSION['user']['name'] = $ds['name'];
+						$_SESSION['user']['avatar'] = $ds['avatar'];
+						$_SESSION['user']['favs'] = $ds['favs'];
+						$_SESSION['user']['is_admin'] = $ds['isadmin'];
+						if ($ds['isadmin']=='1') {
+							$_SESSION['user']['is_super'] = $ds['is_super'];
+							$_SESSION['user']['admin_rights'] = explode(',',$ds['admin_rights']);
+							$_SESSION['user']['access_key'] = md5($ds['pass'].Model::SALT);
+						}
+						// setcookie("id",$_SESSION['user']['id'], time()+60*60*24*30);
+						// echo "{'true', 'uid':'".$ds['id']."'}";
+						echo '{"true": true , "uid":'.$ds['id'].'}';
+					} else {
+						echo "false";
+					}
+					return true;
+					break;
+
 				case 'registration':
 					$jsonReg = $jsonLogin;
 					$tryReg = $this->model->tryReg($jsonReg);
@@ -426,11 +460,12 @@ try less size file');
 			if ($img->getWidth() > $img->getHeight()) {
 				$sqrSize = $img->getHeight();
 				$pointLeftTop = ceil(($img->getWidth()-$img->getHeight())/2);
+				$rect = new Rectangle((int)$pointLeftTop, 0, (int)$sqrSize, (int)$sqrSize);
 			} else {
 				$sqrSize = $img->getWidth();
 				$pointLeftTop = ceil(($img->getHeight()-$img->getWidth())/2);
+				$rect = new Rectangle(0, (int)$pointLeftTop, (int)$sqrSize, (int)$sqrSize);
 			}
-				$rect = new Rectangle((int)$pointLeftTop, 0, (int)$sqrSize, (int)$sqrSize);
 				$img->crop($rect)->resize(200, 200);
 				AcImage::setTransparency(true);
 				AcImage::setBackgroundColor(255, 255, 255);
@@ -453,6 +488,74 @@ try less size file');
 		$comment = json_decode($comment, true);
 		$comment['text'] = addslashes($comment['text']);
 		return $this->model->addComment($comment);
+	}
+
+	function action_confirm($hash)
+	{
+		$hash = addslashes($hash);
+		$timestamp = date("Y-m-d H:i:s", strtotime('now') - 60*60*24);
+		$q = mysql_query("SELECT id FROM users WHERE reg_hash='$hash' AND reg_datetime > '$timestamp' LIMIT 1");
+		if (mysql_num_rows($q)>0) {
+			$ds = mysql_fetch_assoc($q);
+			$userData = $this->model->getUser($ds['id']);
+			$pageDataController = $this->model->getUserData('profile', $userData);
+			$menuItems = $this->model->get_MainMenu('catalog');
+			$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
+			$pageDataProd = Model::getData('prods');
+			$this->view->generate(
+				'user_confirm_view.php', // вид контента
+				'template_view.php', // вид шаблона
+				array( // $data
+						'title'=> 'Установка пароля',
+						'style'=>'public/template.css',
+						'style_content' => array(
+																		'public/main_page.css',
+																		'owl-carousel/owl.carousel.css',
+																		'owl-carousel/sales.theme.css',
+																		'owl-carousel/prod.theme.css',
+																		'public/user_profile_page.css',
+																		'datepicker/datepicker.min.css'
+																		),
+						'scripts_content'=> array(
+																			'/js/magic-mask/jq.magic-mask.min.js',
+																			'/js/main_page.js',
+																			'/js/owl-carousel/owl.carousel.min.js',
+																			'/js/datepicker/datepicker.min.js',
+																			'/js/template.js',
+																			'/js/profile.js'
+																			),
+						'pageId' => '', // активный пункт меню
+						'pageDataView' => $userData['profile'],
+						'sidebar' => array(
+															'app/views/side_menu_view.php',
+															'app/views/side_prod_of_day_view.php',
+															'app/views/side_news_view.php',
+															),
+						'prodItems' => $pageDataProd['prodItems'], //
+						'prodCats' => $pageDataProd['prodCats'],
+						'sideNews' => $sideNews,
+						'pageSales' => $pageSales['sales'],
+						'menuItems' => $menuItems,
+						'breads' => false,
+						// 'breadsData' => $breadCrumbs,
+					),
+				'navigation_view.php', // навигация
+				'footer_view.php', // футер
+				array( // модальные окна
+						 'modal_callback_view.php',
+						 'modal_profile_view.php',
+						 'modal_profile_edit_view.php',
+						 'modal_photo_edit_view.php',
+						 'modal_address_edit_view.php',
+						 'modal_cart_view.php',
+						 'modal_pass_check_view.php',
+						 'modal_pass_new_view.php'
+						 )
+				);
+			return true;
+		} else {
+			Route::Catch_Error("404");
+		}
 	}
 
 	function action_profile($uid)

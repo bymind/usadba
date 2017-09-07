@@ -41,8 +41,78 @@ $(function()
 
 });
 
+function TrySetPassw()
+{
+	var passInput = $('#inputPassword');
+	var passForm = $('#confirmForm');
+	var passVal = passInput.val();
+	var passBtn = $('#btnConfirmPassw');
+	$.when(ValidateLength(passInput, 6)).done(function(res){
+		$('#confirmForm .form-group').removeClass('has-error');
+		$('#confirmForm .form-group .substring.red').remove();
+
+		ShowGood(passBtn, "Сохраняем", function(){
+			var hash = location.href.split("/");
+			hash = hash[hash.length-1];
+			SetPasswAjax(passVal, hash);
+		});
+	}).fail(function(errors){
+		$('#confirmForm .form-group').removeClass('has-error');
+		$('#confirmForm .form-group .substring.red').remove();
+		ShowErrors(passForm, errors);
+	});
+
+}
+
+function SetPasswAjax(pass, hash)
+{
+	var data = {
+		pass: pass,
+		hash: hash
+	}
+	var dataJson = JSON.stringify(data);
+	$.ajax({
+		url: '/user/confirmPassw',
+		type: 'POST',
+		data: {data: dataJson},
+	})
+	.done(function(res) {
+		console.log("success");
+		console.log(res);
+		var obj = {
+			hash: data.hash,
+			password: data.pass
+		}
+		TryLogin(obj, 'hash');
+	})
+	.fail(function(err) {
+		console.log("error");
+		console.log(err);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+
+}
+
 function InitInputsEnters()
 {
+	$("#confirmForm").keydown(function(event){
+					if(event.keyCode == 13) {
+						event.preventDefault();
+						return false;
+				}
+		 });
+	$(document).on('click', 'button#btnConfirmPassw', function(event) {
+		event.preventDefault();
+		TrySetPassw();
+	});
+	$(document).on('keyup', 'input#inputPassword', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			TrySetPassw();
+		}
+	});
 	$(document).on('keyup', 'input#login-email', function(event) {
 		event.preventDefault();
 		if (event.keyCode =="13") {
@@ -222,6 +292,23 @@ function InitHash()
 		if (!$targetTab.hasClass('active')) {
 			console.info('Opened tab - '+$hash);
 			$targetTab.click();
+		}
+	} else {
+		$hash = $hash.split("_");
+		var tabHash = $hash[0];
+		var commHash = $hash[1];
+		if ( tabHash && $('.tab-content-box.'+tabHash).length>0) {
+			$targetTab = $('.tabs-box').find('.tab[data-content='+tabHash+']');
+			if (!$targetTab.hasClass('active')) {
+				console.info('Opened tab - '+tabHash);
+				$targetTab.click();
+			}
+		}
+		if ($("#"+commHash).length>0) {
+			var comment = $("#"+commHash);
+			comment.addClass('hashed');
+			location.hash += "_"+commHash;
+			$(document).scrollTop(comment.offset().top-20);
 		}
 	}
 
@@ -1218,7 +1305,7 @@ function TryEditProfile(obj,callback)
 		var passwModal = $('.modal-passw_check');
 		publicProfEdit = profileEdit;
 		passwModal.modal('show');
-		PreventEnter(passwModal,"#passw-input","send-passw-check");
+		PreventPasswEnter(passwModal,"#passw-input","send-passw-check");
 		passwModal.find('.dismiss-button').attr('data-target', callback);
 		modal.off('hidden.bs.modal');
 	})
@@ -1358,8 +1445,9 @@ function GoToProfile(uid)
 	location.href = '/user/profile/'+uid;
 }
 
-function TryLogin(form)
+function TryLogin(form, type)
 {
+	if (type === undefined) {
 	if (loginValidate(form)) {
 		var login ={};
 		login.email = escapeHtml(form.find('input#login-email').val());
@@ -1403,7 +1491,52 @@ function TryLogin(form)
 			console.info("TryLogin() complete");
 			// console.info(res);
 		});
-
+		}
+	} else if (type === 'hash') {
+		var login = form;
+		// login.email = escapeHtml(form.find('input#login-email').val());
+		// login.password = escapeHtml(form.find('input#login-passw').val());
+		var jsonLogin = JSON.stringify(login);
+		console.warn(jsonLogin);
+		$.ajax({
+			url: '/user/login',
+			type: 'POST',
+			data: {target: 'loginHash', jsonLogin: jsonLogin},
+		})
+		.done(function(res) {
+			if ( res && res!='false') {
+				if (res == 'banned false') {
+					console.error("TryLogin() response BANNED");
+					console.error("jsonLogin: "+jsonLogin);
+					console.error(res);
+					var err = [{'name':"email", 'msg':"Ваш аккаунт заблокирован!<br>Для разблокировки свяжитесь с администрацией сайта."}];
+					ShowErrors(form,err);
+				} else {
+					console.warn("TryLogin() done");
+					console.info(res);
+					$res = JSON.parse(res);
+					$res ? console.info($res) : console.info(res);
+					ShowGood($("#btnConfirmPassw"),"Входим", function(){
+						location.href = "/user/profile/"+$res.uid;
+					});
+				}
+			} else {
+				console.error("TryLogin() response FALSE");
+				console.error("jsonLogin: "+jsonLogin);
+				console.error(res);
+				var err = [{'name':"email",'msg':"Неверные данные"},{'name':"password",'msg':"Неверные данные"}];
+				ShowErrors(form,err);
+			}
+		})
+		.fail(function(res) {
+			console.error("TryLogin() fail");
+			console.error("jsonLogin: "+jsonLogin);
+			console.error(res);
+		})
+		.always(function(res) {
+			console.info("TryLogin() complete");
+			// console.info(res);
+		});
 	}
 }
 
@@ -1467,6 +1600,7 @@ function TryRegistration(form)
 		login.email = escapeHtml(form.find('input#reg-email').val());
 		login.name = escapeHtml(form.find('input#reg-name').val());
 		var jsonLogin = JSON.stringify(login);
+		form.find('button').addClass('disabled').css('cursor', 'wait');
 		$.ajax({
 			url: '/user/reg',
 			type: 'POST',
@@ -1495,6 +1629,7 @@ function TryRegistration(form)
 		})
 		.always(function(res) {
 			console.info("TryRegistration() complete");
+			form.find('button').removeClass('disabled').removeAttr('style');
 			// console.info(res);
 		});
 
@@ -1603,15 +1738,15 @@ function ShowErrors(f, err)
 	return false;
 }
 
-function ShowGood(btn,str,noreload)
+function ShowGood(btn,str,callback)
 {
 	var b = btn;
 	b.css('background-color', '#0dc95c');
 	b.text(str);
-	if (noreload === undefined) {
+	if (callback === undefined) {
 		location.reload();
 	} else {
-		noreload();
+		callback();
 	}
 }
 
@@ -1727,7 +1862,9 @@ function ModalTabs()
 		for (var i = 0; i < modalTabsCount; i++) {
 			curTab = modalTabs.eq(i);
 			curData = curTab.data('target');
-			curTab.toggleClass('disable');
+			if ( !curTab.hasClass('only') ) {
+				curTab.toggleClass('disable');
+			}
 			$('.modal-body.'+curData+'-body').toggleClass('inactive');
 			if (!$('.modal-body.'+curData+'-body').hasClass('inactive')) {
 				$('.modal-body.'+curData+'-body input').eq(0).focus();

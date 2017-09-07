@@ -58,10 +58,10 @@
 							<td class="data <?php if ($comm['type']=="review") {echo "site-review";} ?> " >
 							<?php
 							if ($comm['type']=="prod") {
-								echo "<a href='".$comm['prod']['url']."'>".$comm['prod']['name']."</a>";
+								echo "<a href='".$comm['prod']['url']."#reviews_comm-".$comm['id']."'>".$comm['prod']['name']."</a>";
 							} else
 							if ($comm['type']=="review") {
-								echo "<a href='/reviews'>Отзывы</a>";
+								echo "<a href='/reviews#comment-".$comm['id']."'>Отзывы</a>";
 							}
 							?></td>
 							<td class="data"><?php echo "<span class='pub-time'>".$comm['pub_time_text']."</span><br><div class='comm-text'>".nl2br($comm['com_text'])."</div>" ?></td>

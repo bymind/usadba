@@ -52,6 +52,7 @@ function editPhoto()
 		oldAva = $('.profile-avatar img').attr('src');
 		$modal.find('#image_file').attr('value', oldAva);
 		$modal.find('#ava-preview').css('background-image', 'url('+oldAva+')');
+		$modal.find('button.btn-primary').attr('disabled', 'disabled');
 		$modal.off('hidden.bs.modal');
 	});
 }
@@ -121,6 +122,7 @@ function fileSelectHandler() {
 				// e.target.result contains the DataURL which we can use as a source of the image
 				oImage.src = e.target.result;
 				$('#ava-preview').css('background-image', 'url('+oImage.src+')');
+				$('#ava-preview').parents('.modal').find('button.btn-primary').removeAttr('disabled');
 
 		};
 

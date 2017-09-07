@@ -63,7 +63,7 @@
 			unset($reviews['count']);
 			foreach ($reviews as $review) {
 		?>
-		<div class="comment-over clearfix br-2 shadow mb-10">
+		<div class="comment-over clearfix br-2 shadow mb-10" id="comment-<?=$review['id']?>">
 			<div class="avatar mini">
 				<img src="<?php echo $review['author_avatar']?>" alt="<?php echo $review['author_name']?>">
 			</div>

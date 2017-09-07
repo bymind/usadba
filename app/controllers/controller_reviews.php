@@ -53,7 +53,8 @@ class Controller_Reviews extends Controller
 																		'/js/magic-mask/jq.magic-mask.min.js',
 																		'/js/main_page.js',
 																		'/js/owl-carousel/owl.carousel.min.js',
-																		'/js/template.js'
+																		'/js/template.js',
+																		'/js/reviews.js',
 																		),
 					'active_menu' => 'reviews',
 					'pageId' => 'reviews',

@@ -96,8 +96,8 @@
 						<div class="col-xs-12">
 						<div class="row">
 							<div class="cart-body">
-								<div class="nothing mt-20 pl-20 pr-20">На указанный Вами адрес отправлено письмо<br>со ссылкой для задания пароля Вашего аккаунта.<br>
-								Проверьте свой почтовый ящик.</div>
+								<div class="nothing mt-20 pl-20 pr-20" style="max-width:400px; margin: auto;">На указанный Вами адрес отправлено письмо со ссылкой для задания пароля Вашего аккаунта.<br>
+								Проверьте почтовый ящик.</div>
 							</div>
 						</div>
 						</div>
@@ -106,9 +106,16 @@
 			</div>
 			<div class="modal-footer">
 				<div class="col-xxs-12 col-xxs-offset-0 col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+				<form>
 					<div class="col-xs-10 col-xs-offset-1">
 						<button type="button" class="br-2 btn btn-primary" data-dismiss="modal" >Хорошо</button>
 					</div>
+					<div class="col-xs-12">
+						<span class="substring" style="text-align:center">
+							Если письмо не приходит — попробуйте поискать его в папке "Спам".
+						</span>
+					</div>
+				</form>
 				</div>
 			</div>
 		</div>

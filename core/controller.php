@@ -204,8 +204,6 @@ class Controller
 					$_SESSION['user']['telegram_id'] = $ds['telegram_id'];
 					$_SESSION['user']['access_key'] = md5($ds['pass'].Model::SALT);
 					setcookie("id",$_SESSION['user']['id'], time()+60*60*24*30);
-					// var_dump($redirect);
-					// header('location:'.$redirect);
 					echo "<script>location.reload();</script>";
 					return true;
 				}
@@ -313,23 +311,112 @@ class Controller
 		}
 	}
 
-	function sendEmail($toName,$toEmail,$type)
+	function sendEmail($toName,$toEmail,$type, $data)
 	{
 		switch ($type) {
+// ================================================================
 			case 'userReg':
 				$siteName = CONFIG_SITE_NAME;
 				$siteName = str_replace(array("\r","\n")," ",$siteName);
-				$letterText = '<strong style="font-size:1.2em">Подтверждение регистрации.</strong><br>';
-				$letterText .= "<br><br><p>Этот адрес был указан при регистрации на сайте '".$siteName."'.<p>Для перехода на страницу подтверждения и задания пароля перейдите по сылке:<br>";
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
 				$link = md5($toEmail.$toName.Model::SALT);
-				$link = "<a href='http://".$_SERVER['HTTP_HOST'].'/'.$link."'>Подтвердить регистрацию</a>";
-				$letterText .= $link;
-				$letterText .= "<br><br><br><br><br>".date('Y')." © ".nl2br(CONFIG_SITE_COPYRIGHT);
-				$title = substr(htmlspecialchars(trim($siteName." - Регистрация")), 0, 1000);
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Подтверждение регистрации</div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					Здравствуйте, '.$toName.'.<br>Этот адрес был указан при регистрации на сайте <b>'.$siteName.'</b>.<br>Для перехода на страницу подтверждения и создания пароля нажмите на кнопку:<br><br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/user/confirm/'.$link.'" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Подтвердить регистрацию</a>
+					<span style="display:inline-block;width:100%;font-size:12px;margin-bottom:50px;margin-top: 10px;color: #888;">Ссылка действительна в течение 24 часов.</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Подтверждение регистрации на сайте";
 				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
 				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
 				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
 				break;
+
+// ================================================================
+			case "newOrder":
+				$orderId = $data['id'];
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Новый заказ <a href="'.$siteUrl.'/admin">№'.$orderId.'</a></div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					<pre>'.var_dump($data).'</pre>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/admin" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к заказам</a>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Заказ №".$orderId;
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
+				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
 
 			default:
 				# code...

@@ -26,6 +26,33 @@ class Model_User extends Model
 		return 0;
 	}
 
+	public function getLoginHash($jsonLogin)
+	{
+		$login = $jsonLogin;
+		$loginHash = $login['hash'];
+		$loginPass = $login['password'];
+		$q = mysql_query("SELECT * FROM users WHERE reg_hash='$loginHash'") or die(mysql_error()) ;
+		$countq = mysql_num_rows($q);
+		$ds=mysql_fetch_assoc($q);
+		$loginPassword = md5($ds['email'].$loginPass.Self::SALT);
+		// var_dump($ds['pass']);
+		if ($countq>0) {
+			$user = $ds;
+			$user['is_admin'] = $user['isadmin'];
+			if ($loginPassword == $user['pass']) {
+				$_SESSION['user']['access_key'] = md5($user['pass'].Model::SALT);
+				$uid = $user['id'];
+				unset($user['pass']);
+				$q = mysql_query("UPDATE users SET reg_hash='0' WHERE id='$uid'") or die(mysql_error());
+				return $user;
+			} else return false;
+		} else {
+			return false;
+		}
+
+		return 0;
+	}
+
 
 	function tryReg($data)
 	{
@@ -48,6 +75,21 @@ class Model_User extends Model
 		return true;
 	}
 
+	function confirmPassw($data)
+	{
+		$hash = $data['hash'];
+		$passw = $data['pass'];
+		$q = mysql_query("SELECT * FROM users WHERE reg_hash = '$hash' LIMIT 1") or die(mysql_error());
+		$usr = mysql_fetch_assoc($q);
+		// var_dump($usr);
+		$cryptedPass = md5($usr['email'].$passw.Self::SALT);
+		// var_dump($cryptedPass);
+		$uid = $usr['id'];
+		$q = mysql_query("UPDATE users SET pass = '$cryptedPass' WHERE id='$uid'") or die(mysql_error());
+		echo "$uid";
+		return true;
+	}
+
 	function userReg($data)
 	{
 		$reg = $data;
@@ -57,7 +99,7 @@ class Model_User extends Model
 		$regLogin = explode("@", $regEmail);
 		$regLogin = $regLogin[0];
 		$regTime = date("Y-m-d H:i:s");
-		$reg_public_hash = md5($regEmail.$regLogin.Self::SALT);
+		$reg_public_hash = md5($regEmail.$regName.Self::SALT);
 		$q = mysql_query("INSERT INTO users (name, login, email, reg_hash, reg_datetime) VALUES ( '$regName', '$regLogin', '$regEmail', '$reg_public_hash', '$regTime')") or die(mysql_error());
 		return true;
 	}
@@ -107,12 +149,9 @@ class Model_User extends Model
 		extract($orderData);
 		$prodArts = array();
 		foreach ($prods['items'] as $key => $value) {
-			// $prodArts[] = "'".$key."'";
 			$countBuy = $value['count'];
 			$q = mysql_query("UPDATE prod_items SET count_buy = count_buy + $countBuy WHERE art = '$key'") or die(mysql_error());
 		}
-		// $prodArts = implode(",",$prodArts);
-		// $q = mysql_query("UPDATE prod_items SET count_buy = count_buy + 1 WHERE art in ($prodArts)") or die(mysql_error());
 		$orderProds = json_encode($prods, JSON_UNESCAPED_UNICODE);
 		if ($logged) {
 		} else
@@ -126,6 +165,8 @@ class Model_User extends Model
 			$paytype = "online";
 		}
 		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 1)") or die(mysql_error());
+		Controller::sendEmail("","","newOrder",$orderData);
+		return true;
 	}
 
 	function addComment($comment)

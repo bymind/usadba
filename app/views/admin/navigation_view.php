@@ -104,6 +104,7 @@
 		<?php
 		}
 		?>
+		<li class="docs"><a href="/admin/docs" title="Инструкции"><span>Инструкции</span></a></li>
 		<li class="sound"><span data-soundstate="on" class="glyphicon glyphicon-volume-up <?php if ($_SESSION['user']['sound']=='0') {echo 'off';} ?>" aria-hidden="true"></span><span class="glyphicon glyphicon-volume-off  <?php if ($_SESSION['user']['sound']=='1') {echo 'off';} ?>" aria-hidden="true" data-soundstate="off"></span><a href="#" ><span>Звук <span class="sound-state"> <?php if ($_SESSION['user']['sound']=='1') {echo 'включён';} else {echo "выключен";} ?></span></span></a></li>
 		<li class="bot bugtracker" style="display:none"><span class="alert danger tickets-counter"></span><a href="/admin/bugtracker" title="Баг-трекер"><span>Баг-трекер</span></a></li>
 	</ul>
@@ -131,6 +132,7 @@
 	<img src="/img/admin/comments-white.svg" alt="">
 	<img src="/img/admin/config-white.svg" alt="">
 	<img src="/img/admin/bugtracker-white.svg" alt="">
+	<img src="/img/admin/docs-white.svg" alt="">
 	<img src="/img/admin/new-post.svg" alt="">
 </div>
 

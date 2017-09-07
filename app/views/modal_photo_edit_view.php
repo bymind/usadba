@@ -30,7 +30,7 @@
 						<button type="button" class="br-2 btn btn-default" data-dismiss="modal">Отмена</button>
 					</div>
 					<div class="col-xs-7">
-						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_photo" data-targetindex="" data-targetcallback="load_photo">Сохранить</button>
+						<button type="button" class="br-2 btn btn-primary" data-target="save_edit_photo" data-targetindex="" data-targetcallback="load_photo" disabled>Сохранить</button>
 					</div>
 				</div>
 			</div>
