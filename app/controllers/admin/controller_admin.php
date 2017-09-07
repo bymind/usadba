@@ -31,7 +31,10 @@ class Controller_Admin extends Controller
 
 	function adminLogin($redirect = "")
 	{
-		header('location:/');
+		Route::Catch_Error("404");
+
+		// header('location:/');
+
 		// $this->view->generate(
 		// 			'admin/login_view.php',
 		// 			'template_admin_view.php',
@@ -356,23 +359,23 @@ function adminCats($params = '')
 
 	switch ($name) {
 		case 'childcatstoparent':
-			self::adminMoveCatsToParent();
+			Self::adminMoveCatsToParent();
 			break;
 
 		case 'deleteprodsformcat':
-			self::adminDeleteProdsFromCat();
+			Self::adminDeleteProdsFromCat();
 			break;
 
 		case 'deletecategory':
-			self::adminDeleteCategory();
+			Self::adminDeleteCategory();
 			break;
 
 		case 'movefromcattocat':
-			self::adminMoveFromCatToCat();
+			Self::adminMoveFromCatToCat();
 			break;
 
 		case 'movecat':
-			self::adminMoveCat();
+			Self::adminMoveCat();
 			break;
 
 		default :
@@ -500,41 +503,41 @@ function adminDeleteProdsFromCat()
 
 		switch ($name) {
 			case 'edit':
-				self::adminProductEdit($value);
+				Self::adminProductEdit($value);
 				break;
 
 			case 'delete':
-				self::adminProductsDelete($value);
+				Self::adminProductsDelete($value);
 				break;
 
 			case 'archived':
 				if (isset($value)) {
-					self::adminProductsArchived($value);
-				} else self::adminProductsArchived();
+					Self::adminProductsArchived($value);
+				} else Self::adminProductsArchived();
 				break;
 
 			case 'archive':
-				self::adminProductsArchive($value);
+				Self::adminProductsArchive($value);
 				break;
 
 			case 'unarchive':
-				self::adminProductsUnArchive($value);
+				Self::adminProductsUnArchive($value);
 				break;
 
 			case 'new':
-				self::adminProductsNew();
+				Self::adminProductsNew();
 				break;
 
 			case 'newcat':
-				self::adminProductsNewCat();
+				Self::adminProductsNewCat();
 				break;
 
 			case 'redcat':
-				self::adminProductsRedCat();
+				Self::adminProductsRedCat();
 				break;
 
 			case 'getcattree':
-				self::adminGetCatTree();
+				Self::adminGetCatTree();
 				break;
 
 
@@ -542,15 +545,15 @@ function adminDeleteProdsFromCat()
 				if (!isset($value)) {
 					echo "No category name arrived!";
 				} else
-				self::adminGetCat($value);
+				Self::adminGetCat($value);
 				break;
 
 			case 'getcattree_prodlist':
-				self::adminGetCatTreeProdlist($value);
+				Self::adminGetCatTreeProdlist($value);
 				break;
 
 			case 'save':
-				self::adminProductsSave();
+				Self::adminProductsSave();
 				break;
 
 			case 'cat':
@@ -996,31 +999,31 @@ function adminDeleteProdsFromCat()
 
 		switch ($name) {
 			case 'edit':
-				self::adminSalesEdit($value);
+				Self::adminSalesEdit($value);
 				break;
 
 			case 'delete':
-				self::adminSalesDelete($value);
+				Self::adminSalesDelete($value);
 				break;
 
 			case 'archived':
-				self::adminSalesArchived();
+				Self::adminSalesArchived();
 				break;
 
 			case 'archive':
-				self::adminSalesArchive($value);
+				Self::adminSalesArchive($value);
 				break;
 
 			case 'unarchive':
-				self::adminSalesUnArchive($value);
+				Self::adminSalesUnArchive($value);
 				break;
 
 			case 'new':
-				self::adminSalesNew();
+				Self::adminSalesNew();
 				break;
 
 			case 'save':
-				self::adminSalesSave();
+				Self::adminSalesSave();
 				break;
 
 			default :
@@ -1160,31 +1163,31 @@ function adminDeleteProdsFromCat()
 
 		switch ($name) {
 			case 'edit':
-				self::adminArticlesEdit($value);
+				Self::adminArticlesEdit($value);
 				break;
 
 			case 'delete':
-				self::adminArticlesDelete($value);
+				Self::adminArticlesDelete($value);
 				break;
 
 			case 'archived':
-				self::adminArticlesArchived();
+				Self::adminArticlesArchived();
 				break;
 
 			case 'archive':
-				self::adminArticlesArchive($value);
+				Self::adminArticlesArchive($value);
 				break;
 
 			case 'unarchive':
-				self::adminArticlesUnArchive($value);
+				Self::adminArticlesUnArchive($value);
 				break;
 
 			case 'new':
-				self::adminArticlesNew();
+				Self::adminArticlesNew();
 				break;
 
 			case 'save':
-				self::adminArticlesSave();
+				Self::adminArticlesSave();
 				break;
 
 			default :
@@ -1687,31 +1690,31 @@ function adminPages($params = '')
 
 	switch ($name) {
 		case 'edit':
-			self::adminPagesEdit($value);
+			Self::adminPagesEdit($value);
 			break;
 
 		case 'delete':
-			self::adminPagesDelete($value);
+			Self::adminPagesDelete($value);
 			break;
 
 		case 'archived':
-			self::adminPagesArchived();
+			Self::adminPagesArchived();
 			break;
 
 		case 'archive':
-			self::adminPagesArchive($value);
+			Self::adminPagesArchive($value);
 			break;
 
 		case 'unarchive':
-			self::adminPagesUnArchive($value);
+			Self::adminPagesUnArchive($value);
 			break;
 
 		case 'new':
-			self::adminPagesNew();
+			Self::adminPagesNew();
 			break;
 
 		case 'save':
-			self::adminPagesSave();
+			Self::adminPagesSave();
 			break;
 
 		default :
@@ -1739,6 +1742,57 @@ function adminPages($params = '')
 	}
 
 }
+
+
+
+
+/*																		 DOCS / MANUALS
+*************************************************************************************/
+	function adminReadDocs($params="")
+	{
+
+		if ($params == '') {
+			$params['name'] = 'default';
+		}
+		if (is_array($params))
+					{
+						extract($params);
+					}
+				else
+					$name = $params;
+
+		switch ($name) {
+
+			case 'save':
+				Self::adminPagesSave();
+				break;
+
+			default :
+				echo "/Docs Homepage/$name";
+				// $ds = $this->model->getPagesLists();
+				// $this->view->generate(
+				// 			'admin/pages_view.php',
+				// 			'admin/template_admin_view.php',
+				// 			array(
+				// 					'title'=>' - Страницы',
+				// 					'style'=>'admin/template.css',
+				// 					'style_content'=>'admin/pages.css',
+				// 					'active_menu_item' => 'pages',
+				// 					'actual_title' => 'Страницы',
+				// 					'posts'=>$ds,
+				// 					'btns' => array(
+				// 													'new-post' => 'Новая страница',
+				// 													),
+				// 			'Favicon' => 'app/views/admin-favicon.php',
+				// 				),
+				// 			'admin/navigation_view.php',
+				// 			'admin/footer_view.php',
+				// 			'admin/modals_main_view.php'
+				// 			);
+				break;
+		}
+
+	}
 
 
 /*																		 FILES
@@ -1778,35 +1832,35 @@ function adminPages($params = '')
 
 		switch ($name) {
 			case 'new':
-				self::adminCommentsNew();
+				Self::adminCommentsNew();
 				break;
 
 			case 'approved':
-				self::adminCommentsApproved();
+				Self::adminCommentsApproved();
 				break;
 
 			case 'banned':
-				self::adminCommentsBanned();
+				Self::adminCommentsBanned();
 				break;
 
 			case 'countNew':
-				self::adminCommentsCountNew();
+				Self::adminCommentsCountNew();
 				break;
 
 			case 'statusChange':
-				self::adminCommentStatusChange();
+				Self::adminCommentStatusChange();
 				break;
 
 			case 'all':
-				self::adminShowAll();
+				Self::adminShowAll();
 				break;
 
 			case 'default':
-				self::adminShowAll();
+				Self::adminShowAll();
 				break;
 
 				default:
-					self::adminShowAll();
+					Self::adminShowAll();
 					break;
 		}
 
@@ -1957,39 +2011,39 @@ function adminPages($params = '')
 
 		switch ($name) {
 			case 'addnew':
-				self::adminUsersNew();
+				Self::adminUsersNew();
 				break;
 
 			case 'delete':
-				self::adminUsersDelete();
+				Self::adminUsersDelete();
 				break;
 
 			case 'issuper':
-				self::adminUserIssuper();
+				Self::adminUserIssuper();
 				break;
 
 			case 'setBanStatus':
-				self::adminUserSetBanStatus();
+				Self::adminUserSetBanStatus();
 				break;
 
 			case 'editUser':
-				self::adminUserEdit();
+				Self::adminUserEdit();
 				break;
 
 			case "hasRight":
-				self::adminHasRight();
+				Self::adminHasRight();
 				break;
 
 			case "getRights":
-				self::adminGetRights();
+				Self::adminGetRights();
 				break;
 
 			case "editRights":
-				self::adminEditRights();
+				Self::adminEditRights();
 				break;
 
 			case 'all':
-				self::adminShowAll();
+				Self::adminShowAll();
 				break;
 
 			case 'default':
@@ -2136,7 +2190,7 @@ public function adminShowAll()
 
 		switch ($name) {
 			case 'update':
-				self::adminConfigUpdate();
+				Self::adminConfigUpdate();
 				break;
 
 			case 'default':
@@ -2187,51 +2241,51 @@ public function adminShowAll()
 					$name = $params;
 
 		if ($name == "setdoer") {
-			self::adminBugtrackerSetDoer();
+			Self::adminBugtrackerSetDoer();
 		} else
 		if ($name == 'count')
 		{
 			if ((isset($value))&&($value != "")) {
-				self::adminBugtrackerCount($value);
+				Self::adminBugtrackerCount($value);
 			} else
 			if ((isset($value))&&($value == "")||(!isset($value))) {
-				self::adminBugtrackerCount('all');
+				Self::adminBugtrackerCount('all');
 			} else {
 				Route::Catch_Error('404');
 			}
 		} else
 		if ($name=="createTicket")
 		{
-				self::adminBugtrackerCreateTicket();
+				Self::adminBugtrackerCreateTicket();
 		} else
 		if ($name=="ticket")
 		{
 			if ((isset($value))&&($value != "")) {
-				self::adminBugtrackerShowTicket($value);
+				Self::adminBugtrackerShowTicket($value);
 			} else
 			if ((isset($value))&&($value == "")||(!isset($value))) {
-				self::adminBugtrackerShowTicket('last');
+				Self::adminBugtrackerShowTicket('last');
 			} else {
 				Route::Catch_Error('404');
 			}
 		} else
 		if ($name=="deleteTicket")
 		{
-			self::adminBugtrackerDelete();
+			Self::adminBugtrackerDelete();
 		} else
 		if ($name=="restoreTicket")
 		{
-			self::adminBugtrackerRestore();
+			Self::adminBugtrackerRestore();
 		} else
 		if ($name=="getLastTicket")
 		{
-			self::adminBugtrackerTicketForList();
+			Self::adminBugtrackerTicketForList();
 		} else
 		if ($name=="ajaxTickets")
 		{
-			self::adminBugtrackerAjaxTickets($value, $personal, $personalMy);
+			Self::adminBugtrackerAjaxTickets($value, $personal, $personalMy);
 		} else
-			self::adminBugtrackerGetTickets($name);
+			Self::adminBugtrackerGetTickets($name);
 
 	}
 
@@ -2262,12 +2316,12 @@ public function adminShowAll()
 		if ($ticket == 'no ticket') {
 			$ticket1['id']=$value;
 			$ticket1['status']='null';
-			self::adminBugtrackerShowTicketU($ticket1);
+			Self::adminBugtrackerShowTicketU($ticket1);
 		} else
 		if ($ticket['archived']==1) {
-			self::adminBugtrackerShowArchivedTicket($ticket);
+			Self::adminBugtrackerShowArchivedTicket($ticket);
 		} else
-		self::adminBugtrackerShowTicketU($ticket);
+		Self::adminBugtrackerShowTicketU($ticket);
 	}
 
 
@@ -2278,7 +2332,7 @@ public function adminShowAll()
 	{
 		$ticket = $this->model->getOneTicket();
 		//$api = $this->tlgrm;
-		//self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> ".$_SERVER['HTTP_HOST']."/admin/bugtracker/ticket/".$ticket['id']);
+		//Self::sendMeTelegram("Хэй, Кеша 😊\r\nНовый тикет😱 от ".$ticket['author']."!\r\nВот -> ".$_SERVER['HTTP_HOST']."/admin/bugtracker/ticket/".$ticket['id']);
 		$this->view->simpleGet(
 						'/admin/bugtracker_ticket_for_list_view.php',
 						array(
@@ -2555,24 +2609,24 @@ public function adminShowAll()
 	{
 		switch ($param) {
 			case 'login':
-				self::adminLogin();
+				Self::adminLogin();
 				break;
 			case 'main':
-				self::adminWorktable();
+				Self::adminWorktable();
 				break;
 			case '':
 				Self::action_main();
 			// if (Controller::is_admin())
 			// 	{
-			// 		self::adminWorktable();
+			// 		Self::adminWorktable();
 			// 	} else
 			// 			{
-			// 				self::adminLogin();
+			// 				Self::adminLogin();
 			// 			}
 				break;
 			default:
 				Route::Catch_Error('404');
-				//self::action_main($param);
+				//Self::action_main($param);
 				break;
 		}
 
@@ -2583,10 +2637,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminOrders($param);
+			Self::adminOrders($param);
 		} else
 				{
-					self::adminLogin();
+					Self::adminLogin();
 				}
 	}
 
@@ -2595,10 +2649,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::action_main();
+			Self::action_main();
 		} else
 				{
-					self::adminLogin();
+					Self::adminLogin();
 				}
 	}
 
@@ -2616,10 +2670,10 @@ public function adminShowAll()
 		$urlR = $_SERVER['REQUEST_URI'];
 		if (Controller::goLogin($urlR))
 		{
-			//self::adminMain();
+			//Self::adminMain();
 		} else
 			{
-				self::adminNoLogin();
+				Self::adminNoLogin();
 			}
 	}
 
@@ -2638,13 +2692,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'orders', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminWorktable();
+				Self::adminWorktable();
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2653,10 +2707,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminSession();
+			Self::adminSession();
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2664,10 +2718,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminSetSoundSetting();
+			Self::adminSetSoundSetting();
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2676,10 +2730,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminBlog($params);
+			Self::adminBlog($params);
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2691,13 +2745,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminGoods($params);
+				Self::adminGoods($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2709,13 +2763,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminCats($params);
+				Self::adminCats($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2726,13 +2780,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'news', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminArticles($params);
+				Self::adminArticles($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2743,13 +2797,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'goods', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminSales($params);
+				Self::adminSales($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2761,13 +2815,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'pages', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminPages($params);
+				Self::adminPages($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2777,14 +2831,22 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminFiles();
+			Self::adminFiles();
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
-
+	function action_docs($params="")
+	{
+		if (Controller::is_admin())
+		{
+			Self::adminReadDocs($params);
+		} else {
+			Self::adminLogin();
+		}
+	}
 
 	function action_users($params = '')
 	{
@@ -2792,13 +2854,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
 			if ( ($_SESSION['user']['is_admin']==1) && ((Model::isHasRight($arr))||($params==$_SESSION['user']['id'])) ) {
-				self::adminUsers($params);
+				Self::adminUsers($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2808,13 +2870,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
 			if ( ($_SESSION['user']['is_admin']==1) && ((Model::isHasRight($arr))||($params==$_SESSION['user']['id'])) ) {
-				self::adminComments($params);
+				Self::adminComments($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2836,13 +2898,13 @@ public function adminShowAll()
 		{
 			$arr = array('right'=>'users', 'uid'=>$_SESSION['user']['id']);
 			if (($_SESSION['user']['is_admin']==1)&&(Model::isHasRight($arr))) {
-				self::adminConfig($params);
+				Self::adminConfig($params);
 			} else {
-				self::notEnouthRights();
+				Self::notEnouthRights();
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2852,10 +2914,10 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminBugtracker($params);
+			Self::adminBugtracker($params);
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2869,11 +2931,11 @@ public function adminShowAll()
 				$params['target'] = $_POST['path'];
 				$params['personal'] = $_POST['personal'];
 				$params['personalMy'] = $_POST['personalMy'];
-			self::adminBugtracker($params);
+			Self::adminBugtracker($params);
 			}
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
@@ -2895,7 +2957,7 @@ public function adminShowAll()
 				// return false;
 			} else{
 				extract($upd);
-					// self::sendMsg($message);
+					// Self::sendMsg($message);
 					$api->sendMsgToBot($message);
 			}
 		}
@@ -2905,16 +2967,16 @@ public function adminShowAll()
 	{
 		if (Controller::is_admin())
 		{
-			self::adminTelegram();
+			Self::adminTelegram();
 		} else
 		{
-			self::adminLogin();
+			Self::adminLogin();
 		}
 	}
 
 	function adminTelegram()
 	{
-		if (self::isSuper()) {
+		if (Self::isSuper()) {
 			$this->tlgrm->sendMessage(89691650, "Привет, Kesha! \r\nАдминка https://".$_SERVER['HTTP_HOST']."/admin");
 			echo "Ева(@macfix_eve_bot) отправила привет Кеше(@keshapudelev)";
 		} else {
