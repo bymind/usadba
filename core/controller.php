@@ -311,7 +311,7 @@ class Controller
 		}
 	}
 
-	function sendEmail($toName,$toEmail,$type, $data)
+	function sendEmail($toName, $toEmail, $type, $data)
 	{
 		switch ($type) {
 // ================================================================
@@ -367,8 +367,26 @@ class Controller
 				break;
 
 // ================================================================
-			case "newOrder":
+			case "newComm":
 				$orderId = $data['id'];
+
+				switch ($data['paytype']) {
+					case 'cash':
+						$data['paytypeRu'] = 'наличными';
+						break;
+
+					case 'online':
+						$data['paytypeRu'] = 'картой онлайн';
+						break;
+
+					default:
+						$data['paytypeRu'] = 'наличными';
+						break;
+				}
+				if ($data['comm']=="") {
+					$data['comm'] = "—";
+				}
+				$data['orderProds'] = json_decode($data['orderProds'], JSON_UNESCAPED_UNICODE);
 				$siteName = CONFIG_SITE_NAME;
 				$siteName = str_replace(array("\r","\n")," ",$siteName);
 				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
@@ -382,6 +400,12 @@ class Controller
 				$siteLogoPng = explode(".", $siteLogoUrl);
 				$siteLogoPng[count($siteLogoPng)-1] = "png";
 				$siteLogoPng = implode('.', $siteLogoPng);
+				if ($data['uid']>0) {
+					$uid = $data['uid'];
+					$uidTxt = '<a href="'.$siteUrl.'/admin/users/'.$uid.'" target="_blank">'.$data['name'].'</a>';
+				} else {
+					$uidTxt = 'не зарегистрирован';
+				}
 				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
 				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
 				<tbody>
@@ -395,12 +419,58 @@ class Controller
 				<tr>
 					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
 					<br>
-					<pre>'.var_dump($data).'</pre>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">№ заказа</th>
+								<td>'.$orderId.'</td>
+							</tr><tr>
+								<th style="text-align:left; vertical-align:top">Сумма</th>
+								<td><b>'.number_format($data['orderProds']['sumPrice'],0,',',' ').' руб.</b></td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Оплата</th>
+								<td>
+									'.$data['paytypeRu'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Заказ на имя</th>
+								<td>
+									'.$data['name'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Аккаунт</th>
+								<td>
+								'.$uidTxt.'
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Телефон</th>
+								<td>
+									<nobr>'.$data['phone'].'</nobr>
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Адрес</th>
+								<td>
+									'.$data['addr'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Комментарий</th>
+								<td>
+								'.$data['comm'].'
+								</td>
+							</tr>
+						</tbody></table>
 					</td>
 				</tr>
 				<tr>
 					<td style="margin-bottom:20px; text-align:center">
-					<a href="'.$siteUrl.'/admin" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к заказам</a>
+					<a href="'.$siteUrl.'/admin" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к заказу</a>
+					<br>
+					<br>
 					</td>
 				</tr>
 				<tr>
@@ -415,6 +485,279 @@ class Controller
 				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
 				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
 				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+// ================================================================
+			case "newOrder":
+				$orderId = $data['id'];
+
+				switch ($data['paytype']) {
+					case 'cash':
+						$data['paytypeRu'] = 'наличными';
+						break;
+
+					case 'online':
+						$data['paytypeRu'] = 'картой онлайн';
+						break;
+
+					default:
+						$data['paytypeRu'] = 'наличными';
+						break;
+				}
+				if ($data['comm']=="") {
+					$data['comm'] = "—";
+				}
+				$data['orderProds'] = json_decode($data['orderProds'], JSON_UNESCAPED_UNICODE);
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				if ($data['uid']>0) {
+					$uid = $data['uid'];
+					$uidTxt = '<a href="'.$siteUrl.'/admin/users/'.$uid.'" target="_blank">'.$data['name'].'</a>';
+				} else {
+					$uidTxt = 'не зарегистрирован';
+				}
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Новый заказ <a href="'.$siteUrl.'/admin">№'.$orderId.'</a></div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">№ заказа</th>
+								<td>'.$orderId.'</td>
+							</tr><tr>
+								<th style="text-align:left; vertical-align:top">Сумма</th>
+								<td><b>'.number_format($data['orderProds']['sumPrice'],0,',',' ').' руб.</b></td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Оплата</th>
+								<td>
+									'.$data['paytypeRu'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Заказ на имя</th>
+								<td>
+									'.$data['name'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Аккаунт</th>
+								<td>
+								'.$uidTxt.'
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Телефон</th>
+								<td>
+									<nobr>'.$data['phone'].'</nobr>
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Адрес</th>
+								<td>
+									'.$data['addr'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Комментарий</th>
+								<td>
+								'.$data['comm'].'
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/admin" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к заказу</a>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Заказ №".$orderId;
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
+				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+// ================================================================
+			case "newOrderToUser":
+				$orderId = $data['id'];
+				switch ($data['paytype']) {
+					case 'cash':
+						$data['paytypeRu'] = 'наличными';
+						break;
+
+					case 'online':
+						$data['paytypeRu'] = 'картой онлайн';
+						break;
+
+					default:
+						$data['paytypeRu'] = 'наличными';
+						break;
+				}
+				if ($data['comm']=="") {
+					$data['comm'] = "—";
+				}
+				$data['orderProds'] = json_decode($data['orderProds'], JSON_UNESCAPED_UNICODE);
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$prodsTxt = "";
+				foreach ($data['orderProds']['items'] as $prod) {
+					$cost = $prod['price']*$prod['count'];
+					$prodsTxt .= "<tr><td><a href=".$siteUrl.$prod['url'].">".$prod['name']."</a></td><td style='text-align:right; vertical-align:top;color:#888;'><nobr>".number_format($prod['price'],0,',',' ')." руб.</nobr></td><td style='text-align:center; vertical-align:top;color:#888;'>x".$prod['count']."</td><td style='text-align:right; vertical-align:top;'><nobr>".number_format($cost,0,',',' ')." руб.</nobr></td></tr>";
+				}
+				if ($data['uid']>0) {
+					$uid = $data['uid'];
+					$uidTxt = 'Вы можете следить за состоянием заказа в <a href="'.$siteUrl.'/user/history/'.$uid.'" target="_blank">личном кабинете</a>';
+				} else {
+					$uidTxt = '<a href="'.$siteUrl.'">Зарегистрируйтесь</a> на сайте и следите за заказами в личном кабинете.';
+				}
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Заказ №'.$orderId.' принят</a></div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					Здравствуйте, '.$toName.'. Ваш заказ принят в обработку.
+					<br>
+					<br>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">№ заказа</th>
+								<td>'.$orderId.'</td>
+							</tr><tr>
+								<th style="text-align:left; vertical-align:top">Сумма</th>
+								<td><b>'.number_format($data['orderProds']['sumPrice'],0,',',' ').' руб.</b></td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Оплата</th>
+								<td>
+									'.$data['paytypeRu'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Заказ на имя</th>
+								<td>
+									'.$data['name'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Телефон</th>
+								<td>
+									<nobr>'.$data['phone'].'</nobr>
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Адрес</th>
+								<td>
+									'.$data['addr'].'
+									</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Комментарий</th>
+								<td>
+								'.$data['comm'].'
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:left">
+					<br>
+					<br>
+					<table style="width:100%;border-top: 1px dashed #888; padding: 20px 0; text-align:center; font-size:1.1em;">
+						<tr>
+							<td>
+								Состав заказа
+							</td>
+						</tr>
+					</table>
+					<table style="width:100%;font-size: .9em;padding: 0 20px;">
+						<thead>
+							<tr>
+								<th>Наименование</th>
+								<th style="text-align:right;"></th>
+								<th style="text-align:center;"></th>
+								<th style="text-align:right;">Стоимость</th>
+							</tr>
+						</thead>
+						<tbody>
+								'.$prodsTxt.'
+								<tr>
+									<td colspan="4" style="height:25px;">
+									</td>
+								</tr>
+								<tr>
+									<th colspan="3">Итоговая сумма</th>
+									<th style="text-align:right; "><nobr>'.number_format($data['orderProds']['sumPrice'],0,',',' ').' руб.</nobr></th>
+								</tr>
+						</tbody>
+					</table>
+					<br>
+					<span style="display:inline-block;width:100%;font-size:12px;margin-bottom:50px;margin-top: 10px;color: #888;text-align:center;">'.$uidTxt.'</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Ваш заказ №".$orderId;
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
+				// $toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
 				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
 			break;
 

@@ -35,7 +35,6 @@ class Model_User extends Model
 		$countq = mysql_num_rows($q);
 		$ds=mysql_fetch_assoc($q);
 		$loginPassword = md5($ds['email'].$loginPass.Self::SALT);
-		// var_dump($ds['pass']);
 		if ($countq>0) {
 			$user = $ds;
 			$user['is_admin'] = $user['isadmin'];
@@ -66,12 +65,7 @@ class Model_User extends Model
 			$err = json_encode($err, JSON_UNESCAPED_UNICODE);
 			return $err;
 		}
-		// $q = mysql_query("SELECT id FROM users WHERE name='$regName'");
-		// if (mysql_num_rows($q) > 0) {
-		// 	var $err = array('name'=>'name', 'msg'=>'Это имя уже занято. Попробуйте <a href="/user/forgot">восстановление пароля</a>.');
-		// 	$err = json_encode($err, JSON_UNESCAPED_UNICODE);
-		// 	return $err;
-		// }
+
 		return true;
 	}
 
@@ -81,9 +75,7 @@ class Model_User extends Model
 		$passw = $data['pass'];
 		$q = mysql_query("SELECT * FROM users WHERE reg_hash = '$hash' LIMIT 1") or die(mysql_error());
 		$usr = mysql_fetch_assoc($q);
-		// var_dump($usr);
 		$cryptedPass = md5($usr['email'].$passw.Self::SALT);
-		// var_dump($cryptedPass);
 		$uid = $usr['id'];
 		$q = mysql_query("UPDATE users SET pass = '$cryptedPass' WHERE id='$uid'") or die(mysql_error());
 		echo "$uid";
@@ -165,8 +157,26 @@ class Model_User extends Model
 			$paytype = "online";
 		}
 		$q = mysql_query("INSERT INTO orders (uid, name, phone, addr, comm, pay_type, prod_list, stat) VALUES ('$uid', '$name', '$phone', '$addr', '$comm', '$paytype', '$orderProds', 1)") or die(mysql_error());
-		Controller::sendEmail("","","newOrder",$orderData);
+		$oData = array('id' => Self::getLastOrderId(),
+		               'uid'=> $uid,
+									 'name' => $name,
+									 'phone'=> $phone,
+									 'addr' => $addr,
+									 'comm' => $comm,
+									 'paytype' => $paytype,
+									 'orderProds' => $orderProds
+		);
+		Controller::sendEmail("","","newOrder", $oData);
+		$uEmail = Self::getUserData("getEmail",$uid,"getEmail");
+		Controller::sendEmail($name,$uEmail,"newOrderToUser",$oData);
 		return true;
+	}
+
+	function getLastOrderId()
+	{
+		$q = mysql_query("SELECT id FROM orders ORDER BY id DESC LIMIT 1") or die(mysql_error());
+		$q = mysql_fetch_array($q);
+		return $q[0];
 	}
 
 	function addComment($comment)
@@ -311,7 +321,7 @@ class Model_User extends Model
 		return $orders;
 	}
 
-	public function getUserData($pagename, $user=NULL)
+	public function getUserData($pagename, $user=NULL, $type=NULL)
 	{
 		switch ($pagename) {
 			case 'profile':
@@ -347,10 +357,13 @@ class Model_User extends Model
 			break;
 
 			default:
-				# code...
+				if ($type=="getEmail") {
+					$uid = $user;
+					$q = mysql_query("SELECT email FROM users WHERE id='$uid' LIMIT 1");
+					$res = mysql_fetch_assoc($q);
+					return $res['email'];
+				}
 			break;
 		}
 	}
-
-
 }
