@@ -33,6 +33,10 @@ class Model_User extends Model
 		$loginPass = $login['password'];
 		$q = mysql_query("SELECT * FROM users WHERE reg_hash='$loginHash'") or die(mysql_error()) ;
 		$countq = mysql_num_rows($q);
+		if ($countq==0) {
+			$q = mysql_query("SELECT * FROM users WHERE forgot_hash='$loginHash'") or die(mysql_error()) ;
+			$countq = mysql_num_rows($q);
+		}
 		$ds=mysql_fetch_assoc($q);
 		$loginPassword = md5($ds['email'].$loginPass.Self::SALT);
 		if ($countq>0) {
@@ -42,7 +46,7 @@ class Model_User extends Model
 				$_SESSION['user']['access_key'] = md5($user['pass'].Model::SALT);
 				$uid = $user['id'];
 				unset($user['pass']);
-				$q = mysql_query("UPDATE users SET reg_hash='0' WHERE id='$uid'") or die(mysql_error());
+				$q = mysql_query("UPDATE users SET reg_hash='0', forgot_hash='0' WHERE id='$uid'") or die(mysql_error());
 				return $user;
 			} else return false;
 		} else {
@@ -69,12 +73,30 @@ class Model_User extends Model
 		return true;
 	}
 
+	function forgotNew($data)
+	{
+		$email = addslashes($data['email']);
+		$forgotTime = date("Y-m-d H:i:s");
+ 		$forgot_public_hash = md5($email.$forgotTime.Self::SALT);
+		$q = mysql_query("UPDATE users SET forgot_hash = '$forgot_public_hash', forgot_timestamp = '$forgotTime' WHERE email='$email'") or die(mysql_error());
+		if ($q) {
+			echo "true";
+			Controller::sendEmail("", $email, "forgot", $forgot_public_hash);
+		} else
+			echo "false";
+		return $q;
+	}
+
 	function confirmPassw($data)
 	{
 		$hash = $data['hash'];
 		$passw = $data['pass'];
 		$q = mysql_query("SELECT * FROM users WHERE reg_hash = '$hash' LIMIT 1") or die(mysql_error());
 		$usr = mysql_fetch_assoc($q);
+		if (!$usr) {
+			$q = mysql_query("SELECT * FROM users WHERE forgot_hash = '$hash' LIMIT 1") or die(mysql_error());
+			$usr = mysql_fetch_assoc($q);
+		}
 		$cryptedPass = md5($usr['email'].$passw.Self::SALT);
 		$uid = $usr['id'];
 		$q = mysql_query("UPDATE users SET pass = '$cryptedPass' WHERE id='$uid'") or die(mysql_error());
@@ -182,8 +204,17 @@ class Model_User extends Model
 	function addComment($comment)
 	{
 		$uid = $_SESSION['user']['id'];
+		$comm = $comment;
 		extract($comment);
 		$text = strip_tags($text);
+		$comm['uid'] = $uid;
+		$comm['com_text'] = $text;
+		if ($target_type=="product") {
+			Controller::SendEmail('','',"newProductComm", $comm);
+		} else
+		if ($target_type=="reviews") {
+			Controller::SendEmail('','',"newReview", $comm);
+		}
 		$q = mysql_query("INSERT INTO comments (uid, target_type, target_id, com_text) VALUES ('$uid','$target_type','$target_id','$text')") or die(mysql_error());
 		return $q;
 	}
@@ -209,6 +240,16 @@ class Model_User extends Model
 		} else
 		$q = mysql_query("UPDATE users SET name = '".$uData['name']."', email='".$uData['email']."', phone='".$uData['phone']."', bday='".$uData['bd']."', pass='".$newCrypt."' WHERE id='".$uid."'") or die(mysql_error()) ;
 		return $q;
+	}
+
+	public function checkEmail($email)
+	{
+		$q = mysql_query("SELECT id FROM users WHERE email='".$email."' LIMIT 1") or die(mysql_error()) ;
+		$userEmail = mysql_fetch_assoc($q);
+		if (count($userEmail)>0 && $userEmail) {
+			return true;
+		} else
+			return false;
 	}
 
 	public function checkPass($pass)

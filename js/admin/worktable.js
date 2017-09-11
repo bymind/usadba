@@ -5,8 +5,60 @@ $(function() {
 	lookForStatusEdit();
 	paginationOrders();
 	statsInit();
+	recallBtnInit();
 });
 
+function recallBtnInit()
+{
+	setInterval(function(){
+		$('.btn-reload-recalls').click();
+	}, 30000);
+	$(document).on('click', '.btn-reload-recalls', function(event) {
+		event.preventDefault();
+		reloadRecall();
+	});
+	$(document).on('click', 'button.recall-done', function(event) {
+		event.preventDefault();
+		var recall = {
+			id: $(this).data('recallid'),
+			parent: $(this).parents('tr')
+		};
+		var recallJson = JSON.stringify(recall);
+		$.ajax({
+				url: '/admin/recallOk',
+				type: 'POST',
+				data: {data: recallJson},
+				success: function(res){
+					recall.parent.animate({
+						opacity: 0},
+						300, function() {
+						recall.parent.remove();
+						reloadRecall();
+					});
+				},
+				fail: function(err){
+					console.error(err);
+				}
+			});
+	});
+}
+
+function reloadRecall()
+{
+	$.ajax({
+				url: '/admin/getrecall',
+				type: 'POST',
+				data: {data: "getRecalls"},
+				success: function(res){
+					// console.log(res);
+					$('.recall-body').html(res);
+					$('.panel-recall .panel-heading span.badge').text($('.recall-body table tr').length);
+				},
+				fail: function(err){
+					console.error(err);
+				}
+			});
+}
 
 function statsInit()
 {
@@ -32,7 +84,7 @@ function statsInit()
 				console.table([answ.statData]);
 				pasteStatsData(statsBox,answ.statData.dataToPaste, statData.period);
 				if (answ.statData.hasChart) {
-					console.log(answ.statData.shartData);
+					console.log(answ.statData.сhartData);
 					pasteStatsChartData(statsBox,answ.statData.chartData, statData.period);
 				}
 			}).fail(function(err){
@@ -163,7 +215,7 @@ function loadStatData(statData)
 				type: 'POST',
 				data: {data: dataJson},
 				success: function(res){
-					console.trace(res);
+					console.log(res);
 					var answ = $.parseJSON(res);
 					if (answ.success) {
 						def.resolve(answ);
@@ -290,6 +342,7 @@ function sendNewOrderStatus(orderStatus)
 		data: {token:'ajaxCount', newStat: newStatJson},
 	})
 	.done(function(answ) {
+		// console.log(answ);
 		if (answ=="ok") {
 			reloadOrder(orderStatus.id);
 		};

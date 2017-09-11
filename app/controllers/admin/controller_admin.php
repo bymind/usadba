@@ -107,6 +107,7 @@ class Controller_Admin extends Controller
 	{
 		$orders = $this->model->getOrders('last', 20);
 		$curPage = 1;
+		$recalls = $this->model->getNewRecalls();
 		$ordersCounter = $this->model->countOrders('actual');
 		$pagesCount = ceil( $ordersCounter['all'] / 20);
 		$this->view->generate(
@@ -121,6 +122,7 @@ class Controller_Admin extends Controller
 							'Favicon' => 'app/views/admin-favicon.php',
 							'orders' => $orders,
 							'ordersCounter' => $ordersCounter,
+							'recalls' => $recalls,
 							'curPage' => $curPage,
 							'pagesCount' => $pagesCount
 						),
@@ -130,6 +132,54 @@ class Controller_Admin extends Controller
 					);
 	}
 
+	function action_recallOk()
+	{
+		$recall = json_decode($_POST['data'],true);
+		$recallId = $recall['id'];
+		$q = mysql_query("UPDATE recall SET new = 0 WHERE id = '$recallId' ") or die(mysql_error());
+		return $q;
+	}
+
+	function action_getrecall()
+	{
+		if (Controller::is_admin())
+		{
+			$q = mysql_query("SELECT * FROM recall WHERE new=1 ORDER BY datetime DESC") or die(mysql_error());
+			while ($r = mysql_fetch_assoc($q)) {
+				$r['good_time'] = Controller::getGoodDate($r['datetime']);
+				$ds[] = $r;
+			}
+			if (count($ds) > 0) {
+			$recallHtml = '<table class="table table-striped table-bordered">';
+			foreach ($ds as $recall) {
+				$recallHtml .= '<tr>
+				<td style="padding: 8px 0">
+					<div class="col-xs-12" style="font-size: .8em">
+						'.$recall['good_time'].'
+					</div>
+					<div class="col-xs-5">
+						<b>'.$recall['name'].'</b>
+					</div>
+					<div class="col-xs-5">
+						<b>'.$recall['phone'].'</b>
+					</div>
+					<div class="col-xs-2">
+						<button class="btn btn-primary btn-sm recall-done" data-recallid="'.$recall['id'].'">Ок</button>
+					</div>
+				</td>
+				</tr>';
+			}
+			$recallHtml .= '</table>';
+			} else {
+				$recallHtml = "Нет новых заявок";
+			}
+			echo $recallHtml;
+			return $recallHtml;
+		} else
+		{
+			Self::adminLogin();
+		}
+	}
 
 /*																		 ORDERS
 *************************************************************************************/

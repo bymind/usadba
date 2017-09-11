@@ -1309,6 +1309,17 @@ class Model_Admin extends Model
 			if (mysql_num_rows(mysql_query("SELECT * FROM stat_text WHERE id=($status+1)")) > 0) {
 				mysql_query("UPDATE orders SET stat=($status+1) WHERE id=$orderId")or die(mysql_error());
 				echo "ok";
+				$q = mysql_query("SELECT * FROM orders WHERE id=$orderId") or die(mysql_error());
+				$order = mysql_fetch_assoc($q);
+				if ($order['uid']>0) {
+					$user = Self::getUser($order['uid']);
+					$status = mysql_fetch_assoc(mysql_query("SELECT text FROM stat_text WHERE id='".$order['stat']."'"));
+					$status = $status['text'];
+					$order['stat'] = $status;
+					$order['u_email'] = $user['email'];
+					$order['u_name'] = $user['name'];
+					Controller::sendEmail($order['u_name'],$order['u_email'],"newOrderStat",$order);
+				}
 				return true;
 			}
 		} else {
@@ -1359,6 +1370,16 @@ class Model_Admin extends Model
 		$q = mysql_query("SELECT id FROM orders ORDER BY id DESC LIMIT 1") or die(mysql_error());
 		$q = mysql_fetch_array($q);
 		return $q[0];
+	}
+
+	function getNewRecalls()
+	{
+		$q = mysql_query("SELECT * FROM recall WHERE new = 1 ORDER BY datetime DESC") or die(mysql_error());
+		while ($r = mysql_fetch_assoc($q)) {
+			$r['good_time'] = Controller::getGoodDate($r['datetime']);
+			$ds[] = $r;
+		}
+		return $ds;
 	}
 
 	public function getOrder($orderId)

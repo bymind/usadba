@@ -136,6 +136,13 @@ class Controller_User extends Controller
 		return $this->model->confirmPassw($data);
 	}
 
+
+	function action_forgotNew()
+	{
+		$data = json_decode($_POST['data'], true);
+		return $this->model->forgotNew($data);
+	}
+
 	function action_history($uid=NULL)
 	{
 		$clean_uid = preg_replace("/[^0-9]/", '', $uid);
@@ -220,6 +227,29 @@ class Controller_User extends Controller
 				);
 		}
 	return 0;
+	}
+
+	function action_checkemail()
+	{
+		$checkemail = addslashes($_POST['data']);
+		$target = Route::PrepareUrl($_POST['target']);
+		if (isset($target)) {
+			switch ($target) {
+				case 'checkemail':
+					$checkRes = false;
+					$checkRes = $this->model->checkEmail($checkemail);
+					if ($checkRes) {
+						echo 'true';
+					} else {
+						echo 'false';
+					}
+					break;
+
+				default:
+					Route::Catch_Error('404');
+					break;
+			}
+		}
 	}
 
 	function action_checkpass()
@@ -357,21 +387,10 @@ class Controller_User extends Controller
 						$jsonUser = json_encode($userData);
 						$userData['access_key'] = md5($userData['pass'].Model::SALT);
 						$userData['admin_rights'] = explode(',',$userData['admin_rights']);
-						$ds = $userData;
-						$_SESSION['user']['id'] = $ds['id'];
-						$_SESSION['user']['sound'] = $ds['sound'];
-						$_SESSION['user']['name'] = $ds['name'];
-						$_SESSION['user']['avatar'] = $ds['avatar'];
-						$_SESSION['user']['favs'] = $ds['favs'];
-						$_SESSION['user']['is_admin'] = $ds['isadmin'];
-						if ($ds['isadmin']=='1') {
-							$_SESSION['user']['is_super'] = $ds['is_super'];
-							$_SESSION['user']['admin_rights'] = explode(',',$ds['admin_rights']);
-							$_SESSION['user']['access_key'] = md5($ds['pass'].Model::SALT);
-						}
-						// setcookie("id",$_SESSION['user']['id'], time()+60*60*24*30);
-						// echo "{'true', 'uid':'".$ds['id']."'}";
-						echo '{"true": true , "uid":'.$ds['id'].'}';
+						if (Self::login($userData)) {
+							echo '{"true": true , "uid":'.$userData['id'].'}';
+						} else
+						echo "false";
 					} else {
 						echo "false";
 					}
@@ -488,6 +507,134 @@ try less size file');
 		$comment = json_decode($comment, true);
 		$comment['text'] = addslashes($comment['text']);
 		return $this->model->addComment($comment);
+	}
+
+	function action_forgot($hash)
+	{
+		if (Self::is_logged()) {
+			Route::Catch_Error("404");
+		} else {
+		if ($hash != null) {
+			$hash = addslashes($hash);
+			$timestamp = date("Y-m-d H:i:s", strtotime('now') - 60*60*24);
+			$q = mysql_query("SELECT id FROM users WHERE forgot_hash='$hash' AND forgot_timestamp > '$timestamp' LIMIT 1");
+			if (mysql_num_rows($q)>0) {
+				$ds = mysql_fetch_assoc($q);
+				$userData = $this->model->getUser($ds['id']);
+				$pageDataController = $this->model->getUserData('profile', $userData);
+				$menuItems = $this->model->get_MainMenu('catalog');
+				$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
+				$pageDataProd = Model::getData('prods');
+				$this->view->generate(
+					'user_forgot_confirm_view.php', // вид контента
+					'template_view.php', // вид шаблона
+					array( // $data
+							'title'=> 'Установка пароля',
+							'style'=>'public/template.css',
+							'style_content' => array(
+																			'public/main_page.css',
+																			'owl-carousel/owl.carousel.css',
+																			'owl-carousel/sales.theme.css',
+																			'owl-carousel/prod.theme.css',
+																			'public/user_profile_page.css',
+																			'datepicker/datepicker.min.css'
+																			),
+							'scripts_content'=> array(
+																				'/js/magic-mask/jq.magic-mask.min.js',
+																				'/js/main_page.js',
+																				'/js/owl-carousel/owl.carousel.min.js',
+																				'/js/datepicker/datepicker.min.js',
+																				'/js/template.js',
+																				'/js/profile.js'
+																				),
+							'pageId' => '', // активный пункт меню
+							'pageDataView' => $userData['profile'],
+							'sidebar' => array(
+																'app/views/side_menu_view.php',
+																'app/views/side_prod_of_day_view.php',
+																'app/views/side_news_view.php',
+																),
+							'prodItems' => $pageDataProd['prodItems'], //
+							'prodCats' => $pageDataProd['prodCats'],
+							'sideNews' => $sideNews,
+							'pageSales' => $pageSales['sales'],
+							'menuItems' => $menuItems,
+							'breads' => false,
+						),
+					'navigation_view.php', // навигация
+					'footer_view.php', // футер
+					array( // модальные окна
+							 'modal_callback_view.php',
+							 'modal_profile_view.php',
+							 'modal_profile_edit_view.php',
+							 'modal_photo_edit_view.php',
+							 'modal_address_edit_view.php',
+							 'modal_cart_view.php',
+							 'modal_pass_check_view.php',
+							 'modal_pass_new_view.php'
+							 )
+					);
+				return true;
+			} else {
+				Route::Catch_Error("404");
+			}
+		} else {
+				$menuItems = $this->model->get_MainMenu('catalog');
+				$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
+				$pageDataProd = Model::getData('prods');
+				$this->view->generate(
+					'user_forgot_new_view.php', // вид контента
+					'template_view.php', // вид шаблона
+					array( // $data
+							'title'=> 'Установка пароля',
+							'style'=>'public/template.css',
+							'style_content' => array(
+																			'public/main_page.css',
+																			'owl-carousel/owl.carousel.css',
+																			'owl-carousel/sales.theme.css',
+																			'owl-carousel/prod.theme.css',
+																			'public/user_profile_page.css',
+																			'datepicker/datepicker.min.css'
+																			),
+							'scripts_content'=> array(
+																				'/js/magic-mask/jq.magic-mask.min.js',
+																				'/js/main_page.js',
+																				'/js/owl-carousel/owl.carousel.min.js',
+																				'/js/datepicker/datepicker.min.js',
+																				'/js/template.js',
+																				'/js/profile.js'
+																				),
+							'pageId' => '', // активный пункт меню
+							'pageDataView' => $userData['profile'],
+							'sidebar' => array(
+																'app/views/side_menu_view.php',
+																'app/views/side_prod_of_day_view.php',
+																'app/views/side_news_view.php',
+																),
+							'prodItems' => $pageDataProd['prodItems'], //
+							'prodCats' => $pageDataProd['prodCats'],
+							'sideNews' => $sideNews,
+							'pageSales' => $pageSales['sales'],
+							'menuItems' => $menuItems,
+							'breads' => false,
+							// 'breadsData' => $breadCrumbs,
+						),
+					'navigation_view.php', // навигация
+					'footer_view.php', // футер
+					array( // модальные окна
+							 'modal_callback_view.php',
+							 'modal_profile_view.php',
+							 'modal_profile_edit_view.php',
+							 'modal_photo_edit_view.php',
+							 'modal_address_edit_view.php',
+							 'modal_cart_view.php',
+							 'modal_pass_check_view.php',
+							 'modal_pass_new_view.php'
+							 )
+					);
+				return true;
+		}
+		}
 	}
 
 	function action_confirm($hash)
@@ -660,8 +807,13 @@ try less size file');
 		if (isset($_POST['target'])) {
 			if ($_POST['target'] == 'recall') {
 				$sendData = json_decode($_POST['data'], true);
-				$msg = Controller::createMsg('callback',$sendData);
-				Controller::sendMsg('admin', $msg);
+				$uid = $_SESSION['user']['id'];
+				$name = addslashes($sendData['name']);
+				$phone = addslashes($sendData['phone']);
+				$q = mysql_query("INSERT INTO recall (name, phone, uid) VALUES ('$name', '$phone', '$uid')") or die(mysql_error());
+				Controller::sendEmail("","","newRecall", $sendData);
+				// $msg = Controller::createMsg('callback',$sendData);
+				// Controller::sendMsg('admin', $msg);
 				return true;
 			}
 		} else {

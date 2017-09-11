@@ -14,8 +14,6 @@
 <link rel="icon" type="image/ico" sizes="16x16" href="/favicon/admin/favicon.ico">
 <link rel="manifest" href="/favicon/admin/manifest.json">
 <meta name="msapplication-TileImage" content="favicon/admin/ms-icon-144x144.png">
-<!-- <meta name="msapplication-TileColor" content="#14767f">
-<meta name="theme-color" content="#14767f">
- -->
- <meta name="theme-color" content="#102028">
+
+<meta name="theme-color" content="#102028">
 <meta name="msapplication-TileColor" content="#444">

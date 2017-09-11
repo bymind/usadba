@@ -41,7 +41,139 @@ $(function()
 
 });
 
-function TrySetPassw()
+function TrySetForgot()
+{
+	var emailInput = $('#inputEmail');
+	var emailForm = $('#confirmForm');
+	var emailVal = emailInput.val();
+	var emailBtn = $('#btnConfirmEmail');
+	$.when(ValidateEmail(emailForm, emailVal)).done(function(res){
+		$('#confirmForm .form-group').removeClass('has-error');
+		$('#confirmForm .form-group .substring.red').remove();
+
+		ShowGood(emailBtn, "Отправляем", function(){
+			// var hash = location.href.split("/");
+			// hash = hash[hash.length-1];
+			SetEmailAjax(emailVal);
+		});
+	}).fail(function(errors){
+		$('#confirmForm .form-group').removeClass('has-error');
+		$('#confirmForm .form-group .substring.red').remove();
+		ShowErrors(emailForm, errors);
+	});
+}
+
+function SetEmailAjax(email)
+{
+	var data = {
+		email: email,
+		// hash: hash
+	}
+	var dataJson = JSON.stringify(data);
+	$.ajax({
+		url: '/user/forgotNew',
+		type: 'POST',
+		data: {data: dataJson},
+	})
+	.done(function(res) {
+		console.log("success");
+		console.log(res);
+		if (res==="true") {
+			$('.details-wrapper h2').text("Готово");
+			$('#confirmForm').css('text-align','center').html("На Ваш email отправлено письмо с уникальной ссылкой для восстановления пароля.<br><br>Проверьте почту.");
+		} else {
+			$('.details-wrapper h2').text("Уууупс");
+			$('#confirmForm').html("Произошла какая-то ошибка.<br>Мы разберёмся.");
+		}
+	})
+	.fail(function(err) {
+		console.log("error");
+		console.log(err);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+
+
+function ValidateEmail(form, email)
+{
+	var def = new $.Deferred();
+	var inputs = form.find('.form-group');
+	inputs.each(function(index, el) {
+		$(el).removeClass('has-error');
+		$(el).find('.substring.red').remove();
+	});
+	var emailReg = /.+@.+\..+/i; // регулярка для проверки почты
+	var errors = []; // тут будем хранить объекты ошибок
+	var $email = escapeHtml(email);
+
+	var error = {}; // объект ошибки
+
+	if ($email == "" || !$email) {
+		error.name = 'email';
+		error.msg = 'Введите email';
+		errors.push(error);
+		error = {}; // обнуляем объект ошибки
+	} else {
+		if ( !emailReg.test($email)) {
+			error.name = 'email';
+			error.msg = 'Введите корректный email';
+			errors.push(error);
+			error = {}; // обнуляем объект ошибки
+		} else {
+			$.when(CheckEmail($email)).done(function(){
+				def.resolve();
+			}).fail(function(){
+				error.name = 'email';
+				error.msg = 'Такой e-mail не найден в системе';
+				errors.push(error);
+				error = {};
+				def.reject(errors);
+			});
+		}
+	}
+
+	if (errors.length > 0) {
+		// ShowErrors(form, errors);
+		def.reject(errors);
+	}
+
+	return def.promise();
+}
+
+
+CheckEmail = function (email)
+{
+	var def = new $.Deferred();
+	if (!email || email == "") {
+		def.reject();
+	}
+	var data = email;
+	$.ajax({
+			url: '/user/checkemail',
+			type: 'POST',
+			data: {target: 'checkemail', data: data},
+		})
+		.done(function(res) {
+			console.log("CheckEmail() success");
+			console.log(res);
+			if (res == "false") {
+				def.reject(res);
+			} else
+				def.resolve(res);
+		})
+		.fail(function(err) {
+			console.log("CheckEmail() error");
+			def.reject(err);
+		})
+		.always(function() {
+			console.log("CheckEmail() complete");
+		});
+	return def.promise();
+}
+
+function TrySetPassw(type)
 {
 	var passInput = $('#inputPassword');
 	var passForm = $('#confirmForm');
@@ -54,7 +186,7 @@ function TrySetPassw()
 		ShowGood(passBtn, "Сохраняем", function(){
 			var hash = location.href.split("/");
 			hash = hash[hash.length-1];
-			SetPasswAjax(passVal, hash);
+			SetPasswAjax(passVal, hash, type);
 		});
 	}).fail(function(errors){
 		$('#confirmForm .form-group').removeClass('has-error');
@@ -64,7 +196,7 @@ function TrySetPassw()
 
 }
 
-function SetPasswAjax(pass, hash)
+function SetPasswAjax(pass, hash, hashtype)
 {
 	var data = {
 		pass: pass,
@@ -83,7 +215,7 @@ function SetPasswAjax(pass, hash)
 			hash: data.hash,
 			password: data.pass
 		}
-		TryLogin(obj, 'hash');
+		TryLogin(obj, hashtype);
 	})
 	.fail(function(err) {
 		console.log("error");
@@ -92,7 +224,6 @@ function SetPasswAjax(pass, hash)
 	.always(function() {
 		console.log("complete");
 	});
-
 }
 
 function InitInputsEnters()
@@ -103,14 +234,26 @@ function InitInputsEnters()
 						return false;
 				}
 		 });
+	$(document).on('click', 'button#btnConfirmEmail', function(event) {
+		event.preventDefault();
+		TrySetForgot();
+	});
 	$(document).on('click', 'button#btnConfirmPassw', function(event) {
 		event.preventDefault();
-		TrySetPassw();
+		var hashtype = $('button#btnConfirmPassw').data('hashtype');
+		TrySetPassw(hashtype);
+	});
+	$(document).on('keyup', 'input#inputEmail', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+			TrySetForgot();
+		}
 	});
 	$(document).on('keyup', 'input#inputPassword', function(event) {
 		event.preventDefault();
 		if (event.keyCode =="13") {
-			TrySetPassw();
+			var hashtype = $('input#inputPassword').data('hashtype');
+				TrySetPassw(hashtype);
 		}
 	});
 	$(document).on('keyup', 'input#login-email', function(event) {
@@ -1261,7 +1404,6 @@ CheckPass = function (pass)
 			console.log("CheckPass() complete");
 		});
 	return def.promise();
-
 }
 
 function ReopenEditProfile(obj)
@@ -1494,8 +1636,49 @@ function TryLogin(form, type)
 		}
 	} else if (type === 'hash') {
 		var login = form;
-		// login.email = escapeHtml(form.find('input#login-email').val());
-		// login.password = escapeHtml(form.find('input#login-passw').val());
+		var jsonLogin = JSON.stringify(login);
+		console.warn(jsonLogin);
+		$.ajax({
+			url: '/user/login',
+			type: 'POST',
+			data: {target: 'loginHash', jsonLogin: jsonLogin},
+		})
+		.done(function(res) {
+			if ( res && res!='false') {
+				if (res == 'banned false') {
+					console.error("TryLogin() response BANNED");
+					console.error("jsonLogin: "+jsonLogin);
+					console.error(res);
+					var err = [{'name':"email", 'msg':"Ваш аккаунт заблокирован!<br>Для разблокировки свяжитесь с администрацией сайта."}];
+					ShowErrors(form,err);
+				} else {
+					console.warn("TryLogin() done");
+					console.info(res);
+					$res = JSON.parse(res);
+					$res ? console.info($res) : console.info(res);
+					ShowGood($("#btnConfirmPassw"),"Входим", function(){
+						location.href = "/user/profile/"+$res.uid;
+					});
+				}
+			} else {
+				console.error("TryLogin() response FALSE");
+				console.error("jsonLogin: "+jsonLogin);
+				console.error(res);
+				var err = [{'name':"email",'msg':"Неверные данные"},{'name':"password",'msg':"Неверные данные"}];
+				ShowErrors(form,err);
+			}
+		})
+		.fail(function(res) {
+			console.error("TryLogin() fail");
+			console.error("jsonLogin: "+jsonLogin);
+			console.error(res);
+		})
+		.always(function(res) {
+			console.info("TryLogin() complete");
+			// console.info(res);
+		});
+	} else if (type === 'forgot_hash') {
+		var login = form;
 		var jsonLogin = JSON.stringify(login);
 		console.warn(jsonLogin);
 		$.ajax({
@@ -2314,6 +2497,9 @@ function InitCommTextarea(wrapper)
 					console.log(err);
 				});
 		} else {
+			if (wrapper.find('span.note span.woops').length > 0) {
+				wrapper.find('span.note span.woops').remove();
+			}
 			wrapper.find('span.note').append('<span class="red5 woops">Кажется, Вы забыли написать отзыв.</span>');
 			return false;
 		}

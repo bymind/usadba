@@ -105,17 +105,17 @@
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="inputEmailComm" class="col-sm-5 control-label">Email для комментариев</label>
+	    <label for="inputEmailComm" class="col-sm-5 control-label">Email для комментариев<br>(отзывы о товарах)</label>
 	    <div class="col-sm-7">
 	      <input type="email" class="form-control" id="inputEmailComm" placeholder="comments@gmail.com" aria-describedby="helpEmailComm" value="<?php echo $configs['inputEmailComm']['value'] ?>">
-	      <span id="helpEmailComm" class="help-block">Сюда будут приходить только комментарии</span>
+	      <span id="helpEmailComm" class="help-block">Сюда будут приходить только отзывы о товарах</span>
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="inputEmailRev" class="col-sm-5 control-label">Email для отзывов</label>
+	    <label for="inputEmailRev" class="col-sm-5 control-label">Email для отзывов<br>(общие отзывы о сайте)</label>
 	    <div class="col-sm-7">
 	      <input type="email" class="form-control" id="inputEmailRev" placeholder="reviews@gmail.com" aria-describedby="helpEmailRev" value="<?php echo $configs['inputEmailRev']['value'] ?>">
-	      <span id="helpEmailRev" class="help-block">Сюда будут приходить только отзывы</span>
+	      <span id="helpEmailRev" class="help-block">Сюда будут приходить только общие отзывы</span>
 	    </div>
 	  </div>
 	  <div class="form-group">

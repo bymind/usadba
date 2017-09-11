@@ -315,6 +315,58 @@ class Controller
 	{
 		switch ($type) {
 // ================================================================
+			case 'forgot':
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$link = $data;
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Смена пароля на сайте</div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					Здравствуйте.<br>Этот адрес был указан для восстановления пароля на сайте <b>'.$siteName.'</b>.<br>Для перехода на страницу подтверждения и создания пароля нажмите на кнопку:<br><br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/user/forgot/'.$link.'" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Сменить пароль</a>
+					<span style="display:inline-block;width:100%;font-size:12px;margin-bottom:50px;margin-top: 10px;color: #888;">Ссылка действительна в течение 24 часов.</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Восстановление аккаунта";
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+				break;
+
+// ================================================================
 			case 'userReg':
 				$siteName = CONFIG_SITE_NAME;
 				$siteName = str_replace(array("\r","\n")," ",$siteName);
@@ -485,6 +537,289 @@ class Controller
 				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
 				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
 				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+// ================================================================
+			case "newRecall":
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Заявка на <a href="'.$siteUrl.'/admin">перезвон</a></div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">Имя</th>
+								<td>'.nl2br($data['name']).'</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">Номер телефона</th>
+								<td>
+									'.$data['phone'].'
+									</td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td style="height:25px">
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/admin" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к заявкам</a>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Новая зявка на перезвон";
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
+				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_RECALL;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+
+// ================================================================
+			case "newReview":
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Новый отзыв <a href="'.$siteUrl.'/admin/comm/new">на сайте</a> о сервисе</div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">Текст отзыва</th>
+								<td>'.nl2br($data['com_text']).'</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">ID пользователя</th>
+								<td>
+									<a href="'.$siteUrl.'/admin/users/'.$data['uid'].'">'.$data['uid'].'</a>
+									</td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td style="height:25px">
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/admin/comm/new" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к комментариям</a>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Новый отзыв о сайте";
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
+				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_REV;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+// ================================================================
+			case "newProductComm":
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Новый комментарий <a href="'.$siteUrl.'/admin/comm/new">на сайте</a> о товаре</div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					<br>
+					<table class="order-details-table table table-hover table-bordered mb-sm-10">
+							<tbody><tr>
+								<th style="text-align:left; vertical-align:top">Текст комментария</th>
+								<td>'.nl2br($data['com_text']).'</td>
+							</tr>
+							<tr>
+								<th style="text-align:left; vertical-align:top">ID пользователя</th>
+								<td>
+									<a href="'.$siteUrl.'/admin/users/'.$data['uid'].'">'.$data['uid'].'</a>
+									</td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td style="height:25px">
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:center">
+					<a href="'.$siteUrl.'/admin/comm/new" style="display:inline-block;padding: 6px 12px;border-radius:4px;color:#fff;background: #c63838;margin:10px auto 2px;text-decoration:none;text-transform: uppercase;font-size: 13px;font-family: roboto, sans-serif;font-weight: 900;">Перейти к комментариям</a>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Новый комментарий о товаре";
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = "Админка / ".$siteName." <".CONFIG_SITE_ADMIN.">";
+				$toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_COMM;
+				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
+			break;
+
+// ================================================================
+// Controller::sendEmail($order['u_name'],$order['u_email'],"newOrderStat",$order);
+			case "newOrderStat":
+				$orderId = $data['id'];
+				switch ($data['paytype']) {
+					case 'cash':
+						$data['paytypeRu'] = 'наличными';
+						break;
+
+					case 'online':
+						$data['paytypeRu'] = 'картой онлайн';
+						break;
+
+					default:
+						$data['paytypeRu'] = 'наличными';
+						break;
+				}
+				if ($data['comm']=="") {
+					$data['comm'] = "—";
+				}
+				$data['orderProds'] = json_decode($data['orderProds'], JSON_UNESCAPED_UNICODE);
+				$siteName = CONFIG_SITE_NAME;
+				$siteName = str_replace(array("\r","\n")," ",$siteName);
+				if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+					$protocol = 'https://';
+				} else {
+					$protocol = 'http://';
+				}
+				$siteUrl = $protocol.$_SERVER['HTTP_HOST'];
+				$siteLogoUrl = CONFIG_SITE_LOGO;
+				$siteLogoUrl = $siteUrl.CONFIG_SITE_LOGO;
+				$siteLogoPng = explode(".", $siteLogoUrl);
+				$siteLogoPng[count($siteLogoPng)-1] = "png";
+				$siteLogoPng = implode('.', $siteLogoPng);
+				$prodsTxt = "";
+				if ($data['uid']>0) {
+					$uid = $data['uid'];
+					$uidTxt = 'Вы можете следить за состоянием заказа в <a href="'.$siteUrl.'/user/order/'.$orderId.'" target="_blank">личном кабинете</a>';
+				} else {
+					$uidTxt = '<a href="'.$siteUrl.'">Зарегистрируйтесь</a> на сайте и следите за заказами в личном кабинете.';
+				}
+				$letterText = '<div background="'.$siteUrl.'/img/bg-pattern.png" style="margin:0;padding:5% 0;width:100%; height:100%;background-image:url('.$siteUrl.'/img/bg-pattern.png); background-position: left top; background-repeat: repeat; background-size: auto;">
+				<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin: auto;padding:10px;background-color:#fff;font-family:Arial,Helvetica,sans-serif;width: 90%;max-width:580px;height: 100% !important;border-radius:4px;border: 1px solid #ddd;">
+				<tbody>
+				<tr>
+					<td>
+					<div style="font-size:1.2em;padding: 15px 10px 10px 20px;display:inline-block;font-size: 16px;font-weight: normal;line-height: 30px;color: #c63838;display: inline-block;position: relative;border-bottom: 4px solid;z-index: 2;">Статус заказа №'.$orderId.' изменён</a></div>
+					<div style="display: block;position: relative;width: 100%;height: 1px;background: #e5e5e5;top: -1px;box-sizing: content-box;z-index: 1;"></div>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px;padding-left: 20px;font-size: 14px;line-height:1.4;">
+					'.$toName.', новый статус Вашего заказа — <b>'.$data['stat'].'</b>.
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td style="margin-bottom:20px; text-align:left">
+					<br>
+					<span style="display:inline-block;width:100%;font-size:12px;margin-bottom:50px;margin-top: 10px;color: #888;text-align:center;">'.$uidTxt.'</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;background:#ECEFF1;padding:10px;border-radius: 0 0 4px 4px;">
+					<a style="color:inherit" href="'.$siteUrl.'"><span style="display:inline-block; text-align:center; font-size:14px; color:#888;">'.date('Y').' © '.nl2br(CONFIG_SITE_COPYRIGHT).'</span></a>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>';
+				$title = "Статус заказа №".$orderId." изменён";
+				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
+				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
 				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
 			break;
 
@@ -757,7 +1092,6 @@ class Controller
 				$title = "Ваш заказ №".$orderId;
 				$title = '=?UTF-8?B?' . base64_encode($title) . '?=';
 				$from = $siteName." <".CONFIG_SITE_ADMIN.">";
-				// $toEmail = CONFIG_SITE_ADMIN.",".CONFIG_SITE_ADMIN_ORDERS;
 				mail($toEmail, $title, $letterText, "Content-type: text/html; charset=utf-8\r\nFrom:".$from);
 			break;
 

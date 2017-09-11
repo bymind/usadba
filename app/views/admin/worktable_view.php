@@ -55,6 +55,51 @@
 
 		</div>
 
+		<div class="col-xs-12 col-lg-4 col-recall pl-0 pr-0 panel panel-primary panel-recall" >
+			<div class="panel-heading">
+				Заявки на перезвон <span class="badge" style="background: #ef5350;color: #fff;opacity: 1;"> <?php echo count($recalls); ?></span> <button class="btn btn-xs btn-primary btn-reload-recalls" style="float:right">Обновить</button>
+			</div>
+			<div class="panel-body pt-10 pb-10">
+				<div class="recall-body">
+				<?php
+					if (count($recalls) == 0) {
+						?>
+							Нет новых заявок
+						<?
+					} else {
+						?>
+						<table class="table table-striped table-bordered">
+						<?php
+						foreach ($recalls as $recall) {
+							?>
+							<tr>
+							<td style="padding: 8px 0">
+								<div class="col-xs-12" style="font-size: .8em">
+									<?=$recall['good_time']?>
+								</div>
+								<div class="col-xs-5">
+									<b><?=$recall['name']?></b>
+								</div>
+								<div class="col-xs-5">
+									<b><?=$recall['phone']?></b>
+								</div>
+								<div class="col-xs-2">
+									<button class="btn btn-primary btn-sm recall-done" data-recallid="<?=$recall['id']?>">Ок</button>
+								</div>
+							</td>
+							</tr>
+							<?php
+						}
+					?>
+					</table>
+					<?
+					}
+				?>
+				</div>
+			</div>
+		</div>
+
+
 		<div class="col-xs-12 col-lg-4 col-stats pl-0 pr-0 panel panel-stat">
 			<div class="panel-heading">
 			<h4>Статистика</h4>

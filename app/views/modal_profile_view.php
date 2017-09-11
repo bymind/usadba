@@ -20,7 +20,7 @@
 									<label for="login-passw">Пароль</label>
 									<input type="password" name="password" id="login-passw" placeholder="Введите пароль" class=" form-control" required minlength="6">
 								</div>
-								<div class="forgot"><a href="/#forgot">Я не помню пароль</a></div>
+								<div class="forgot"><a href="/user/forgot">Я не помню пароль</a></div>
 								<div class="error"></div>
 							</form>
 						</div>
