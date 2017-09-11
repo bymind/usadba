@@ -4,10 +4,8 @@ class Model_Admin extends Model
 {
 	public function get_data()
 	{
-
+		// get some data...
 	}
-
-
 
 	function getStatData($type, $period)
 	{
@@ -92,27 +90,6 @@ class Model_Admin extends Model
 						}
 						break;
 
-					// case 'year':
-					// 	$from = date("Y-m-d", strtotime("-1 year"))." 00:00:00";
-					// 	$from = date("Y-m-d H:i:s", strtotime($from) + 60*60*24);
-					// 	$to = date("Y-m-d H:i:s");
-					// 	$chart = true;
-					// 	$periodRus = "год";
-					// 	$iterator = "";
-					// 	$j = 0;
-					// 	$labels = array();
-					// 	while ($iterator < strtotime(date("Y-m-d"))) {
-					// 		$iterator = strtotime($from."+".$j." months");
-					// 		$iterator = date("Y-m-d", $iterator);
-					// 		$iterator = Controller::getGoodDate($iterator, 'short');
-					// 		$iterator = split(' ',$iterator);
-					// 		$iterator = $iterator[1];
-					// 		$labels[] = $iterator;
-					// 		$j++;
-					// 		$iterator = strtotime($from."+".$j." months");
-					// 	}
-					// 	break;
-
 					default:
 						# code...
 						break;
@@ -128,16 +105,15 @@ class Model_Admin extends Model
 				}
 
 				if (($period=="today")||($period=="yesterday")) {
+					$ds = array();
 					$from1 = date("Y-m-d", time() - 60*60*24*6)." 00:00:00";
 					$to1 = date("Y-m-d H:i:s");
 					$q = mysql_query("SELECT * FROM orders WHERE stat=3 AND datetime>'$from1' AND datetime<'$to1'") or die(mysql_error());
-					// $countStatLines = mysql_num_rows($q);
 					while ($r = mysql_fetch_assoc($q)) {
 						$ds[]=$r;
 					}
 				}
 
-				// if (($period!="today")&&($period!="yesterday")) {
 				$countStatLinesDays = array();
 				for ($i=0; $i < count($labels); $i++) {
 					$countStatLinesDays[$i] = 0;
@@ -158,7 +134,6 @@ class Model_Admin extends Model
 					$prods = json_decode($order['prod_list'],true);
 					$profitDays[$key] += $prods['sumPrice']+0.0;
 				}
-				// }
 
 				$middleCheckDays = array();
 				for ($i=0; $i < count($profitDays); $i++) {
@@ -308,7 +283,6 @@ class Model_Admin extends Model
 			$select = mysql_query("UPDATE prod_cat SET parent = 0, position = ".$lastPosition." WHERE parent = ".$parentCatId." LIMIT 1") or die(mysql_error());
 			$lastPosition++;
 		}
-		// $q = "UPDATE prod_cat SET parent = 0, position=".$lastPosition." WHERE parent = ".$parentCatId;
 		return true;
 	}
 
@@ -356,7 +330,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	getGoodsLists()
 	Получение списка товаров в каталоге (с учетом подкаталогов)
@@ -384,7 +357,6 @@ class Model_Admin extends Model
 				}
 		return $ds;
 	}
-
 
 
 	/*
@@ -433,6 +405,7 @@ class Model_Admin extends Model
 		return $cat_tree;
 	}
 
+
 	/*
 	getCatName()
 	Получение имени категории
@@ -455,11 +428,10 @@ class Model_Admin extends Model
 	public function getArticlesLists()
 	{
 		$select = mysql_query("SELECT * FROM articles WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$ds[]=$r;
-
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$ds[]=$r;
 		}
 
 		return $ds;
@@ -474,10 +446,10 @@ class Model_Admin extends Model
 	public function getPagesLists()
 	{
 		$select = mysql_query("SELECT * FROM pages WHERE archived = 0 ORDER BY datetime DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$ds[]=$r;
 		}
 
 		return $ds;
@@ -490,19 +462,11 @@ class Model_Admin extends Model
 	*/
 	public function getConfigs()
 	{
-		// $nowDate = date('Y-m-d h:i:s');
 		$select = mysql_query("SELECT * FROM config WHERE archived =0 ORDER BY id")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					// if ($r['section']=="links") {
-					// 	$num = preg_replace("/[^0-9]/", '', $r['name']);
-					// 	$vals = explode("\n",$r['value']);
-					// 	$r['footerText'.$num] = trim($vals[0]);
-					// 	$r['footerLink'.$num] = trim($vals[1]);
-					// } else {
-						$r[$r['name']] =$r['value'];
-					// }
-						$ds[$r['name']]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+				$r[$r['name']] =$r['value'];
+				$ds[$r['name']]=$r;
 		}
 		return $ds;
 	}
@@ -510,13 +474,12 @@ class Model_Admin extends Model
 	function updateConfigs($configs)
 	{
 		foreach ($configs['ids'] as $key => $value) {
-			// $configs['vals'][$key] = addslashes($configs['vals'][$key]);
 			$configVal = addslashes($configs['vals'][$key]);
 			$upd = mysql_query("UPDATE config SET value = '$configVal' WHERE name='$value' ") or die(mysql_error());
 			echo "$configVal ";
 			echo "$value ";
 		}
-			return true;
+		return true;
 	}
 
 	/*
@@ -527,12 +490,12 @@ class Model_Admin extends Model
 	{
 		$nowDate = date('Y-m-d h:i:s');
 		$select = mysql_query("SELECT * FROM sales WHERE end_time > '$nowDate' ORDER BY id DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['start_time'] = Controller::getGoodDate($r['start_time']);
-					$r['end_time'] = Controller::getGoodDate($r['end_time']);
-					$r['url'] = $r['tech_name'];
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['start_time'] = Controller::getGoodDate($r['start_time']);
+			$r['end_time'] = Controller::getGoodDate($r['end_time']);
+			$r['url'] = $r['tech_name'];
+			$ds[]=$r;
 		}
 
 		return $ds;
@@ -615,11 +578,11 @@ class Model_Admin extends Model
 	{
 		$cur_date = date('Y-m-d h:i:s');
 		$select = mysql_query("SELECT * FROM sales WHERE end_time < '$cur_date' ORDER BY start_time DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['start_time'] = Controller::getGoodDate($r['start_time']);
-					$r['end_time'] = Controller::getGoodDate($r['end_time']);
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['start_time'] = Controller::getGoodDate($r['start_time']);
+			$r['end_time'] = Controller::getGoodDate($r['end_time']);
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -633,10 +596,10 @@ class Model_Admin extends Model
 	public function getPagesPostsArchived()
 	{
 		$select = mysql_query("SELECT * FROM pages WHERE archived = 1 ORDER BY datetime DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -649,10 +612,10 @@ class Model_Admin extends Model
 	public function getArticlesPostsArchived()
 	{
 		$select = mysql_query("SELECT * FROM articles WHERE archived = 1 ORDER BY datetime DESC")or die(mysql_error());
-				$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['datetime'] = Controller::getGoodDate($r['datetime']);
-					$ds[]=$r;
+		$ds = array();
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['datetime'] = Controller::getGoodDate($r['datetime']);
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -680,35 +643,25 @@ class Model_Admin extends Model
 
 	function updateSaleProds($prods_ids, $sale_id)
 	{
-		// $sql = "UPDATE prod_items SET sales_id = NULL WHERE sales_id = '$sale_id'";
-		// mysql_query($sql) or die(mysql_error());
-
 		$sql = "SELECT id,labels FROM prod_items WHERE sales_id = '$sale_id' AND id NOT IN ($prods_ids)";
 		$res = mysql_query($sql) or die(mysql_error());
 		$ds = [];
 		while ($row = mysql_fetch_assoc($res)) {
-			// var_dump($row);
 			$ds[] = $row;
 		}
 		$sql = "";
 		foreach ($ds as $row) {
-			// echo "hello \r\n";
 			$labels = explode(",",$row['labels']);
 			$newLabels = [];
 			foreach ($labels as $label) {
 				if ($label!="sales") {
 					$newLabels[] = $label;
 				}
-				// var_dump($newLabels);
 			}
 			$row['labels'] = implode(",", $newLabels);
-			// var_dump($row['labels']);
 			$sql = "UPDATE prod_items SET labels = '".$row['labels']."', sales_id = NULL WHERE id=".$row['id'];
-			// var_dump($sql);
 			mysql_query($sql) or die(mysql_error());
 		}
-		// if ($sql!="") {
-		// }
 
 		$sql = "UPDATE prod_items SET sales_id = '$sale_id' WHERE id in ($prods_ids)";
 		mysql_query($sql) or die(mysql_error());
@@ -721,7 +674,7 @@ class Model_Admin extends Model
 				if ($row['labels']=="") {
 					$row['labels'] = "sales";
 				} else
-				$row['labels'] .= ",sales";
+					$row['labels'] .= ",sales";
 				$ds[] = $row;
 			} else {
 				$ds[] = $row;
@@ -729,22 +682,12 @@ class Model_Admin extends Model
 		}
 		$sql = "UPDATE prod_items SET `labels`= CASE ";
 		foreach ($ds as $value) {
-			// echo ('DS!');
 			$sql .= "WHEN id='".$value['id']."' THEN '".$value['labels']."' ";
 		}
 		$sql .=" END WHERE id in ($prods_ids)";
 		if ($sql!="") {
-			// var_dump($sql);
-			// echo "\r\n";
-			// var_dump($prods_ids);
-			// echo "\r\n";
-			// var_dump($sale_id);
-			// echo "\r\n";
-			// var_dump($ds);
-			// echo "\r\n";
 			mysql_query($sql) or die(mysql_error());
 		}
-
 	}
 
 	/*
@@ -1067,26 +1010,21 @@ class Model_Admin extends Model
 	public function addCat($cat)
 	{
 		extract($cat);
-		// $author = $_SESSION['user']['id'];
 		$name = htmlspecialchars($name);
 		$tech_name = htmlspecialchars($tech_name);
 		$checkName = "SELECT * FROM prod_cat WHERE name = '$name' OR tech_name='$tech_name'";
 		if (mysql_num_rows(mysql_query($checkName)) > 0) {
 			echo "Такая категория уже существует!";
 		} else {
-			// if ($parent == "0") {
-				$sql = "SELECT position FROM prod_cat WHERE parent='$parent' ORDER BY position DESC LIMIT 1";
-				$result = mysql_query($sql) or die(mysql_error());
-				if ($result) {
-					while ($row = mysql_fetch_array($result)) {
-						$lastPosition = (int)$row['position'];
-					}
+			$sql = "SELECT position FROM prod_cat WHERE parent='$parent' ORDER BY position DESC LIMIT 1";
+			$result = mysql_query($sql) or die(mysql_error());
+			if ($result) {
+				while ($row = mysql_fetch_array($result)) {
+					$lastPosition = (int)$row['position'];
 				}
-				$lastPosition++;
-				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position, per_page) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition', '$per_page')";
-			/*} else {
-				$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular')";
-			}*/
+			}
+			$lastPosition++;
+			$sql = "INSERT INTO prod_cat (name, tech_name, parent, poster, show_big, show_popular, position, per_page) VALUES ('$name','$tech_name','$parent','$poster','$show_big','$show_popular','$lastPosition', '$per_page')";
 			mysql_query($sql) or die(mysql_error());
 			echo "Категория добавлена";
 		}
@@ -1129,8 +1067,8 @@ class Model_Admin extends Model
 	{
 		foreach ($user as $name => $value) {
 			if ($name != 'id') {
-			$sql = "UPDATE users SET $name = '$value' WHERE id = ".$user['id'];
-			mysql_query($sql) or die(mysql_error());
+				$sql = "UPDATE users SET $name = '$value' WHERE id = ".$user['id'];
+				mysql_query($sql) or die(mysql_error());
 			}
 		}
 		echo "true";
@@ -1175,10 +1113,10 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM users WHERE isadmin=1 AND reg_hash=0 ORDER BY id DESC")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['admin_rights'] = explode(',',$r['admin_rights']);
-					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['admin_rights'] = explode(',',$r['admin_rights']);
+			$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -1195,10 +1133,10 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM users WHERE id='$id' AND isadmin=1 LIMIT 1")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['admin_rights'] = explode(',',$r['admin_rights']);
-					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['admin_rights'] = explode(',',$r['admin_rights']);
+			$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
+			$ds[]=$r;
 		}
 		$ds = $ds[0];
 		$res = $ds['admin_rights'];
@@ -1213,10 +1151,10 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM users WHERE id='$id' AND isadmin=1 ORDER BY id ASC")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$r['admin_rights'] = explode(',',$r['admin_rights']);
-					$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$r['admin_rights'] = explode(',',$r['admin_rights']);
+			$r['admin_rights_texts'] = Self::getRightsText($r['admin_rights']);
+			$ds[]=$r;
 		}
 		return $ds[0];
 	}
@@ -1263,8 +1201,8 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM users WHERE isadmin=0 AND reg_hash=0 ORDER BY id DESC")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -1277,8 +1215,8 @@ class Model_Admin extends Model
 	{
 		$select = mysql_query("SELECT * FROM users ORDER BY id ASC")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$ds[]=$r;
 		}
 		return $ds;
 	}
@@ -1295,8 +1233,8 @@ class Model_Admin extends Model
 		$goId = htmlspecialchars($userId);
 		$select = mysql_query("SELECT * FROM users WHERE id=$goId")or die(mysql_error());
 		$ds = array();
-				while ($r = mysql_fetch_assoc($select)) {
-					$ds[]=$r;
+		while ($r = mysql_fetch_assoc($select)) {
+			$ds[]=$r;
 		}
 		$result = $ds[0];
 		return $result;
@@ -1337,8 +1275,8 @@ class Model_Admin extends Model
 			return false;
 		} else {
 			$ds = array();
-					while ($r = mysql_fetch_assoc($select)) {
-						$ds[]=$r;
+			while ($r = mysql_fetch_assoc($select)) {
+				$ds[]=$r;
 			}
 			return $ds[0];
 		}
@@ -1533,7 +1471,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	getBugTickets($type)
 	Получение тикетов баг-трекера
@@ -1582,7 +1519,6 @@ class Model_Admin extends Model
 			$select = mysql_query("SELECT b.*, u.login as doer_name FROM `bugs` b LEFT JOIN `users` u ON b.doer = u.id WHERE archived = 0 ".$selectType.$orderBy)or die(mysql_error());
 		} else
 		$select = mysql_query("SELECT b.*, u.login as doer_name FROM `bugs` b LEFT JOIN `users` u ON b.doer = u.id WHERE archived = 0 ".$selectType.$orderBy)or die(mysql_error());
-		// $select = mysql_query("SELECT * FROM bugs LEFT OUTER JOIN users ON bugs.doer = users.id WHERE bugs.archived = 0 ".$selectType." ORDER BY id DESC")or die(mysql_error());
 
 				$ds = array();
 				while ($r = mysql_fetch_assoc($select)) {
@@ -1611,7 +1547,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	newTicket($ticket)
 	Добавить новый тикет
@@ -1631,7 +1566,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	setDoerTicket($ticket)
 	Назначение исполнителя
@@ -1648,7 +1582,6 @@ class Model_Admin extends Model
 		mysql_query($sql) or die(mysql_error());
 		echo "Исполнитель добавлен!";
 	}
-
 
 
 	/*
@@ -1711,7 +1644,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	deleteTicket($id, $reason)
 	Удаление (архивирование) тикета
@@ -1727,7 +1659,6 @@ class Model_Admin extends Model
 	}
 
 
-
 	/*
 	restoreTicket($id)
 	Восстановление (разархивирование) тикета
@@ -1740,7 +1671,6 @@ class Model_Admin extends Model
 			$sql = mysql_query("UPDATE bugs SET doer='$doer', archived=0, answer='', answer_time='$date' WHERE id='$id'") or die(mysql_error());
 			echo 'Model_Admin::restoreTicket() - Ok!';
 	}
-
 
 
 	/*
