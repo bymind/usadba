@@ -586,7 +586,7 @@ try less size file');
 					'user_forgot_new_view.php', // вид контента
 					'template_view.php', // вид шаблона
 					array( // $data
-							'title'=> 'Установка пароля',
+							'title'=> 'Восстановление аккаунта',
 							'style'=>'public/template.css',
 							'style_content' => array(
 																			'public/main_page.css',
