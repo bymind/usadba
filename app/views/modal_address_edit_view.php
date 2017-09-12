@@ -12,9 +12,11 @@
 						<div class="col-xxs-12 col-xxs-offset-0 col-xs-10 col-xs-offset-1">
 									<form id="address-form-edit" class="mt-20">
 									<table class="table table-striped table-bordered table-hover" id='addresses'>
+										<tbody>
 							<?php
 							if (isset($pageDataView['addresses']) && count($pageDataView['addresses']) > 0) {
 								foreach ($pageDataView['addresses'] as $addr) {
+									if ($addr != "") {
 									?>
 									<tr class="add-obj">
 										<td>
@@ -25,12 +27,14 @@
 										</td>
 									</tr>
 									<?php
+									}
 								}
 							} else {
 
 							}
 
 							?>
+							</tbody>
 									</table>
 											<form id="new-addr">
 											<div class="col-xxs-8 col-xs-9">

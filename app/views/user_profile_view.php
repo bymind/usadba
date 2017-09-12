@@ -136,10 +136,12 @@
 								<?php if (isset($pageDataView['addresses'])) {
 									$addrcount = 1;
 									foreach ($pageDataView['addresses'] as $address) {
+										if ($address !="") {
 									?>
 										<span class="addr"><span class="addr-count"><?php echo $addrcount?>.</span><?php echo $address ?></span>
 									<?php
 									$addrcount++;
+										}
 									}
 								} else { ?>
 										<div class="new-addr">
