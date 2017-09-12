@@ -55,7 +55,10 @@
 					<div class="title ">Обложка</div>
 					<div class="items">
 						<div class="poster">
-							<img src="<?php echo $post['poster'] ?>" alt="" id="img">
+							<img src="<?php if ($post['poster']) {
+																echo $post['poster'];
+															} else
+																echo "/upload/prod-default-cover.jpg"; ?>" alt="" id="img">
 						</div>
 						<div class="controls">
 							<input type="text" id="cover-img" value="<?php echo $post['poster'] ?>">

@@ -34,7 +34,12 @@
 
 			<div class="col-xs-12 col-sm-4 col-md-4">
 			<div class="blog-item">
-				<div class="poster" style="background-image: url(<?php echo $post['poster'] ?>);">
+				<div class="poster" style='background-image: url(<?php
+					if ($post['poster']) {
+						echo $post['poster'].");'";
+					} else
+						echo "/upload/prod-default-cover.jpg);background-color:#fff; background-size:contain; background-repeat:no-repeat;'";
+					?> >
 					<div class="controls hidden-xs">
 						<a href="/admin/sales/edit/<?php echo $post['tech_name'] ?>" class="btn-edit">Редактировать</a>
 

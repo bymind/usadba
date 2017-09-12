@@ -139,7 +139,10 @@
 					<div class="title ">Главная картинка</div>
 					<div class="items">
 						<div class="poster">
-							<img src="<?php echo $post['poster'] ?>" alt="" id="img-cover-img">
+							<img src="<?php if ($post['poster']) {
+																echo $post['poster'];
+															} else
+																echo "/upload/prod-default-cover.jpg"; ?>" alt="" id="img-cover-img">
 						</div>
 						<div class="controls">
 							<input type="text" id="cover-img" value="<?php echo $post['poster'] ?>">
