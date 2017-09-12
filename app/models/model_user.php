@@ -26,6 +26,18 @@ class Model_User extends Model
 		return 0;
 	}
 
+	function editAddr($addr)
+	{
+		if (isset($_SESSION['user']['id'])) {
+			$uid = $_SESSION['user']['id'];
+			$q = mysql_query("UPDATE users SET addresses='$addr' WHERE id='$uid' LIMIT 1") or die(mysql_error());
+			return $q;
+		} else {
+			Route::Catch_Error("404");
+			return false;
+		}
+	}
+
 	public function getLoginHash($jsonLogin)
 	{
 		$login = $jsonLogin;

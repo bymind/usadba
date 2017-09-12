@@ -18,7 +18,7 @@
 									?>
 									<tr class="add-obj">
 										<td>
-											<label for=""><?php echo $addr; ?></label>
+											<label for=""><?=$addr;?></label>
 										</td>
 										<td>
 											<button class="br-2 btn btn-default btn-delete" data-target="delete-addr" type="button">Удалить</button>
@@ -42,19 +42,22 @@
 											<![endif]-->
 											<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
 											<script type="text/javascript">
-											    $("#address").suggestions({
-											        token: "f11ed4cbf3102dd5f4560d48c433ba0a36903275",
-											        type: "ADDRESS",
-											        count: 5,
-											        /* Вызывается, когда пользователь выбирает одну из подсказок */
-											        onSelect: function(suggestion) {
-											            console.log(suggestion);
-											        }
-											    });
+													$("#address").suggestions({
+															token: "f11ed4cbf3102dd5f4560d48c433ba0a36903275",
+															type: "ADDRESS",
+															autoSelectFirst: true,
+															count: 5,
+															/* Вызывается, когда пользователь выбирает одну из подсказок */
+															onSelect: function(suggestion) {
+																	console.log(suggestion);
+																	setAddBtnActive();
+															}
+													});
+													$("#address").val('')
 											</script>
 											</div>
 											<div class="col-xxs-4 col-xs-3">
-											<button class="br-2 btn btn-primary btn-add" data-target="add-addr" type="button">Добавить</button>
+											<button class="br-2 btn btn-primary btn-add" data-target="add-addr" type="button" disabled>Добавить</button>
 											</div>
 											</form>
 									</form>

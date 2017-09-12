@@ -26,7 +26,7 @@
 			</ul>
 			</div>
 			<?php include "order_title_view.php"; ?>
-			<div class="table" style="background:white;">
+			<div class="table table-responsive" style="background:white;">
 				<table class="table table-hover table-orders mb-0">
 					<thead>
 						<tr>

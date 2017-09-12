@@ -498,6 +498,12 @@ try less size file');
 		return $this->model->updUserAva($data);
 	}
 
+	function action_editAddr()
+	{
+		$newAddr = addslashes($_POST['addr']);
+		return $this->model->editAddr($newAddr);
+	}
+
 	function action_addcomment()
 	{
 		if (!isset($_POST['comment'])) {

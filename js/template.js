@@ -228,6 +228,14 @@ function SetPasswAjax(pass, hash, hashtype)
 
 function InitInputsEnters()
 {
+	$(document).on('keyup', 'input#address', function(event) {
+		event.preventDefault();
+		if (event.keyCode =="13") {
+		} else {
+			var btn = $('#address-form-edit button.btn-add');
+			DisableBtn(btn);
+		}
+	});
 	$("#confirmForm").keydown(function(event){
 					if(event.keyCode == 13) {
 						event.preventDefault();
@@ -1071,6 +1079,14 @@ function BtnClickHandler(obj)
 			goSendOrder(obj);
 		break;
 
+		case "add-addr":
+			addAddrToTable(obj);
+			break;
+
+		case "save_edit_addr":
+			saveEditedAddr(obj, function(){location.reload()});
+			break;
+
 		default:
 			console.log('nothing');
 			return false;
@@ -1078,6 +1094,63 @@ function BtnClickHandler(obj)
 	}
 
 	return 0;
+}
+
+function saveEditedAddr(obj, callback)
+{
+	var table = $("#address-form-edit table");
+	var newAddrs = [];
+	var addrTds = $("#address-form-edit table tr.add-obj").not('.op-25').find('td:eq(0) label');
+	$.each(addrTds, function(index, val) {
+		newAddrs.push(addrTds.eq(index).text());
+	});
+	var strAddrs = newAddrs.join("_");
+	$.when(SendNewAddr(strAddrs)).done(function(res){
+		console.log(res);
+		$('#address').val('');
+		table.find('tr.op-25').remove();
+		table.parents(".modal-edit_address").modal('hide');
+		callback();
+	}).fail(function(){});
+}
+
+function SendNewAddr(strAddrs)
+{
+	var def = $.Deferred();
+	$.ajax({
+		url: '/user/editAddr',
+		type: 'POST',
+		data: {addr: strAddrs},
+	})
+	.done(function(res) {
+		console.log("success");
+		def.resolve(res);
+	})
+	.fail(function(err) {
+		console.log("error");
+		def.reject(err);
+	})
+	.always(function() {
+		console.log("complete");
+	});
+	return def.promise();
+}
+
+function setAddBtnActive()
+{
+	var btn = $('#address-form-edit button.btn-add');
+	unDisableBtn(btn);
+}
+
+function addAddrToTable(obj)
+{
+	var table = $("#address-form-edit").find('table tbody');
+	var addrInput = $("input#address");
+	var newTr = '<tr class="add-obj"><td><label for="">'+addrInput.val()+'</label></td><td><button class="br-2 btn btn-default btn-delete" data-target="delete-addr" type="button">Удалить</button></td></tr>';
+	table.append(newTr);
+	addrInput.val('');
+	obj.attr('disabled','disabled');
+	console.log(obj);
 }
 
 function goSendOrder(obj)

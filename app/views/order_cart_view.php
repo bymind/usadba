@@ -82,16 +82,32 @@
 										</div>
 										<div class="row">
 										<div class="form-group mb-20 col-xs-10 col-sm-7">
-											<label for="order-address">Адрес</label>
+											<label for="order-address">Адрес <?php
+											if ($userData['addresses']) {
+										?>
+												<a href="/user/profile/<?=$userData['id'];?>" style="margin-left:4px;font-size:12px;font-weight:normal" >изменить адреса доставки</a>
+										<?php
+											}
+										?></label>
 											<?php
 												if ($userData['addresses']) {
 													?>
-													<input type="text" name="address" id="order-address" class="form-control" placeholder="Укажите адрес доставки" required value="<?php echo $userData['addresses'][0];?>">
+													<select name="address" id="order-address" class='form-control' required="">
+														<?php
+															$iter = 0;
+															foreach ($userData['addresses'] as $addr) {
+																?>
+																<option <?php if ($iter==0) echo "selected"; ?> value="<?=$addr?>"><?=$addr?></option>
+																<?php
+																$iter++;
+															}
+														?>
+													</select>
+													<!-- <input type="text" name="address" id="order-address" class="form-control" placeholder="Укажите адрес доставки" required value="<?php echo $userData['addresses'][0];?>"> -->
 													<?php
 												} else {
 											 ?>
 											<input type="text" name="address" id="order-address" class="form-control suggestions-input" placeholder="Укажите адрес доставки" required>
-											<?php }?>
 											<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
 											<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 											<!--[if lt IE 10]>
@@ -99,16 +115,18 @@
 											<![endif]-->
 											<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
 											<script type="text/javascript">
-											    $("#order-address").suggestions({
-											        token: "f11ed4cbf3102dd5f4560d48c433ba0a36903275",
-											        type: "ADDRESS",
-											        count: 5,
-											        /* Вызывается, когда пользователь выбирает одну из подсказок */
-											        onSelect: function(suggestion) {
-											            console.log(suggestion);
-											        }
-											    });
+													$("#order-address").suggestions({
+															token: "f11ed4cbf3102dd5f4560d48c433ba0a36903275",
+															type: "ADDRESS",
+															autoSelectFirst: true,
+															count: 5,
+															/* Вызывается, когда пользователь выбирает одну из подсказок */
+															onSelect: function(suggestion) {
+																	console.log(suggestion);
+															}
+													});
 											</script>
+											<?php }?>
 										</div>
 										</div>
 										<div class="row">
