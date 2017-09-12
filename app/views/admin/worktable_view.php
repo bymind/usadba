@@ -35,7 +35,7 @@
 			</ul>
 			</div>
 			<?php include "order_title_view.php"; ?>
-			<div class="table" style="background:white;">
+			<div class="table table-responsive" style="background:white;">
 				<table class="table table-hover table-orders mb-0">
 					<thead>
 						<tr>
@@ -60,7 +60,7 @@
 				Заявки на перезвон <span class="badge" style="background: #ef5350;color: #fff;opacity: 1;"> <?php echo count($recalls); ?></span> <button class="btn btn-xs btn-primary btn-reload-recalls" style="float:right">Обновить</button>
 			</div>
 			<div class="panel-body pt-10 pb-10">
-				<div class="recall-body">
+				<div class="recall-body table-responsive">
 				<?php
 					if (count($recalls) == 0) {
 						?>
@@ -77,14 +77,14 @@
 								<div class="col-xs-12" style="font-size: .8em">
 									<?=$recall['good_time']?>
 								</div>
-								<div class="col-xs-5">
+								<div class="col-xs-6 col-md-5 recall-line-div">
 									<b><?=$recall['name']?></b>
 								</div>
-								<div class="col-xs-5">
-									<b><?=$recall['phone']?></b>
+								<div class="col-xs-6 col-md-5 recall-line-div">
+									<nobr><b><?=$recall['phone']?></b></nobr>
 								</div>
-								<div class="col-xs-2">
-									<button class="btn btn-primary btn-sm recall-done" data-recallid="<?=$recall['id']?>">Ок</button>
+								<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-0">
+									<button style="float:right; margin:10px 0" class="btn btn-primary btn-sm recall-done" data-recallid="<?=$recall['id']?>">Ок</button>
 								</div>
 							</td>
 							</tr>
@@ -120,7 +120,7 @@
 				<span class='stat-periodTxt'></span>
 </h4>
 				<div class="stat-data">
-					<div class="table mb-20" style="background:white">
+					<div class="table table-responsive mb-20" style="background:white">
 						<table class="table table-stats">
 							<thead>
 								<tr>
