@@ -339,30 +339,37 @@ li.sound .glyphicon.off{
 	}
 }
 
-.spoiler {
+.spoiler:not(.panel) {
 	margin: 10px 0;
 }
 
-.spoiler .spoiler-title{
+.spoiler .spoiler-title {
+	cursor: pointer;
+	user-select: none;
+}
+
+.spoiler .spoiler-title:not(.panel-heading){
 	background: #fff;
 	padding: 2px 8px;
 	vertical-align: middle;
 	border-radius: 4px;
 	border: 1px solid #aaa;
-	cursor: pointer;
 }
 
 .spoiler .spoiler-title:hover{
 	box-shadow: 0 0 1px rgba(0,0,0,.3);
 }
 
-.spoiler .spoiler-body{
+.spoiler .spoiler-body {
+	display: none;
+}
+
+.spoiler .spoiler-body:not(.panel-body) {
 	width: 100%;
 	padding: 10px;
 	border-radius: 4px;
 	background: #eee;
 	height: auto;
-	display: none;
 	overflow: hidden;
 	border: 1px solid #ddd;
 	margin-top: 2px;

@@ -7,6 +7,25 @@ class Model_Admin extends Model
 		// get some data...
 	}
 
+	function getDocsUrls()
+	{
+		$q = mysql_query("SELECT id, name, url FROM docs WHERE archived=0 ORDER BY order_id") or die(mysql_error());
+		while ($r = mysql_fetch_assoc($q)) {
+			$ds[] = $r;
+		}
+		return $ds;
+	}
+
+	function getDocPage($name)
+	{
+		$url = addslashes($name);
+		$q = mysql_query("SELECT * FROM docs WHERE url = '$url' AND archived=0 LIMIT 1") or die(mysql_error());
+		$page = mysql_fetch_assoc($q);
+		$page['pubtime'] = Controller::getGoodDate($page['pubtime']);
+		$page['edittime'] = Controller::getGoodDate($page['edittime']);
+		return $page;
+	}
+
 	function getStatData($type, $period)
 	{
 		switch ($type) {

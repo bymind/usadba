@@ -1814,31 +1814,43 @@ function adminPages($params = '')
 		switch ($name) {
 
 			case 'save':
-				Self::adminPagesSave();
+				// Self::adminPagesSave();
 				break;
 
 			default :
-				echo "/Docs Homepage/$name";
-				// $ds = $this->model->getPagesLists();
-				// $this->view->generate(
-				// 			'admin/pages_view.php',
-				// 			'admin/template_admin_view.php',
-				// 			array(
-				// 					'title'=>' - Страницы',
-				// 					'style'=>'admin/template.css',
-				// 					'style_content'=>'admin/pages.css',
-				// 					'active_menu_item' => 'pages',
-				// 					'actual_title' => 'Страницы',
-				// 					'posts'=>$ds,
-				// 					'btns' => array(
-				// 													'new-post' => 'Новая страница',
-				// 													),
-				// 			'Favicon' => 'app/views/admin-favicon.php',
-				// 				),
-				// 			'admin/navigation_view.php',
-				// 			'admin/footer_view.php',
-				// 			'admin/modals_main_view.php'
-				// 			);
+				$docsPosts = $this->model->getDocsUrls();
+				if ($name=="") {
+					$name = "default";
+				}
+				$curPage = $this->model->getDocPage($name);
+				if (!$curPage) {
+					Route::Catch_Error("404");
+				}
+				// echo "<pre>";
+				// var_dump($docsPosts);
+				// var_dump($curPage);
+				// echo "</pre>";
+				$this->view->generate(
+							'admin/docs_view.php',
+							'admin/template_admin_view.php',
+							array(
+									'title'=>' - '.$curPage['name'].' - Инструкции для модераторов и администраторов',
+									'style'=>'admin/template.css',
+									'style_content'=>'admin/docs.css',
+									'active_menu_item' => 'docs',
+									'actual_title' => '<small>Как пользоваться админкой</small>',
+									'posts'=>$ds,
+									'btns' => array(
+																	// 'new-post' => 'Новая страница',
+																	),
+									'docsPosts' => $docsPosts,
+									'curPage' => $curPage,
+									'Favicon' => 'app/views/admin-favicon.php',
+								),
+							'admin/navigation_view.php',
+							'admin/footer_view.php',
+							'admin/modals_main_view.php'
+							);
 				break;
 		}
 
