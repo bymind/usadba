@@ -1,11 +1,5 @@
 <?php
 
-//TODO move session_start() to any controller
-// session_start();
-
-
-// define ("INPUT_SITE_NAME", $ds['inputSiteName']);
-
 // include core files (core classes)
 
 require_once 'core/config.php'; // config file

@@ -7,7 +7,6 @@ $(function()
 	MenuClickInit();
 	LikesInit();
 	ImgLabels();
-	// ProdDay();
 	ProdImg();
 	InitOwlPoD();
 	$(window).resize(function(event) {
@@ -52,8 +51,6 @@ function TrySetForgot()
 		$('#confirmForm .form-group .substring.red').remove();
 
 		ShowGood(emailBtn, "Отправляем", function(){
-			// var hash = location.href.split("/");
-			// hash = hash[hash.length-1];
 			SetEmailAjax(emailVal);
 		});
 	}).fail(function(errors){
@@ -67,7 +64,6 @@ function SetEmailAjax(email)
 {
 	var data = {
 		email: email,
-		// hash: hash
 	}
 	var dataJson = JSON.stringify(data);
 	$.ajax({

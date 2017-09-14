@@ -7,12 +7,12 @@ class Controller_Main extends Controller
 	{
 		$this->model = new Model_Main();
 		$this->view = new View();
+		$this->view = new View();
 	}
 
 	public function action_index()
 	{
 		$pageDataController = $this->model->getData('main_page');
-		// $pageDataProd = Model::getData('prods');
 		$pageDataProd = Model::getData('prods');
 		$sideNews = $this->model->getNews(CONFIG_SITE_LAST_NEWS_NUM);
 		$pageSales = $this->model->getData('sales');
