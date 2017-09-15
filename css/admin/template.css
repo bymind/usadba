@@ -678,3 +678,21 @@ tr.stats-chart-row canvas {
 	color: inherit;
 	padding: 0;
 }
+
+@media (max-width:320px) {
+	.pl-xs-5 {
+		padding-left: 5px !important;
+	}
+	
+	.pr-xs-5 {
+		padding-right: 5px !important;
+	}
+
+	.mb-xs-10 {
+		margin-bottom: 10px !important;
+	}
+
+	.mb-xs-5 {
+		margin-bottom: 5px !important;
+	}
+}

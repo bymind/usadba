@@ -1838,8 +1838,10 @@ function adminPages($params = '')
 									'style'=>'admin/template.css',
 									'style_content'=>'admin/docs.css',
 									'active_menu_item' => 'docs',
-									'actual_title' => '<small>Как пользоваться админкой</small>',
+									'actual_title' => 'Инструкции',
 									'posts'=>$ds,
+									'url' => "docs/".$name."_view.php",
+									// @TODO: docs from base (?) 
 									'btns' => array(
 																	// 'new-post' => 'Новая страница',
 																	),

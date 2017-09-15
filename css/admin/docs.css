@@ -281,8 +281,8 @@
 
 .cover .poster {
 	position: relative;
-  width: 100%;
-  height: 130px;
+	width: 100%;
+	height: 130px;
 	//background-image: url(/img/admin/picture-dark.svg);
 	background-size: 80px;
 	background-repeat: no-repeat;
@@ -305,10 +305,10 @@
 
 .cover .controls {
 	position: relative;
-  display: block;
-  width: 100%;
-  height: 30px;
-  margin: 10px 0;
+	display: block;
+	width: 100%;
+	height: 30px;
+	margin: 10px 0;
 }
 
 .cover a.upload,
@@ -535,17 +535,17 @@ textarea#post-body {
 
 .btn-after-post {
 	position: relative;
-  display: inline-block;
-  float: left;
-  font: 14px/32px 'RobotoLight', sans-serif;
-  color: #fff;
-  border-radius: 2px;
-  padding: 0 15px 0 30px;
-  background-size: 16px;
-  background-repeat: no-repeat;
-  background-position: 9px center;
-  cursor: pointer;
-  margin: 10px 10px 0 0;
+	display: inline-block;
+	float: left;
+	font: 14px/32px 'RobotoLight', sans-serif;
+	color: #fff;
+	border-radius: 2px;
+	padding: 0 15px 0 30px;
+	background-size: 16px;
+	background-repeat: no-repeat;
+	background-position: 9px center;
+	cursor: pointer;
+	margin: 10px 10px 0 0;
 }
 
 .btn-after-post:hover {
@@ -562,12 +562,40 @@ textarea#post-body {
 
 .btn-after-post.post-abort {
 	background-image: url(/img/admin/cross.svg);
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #aaa;
-  color: #777;
-  background-size: 10px;
-  background-position: 12px center;
-  margin-right: 30px;
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #aaa;
+	color: #777;
+	background-size: 10px;
+	background-position: 12px center;
+	margin-right: 30px;
+}
+
+/*================ DOCS =================*/
+
+ul.docs-nav {
+	list-style: none;
+}
+
+ul.docs-nav li {
+	
+}
+
+ul.docs-nav ul {
+	list-style: none;
+	padding-left: 10px;
+}
+
+.docs-body p{
+	font-size: 15px;
+	font-family: "Roboto", sans-serif;
+	line-height: 1.3;
+	font-weight: 400;
+	color: #555;
+	margin-bottom: 10px;
+}
+
+.docs-body .tooltip-inner {
+	min-width: 300px;
 }
 
 i.anchor {
@@ -576,4 +604,27 @@ i.anchor {
 	top: -55px;
 	width: 0;
 	height: 0;
+}
+
+i.under-dashed {
+	font-style: normal;
+	display: inline-block;
+	border-bottom: 1px dashed #0066ff;
+	color: #444;
+	margin-bottom: -1px;
+}
+
+@media (max-width:320px) {
+	.docs-body h3 {
+		font-size: 20px;
+	}
+
+	.docs-body p {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.panel-heading, .panel-body {
+		padding: 5px 10px;
+	}
 }

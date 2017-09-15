@@ -20,8 +20,15 @@ $(function() {
 		$(this).css('margin-bottom', '-'+$mb+'px');
 	});
 
+	InitTooltips();
+
 	spoilersInit();
 });
+
+function InitTooltips()
+{
+	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 200, "hide": 100 }});
+}
 
 function spoilersInit()
 {
