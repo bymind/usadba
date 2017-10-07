@@ -15,69 +15,69 @@
 			<div class="panel-body spoiler-body">
 				<ul class="docs-nav">
 					<li>
-						<a href="/admin/docs">Главная</a>
+						<a href="/admin/docs#Как пользоваться сайтом"><b>#1</b> +Главная</a>
 					</li>
 					<li>
-						<a href="/admin/docs/worktable">Рабочий стол</a>
+						<a href="/admin/docs/worktable#Рабочий стол"><b>#2</b> +Рабочий стол</a>
 						<ul>
 							<li>
-								<a href="/admin/docs/orders">Рабочий стол: Заказы</a>
+								<a href="/admin/docs/orders#Рабочий стол"><b>#2.1</b> +Рабочий стол: Заказы</a>
 							</li>
 							<li>
-								<a href="/admin/docs/recalls">Рабочий стол: Заявки на перезвон</a>
+								<a href="/admin/docs/recalls#Рабочий стол"><b>#2.2</b> +Рабочий стол: Заявки на перезвон</a>
 							</li>
 							<li>
-								<a href="/admin/docs/charts">Рабочий стол: Статистика</a>
+								<a href="/admin/docs/charts"><b>#2.3</b> Рабочий стол: Статистика</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						/Docs Homepage/goods-and-categories
+						<a href="/admin/docs/goods-and-categories"><b>#3</b> Каталог товаров</a>
 						<ul>
 							<li>
-								--/Docs Homepage/goods
+								<a href="/admin/docs/goods"><b>#3.1</b> Каталог товаров: Товары</a>
 							</li>
 							<li>
-								--/Docs Homepage/categories
+								<a href="/admin/docs/categories"><b>#3.2</b> Каталог товаров: Категории</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						/Docs Homepage/sales
+						<a href="/admin/docs/sales"><b>#4</b> Акции</a>
 						<ul>
 							<li>
-								--/Docs Homepage/posters
+								<a href="/admin/docs/posters"><b>#4.1</b> Акции: Обложка</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						/Docs Homepage/news
+						<a href="/admin/docs/news"><b>#5</b> Новости</a>
 					</li>
 					<li>
-						/Docs Homepage/pages
+						<a href="/admin/docs/pages"><b>#6</b> Страницы</a>
 					</li>
 					<li>
-						/Docs Homepage/files
+						<a href="/admin/docs/files"><b>#7</b> Файлы</a>
 					</li>
 					<li>
-						/Docs Homepage/users
+						<a href="/admin/docs/users"><b>#8</b> Аккаунты</a>
 						<ul>
 							<li>
-								--/Docs Homepage/admins-rights
+								<a href="/admin/docs/admins-rights"><b>#8.1</b> Аккаунты: Права администраторов</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						/Docs Homepage/comments
+						<a href="/admin/docs/comments"><b>#9</b> Комментарии</a>
 					</li>
 					<li>
-						/Docs Homepage/configs
+						<a href="/admin/docs/configs"><b>#10</b> Настройки</a>
 					</li>
 					<li>
-						/Docs Homepage/sound
+						<a href="/admin/docs/sound"><b>#11</b> Звук оповещения</a>
 					</li>
 					<li>
-						<a href="/admin/docs/glossary">Глоссарий</a>
+						<a href="/admin/docs/glossary"><b>#12</b> +Глоссарий</a>
 					</li>
 				</ul>
 			</div>
@@ -98,8 +98,8 @@
 				<div class="docs-body">
 					<?php 
 						include $url;
-						echo "<br>";
-						var_dump($url);
+						// echo "<br>";
+						// var_dump($url);
 					 ?>
 					<!-- <?=$curPage['body']?> -->
 				</div>

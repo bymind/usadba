@@ -577,7 +577,7 @@ ul.docs-nav {
 }
 
 ul.docs-nav li {
-	
+	margin: 5px 10px;
 }
 
 ul.docs-nav ul {
